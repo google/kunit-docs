@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Test API &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class and Function Mocking" href="class-and-function-mocking.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Using KUnit</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Test API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class-and-function-mocking.html">Class and Function Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform-mocking.html">Platform Mocking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Linux Kernel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">API Reference</a> &raquo;</li>
+        
+      <li>Test API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/test.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-api">
+<h1>Test API<a class="headerlink" href="#test-api" title="Permalink to this headline">¶</a></h1>
+<p>This file documents all of the standard testing API excluding mocking or mocking
+related features.</p>
+<dl class="type">
+<dt id="c.test_resource">
+struct <code class="descname">test_resource</code><a class="headerlink" href="#c.test_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>represents a <em>test managed resource</em></p>
+</dd></dl>
+
+<p><strong>Definition</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_resource {
+  void *allocation;
+  void (*free)(struct test_resource *res);
+};
+</pre></div>
+</div>
+<p><strong>Members</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">allocation</span></code></dt>
+<dd>for the user to store arbitrary data.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">free</span></code></dt>
+<dd>a user supplied function to free the resource. Populated by
+<a class="reference internal" href="#c.test_alloc_resource" title="test_alloc_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_alloc_resource()</span></code></a>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Represents a <em>test managed resource</em>, a resource which will automatically be
+cleaned up at the end of a test case.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="o">*</span><span class="n">params</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
+        <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">gfp</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">kfree</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">test_kmalloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="n">params</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
+
+        <span class="n">params</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">params</span><span class="p">.</span><span class="n">gfp</span> <span class="o">=</span> <span class="n">gfp</span><span class="p">;</span>
+
+        <span class="c1">// TODO(felixguo@google.com): The &amp; gets interpreted via</span>
+        <span class="c1">// Kerneldoc but we don&#39;t want that.</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">test_alloc_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">test_kmalloc_init</span><span class="p">,</span>
+                <span class="n">test_kmalloc_free</span><span class="p">,</span> <span class="o">&amp;</span> <span class="n">params</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">;</span>
+        <span class="k">else</span>
+                <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="type">
+<dt id="c.test_case">
+struct <code class="descname">test_case</code><a class="headerlink" href="#c.test_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>represents an individual test case.</p>
+</dd></dl>
+
+<p><strong>Definition</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_case {
+  void (*run_case)(struct test *test);
+  const char name[256];
+};
+</pre></div>
+</div>
+<p><strong>Members</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">run_case</span></code></dt>
+<dd>the function representing the actual test case.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt>
+<dd>the name of the test case.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*)</span></code>
+that makes expectations and assertions (see <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> and <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>)
+about code under test. Each test case is associated with a
+<a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> and will be run after the module’s init function and
+followed by the module’s exit function.</p>
+<p>A test case should be static and should only be created with the <a class="reference internal" href="#c.TEST_CASE" title="TEST_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_CASE()</span></code></a>
+macro; additionally, every array of test cases should be terminated with an
+empty test case.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
+        <span class="p">{},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="c.TEST_CASE">
+<code class="descname">TEST_CASE</code><span class="sig-paren">(</span><em>test_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_CASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper for creating a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a></p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test_name</span></code></dt>
+<dd>a reference to a test case function.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Takes a symbol for a function representing a test case and creates a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">test_case</span></code></a> object from it. See the documentation for <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> for an
+example on how to use it.</p>
+<dl class="type">
+<dt id="c.test_module">
+struct <code class="descname">test_module</code><a class="headerlink" href="#c.test_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>describes a related collection of <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s.</p>
+</dd></dl>
+
+<p><strong>Definition</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_module {
+  const char name[256];
+  int (*init)(struct test *test);
+  void (*exit)(struct test *test);
+  struct test_case *test_cases;
+};
+</pre></div>
+</div>
+<p><strong>Members</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt>
+<dd>the name of the test. Purely informational.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">init</span></code></dt>
+<dd>called before every test case.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">exit</span></code></dt>
+<dd>called after every test case.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">test_cases</span></code></dt>
+<dd>a null terminated array of test cases.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>A test_module is a collection of related <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s, such that
+<strong>init</strong> is called before every test case and <strong>exit</strong> is called after every test
+case, similar to the notion of a <em>test fixture</em> or a <em>test class</em> in other
+unit testing frameworks like JUnit or Googletest.</p>
+<p>Every <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> must be associated with a test_module for KUnit to
+run it.</p>
+<dl class="type">
+<dt id="c.test">
+struct <code class="descname">test</code><a class="headerlink" href="#c.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>represents a running instance of a test.</p>
+</dd></dl>
+
+<p><strong>Definition</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test {
+  void *priv;
+};
+</pre></div>
+</div>
+<p><strong>Members</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">priv</span></code></dt>
+<dd>for user to store arbitrary data. Commonly used to pass data created
+in the init function (see <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>).</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Used to store information about the current context under which the test is
+running. Most of this data is private and should only be accessed indirectly
+via public functions; the one exception is <strong>priv</strong> which can be used by the
+test writer to store arbitrary data.</p>
+<dl class="function">
+<dt id="c.module_test">
+<code class="descname">module_test</code><span class="sig-paren">(</span><em>module</em><span class="sig-paren">)</span><a class="headerlink" href="#c.module_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to register a <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> with KUnit.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">module</span></code></dt>
+<dd>a statically allocated <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Registers <strong>module</strong> with the test framework. See <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.test_alloc_resource">
+struct <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a> * <code class="descname">test_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, int (*init) (struct <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a><em>&nbsp;*</em>, void<em>&nbsp;*</em>, void (*free) (struct <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a><em>&nbsp;*</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocates a <em>test managed resource</em>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">(*)(struct</span> <span class="pre">test_resource</span> <span class="pre">*,</span> <span class="pre">void</span> <span class="pre">*)</span> <span class="pre">init</span></code></dt>
+<dd>a user supplied function to initialize the resource.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test_resource</span> <span class="pre">*)</span> <span class="pre">free</span></code></dt>
+<dd>a user supplied function to free the resource.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">context</span></code></dt>
+<dd>for the user to pass in arbitrary data.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Allocates a <em>test managed resource</em>, a resource which will automatically be
+cleaned up at the end of a test case. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_resource</span></code></a> for an
+example.</p>
+<dl class="function">
+<dt id="c.test_kmalloc">
+void * <code class="descname">test_kmalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code> except the allocation is <em>test managed</em>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
+<dd>The size in bytes of the desired memory.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">gfp</span></code></dt>
+<dd>flags passed to underlying <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Just like <cite>kmalloc(…)</cite>, except the allocation is managed by the test case
+and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">test_resource</span></code></a> for more information.</p>
+<dl class="function">
+<dt id="c.test_kzalloc">
+void * <code class="descname">test_kzalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a>, but zeroes the allocation.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
+<dd>The size in bytes of the desired memory.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">gfp</span></code></dt>
+<dd>flags passed to underlying <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>See <code class="xref c c-func docutils literal notranslate"><span class="pre">kzalloc()</span></code> and <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a> for more information.</p>
+<dl class="function">
+<dt id="c.test_info">
+<code class="descname">test_info</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints an INFO level message associated with the current test.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
+<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
+<dd>variable arguments</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Prints an info level message associated with the test module being run. Takes
+a variable number of format parameters just like <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code>.</p>
+<dl class="function">
+<dt id="c.test_warn">
+<code class="descname">test_warn</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a WARN level message associated with the current test.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
+<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
+<dd>variable arguments</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
+<dl class="function">
+<dt id="c.test_err">
+<code class="descname">test_err</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints an ERROR level message associated with the current test.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
+<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
+<dd>variable arguments</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
+<dl class="function">
+<dt id="c.SUCCEED">
+<code class="descname">SUCCEED</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.SUCCEED" title="Permalink to this definition">¶</a></dt>
+<dd><p>A no-op expectation. Only exists for code clarity.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>The opposite of <a class="reference internal" href="#c.FAIL" title="FAIL"><code class="xref c c-func docutils literal notranslate"><span class="pre">FAIL()</span></code></a>, it is an expectation that cannot fail. In other
+words, it does nothing and only exists for code clarity. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a>
+for more information.</p>
+<dl class="function">
+<dt id="c.FAIL">
+<code class="descname">FAIL</code><span class="sig-paren">(</span><em>test</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#c.FAIL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Always causes a test to fail when evaluated.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">message</span></code></dt>
+<dd>an informational message to be printed when the assertion is made.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>The opposite of <a class="reference internal" href="#c.SUCCEED" title="SUCCEED"><code class="xref c c-func docutils literal notranslate"><span class="pre">SUCCEED()</span></code></a>, it is an expectation that always fails. In other
+words, it always results in a failed expectation, and consequently always
+causes the test case to fail when evaluated. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_TRUE">
+<code class="descname">EXPECT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_TRUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Causes a test failure when the given expression is not true.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">condition</span></code></dt>
+<dd>an arbitrary boolean expression. The test fails when this does
+not evaluate to true.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>This and expectations of the form <cite>EXPECT_*</cite> will cause the test case to fail
+when the specified condition is not met; however, it will not prevent the
+test case from continuing to run; this is otherwise known as an <em>expectation
+failure</em>.</p>
+<dl class="function">
+<dt id="c.EXPECT_FALSE">
+<code class="descname">EXPECT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_FALSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Causes a test failure when the expression is not false.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">condition</span></code></dt>
+<dd>an arbitrary boolean expression. The test fails when this does
+not evaluate to false.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that <strong>condition</strong> evaluates to false. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for
+more information.</p>
+<dl class="function">
+<dt id="c.EXPECT_EQ">
+<code class="descname">EXPECT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_EQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets an expectation that <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal. This is semantically equivalent to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) ==
+(<strong>right</strong>)).  See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more information.</p>
+<dl class="function">
+<dt id="c.EXPECT_NE">
+<code class="descname">EXPECT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_NE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>left</strong> and <strong>right</strong> are not equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
+equal. This is semantically equivalent to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) !=
+(<strong>right</strong>)).  See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more information.</p>
+<dl class="function">
+<dt id="c.EXPECT_LT">
+<code class="descname">EXPECT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_LT" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>left</strong> is less than <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the value that <strong>left</strong> evaluates to is less than the
+value that <strong>right</strong> evaluates to. This is semantically equivalent to
+EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt; (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_LE">
+<code class="descname">EXPECT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_LE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>left</strong> is less than or equal to <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the value that <strong>left</strong> evaluates to is less than or
+equal to the value that <strong>right</strong> evaluates to. Semantically this is equivalent
+to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_GT">
+<code class="descname">EXPECT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_GT" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>left</strong> is greater than <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the value that <strong>left</strong> evaluates to is greater than
+the value that <strong>right</strong> evaluates to. This is semantically equivalent to
+EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt; (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_GE">
+<code class="descname">EXPECT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_GE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>left</strong> is greater than or equal to <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the value that <strong>left</strong> evaluates to is greater than
+the value that <strong>right</strong> evaluates to. This is semantically equivalent to
+EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_STREQ">
+<code class="descname">EXPECT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_STREQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that strings <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal. This is semantically equivalent to
+EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.EXPECT_NOT_ERR_OR_NULL">
+<code class="descname">EXPECT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
+<dd><p>An expectation that <strong>ptr</strong> is not null and not err.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ptr</span></code></dt>
+<dd>an arbitrary pointer.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the value that <strong>ptr</strong> evaluates to is not null and not
+an errno stored in a pointer. This is semantically equivalent to
+EXPECT_TRUE(<strong>test</strong>, !IS_ERR_OR_NULL(<strong>ptr</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
+information.</p>
+<dl class="function">
+<dt id="c.ASSERT_TRUE">
+<code class="descname">ASSERT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_TRUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Causes an assertion failure when the expression is not true.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">condition</span></code></dt>
+<dd>an arbitrary boolean expression. The test fails and aborts when
+this does not evaluate to true.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>This and assertions of the form <cite>ASSERT_*</cite> will cause the test case to fail
+<em>and immediately abort</em> when the specified condition is not met. Unlike an
+expectation failure, it will prevent the test case from continuing to run;
+this is otherwise known as an <em>assertion failure</em>.</p>
+<dl class="function">
+<dt id="c.ASSERT_FALSE">
+<code class="descname">ASSERT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_FALSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets an assertion that <strong>condition</strong> is false.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">condition</span></code></dt>
+<dd>an arbitrary boolean expression.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>condition</strong> evaluates to is false.  This
+is the same as <a class="reference internal" href="#c.EXPECT_FALSE" title="EXPECT_FALSE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_FALSE()</span></code></a>, except it causes an assertion failure (see
+<a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_EQ">
+<code class="descname">ASSERT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_EQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets an assertion that <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal. This is the same as <a class="reference internal" href="#c.EXPECT_EQ" title="EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_EQ()</span></code></a>, except it causes an assertion failure
+(see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_NE">
+<code class="descname">ASSERT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_NE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>left</strong> and <strong>right</strong> are not equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
+equal. This is the same as <a class="reference internal" href="#c.EXPECT_NE" title="EXPECT_NE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_NE()</span></code></a>, except it causes an assertion failure
+(see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_LT">
+<code class="descname">ASSERT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_LT" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>left</strong> is less than <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>left</strong> evaluates to is less than the
+value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.EXPECT_LT" title="EXPECT_LT"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_LT()</span></code></a>, except it
+causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
+met.</p>
+<dl class="function">
+<dt id="c.ASSERT_LE">
+<code class="descname">ASSERT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_LE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>left</strong> is less than or equal to <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>left</strong> evaluates to is less than or
+equal to the value that <strong>right</strong> evaluates to.  This is the same as
+<a class="reference internal" href="#c.EXPECT_LE" title="EXPECT_LE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_LE()</span></code></a>, except it causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when
+the assertion is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_GT">
+<code class="descname">ASSERT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_GT" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>left</strong> is greater than <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>left</strong> evaluates to is greater than the
+value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.EXPECT_GT" title="EXPECT_GT"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_GT()</span></code></a>, except it
+causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
+met.</p>
+<dl class="function">
+<dt id="c.ASSERT_GE">
+<code class="descname">ASSERT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_GE" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>left</strong> is greater than or equal to <strong>right</strong>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>left</strong> evaluates to is greater than the
+value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.EXPECT_GE" title="EXPECT_GE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_GE()</span></code></a>, except it
+causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
+met.</p>
+<dl class="function">
+<dt id="c.ASSERT_STREQ">
+<code class="descname">ASSERT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_STREQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that strings <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal.  This is the same as <a class="reference internal" href="#c.EXPECT_STREQ" title="EXPECT_STREQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_STREQ()</span></code></a>, except it causes an assertion
+failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_NOT_ERR_OR_NULL">
+<code class="descname">ASSERT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>ptr</strong> is not null and not err.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ptr</span></code></dt>
+<dd>an arbitrary pointer.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the value that <strong>ptr</strong> evaluates to is not null and not
+an errno stored in a pointer.  This is the same as <a class="reference internal" href="#c.EXPECT_NOT_ERR_OR_NULL" title="EXPECT_NOT_ERR_OR_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_NOT_ERR_OR_NULL()</span></code></a>,
+except it causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion
+is not met.</p>
+<dl class="function">
+<dt id="c.ASSERT_SIGSEGV">
+<code class="descname">ASSERT_SIGSEGV</code><span class="sig-paren">(</span><em>test</em>, <em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ASSERT_SIGSEGV" title="Permalink to this definition">¶</a></dt>
+<dd><p>An assertion that <strong>expr</strong> will cause a segfault.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">expr</span></code></dt>
+<dd>an arbitrary block of code.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that <strong>expr</strong>, when evaluated, will cause a segfault.
+Currently this assertion is only really useful for testing the KUnit
+framework, as a segmentation fault in normal kernel code is always incorrect.
+However, the plan is to replace this assertion with an arbitrary death
+assertion similar to
+<a class="reference external" href="https://github.com/google/googletest/blob/master/googletest/docs/advanced.md#death-tests">https://github.com/google/googletest/blob/master/googletest/docs/advanced.md#death-tests</a>
+which will probably be massaged to make sense in the context of the kernel
+(maybe assert that a panic occurred, or that <code class="xref c c-func docutils literal notranslate"><span class="pre">BUG()</span></code> was called).</p>
+<p><strong>NOTE</strong></p>
+<p>no code after this assertion will ever be executed.</p>
+<dl class="type">
+<dt id="c.test_stream">
+struct <code class="descname">test_stream</code><a class="headerlink" href="#c.test_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>a std::stream style string builder.</p>
+</dd></dl>
+
+<p><strong>Definition</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_stream {
+  void (*set_level)(struct test_stream *this, const char *level);
+  void (*add)(struct test_stream *this, const char *fmt, ...);
+  void (*append)(struct test_stream *this, struct test_stream *other);
+  void (*commit)(struct test_stream *this);
+  void (*clear)(struct test_stream *this);
+};
+</pre></div>
+</div>
+<p><strong>Members</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">set_level</span></code></dt>
+<dd>sets the level that this string should be printed at.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">add</span></code></dt>
+<dd>adds the formatted input to the internal buffer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">commit</span></code></dt>
+<dd>prints out the internal buffer to the user.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">clear</span></code></dt>
+<dd>clears the internal buffer.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>A std::stream style string builder. Allows messages to be built up and
+printed all at once.</p>
+<dl class="function">
+<dt id="c.test_new_stream">
+struct <a class="reference internal" href="#c.test_stream" title="test_stream">test_stream</a> * <code class="descname">test_new_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a new <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Constructs a new test managed <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="class-and-function-mocking.html" class="btn btn-neutral float-right" title="Class and Function Mocking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

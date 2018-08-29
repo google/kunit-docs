@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="start.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> The Linux Kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">The Linux Kernel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>KUnit - Unit Testing for the Linux Kernel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kunit-unit-testing-for-the-linux-kernel">
+<h1>KUnit - Unit Testing for the Linux Kernel<a class="headerlink" href="#kunit-unit-testing-for-the-linux-kernel" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#kunit-wrapper">KUnit Wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#creating-a-kunitconfig">Creating a kunitconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#writing-your-first-test">Writing your first test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#organization-of-this-document">Organization of this document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#mocking">Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#method-call-expectations">Method Call Expectations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#the-nice-the-strict-and-the-naggy">The Nice, the Strict, and the Naggy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/test.html">Test API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/class-and-function-mocking.html">Class and Function Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/platform-mocking.html">Platform Mocking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">What is the difference between a unit test and these other kinds of tests?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-kunit">
+<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h2>
+<p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
+These tests are able to be run locally on a developer’s workstation without a VM
+or special hardware.</p>
+<p>KUnit is heavily inspired by JUnit, Python’s <code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code>, and
+Googletest/Googlemock for C++. They have the same structure for defining test
+suites and test cases. KUnit defines a way to mock out C style classes and
+functions and create expectations on methods called within the code under test.</p>
+<p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
+</div>
+<div class="section" id="why-kunit">
+<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
+<p>Aside from KUnit there is no true unit testing framework for the Linux kernel.
+Autotest and kselftest are sometimes cited as unit testing frameworks; however,
+they are not by most reasonable definitions of unit tests.</p>
+<p>A unit test is supposed to test a single unit of code in isolation, hence the
+name. A unit test should be the finest granularity of testing and as such should
+allow all possible code paths to be tested in the code under test; this is only
+possible if the code under test is very small and does not have any external
+dependencies outside of the test’s control like hardware.</p>
+<p>Outside of KUnit, there are no testing frameworks currently
+available for the kernel that do not require installing the kernel on a test
+machine or in a VM and all require tests to be written in userspace running on
+the kernel; this is true for Autotest, and kselftest, disqualifying
+any of them from being considered unit testing frameworks.</p>
+<p>KUnit addresses the problem of being able to run tests without needing a virtual
+machine or actual hardware with User Mode Linux. User Mode Linux is a Linux
+architecture, like ARM or x86; however, unlike other architectures it compiles
+to a standalone program that can be run like any other program directly inside
+of a host operating system; to be clear, it does not require any virtualization
+support; it is just a regular program.</p>
+<p>KUnit is fast. Excluding build time, from invocation to completion KUnit can run
+several dozen tests in only 10 to 20 seconds; this might not sound like a big
+deal to some people, but having such fast and easy to run tests fundamentally
+changes the way you go about testing and even writing code in the first place.
+Linus himself said in his <a class="reference external" href="https://gist.github.com/lorn/1272686/revisions#diff-53c65572127855f1b003db4064a94573R874">git talk at Google</a>:</p>
+<blockquote>
+<div>“… a lot of people seem to think that performance is about doing the
+same thing, just doing it faster, and that is not true. That is not what
+performance is all about. If you can do something really fast, really
+well, people will start using it differently.”</div></blockquote>
+<p>In this context Linus was talking about branching and merging,
+but this point also applies to testing. If your tests are slow, unreliable, are
+difficult to write, and require a special setup or special hardware to run,
+then you wait a lot longer to write tests, and you wait a lot longer to run
+tests; this means that tests are likely to break, unlikely to test a lot of
+things, and are unlikely to be rerun once they pass. If your tests are really
+fast, you run them all the time, everytime you make a change, and everytime
+someone sends you some code. Why trust that someone ran all their tests
+correctly on every change when you can just run them yourself in less time than
+it takes to read his / her test log?</p>
+</div>
+<div class="section" id="how-do-i-use-it">
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</li>
+<li><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</li>
+<li><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="start.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright The kernel development community.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

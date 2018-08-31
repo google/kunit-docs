@@ -184,7 +184,9 @@ well as formatting the output.</p>
 <p>The Python script is a thin wrapper around Kbuild as such, it needs to be
 configured with a <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file. This file essentially contains the
 regular Kernel config, with the specific test targets as well.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PLACEHOLDER_COMMAND_TO_GET_RELEASED_KUNITCONFIG
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone -b kunit/alpha/master https://kunit.googlesource.com/kunitconfig <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>
+<span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
+ln -s <span class="nv">$PATH_TO_KUNIT_CONFIG_REPO</span>/kunitconfig kunitconfig
 </pre></div>
 </div>
 <p>You may want to add kunitconfig to your local gitignore.</p>

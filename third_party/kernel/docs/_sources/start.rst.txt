@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 ===============
 Getting Started
 ===============
@@ -17,7 +19,7 @@ The wrapper can be run with:
 
 .. code-block:: bash
 
-   ./tools/testing/kunit/kunit.py
+	 ./tools/testing/kunit/kunit.py
 
 Creating a kunitconfig
 ======================
@@ -25,12 +27,11 @@ The Python script is a thin wrapper around Kbuild as such, it needs to be
 configured with a ``kunitconfig`` file. This file essentially contains the
 regular Kernel config, with the specific test targets as well.
 
-.. TODO(brendanhiggins@google.com): I guess we need to release a kunitconfig
-   when we release KUnit. We need to create a repo and then link it here.
-
 .. code-block:: bash
 
-	PLACEHOLDER_COMMAND_TO_GET_RELEASED_KUNITCONFIG
+	git clone -b kunit/alpha/master https://kunit.googlesource.com/kunitconfig $PATH_TO_KUNITCONFIG_REPO
+	cd $PATH_TO_LINUX_REPO
+	ln -s $PATH_TO_KUNIT_CONFIG_REPO/kunitconfig kunitconfig
 
 You may want to add kunitconfig to your local gitignore.
 

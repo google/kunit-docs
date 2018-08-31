@@ -1,11 +1,8 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 =========================================
 Frequently Asked Questions
 =========================================
-
-.. toctree::
-	:maxdepth: 2
-
-	faq
 
 How is this different from Autotest, kselftest, etc?
 ====================================================

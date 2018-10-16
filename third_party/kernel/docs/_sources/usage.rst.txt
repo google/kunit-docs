@@ -15,10 +15,10 @@ project, see :doc:`start`.
 Organization of this document
 =================================
 
-This document is organized into two main sections: Testing and Mocking. The
-first covers what a unit test is and how to use KUnit to write them. The second
-covers how to use KUnit to mock out dependencies and make it possible to unit
-test code that was otherwise un-unit-testable.
+This document is organized into two main sections: Testing and Isolating
+Behavior. The first covers what a unit test is and how to use KUnit to write
+them. The second covers how to use KUnit to isolate code and make it possible
+to unit test code that was otherwise un-unit-testable.
 
 Testing
 ==========
@@ -36,15 +36,13 @@ framework.
 What is Unit Testing?
 -------------------------
 
-A *unit test* is a test that tests code at the smallest possible scope, a
-*unit* of code. For the C programming language, defining a unit is easy: it is
-the compilation unit; however, that does not mean compilation units cannot be
-too large and should not be broken down to get more coverage or just because
-they are hard to reason about.
+A `unit test <http://softwaretestingfundamentals.com/unit-testing/>`_ is a test
+that tests code at the smallest possible scope, a *unit* of code. In the C
+programming language that's a function.
 
-A unit test should test all the publicly exposed functions in a unit; so that is
-all the functions that are exported in either a *class* (defined below) or all
-functions which are **not** static.
+Unit tests should be written for all the publicly exposed functions in a
+compilation unit; so that is all the functions that are exported in either a
+*class* (defined below) or all functions which are **not** static.
 
 Writing Tests
 -------------
@@ -64,46 +62,79 @@ and then sets *expectations* for what should happen. For example:
 
 	void example_test_failure(struct test *test)
 	{
-		FAIL(test, "This test never passes.");
+		TEST_FAIL(test, "This test never passes.");
 	}
 
 In the above example ``example_test_success`` always passes because it does
 nothing; no expectations are set, so all expectations pass. On the other hand
-``example_test_failure`` always fails because it calls ``FAIL``, which is a
+``example_test_failure`` always fails because it calls ``TEST_FAIL``, which is a
 special expectation that logs a message and causes the test case to fail.
-
-Preferably, a single test case will be pretty short, it should be pretty easy to
-understand, and it should really only try to test at most a handful of very
-closely relating things.
 
 Expectations
 ~~~~~~~~~~~~
-An *expectation* is a way to make an assertion about what a piece of code should
-do in a test. An expectation is called like a function. A test is made by
-setting expectations about the behavior of a piece of code under test; when one
-or more of the expectations fail, the test case fails and information about the
-failure is logged. For example:
+An *expectation* is a way to specify that you expect a piece of code to do
+something in a test. An expectation is called like a function. A test is made
+by setting expectations about the behavior of a piece of code under test; when
+one or more of the expectations fail, the test case fails and information about
+the failure is logged. For example:
 
 .. code-block:: c
 
 	void add_test_basic(struct test *test)
 	{
-		EXPECT_EQ(test, 1, add(1, 0));
-		EXPECT_EQ(test, 2, add(1, 1));
-		EXPECT_EQ(test, 0, add(-1, 1));
-		EXPECT_EQ(test, INT_MAX, add(0, INT_MAX));
-		EXPECT_EQ(test, -1, add(INT_MAX, INT_MIN));
+		TEST_EXPECT_EQ(test, 1, add(1, 0));
+		TEST_EXPECT_EQ(test, 2, add(1, 1));
 	}
 
 In the above example ``add_test_basic`` makes a number of assertions about the
 behavior of a function called ``add``; the first parameter is always of type
-``struct test *``, which contains information about the current test context; the
-second parameter, in this case, is what the value is expected to be; the last
-value is what the value actually is. If ``add`` passes all of these expectations,
-the test case, ``add_test_basic`` will pass; if any one of these expectations
-fail, the test case will fail.
+``struct test *``, which contains information about the current test context;
+the second parameter, in this case, is what the value is expected to be; the
+last value is what the value actually is. If ``add`` passes all of these
+expectations, the test case, ``add_test_basic`` will pass; if any one of these
+expectations fail, the test case will fail.
+
+It is important to understand that a test case *fails* when any expectation is
+violated; however, the test will continue running, potentially trying other
+expectations until the test case ends or is otherwise terminated. This is as
+opposed to *assertions* which are discussed later.
 
 To learn about more expectations supported by KUnit, see :doc:`api/test`.
+
+.. note::
+   A single test case should be pretty short, pretty easy to understand,
+   focused on a single behavior.
+
+For example, if we wanted to properly test the add function above, we would
+create additional tests cases which would each test a different property that an
+add function should have like this:
+
+.. code-block:: c
+
+	void add_test_basic(struct test *test)
+	{
+		TEST_EXPECT_EQ(test, 1, add(1, 0));
+		TEST_EXPECT_EQ(test, 2, add(1, 1));
+	}
+
+	void add_test_negative(struct test *test)
+	{
+		TEST_EXPECT_EQ(test, 0, add(-1, 1));
+	}
+
+	void add_test_max(struct test *test)
+	{
+		TEST_EXPECT_EQ(test, INT_MAX, add(0, INT_MAX));
+		TEST_EXPECT_EQ(test, -1, add(INT_MAX, INT_MIN));
+	}
+
+	void add_test_overflow(struct test *test)
+	{
+		TEST_EXPECT_EQ(test, INT_MIN, add(INT_MAX, 1));
+	}
+
+Notice how it is immediately obvious what all the properties that we are testing
+for are.
 
 Assertions
 ~~~~~~~~~~
@@ -129,29 +160,27 @@ For example:
 				      "test_printk", test_printk,
 				      two_param_types, two_params,
 				      ARRAY_SIZE(two_params));
-		ASSERT_NOT_ERR_OR_NULL(test, ret);
-		EXPECT_EQ(test, -4, *((int *) ret));
+		TEST_ASSERT_NOT_ERR_OR_NULL(test, ret);
+		TEST_EXPECT_EQ(test, -4, *((int *) ret));
 	}
 
-In this example, the method under test should return a pointer to a value, so if
-the pointer returned by the method is null or an errno, we don't want to bother
-continuing the test since the following expectation could crash the test case
-if the pointer is null. `ASSERT_NOT_ERR_OR_NULL(...)` allows us to bail out of
-the test case if the appropriate conditions have not been satisfied to complete
-the test.
+In this example, the method under test should return a pointer to a value, so
+if the pointer returned by the method is null or an errno, we don't want to
+bother continuing the test since the following expectation could crash the test
+case. `ASSERT_NOT_ERR_OR_NULL(...)` allows us to bail out of the test case if
+the appropriate conditions have not been satisfied to complete the test.
 
 Modules / Test Suites
 ~~~~~~~~~~~~~~~~~~~~~
 
-Because test cases are supposed to test just a single function and then only
-test a set of closely related concepts about that function, multiple test cases
-are usually needed to fully test a unit. This is where the concept of a *test
-suite* or a *module* comes in; it is just a collection of test cases for a unit
-of code. In addition to specifying a set of test cases, a test suite also
-supports specifying setup and tear down functions which allow functions to be
-specified to run before and after each test case, respectively; this is useful
-when the procedure to setup a unit for testing requires several steps and needs
-to be done in every test case.
+Now obviously one unit test isn't very helpful; the power comes from having
+many test cases covering all of your behaviors. Consequently it is common to
+have many *similar* tests; in order to reduce duplication in these closely
+related tests most unit testing frameworks provide the concept of a *test
+suite*, in KUnit we call it a *test module*; all it is is just a collection of
+test cases for a unit of code with a set up function that gets invoked before
+every test cases and then a tear down function that gets invoked after every
+test case completes.
 
 Example:
 
@@ -184,8 +213,8 @@ test framework.
 
 For a more information on these types of things see the :doc:`api/test`.
 
-Mocking
-=======
+Isolating Behavior
+==================
 
 The most important aspect of unit testing that other forms of testing do not
 provide is the ability to limit the amount of code under test to a single unit.
@@ -207,14 +236,14 @@ that does not use a standardized object oriented library (like GNOME's GObject)
 has their own slightly different way of doing object oriented programming; the
 Linux kernel is no exception.
 
-The central concept in the kernel object oriented programming is the class. In
-the kernel, a *class* is a struct that contains function pointers. This creates
-a contract between *implementers* and *users* since it forces them to use the
+The central concept in kernel object oriented programming is the class. In the
+kernel, a *class* is a struct that contains function pointers. This creates a
+contract between *implementers* and *users* since it forces them to use the
 same function signature without having to call the function directly. In order
-for it to truly be a class, the function pointers must specify that a pointer to
-the class, known as a *class handle*, be one of the parameters; this makes it
-possible for the member functions (also known as *methods*) to have access to
-member variables (more commonly known as *fields*) allowing the same
+for it to truly be a class, the function pointers must specify that a pointer
+to the class, known as a *class handle*, be one of the parameters; this makes
+it possible for the member functions (also known as *methods*) to have access
+to member variables (more commonly known as *fields*) allowing the same
 implementation to have multiple *instances*.
 
 Typically a class can be *overridden* by *child classes* by embedding the
@@ -254,117 +283,318 @@ in the child struct. For example:
 In this example (as in most kernel code) the operation of computing the pointer
 to the child from the pointer to the parent is done by ``container_of``.
 
-Mocking Classes
-~~~~~~~~~~~~~~~
+Faking Classes
+~~~~~~~~~~~~~~
 
 In order to unit test a piece of code that calls a method in a class, the
 behavior of the method must be controllable, otherwise the test ceases to be a
-unit test and becomes an integration test. KUnit allows classes to be *mocked*
-which means that it generates subclasses whose behavior can be specified in a
-test case. KUnit accomplishes this with two sets of macros: the mock generation
-macros and the ``EXPECT_CALL`` macro.
+unit test and becomes an integration test.
 
-For example, let's say you have a file named ``drivers/foo/example.c`` and it
-contains the following code you would like to test:
+A fake just provides an implementation of a piece of code that is different than
+what runs in a production instance, but behaves identically from the standpoint
+of the callers; this is usually done to replace a dependency that is hard to
+deal with, or is slow.
 
-.. code-block:: c
-
-	int example_bar(struct example *example)
-	{
-		if (example->foo(example, 5))
-			return -EIO;
-		else
-			return 0;
-	}
-
-For the purposes of this example, assume ``struct example`` is defined as such:
+A good example for this might be implementing a fake EEPROM that just stores the
+"contents" in an internal buffer. For example, let's assume we have a class that
+represents an EEPROM:
 
 .. code-block:: c
 
-	struct example {
-		int (*foo)(struct example *, int);
+	struct eeprom {
+		ssize_t (*read)(struct eeprom *this, size_t offset, char *buffer, size_t count);
+		ssize_t (*write)(struct eeprom *this, size_t offset, const char *buffer, size_t count);
 	};
 
-You would create a test file named ``drivers/foo/example-test.c`` and it would
-contain the following code:
+And we want to test some code that buffers writes to the EEPROM:
 
 .. code-block:: c
 
-	/* Define the mock. */
+	struct eeprom_buffer {
+		ssize_t (*write)(struct eeprom_buffer *this, const char *buffer, size_t count);
+		int flush(struct eeprom_buffer *this);
+		size_t flush_count; /* Flushes when buffer exceeds flush_count. */
+	};
 
-	DECLARE_STRUCT_CLASS_MOCK_PREREQS(example);
+	struct eeprom_buffer *new_eeprom_buffer(struct eeprom *eeprom);
+	void destroy_eeprom_buffer(struct eeprom *eeprom);
 
-	DEFINE_STRUCT_CLASS_MOCK(METHOD(foo), CLASS(example),
-				 RETURNS(int),
-				 PARAMS(struct example *, int));
+We can easily test this code by *faking out* the underlying EEPROM:
 
-	static int example_init(struct MOCK(example) *mock_example)
+.. code-block:: c
+
+	struct fake_eeprom {
+		struct eeprom parent;
+		char contents[FAKE_EEPROM_CONTENTS_SIZE];
+	};
+
+	ssize_t fake_eeprom_read(struct eeprom *parent, size_t offset, char *buffer, size_t count)
 	{
-		struct example *example = mock_get_trgt(mock_example);
+		struct fake_eeprom *this = container_of(parent, struct fake_eeprom, parent);
 
-		example->foo = foo;
+		count = min(count, FAKE_EEPROM_CONTENTS_SIZE - offset);
+		memcpy(buffer, this->contents + offset, count);
+
+		return count;
+	}
+
+	ssize_t fake_eeprom_write(struct eeprom *this, size_t offset, const char *buffer, size_t count)
+	{
+		struct fake_eeprom *this = container_of(parent, struct fake_eeprom, parent);
+
+		count = min(count, FAKE_EEPROM_CONTENTS_SIZE - offset);
+		memcpy(this->contents + offset, buffer, count);
+
+		return count;
+	}
+
+	void fake_eeprom_init(struct fake_eeprom *this)
+	{
+		this->parent.read = fake_eeprom_read;
+		this->parent.write = fake_eeprom_write;
+		memset(this->contents, 0, FAKE_EEPROM_CONTENTS_SIZE);
+	}
+
+We can now use it to test ``struct eeprom_buffer``:
+
+.. code-block:: c
+
+	struct eeprom_buffer_test {
+		struct fake_eeprom *fake_eeprom;
+		struct eeprom_buffer *eeprom_buffer;
+	};
+
+	static void eeprom_buffer_test_does_not_write_until_flush(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx = test->priv;
+		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
+		struct fake_eeprom *fake_eeprom = ctx->fake_eeprom;
+		char buffer[] = {0xff};
+
+		eeprom_buffer->flush_count = SIZE_MAX;
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0);
+
+		eeprom_buffer->flush(eeprom_buffer);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+	}
+
+	static void eeprom_buffer_test_flushes_after_flush_count_met(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx = test->priv;
+		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
+		struct fake_eeprom *fake_eeprom = ctx->fake_eeprom;
+		char buffer[] = {0xff};
+
+		eeprom_buffer->flush_count = 2;
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+	}
+
+	static void eeprom_buffer_test_flushes_increments_of_flush_count(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx = test->priv;
+		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
+		struct fake_eeprom *fake_eeprom = ctx->fake_eeprom;
+		char buffer[] = {0xff, 0xff};
+
+		eeprom_buffer->flush_count = 2;
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 2);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+		/* Should have only flushed the first two bytes. */
+		TEST_EXPECT_EQ(test, fake_eeprom->contents[2], 0);
+	}
+
+	static int eeprom_buffer_test_init(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx;
+
+		ctx = test_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+		ASSERT_NOT_ERR_OR_NULL(test, ctx);
+
+		ctx->fake_eeprom = test_kzalloc(test, sizeof(*ctx->fake_eeprom), GFP_KERNEL);
+		ASSERT_NOT_ERR_OR_NULL(test, ctx->fake_eeprom);
+
+		ctx->eeprom_buffer = new_eeprom_buffer(&ctx->fake_eeprom->parent);
+		ASSERT_NOT_ERR_OR_NULL(test, ctx->eeprom_buffer);
+
+		test->priv = ctx;
+
 		return 0;
 	}
 
-	DEFINE_STRUCT_CLASS_MOCK_INIT(example, example_init);
-
-	/* Define the test cases. */
-
-	static void foo_example_test_success(struct test *test)
+	static void eeprom_buffer_test_exit(struct test *test)
 	{
-		struct MOCK(example) *mock_example = test->priv;
-		struct example *example = mock_get_trgt(mock_example);
-		struct mock_expectation *handle;
+		struct eeprom_buffer_test *ctx = test->priv;
 
-		handle = EXPECT_CALL(foo(mock_get_ctrl(mock_example), int_eq(test, 5)));
-		handle->action = int_return(test, 0);
-
-		EXPECT_EQ(test, 0, example_bar(example));
+		destroy_eeprom_buffer(ctx->eeprom_buffer);
 	}
 
-	static void foo_example_test_failure(struct test *test)
-	{
-		struct MOCK(example) *mock_example = test->priv;
-		struct example *example = mock_get_trgt(mock_example);
-		struct mock_expectation *handle;
+Mocking Classes
+~~~~~~~~~~~~~~~
 
-		handle = EXPECT_CALL(foo(mock_get_ctrl(mock_example), int_eq(test, 5)));
-		handle->action = int_return(test, -EINVAL);
-		EXPECT_EQ(test, -EINVAL, example_bar(example));
-	}
+Sometimes the easiest way to make assertions about behavior is to verify
+certain methods or functions were called with appropriate arguments. KUnit
+allows classes to be *mocked* which means that it generates subclasses whose
+behavior can be specified in a test case. KUnit accomplishes this with two sets
+of macros: the mock generation macros and the ``TEST_EXPECT_CALL`` macro.
 
-	static int example_test_init(struct test *test)
+For example, let's go back to the EEPROM example; instead of faking the EEPROM,
+we could have *mocked it out* with the following code:
+
+.. code-block:: c
+
+	DECLARE_STRUCT_CLASS_MOCK_PREREQS(eeprom);
+
+	DEFINE_STRUCT_CLASS_MOCK(METHOD(read), CLASS(eeprom),
+				 RETURNS(ssize_t),
+				 PARAMS(struct eeprom *, size_t, char *, size_t));
+
+	DEFINE_STRUCT_CLASS_MOCK(METHOD(write), CLASS(eeprom),
+				 RETURNS(ssize_t),
+				 PARAMS(struct eeprom *, size_t, const char *, size_t));
+
+	static int eeprom_init(struct MOCK(eeprom) *mock_eeprom)
 	{
-		test->priv = CONSTRUCT_MOCK(example, test);
-		if (!test->priv)
-			return -EINVAL;
+		struct eeprom *eeprom = mock_get_trgt(mock_eeprom);
+
+		eeprom->read = read;
+		eeprom->write = write;
 
 		return 0;
 	}
 
-	static void example_test_exit(struct test *test)
+	DEFINE_STRUCT_CLASS_MOCK_INIT(eeprom, eeprom);
+
+We could use the mock in a test as follows:
+
+.. code-block:: c
+
+	struct eeprom_buffer_test {
+		struct MOCK(eeprom) *mock_eeprom;
+		struct eeprom_buffer *eeprom_buffer;
+	};
+
+	static void eeprom_buffer_test_does_not_write_until_flush(struct test *test)
 	{
+		struct eeprom_buffer_test *ctx = test->priv;
+		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
+		struct MOCK(eeprom) *mock_eeprom = ctx->mock_eeprom;
+		struct mock_expectation *expectation;
+		char buffer[] = {0xff, 0xff};
+
+		eeprom_buffer->flush_count = SIZE_MAX;
+
+		expectation = TEST_EXPECT_CALL(write(mock_get_ctrl(mock_eeprom),
+						     test_any(test),
+						     test_any(test),
+						     test_any(test)));
+		expectation->max_calls_expected = 0;
+		expectation->min_calls_expected = 0;
+
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+		eeprom_buffer->write(eeprom_buffer, buffer, 1);
+
+		mock_validate_expectations(mock_get_ctrl(mock_eeprom));
+
+		expectation = TEST_EXPECT_CALL(write(mock_get_ctrl(mock_eeprom),
+						     test_any(test),
+						     test_memeq(test,
+								buffer,
+								ARRAY_SIZE(buffer)),
+						     test_ulong_eq(test, 2)));
+		expectation->max_calls_expected = 1;
+		expectation->min_calls_expected = 1;
+		expectation->action = test_long_return(test, 2);
+
+		eeprom_buffer->flush(eeprom_buffer);
 	}
 
-	static struct test_case foo_example_test_cases[] = {
-		TEST_CASE(foo_example_test_success),
-		TEST_CASE(foo_example_test_failure),
-		{},
-	};
+	static int eeprom_buffer_test_init(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx;
 
-	static struct test_module foo_example_test_module = {
-		.name = "example",
-		.init = example_test_init,
-		.exit = example_test_exit,
-		.test_cases = foo_example_test_cases,
-	};
-	module_test(foo_example_test_module);
+		ctx = test_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+		ASSERT_NOT_ERR_OR_NULL(test, ctx);
 
-``foo_example_test_success`` uses the mock allocated in init. It asserts that
-``example.foo`` will get called with ``5`` as a parameter with the ``int_eq``
-parameter matcher. ``EXPECT_CALL`` the returns a handle that a user can use to
-specify additional behavior on the mock; it must always specify a return value
-using an *action*. Finally, it calls the function under test.
+		ctx->mock_eeprom = CONSTRUCT_MOCK(eeprom, test);
+		ASSERT_NOT_ERR_OR_NULL(test, ctx->fake_eeprom);
+
+		ctx->eeprom_buffer = new_eeprom_buffer(mock_get_trgt(ctx->mock_eeprom));
+		ASSERT_NOT_ERR_OR_NULL(test, ctx->eeprom_buffer);
+
+		test->priv = ctx;
+
+		return 0;
+	}
+
+	static void eeprom_buffer_test_exit(struct test *test)
+	{
+		struct eeprom_buffer_test *ctx = test->priv;
+
+		destroy_eeprom_buffer(ctx->eeprom_buffer);
+	}
+
+This test case tests the same thing as the
+``eeprom_buffer_test_does_not_write_until_flush`` test case from the example in
+the faking section. Observe that in this test case you specify how you expect
+the mock to be called (technically this is both stubbing and mocking `which are
+different things
+<https://martinfowler.com/articles/mocksArentStubs.html#TheDifferenceBetweenMocksAndStubs>`_,
+but KUnit combines them as many other xUnit testing libraries do) and also how
+the mock should behave when those expectations are met (see
+``test_long_return``).
+
+Mocks are extremely powerful as they allow you the finest possible granularity
+for verifying how units interact, and allows the injection of arbitrary
+behavior. But as Uncle Ben said, "Great power comes with great responsibility."
+Mocks are not to be used lightly; they make it possible to test things which are
+otherwise difficult or impossible to test, but when used improperly they have a
+much higher maintenance burden than using the real thing or even a high quality
+fake.
+
+Compare the ``eeprom_buffer_test_does_not_write_until_flush`` in the faking
+example to the above version that uses mocking. It is pretty clear that the
+version that uses faking is easier to read. It is also pretty clear that common
+behavior between test cases would have to be duplicated with the mocking
+version; the fake has the advantage of implementing desired behavior in a single
+place. Finally, it is pretty clear that the fake would be much easier to
+maintain. Of course what's even easier than having to maintain a fake is not
+not having to maintain anything at all. Thus,
+
+.. important::
+   Always prefer high quality fakes over mocks, and always prefer "real" code to
+   fakes.
+
+Fakes should generally be used when there is an external dependency that there
+is no way around; in the kernel that usually means hardware. If you write a fake
+you have to make sure it can be maintained; consequently, it is just as
+important as real code and it should get its own tests to verify it works as
+expected. Yes, we are telling you to write tests for your fakes.
+
+Of course sometimes faking something out is infeasible, or there is some code
+that is just otherwise impossible to reach; generally this means that your code
+should be refactored, but not always. Either way, well tested code in need of
+refactoring is better than code that needs refactoring but has no tests. This
+leads to the single most important testing principle that overrides all others:
+
+.. important::
+   **Always prefer tests over no tests, no matter what!**
 
 For more information on class mocking see :doc:`api/class-and-function-mocking`.
 
@@ -404,23 +634,22 @@ When the function is called, the mock stub will actually be called.
 .. note::
    ``__mockable`` does not work on inlined functions.
 
-Redirect-mockable
-~~~~~~~~~~~~~~~~~
+Spying
+~~~~~~
 
 Sometimes it is desirable to have a mock function that delegates to the original
-definition in some or all circumstances. This is possible by making the function
-*redirect-mockable*:
+definition in some or all circumstances. This is called *spying*:
 
 .. code-block:: c
 
-	DEFINE_REDIRECT_MOCKABLE(i2c_add_adapter, RETURNS(int), PARAMS(struct i2c_adapter *));
+	DEFINE_SPYABLE(i2c_add_adapter, RETURNS(int), PARAMS(struct i2c_adapter *));
 	int REAL_ID(i2c_add_adapter)(struct i2c_adapter *adapter)
 	{
 		...
 	}
 
 This allows the function to be overridden by a mock as with ``__mockable``;
-however, it associates the original definition of the function with alternate
+however, it associates the original definition of the function with an alternate
 symbol that KUnit can still reference. This makes it possible to mock the
 function and then have the mock delegate to the original function definition
 with the ``INVOKE_REAL(...)`` action:
@@ -439,7 +668,7 @@ with the ``INVOKE_REAL(...)`` action:
 			return -ENOMEM;
 		test->priv = ctx;
 
-		handle = EXPECT_CALL(
+		handle = TEST_EXPECT_CALL(
 				i2c_add_adapter(capturer_to_matcher(adap_capturer)));
 		handle->action = INVOKE_REAL(test, i2c_add_adapter);
 		ret = of_fake_probe_platform_by_name(test,
@@ -478,7 +707,7 @@ Method Call Expectations
 ========================
 Once we have classes and methods mocked, we can place more advanced
 expectations. Previously, we could only place expectations on simple return
-values. With the :c:func:`EXPECT_CALL` macro, which allows you to make
+values. With the :c:func:`TEST_EXPECT_CALL` macro, which allows you to make
 assertions that a certain mocked function is called with specific arguments
 given some code to be run.
 
@@ -530,7 +759,7 @@ For example:
 		struct Foo *foo = initialize_foo(mock_printer);
 
 		// print() is a mocked method stub
-		EXPECT_CALL(print(any(test), int_eq(12)));
+		TEST_EXPECT_CALL(print(test_any(test), test_int_eq(test, 12)));
 
 		foo->print_add_two(foo, 10);
 	}
@@ -542,25 +771,26 @@ as we expected.
 
 Matchers
 --------
-Above, we see ``any`` and ``int_eq``, which are matchers. A matcher simply
-asserts that the argument passed to that function call fulfills some condition.
-In this case, ``any()`` matches any argument, and ``int_eq(12)`` asserts that
-the argument passed to that function must equal 12. If we had called:
-``foo->print_add_two(foo, 9)`` instead, the expectation would not have been
-fulfilled. There are a variety of built-in matchers:
-:doc:`api/class-and-function-mocking` has a section about these matchers.
+Above, we see ``test_any`` and ``test_int_eq``, which are matchers. A matcher
+simply asserts that the argument passed to that function call fulfills some
+condition.  In this case, ``test_any()`` matches any argument, and
+``test_int_eq(12)`` asserts that the argument passed to that function must
+equal 12. If we had called: ``foo->print_add_two(foo, 9)`` instead, the
+expectation would not have been fulfilled. There are a variety of built-in
+matchers: :doc:`api/class-and-function-mocking` has a section about these
+matchers.
 
 .. note::
-	:c:func:`EXPECT_CALL` only works with mocked functions and methods.
+	:c:func:`TEST_EXPECT_CALL` only works with mocked functions and methods.
 	Matchers may only be used within the function inside the
-	:c:func:`EXPECT_CALL`.
+	:c:func:`TEST_EXPECT_CALL`.
 
 Additional :c:func:`EXPECT_CALL` Properties
 -------------------------------------------
 
-The return value of :c:func:`EXPECT_CALL` is a
-:c:func:`struct mock_expectation`. We can capture the value and add extra
-properties to it as defined by the :c:func:`struct mock_expectation` interface.
+The return value of :c:func:`TEST_EXPECT_CALL` is a ``struct
+mock_expectation``. We can capture the value and add extra properties to it as
+defined by the ``struct mock_expectation`` interface.
 
 Times Called
 ~~~~~~~~~~~~
@@ -570,7 +800,7 @@ we could write:
 .. code-block:: c
 
 	...
-	struct mock_expectation* handle = EXPECT_CALL(...);
+	struct mock_expectation* handle = TEST_EXPECT_CALL(...);
 	handle->min_calls_expected = 0;
 	handle->max_calls_expected = 0;
 	...
@@ -584,14 +814,14 @@ Because ``mock_printer`` is a mock, it doesn't actually perform any task. If
 the function had some side effect that ``struct Foo`` requires to have been
 done, such as modifying some state, we could mock that as well.
 
-Each expectation has an associated :c:func:`struct mock_action` which can be
-set with ``handle->action``. By default, there are two actions that mock return
-values. Those can also be found in :doc:`api/class-and-function-mocking`.
+Each expectation has an associated ``struct mock_action`` which can be set with
+``handle->action``. By default, there are two actions that mock return values.
+Those can also be found in :doc:`api/class-and-function-mocking`.
 
-Custom actions can be defined by simply creating a :c:func:`struct mock_action`
-and assigning the appropriate function to ``do_action``. Mocked actions have
-access to the parameters passed to the mocked function, as well as have the
-ability to change / set the return value.
+Custom actions can be defined by simply creating a ``struct mock_action`` and
+assigning the appropriate function to ``do_action``. Mocked actions have access
+to the parameters passed to the mocked function, as well as have the ability to
+change / set the return value.
 
 
 The Nice, the Strict, and the Naggy
@@ -632,11 +862,11 @@ case:
 		struct misc_example *example = mock_get_trgt(mock_example);
 		struct mock_expectation *handle;
 
-		handle = EXPECT_CALL(misc_example_foo(mock_get_ctrl(mock_example),
-						      int_eq(test, 5)));
+		handle = TEST_EXPECT_CALL(misc_example_foo(mock_get_ctrl(mock_example),
+						      test_int_eq(test, 5)));
 		handle->action = int_return(test, 0);
 
-		EXPECT_EQ(test, 0, misc_example_bar(example));
+		TEST_EXPECT_EQ(test, 0, misc_example_bar(example));
 	}
 
 If we wanted ``mock_example`` to be a nice mock instead, we would simply write:

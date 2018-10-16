@@ -20,9 +20,9 @@ These tests are able to be run locally on a developer's workstation without a VM
 or special hardware.
 
 KUnit is heavily inspired by JUnit, Python's ``unittest.mock``, and
-Googletest/Googlemock for C++; it provides many of the same features in a
-similar manner (mocking, spying, assertions, etc) in a way that makes sense
-with the Linux kernel's flavor of C.
+Googletest/Googlemock for C++. They have the same structure for defining test
+suites and test cases. KUnit defines a way to mock out C style classes and
+functions and create expectations on methods called within the code under test.
 
 Get started now: :doc:`start`
 
@@ -70,7 +70,7 @@ difficult to write, and require a special setup or special hardware to run,
 then you wait a lot longer to write tests, and you wait a lot longer to run
 tests; this means that tests are likely to break, unlikely to test a lot of
 things, and are unlikely to be rerun once they pass. If your tests are really
-fast, you run them all the time, everytime you make a change, and everytime
+fast, you run them all the time, every time you make a change, and every time
 someone sends you some code. Why trust that someone ran all their tests
 correctly on every change when you can just run them yourself in less time than
 it takes to read his / her test log?

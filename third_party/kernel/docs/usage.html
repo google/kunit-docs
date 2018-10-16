@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
+  <title>Using KUnit &mdash; The Linux Kernel 4.18.0-00031-gc590ddf14837a documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.17.0
+                4.18.0
               </div>
             
           
@@ -99,13 +99,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#mocking">Mocking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#isolating-behavior">Isolating Behavior</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#faking-classes">Faking Classes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mocking-classes">Mocking Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mocking-arbitrary-functions">Mocking Arbitrary Functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#redirect-mockable">Redirect-mockable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spying">Spying</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#platform-mocking">Platform Mocking</a></li>
@@ -200,10 +201,10 @@ some basic knowledge of testing.</p>
 project, see <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a>.</p>
 <div class="section" id="organization-of-this-document">
 <h2>Organization of this document<a class="headerlink" href="#organization-of-this-document" title="Permalink to this headline">¶</a></h2>
-<p>This document is organized into two main sections: Testing and Mocking. The
-first covers what a unit test is and how to use KUnit to write them. The second
-covers how to use KUnit to mock out dependencies and make it possible to unit
-test code that was otherwise un-unit-testable.</p>
+<p>This document is organized into two main sections: Testing and Isolating
+Behavior. The first covers what a unit test is and how to use KUnit to write
+them. The second covers how to use KUnit to isolate code and make it possible
+to unit test code that was otherwise un-unit-testable.</p>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
@@ -218,14 +219,12 @@ framework.</p>
 </div>
 <div class="section" id="what-is-unit-testing">
 <h3>What is Unit Testing?<a class="headerlink" href="#what-is-unit-testing" title="Permalink to this headline">¶</a></h3>
-<p>A <em>unit test</em> is a test that tests code at the smallest possible scope, a
-<em>unit</em> of code. For the C programming language, defining a unit is easy: it is
-the compilation unit; however, that does not mean compilation units cannot be
-too large and should not be broken down to get more coverage or just because
-they are hard to reason about.</p>
-<p>A unit test should test all the publicly exposed functions in a unit; so that is
-all the functions that are exported in either a <em>class</em> (defined below) or all
-functions which are <strong>not</strong> static.</p>
+<p>A <a class="reference external" href="http://softwaretestingfundamentals.com/unit-testing/">unit test</a> is a test
+that tests code at the smallest possible scope, a <em>unit</em> of code. In the C
+programming language that’s a function.</p>
+<p>Unit tests should be written for all the publicly exposed functions in a
+compilation unit; so that is all the functions that are exported in either a
+<em>class</em> (defined below) or all functions which are <strong>not</strong> static.</p>
 </div>
 <div class="section" id="writing-tests">
 <h3>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h3>
@@ -240,43 +239,74 @@ and then sets <em>expectations</em> for what should happen. For example:</p>
 
 <span class="kt">void</span> <span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
+        <span class="n">TEST_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example <code class="docutils literal notranslate"><span class="pre">example_test_success</span></code> always passes because it does
 nothing; no expectations are set, so all expectations pass. On the other hand
-<code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>, which is a
+<code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">TEST_FAIL</span></code>, which is a
 special expectation that logs a message and causes the test case to fail.</p>
-<p>Preferably, a single test case will be pretty short, it should be pretty easy to
-understand, and it should really only try to test at most a handful of very
-closely relating things.</p>
 </div>
 <div class="section" id="expectations">
 <h4>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h4>
-<p>An <em>expectation</em> is a way to make an assertion about what a piece of code should
-do in a test. An expectation is called like a function. A test is made by
-setting expectations about the behavior of a piece of code under test; when one
-or more of the expectations fail, the test case fails and information about the
-failure is logged. For example:</p>
+<p>An <em>expectation</em> is a way to specify that you expect a piece of code to do
+something in a test. An expectation is called like a function. A test is made
+by setting expectations about the behavior of a piece of code under test; when
+one or more of the expectations fail, the test case fails and information about
+the failure is logged. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> makes a number of assertions about the
 behavior of a function called <code class="docutils literal notranslate"><span class="pre">add</span></code>; the first parameter is always of type
-<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span></code>, which contains information about the current test context; the
-second parameter, in this case, is what the value is expected to be; the last
-value is what the value actually is. If <code class="docutils literal notranslate"><span class="pre">add</span></code> passes all of these expectations,
-the test case, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> will pass; if any one of these expectations
-fail, the test case will fail.</p>
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span></code>, which contains information about the current test context;
+the second parameter, in this case, is what the value is expected to be; the
+last value is what the value actually is. If <code class="docutils literal notranslate"><span class="pre">add</span></code> passes all of these
+expectations, the test case, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> will pass; if any one of these
+expectations fail, the test case will fail.</p>
+<p>It is important to understand that a test case <em>fails</em> when any expectation is
+violated; however, the test will continue running, potentially trying other
+expectations until the test case ends or is otherwise terminated. This is as
+opposed to <em>assertions</em> which are discussed later.</p>
 <p>To learn about more expectations supported by KUnit, see <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A single test case should be pretty short, pretty easy to understand,
+focused on a single behavior.</p>
+</div>
+<p>For example, if we wanted to properly test the add function above, we would
+create additional tests cases which would each test a different property that an
+add function should have like this:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">add_test_negative</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">add_test_max</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">add_test_overflow</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice how it is immediately obvious what all the properties that we are testing
+for are.</p>
 </div>
 <div class="section" id="assertions">
 <h4>Assertions<a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h4>
@@ -297,29 +327,27 @@ not satisfied.</p>
                               <span class="s">&quot;test_printk&quot;</span><span class="p">,</span> <span class="n">test_printk</span><span class="p">,</span>
                               <span class="n">two_param_types</span><span class="p">,</span> <span class="n">two_params</span><span class="p">,</span>
                               <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">two_params</span><span class="p">));</span>
-        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
+        <span class="n">TEST_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, the method under test should return a pointer to a value, so if
-the pointer returned by the method is null or an errno, we don’t want to bother
-continuing the test since the following expectation could crash the test case
-if the pointer is null. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us to bail out of
-the test case if the appropriate conditions have not been satisfied to complete
-the test.</p>
+<p>In this example, the method under test should return a pointer to a value, so
+if the pointer returned by the method is null or an errno, we don’t want to
+bother continuing the test since the following expectation could crash the test
+case. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us to bail out of the test case if
+the appropriate conditions have not been satisfied to complete the test.</p>
 </div>
 <div class="section" id="modules-test-suites">
 <h4>Modules / Test Suites<a class="headerlink" href="#modules-test-suites" title="Permalink to this headline">¶</a></h4>
-<p>Because test cases are supposed to test just a single function and then only
-test a set of closely related concepts about that function, multiple test cases
-are usually needed to fully test a unit. This is where the concept of a <em>test
-suite</em> or a <em>module</em> comes in; it is just a collection of test cases for a unit
-of code. In addition to specifying a set of test cases, a test suite also
-supports specifying setup and tear down functions which allow functions to be
-specified to run before and after each test case, respectively; this is useful
-when the procedure to setup a unit for testing requires several steps and needs
-to be done in every test case.</p>
+<p>Now obviously one unit test isn’t very helpful; the power comes from having
+many test cases covering all of your behaviors. Consequently it is common to
+have many <em>similar</em> tests; in order to reduce duplication in these closely
+related tests most unit testing frameworks provide the concept of a <em>test
+suite</em>, in KUnit we call it a <em>test module</em>; all it is is just a collection of
+test cases for a unit of code with a set up function that gets invoked before
+every test cases and then a tear down function that gets invoked after every
+test case completes.</p>
 <p>Example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
@@ -351,8 +379,8 @@ test framework.</p>
 </div>
 </div>
 </div>
-<div class="section" id="mocking">
-<h2>Mocking<a class="headerlink" href="#mocking" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="isolating-behavior">
+<h2>Isolating Behavior<a class="headerlink" href="#isolating-behavior" title="Permalink to this headline">¶</a></h2>
 <p>The most important aspect of unit testing that other forms of testing do not
 provide is the ability to limit the amount of code under test to a single unit.
 In practice, this is only possible by being able to control what code gets run
@@ -370,14 +398,14 @@ however, it is an easily derived concept. Accordingly, pretty much every project
 that does not use a standardized object oriented library (like GNOME’s GObject)
 has their own slightly different way of doing object oriented programming; the
 Linux kernel is no exception.</p>
-<p>The central concept in the kernel object oriented programming is the class. In
-the kernel, a <em>class</em> is a struct that contains function pointers. This creates
-a contract between <em>implementers</em> and <em>users</em> since it forces them to use the
+<p>The central concept in kernel object oriented programming is the class. In the
+kernel, a <em>class</em> is a struct that contains function pointers. This creates a
+contract between <em>implementers</em> and <em>users</em> since it forces them to use the
 same function signature without having to call the function directly. In order
-for it to truly be a class, the function pointers must specify that a pointer to
-the class, known as a <em>class handle</em>, be one of the parameters; this makes it
-possible for the member functions (also known as <em>methods</em>) to have access to
-member variables (more commonly known as <em>fields</em>) allowing the same
+for it to truly be a class, the function pointers must specify that a pointer
+to the class, known as a <em>class handle</em>, be one of the parameters; this makes
+it possible for the member functions (also known as <em>methods</em>) to have access
+to member variables (more commonly known as <em>fields</em>) allowing the same
 implementation to have multiple <em>instances</em>.</p>
 <p>Typically a class can be <em>overridden</em> by <em>child classes</em> by embedding the
 <em>parent class</em> in the child class. Then when a method provided by the child
@@ -413,109 +441,299 @@ in the child struct. For example:</p>
 </div>
 <p>In this example (as in most kernel code) the operation of computing the pointer
 to the child from the pointer to the parent is done by <code class="docutils literal notranslate"><span class="pre">container_of</span></code>.</p>
-<div class="section" id="mocking-classes">
-<h4>Mocking Classes<a class="headerlink" href="#mocking-classes" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="faking-classes">
+<h4>Faking Classes<a class="headerlink" href="#faking-classes" title="Permalink to this headline">¶</a></h4>
 <p>In order to unit test a piece of code that calls a method in a class, the
 behavior of the method must be controllable, otherwise the test ceases to be a
-unit test and becomes an integration test. KUnit allows classes to be <em>mocked</em>
-which means that it generates subclasses whose behavior can be specified in a
-test case. KUnit accomplishes this with two sets of macros: the mock generation
-macros and the <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span></code> macro.</p>
-<p>For example, let’s say you have a file named <code class="docutils literal notranslate"><span class="pre">drivers/foo/example.c</span></code> and it
-contains the following code you would like to test:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">example_bar</span><span class="p">(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-                <span class="k">return</span> <span class="o">-</span><span class="n">EIO</span><span class="p">;</span>
-        <span class="k">else</span>
-                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>For the purposes of this example, assume <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">example</span></code> is defined as such:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">example</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">foo</span><span class="p">)(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+unit test and becomes an integration test.</p>
+<p>A fake just provides an implementation of a piece of code that is different than
+what runs in a production instance, but behaves identically from the standpoint
+of the callers; this is usually done to replace a dependency that is hard to
+deal with, or is slow.</p>
+<p>A good example for this might be implementing a fake EEPROM that just stores the
+“contents” in an internal buffer. For example, let’s assume we have a class that
+represents an EEPROM:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">eeprom</span> <span class="p">{</span>
+        <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">read</span><span class="p">)(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
+        <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>You would create a test file named <code class="docutils literal notranslate"><span class="pre">drivers/foo/example-test.c</span></code> and it would
-contain the following code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Define the mock. */</span>
+<p>And we want to test some code that buffers writes to the EEPROM:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="p">{</span>
+        <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="nf">flush</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">this</span><span class="p">);</span>
+        <span class="kt">size_t</span> <span class="n">flush_count</span><span class="p">;</span> <span class="cm">/* Flushes when buffer exceeds flush_count. */</span>
+<span class="p">};</span>
 
-<span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">example</span><span class="p">);</span>
+<span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="nf">new_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">eeprom</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">destroy_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">eeprom</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We can easily test this code by <em>faking out</em> the underlying EEPROM:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom</span> <span class="n">parent</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">contents</span><span class="p">[</span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">];</span>
+<span class="p">};</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">foo</span><span class="p">),</span> <span class="n">CLASS</span><span class="p">(</span><span class="n">example</span><span class="p">),</span>
-                         <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
-                         <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">));</span>
-
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">example_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span><span class="p">)</span>
+<span class="kt">ssize_t</span> <span class="nf">fake_eeprom_read</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">this</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="k">struct</span> <span class="n">fake_eeprom</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
 
-        <span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">FAKE_EEPROM_CONTENTS_SIZE</span> <span class="o">-</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">ssize_t</span> <span class="nf">fake_eeprom_write</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">this</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="k">struct</span> <span class="n">fake_eeprom</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+
+        <span class="n">count</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">FAKE_EEPROM_CONTENTS_SIZE</span> <span class="o">-</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">fake_eeprom_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">fake_eeprom_read</span><span class="p">;</span>
+        <span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">fake_eeprom_write</span><span class="p">;</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can now use it to test <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">eeprom_buffer</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">fake_eeprom</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xff</span><span class="p">};</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="n">SIZE_MAX</span><span class="p">;</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_after_flush_count_met</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xff</span><span class="p">};</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_increments_of_flush_count</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">};</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="cm">/* Should have only flushed the first two bytes. */</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="p">);</span>
+
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
+
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+
+        <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">;</span>
+
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">example_init</span><span class="p">);</span>
-
-<span class="cm">/* Define the test cases. */</span>
-
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
 
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
-        <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
+        <span class="n">destroy_eeprom_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mocking-classes">
+<h4>Mocking Classes<a class="headerlink" href="#mocking-classes" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes the easiest way to make assertions about behavior is to verify
+certain methods or functions were called with appropriate arguments. KUnit
+allows classes to be <em>mocked</em> which means that it generates subclasses whose
+behavior can be specified in a test case. KUnit accomplishes this with two sets
+of macros: the mock generation macros and the <code class="docutils literal notranslate"><span class="pre">TEST_EXPECT_CALL</span></code> macro.</p>
+<p>For example, let’s go back to the EEPROM example; instead of faking the EEPROM,
+we could have <em>mocked it out</em> with the following code:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">eeprom</span><span class="p">);</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">foo_example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">read</span><span class="p">),</span> <span class="n">CLASS</span><span class="p">(</span><span class="n">eeprom</span><span class="p">),</span>
+                         <span class="n">RETURNS</span><span class="p">(</span><span class="kt">ssize_t</span><span class="p">),</span>
+                         <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="p">,</span> <span class="kt">size_t</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">size_t</span><span class="p">));</span>
+
+<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">write</span><span class="p">),</span> <span class="n">CLASS</span><span class="p">(</span><span class="n">eeprom</span><span class="p">),</span>
+                         <span class="n">RETURNS</span><span class="p">(</span><span class="kt">ssize_t</span><span class="p">),</span>
+                         <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="p">,</span> <span class="kt">size_t</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">size_t</span><span class="p">));</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">eeprom_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">eeprom</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_eeprom</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">eeprom</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_eeprom</span><span class="p">);</span>
 
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
-        <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">);</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">,</span> <span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">example_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">test</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">)</span>
-                <span class="k">return</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+        <span class="n">eeprom</span><span class="o">-&gt;</span><span class="n">read</span> <span class="o">=</span> <span class="n">read</span><span class="p">;</span>
+        <span class="n">eeprom</span><span class="o">-&gt;</span><span class="n">write</span> <span class="o">=</span> <span class="n">write</span><span class="p">;</span>
 
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">example_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="p">}</span>
-
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">foo_example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">foo_example_test_success</span><span class="p">),</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">foo_example_test_failure</span><span class="p">),</span>
-        <span class="p">{},</span>
-<span class="p">};</span>
-
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_module</span> <span class="n">foo_example_test_module</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;example&quot;</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">example_test_init</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">exit</span> <span class="o">=</span> <span class="n">example_test_exit</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">test_cases</span> <span class="o">=</span> <span class="n">foo_example_test_cases</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="n">module_test</span><span class="p">(</span><span class="n">foo_example_test_module</span><span class="p">);</span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">eeprom</span><span class="p">,</span> <span class="n">eeprom</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">foo_example_test_success</span></code> uses the mock allocated in init. It asserts that
-<code class="docutils literal notranslate"><span class="pre">example.foo</span></code> will get called with <code class="docutils literal notranslate"><span class="pre">5</span></code> as a parameter with the <code class="docutils literal notranslate"><span class="pre">int_eq</span></code>
-parameter matcher. <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span></code> the returns a handle that a user can use to
-specify additional behavior on the mock; it must always specify a return value
-using an <em>action</em>. Finally, it calls the function under test.</p>
+<p>We could use the mock in a test as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">eeprom</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_eeprom</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">eeprom</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_eeprom</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock_eeprom</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">expectation</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">};</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="n">SIZE_MAX</span><span class="p">;</span>
+
+        <span class="n">expectation</span> <span class="o">=</span> <span class="n">TEST_EXPECT_CALL</span><span class="p">(</span><span class="n">write</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_eeprom</span><span class="p">),</span>
+                                             <span class="n">test_any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span>
+                                             <span class="n">test_any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span>
+                                             <span class="n">test_any</span><span class="p">(</span><span class="n">test</span><span class="p">)));</span>
+        <span class="n">expectation</span><span class="o">-&gt;</span><span class="n">max_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">expectation</span><span class="o">-&gt;</span><span class="n">min_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="n">mock_validate_expectations</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_eeprom</span><span class="p">));</span>
+
+        <span class="n">expectation</span> <span class="o">=</span> <span class="n">TEST_EXPECT_CALL</span><span class="p">(</span><span class="n">write</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_eeprom</span><span class="p">),</span>
+                                             <span class="n">test_any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span>
+                                             <span class="n">test_memeq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span>
+                                                        <span class="n">buffer</span><span class="p">,</span>
+                                                        <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">buffer</span><span class="p">)),</span>
+                                             <span class="n">test_ulong_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+        <span class="n">expectation</span><span class="o">-&gt;</span><span class="n">max_calls_expected</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">expectation</span><span class="o">-&gt;</span><span class="n">min_calls_expected</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">expectation</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">test_long_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+        <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="p">);</span>
+
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock_eeprom</span> <span class="o">=</span> <span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">eeprom</span><span class="p">,</span> <span class="n">test</span><span class="p">);</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
+
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock_eeprom</span><span class="p">));</span>
+        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+
+        <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+
+        <span class="n">destroy_eeprom_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This test case tests the same thing as the
+<code class="docutils literal notranslate"><span class="pre">eeprom_buffer_test_does_not_write_until_flush</span></code> test case from the example in
+the faking section. Observe that in this test case you specify how you expect
+the mock to be called (technically this is both stubbing and mocking <a class="reference external" href="https://martinfowler.com/articles/mocksArentStubs.html#TheDifferenceBetweenMocksAndStubs">which are
+different things</a>,
+but KUnit combines them as many other xUnit testing libraries do) and also how
+the mock should behave when those expectations are met (see
+<code class="docutils literal notranslate"><span class="pre">test_long_return</span></code>).</p>
+<p>Mocks are extremely powerful as they allow you the finest possible granularity
+for verifying how units interact, and allows the injection of arbitrary
+behavior. But as Uncle Ben said, “Great power comes with great responsibility.”
+Mocks are not to be used lightly; they make it possible to test things which are
+otherwise difficult or impossible to test, but when used improperly they have a
+much higher maintenance burden than using the real thing or even a high quality
+fake.</p>
+<p>Compare the <code class="docutils literal notranslate"><span class="pre">eeprom_buffer_test_does_not_write_until_flush</span></code> in the faking
+example to the above version that uses mocking. It is pretty clear that the
+version that uses faking is easier to read. It is also pretty clear that common
+behavior between test cases would have to be duplicated with the mocking
+version; the fake has the advantage of implementing desired behavior in a single
+place. Finally, it is pretty clear that the fake would be much easier to
+maintain. Of course what’s even easier than having to maintain a fake is not
+not having to maintain anything at all. Thus,</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Always prefer high quality fakes over mocks, and always prefer “real” code to
+fakes.</p>
+</div>
+<p>Fakes should generally be used when there is an external dependency that there
+is no way around; in the kernel that usually means hardware. If you write a fake
+you have to make sure it can be maintained; consequently, it is just as
+important as real code and it should get its own tests to verify it works as
+expected. Yes, we are telling you to write tests for your fakes.</p>
+<p>Of course sometimes faking something out is infeasible, or there is some code
+that is just otherwise impossible to reach; generally this means that your code
+should be refactored, but not always. Either way, well tested code in need of
+refactoring is better than code that needs refactoring but has no tests. This
+leads to the single most important testing principle that overrides all others:</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last"><strong>Always prefer tests over no tests, no matter what!</strong></p>
+</div>
 <p>For more information on class mocking see <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a>.</p>
 </div>
 </div>
@@ -551,12 +769,11 @@ When not compiling for testing, <code class="docutils literal notranslate"><span
 <p class="first admonition-title">Note</p>
 <p class="last"><code class="docutils literal notranslate"><span class="pre">__mockable</span></code> does not work on inlined functions.</p>
 </div>
-<div class="section" id="redirect-mockable">
-<h4>Redirect-mockable<a class="headerlink" href="#redirect-mockable" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="spying">
+<h4>Spying<a class="headerlink" href="#spying" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes it is desirable to have a mock function that delegates to the original
-definition in some or all circumstances. This is possible by making the function
-<em>redirect-mockable</em>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_REDIRECT_MOCKABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span> <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="p">));</span>
+definition in some or all circumstances. This is called <em>spying</em>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_SPYABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span> <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="p">));</span>
 <span class="kt">int</span> <span class="nf">REAL_ID</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">)(</span><span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="n">adapter</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="p">...</span>
@@ -564,7 +781,7 @@ definition in some or all circumstances. This is possible by making the function
 </pre></div>
 </div>
 <p>This allows the function to be overridden by a mock as with <code class="docutils literal notranslate"><span class="pre">__mockable</span></code>;
-however, it associates the original definition of the function with alternate
+however, it associates the original definition of the function with an alternate
 symbol that KUnit can still reference. This makes it possible to mock the
 function and then have the mock delegate to the original function definition
 with the <code class="docutils literal notranslate"><span class="pre">INVOKE_REAL(...)</span></code> action:</p>
@@ -580,7 +797,7 @@ with the <code class="docutils literal notranslate"><span class="pre">INVOKE_REA
                 <span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
         <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">;</span>
 
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">TEST_EXPECT_CALL</span><span class="p">(</span>
                         <span class="n">i2c_add_adapter</span><span class="p">(</span><span class="n">capturer_to_matcher</span><span class="p">(</span><span class="n">adap_capturer</span><span class="p">)));</span>
         <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">INVOKE_REAL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">i2c_add_adapter</span><span class="p">);</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">of_fake_probe_platform_by_name</span><span class="p">(</span><span class="n">test</span><span class="p">,</span>
@@ -619,7 +836,7 @@ your <code class="docutils literal notranslate"><span class="pre">kunitconfig</s
 <h2>Method Call Expectations<a class="headerlink" href="#method-call-expectations" title="Permalink to this headline">¶</a></h2>
 <p>Once we have classes and methods mocked, we can place more advanced
 expectations. Previously, we could only place expectations on simple return
-values. With the <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> macro, which allows you to make
+values. With the <a class="reference internal" href="api/class-and-function-mocking.html#c.TEST_EXPECT_CALL" title="TEST_EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_CALL()</span></code></a> macro, which allows you to make
 assertions that a certain mocked function is called with specific arguments
 given some code to be run.</p>
 <div class="section" id="basic-usage">
@@ -662,7 +879,7 @@ test, we’d construct a <code class="docutils literal notranslate"><span class=
         <span class="k">struct</span> <span class="n">Foo</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="n">initialize_foo</span><span class="p">(</span><span class="n">mock_printer</span><span class="p">);</span>
 
         <span class="c1">// print() is a mocked method stub</span>
-        <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">print</span><span class="p">(</span><span class="n">any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="mi">12</span><span class="p">)));</span>
+        <span class="n">TEST_EXPECT_CALL</span><span class="p">(</span><span class="n">print</span><span class="p">(</span><span class="n">test_any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="n">test_int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">12</span><span class="p">)));</span>
 
         <span class="n">foo</span><span class="o">-&gt;</span><span class="n">print_add_two</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 <span class="p">}</span>
@@ -675,31 +892,32 @@ as we expected.</p>
 </div>
 <div class="section" id="matchers">
 <h3>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h3>
-<p>Above, we see <code class="docutils literal notranslate"><span class="pre">any</span></code> and <code class="docutils literal notranslate"><span class="pre">int_eq</span></code>, which are matchers. A matcher simply
-asserts that the argument passed to that function call fulfills some condition.
-In this case, <code class="docutils literal notranslate"><span class="pre">any()</span></code> matches any argument, and <code class="docutils literal notranslate"><span class="pre">int_eq(12)</span></code> asserts that
-the argument passed to that function must equal 12. If we had called:
-<code class="docutils literal notranslate"><span class="pre">foo-&gt;print_add_two(foo,</span> <span class="pre">9)</span></code> instead, the expectation would not have been
-fulfilled. There are a variety of built-in matchers:
-<a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a> has a section about these matchers.</p>
+<p>Above, we see <code class="docutils literal notranslate"><span class="pre">test_any</span></code> and <code class="docutils literal notranslate"><span class="pre">test_int_eq</span></code>, which are matchers. A matcher
+simply asserts that the argument passed to that function call fulfills some
+condition.  In this case, <code class="docutils literal notranslate"><span class="pre">test_any()</span></code> matches any argument, and
+<code class="docutils literal notranslate"><span class="pre">test_int_eq(12)</span></code> asserts that the argument passed to that function must
+equal 12. If we had called: <code class="docutils literal notranslate"><span class="pre">foo-&gt;print_add_two(foo,</span> <span class="pre">9)</span></code> instead, the
+expectation would not have been fulfilled. There are a variety of built-in
+matchers: <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a> has a section about these
+matchers.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> only works with mocked functions and methods.
+<p class="last"><a class="reference internal" href="api/class-and-function-mocking.html#c.TEST_EXPECT_CALL" title="TEST_EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_CALL()</span></code></a> only works with mocked functions and methods.
 Matchers may only be used within the function inside the
-<a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a>.</p>
+<a class="reference internal" href="api/class-and-function-mocking.html#c.TEST_EXPECT_CALL" title="TEST_EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_CALL()</span></code></a>.</p>
 </div>
 </div>
 <div class="section" id="additional-expect-call-properties">
-<h3>Additional <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> Properties<a class="headerlink" href="#additional-expect-call-properties" title="Permalink to this headline">¶</a></h3>
-<p>The return value of <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> is a
-<code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation()</span></code>. We can capture the value and add extra
-properties to it as defined by the <code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation()</span></code> interface.</p>
+<h3>Additional <code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code> Properties<a class="headerlink" href="#additional-expect-call-properties" title="Permalink to this headline">¶</a></h3>
+<p>The return value of <a class="reference internal" href="api/class-and-function-mocking.html#c.TEST_EXPECT_CALL" title="TEST_EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_CALL()</span></code></a> is a <code class="docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">mock_expectation</span></code>. We can capture the value and add extra properties to it as
+defined by the <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code> interface.</p>
 <div class="section" id="times-called">
 <h4>Times Called<a class="headerlink" href="#times-called" title="Permalink to this headline">¶</a></h4>
 <p>In the previous example, if we wanted assert that the method is never called,
 we could write:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="k">struct</span> <span class="n">mock_expectation</span><span class="o">*</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(...);</span>
+<span class="k">struct</span> <span class="n">mock_expectation</span><span class="o">*</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">TEST_EXPECT_CALL</span><span class="p">(...);</span>
 <span class="n">handle</span><span class="o">-&gt;</span><span class="n">min_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">handle</span><span class="o">-&gt;</span><span class="n">max_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">...</span>
@@ -713,13 +931,13 @@ of times that the method or function is called.</p>
 <p>Because <code class="docutils literal notranslate"><span class="pre">mock_printer</span></code> is a mock, it doesn’t actually perform any task. If
 the function had some side effect that <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Foo</span></code> requires to have been
 done, such as modifying some state, we could mock that as well.</p>
-<p>Each expectation has an associated <code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_action()</span></code> which can be
-set with <code class="docutils literal notranslate"><span class="pre">handle-&gt;action</span></code>. By default, there are two actions that mock return
-values. Those can also be found in <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a>.</p>
-<p>Custom actions can be defined by simply creating a <code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_action()</span></code>
-and assigning the appropriate function to <code class="docutils literal notranslate"><span class="pre">do_action</span></code>. Mocked actions have
-access to the parameters passed to the mocked function, as well as have the
-ability to change / set the return value.</p>
+<p>Each expectation has an associated <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_action</span></code> which can be set with
+<code class="docutils literal notranslate"><span class="pre">handle-&gt;action</span></code>. By default, there are two actions that mock return values.
+Those can also be found in <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a>.</p>
+<p>Custom actions can be defined by simply creating a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_action</span></code> and
+assigning the appropriate function to <code class="docutils literal notranslate"><span class="pre">do_action</span></code>. Mocked actions have access
+to the parameters passed to the mocked function, as well as have the ability to
+change / set the return value.</p>
 </div>
 </div>
 </div>
@@ -775,11 +993,11 @@ case:</p>
         <span class="k">struct</span> <span class="n">misc_example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
         <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
-                                              <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">TEST_EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
+                                              <span class="n">test_int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
         <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
+        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -832,7 +1050,7 @@ case:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'4.18.0-00031-gc590ddf14837a',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

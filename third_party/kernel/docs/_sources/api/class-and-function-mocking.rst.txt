@@ -49,7 +49,7 @@ These macros should only be used in the context of the mock stub generators.
 Built in Matchers
 -----------------
 
-.. kernel-doc:: include/test/mock.h
+.. kernel-doc:: include/kunit/mock.h
    :doc: Built In Matchers
 
 Mock Returns
@@ -64,5 +64,5 @@ mocked function is intercepted via :c:func:`EXPECT_CALL`.
 
 API
 ---
-.. kernel-doc:: include/test/mock.h
+.. kernel-doc:: include/kunit/mock.h
    :internal:

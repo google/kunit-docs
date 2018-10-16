@@ -19,7 +19,7 @@ The wrapper can be run with:
 
 .. code-block:: bash
 
-	 ./tools/testing/kunit/kunit.py
+   ./tools/testing/kunit/kunit.py
 
 Creating a kunitconfig
 ======================
@@ -29,7 +29,7 @@ regular Kernel config, with the specific test targets as well.
 
 .. code-block:: bash
 
-	git clone -b kunit/alpha/master https://kunit.googlesource.com/kunitconfig $PATH_TO_KUNITCONFIG_REPO
+	git clone -b master https://kunit.googlesource.com/kunitconfig $PATH_TO_KUNITCONFIG_REPO
 	cd $PATH_TO_LINUX_REPO
 	ln -s $PATH_TO_KUNIT_CONFIG_REPO/kunitconfig kunitconfig
 
@@ -70,11 +70,7 @@ In your kernel repo let's add some code that we can test. Create a file
 
 .. code-block:: c
 
-	struct misc_example {
-		int (*misc_example_foo)(struct misc_example *, int);
-	};
-
-	int misc_example_bar(struct misc_example *example);
+	int misc_example_add(int left, int right);
 
 create a file ``drivers/misc/example.c``:
 
@@ -84,12 +80,9 @@ create a file ``drivers/misc/example.c``:
 
 	#include "example.h"
 
-	int misc_example_bar(struct misc_example *example)
+	int misc_example_add(int left, int right)
 	{
-		if (example->misc_example_foo(example, 5))
-			return -EIO;
-		else
-			return 0;
+		return left + right;
 	}
 
 Now add the following lines to ``drivers/misc/Kconfig``:
@@ -114,75 +107,30 @@ Now we are ready to write the test. The test will be in
 	#include <linux/mock.h>
 	#include "example.h"
 
-	/* Define the mock. */
-
-	DECLARE_STRUCT_CLASS_MOCK_PREREQS(misc_example);
-
-	DEFINE_STRUCT_CLASS_MOCK(METHOD(misc_example_foo), CLASS(misc_example),
-				 RETURNS(int),
-				 PARAMS(struct misc_example *, int));
-
-	static int misc_example_init(struct MOCK(misc_example) *mock_example)
-	{
-		struct misc_example *example = mock_get_trgt(mock_example);
-
-		example->misc_example_foo = misc_example_foo;
-		return 0;
-	}
-
-	DEFINE_STRUCT_CLASS_MOCK_INIT(misc_example, misc_example_init);
-
 	/* Define the test cases. */
 
-	static void misc_example_bar_test_success(struct test *test)
+	static void misc_example_add_test_basic(struct test *test)
 	{
-		struct MOCK(misc_example) *mock_example = test->priv;
-		struct misc_example *example = mock_get_trgt(mock_example);
-		struct mock_expectation *handle;
-
-		handle = EXPECT_CALL(misc_example_foo(mock_get_ctrl(mock_example),
-						      int_eq(test, 5)));
-		handle->action = int_return(test, 0);
-
-		EXPECT_EQ(test, 0, misc_example_bar(example));
+		TEST_EXPECT_EQ(test, 1, misc_example_add(1, 0));
+		TEST_EXPECT_EQ(test, 2, misc_example_add(1, 1));
+		TEST_EXPECT_EQ(test, 0, misc_example_add(-1, 1));
+		TEST_EXPECT_EQ(test, INT_MAX, misc_example_add(0, INT_MAX));
+		TEST_EXPECT_EQ(test, -1, misc_example_add(INT_MAX, INT_MIN));
 	}
 
-	static void misc_example_bar_test_failure(struct test *test)
+	static void misc_example_test_failure(struct test *test)
 	{
-		struct MOCK(misc_example) *mock_example = test->priv;
-		struct misc_example *example = mock_get_trgt(mock_example);
-		struct mock_expectation *handle;
-
-		handle = EXPECT_CALL(misc_example_foo(mock_get_ctrl(mock_example),
-						      int_eq(test, 5)));
-		handle->action = int_return(test, -EINVAL);
-
-		EXPECT_EQ(test, -EINVAL, misc_example_bar(example));
-	}
-
-	static int misc_example_test_init(struct test *test)
-	{
-		test->priv = CONSTRUCT_MOCK(misc_example, test);
-		if (!test->priv)
-			return -EINVAL;
-
-		return 0;
-	}
-
-	static void misc_example_test_exit(struct test *test)
-	{
+		TEST_FAIL(test, "This test never passes.");
 	}
 
 	static struct test_case misc_example_test_cases[] = {
-		TEST_CASE(misc_example_bar_test_success),
-		TEST_CASE(misc_example_bar_test_failure),
+		TEST_CASE(misc_example_add_test_basic),
+		TEST_CASE(misc_example_test_failure),
 		{},
 	};
 
 	static struct test_module misc_example_test_module = {
 		.name = "misc-example",
-		.init = misc_example_test_init,
-		.exit = misc_example_test_exit,
 		.test_cases = misc_example_test_cases,
 	};
 	module_test(misc_example_test_module);
@@ -215,6 +163,8 @@ Now you can run the test:
 	./tools/testing/kunit/kunit.py
 
 You should see the following failure:
+
+.. TODO(brendanhiggins@google.com): update me!!!
 
 .. code-block:: none
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel  documentation</title>
+  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel 4.18.0-00031-gc590ddf14837a documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                4.17.0
+                4.18.0
               </div>
             
           
@@ -166,7 +166,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#organization-of-this-document">Organization of this document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#testing">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#mocking">Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#isolating-behavior">Isolating Behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#method-call-expectations">Method Call Expectations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#the-nice-the-strict-and-the-naggy">The Nice, the Strict, and the Naggy</a></li>
 </ul>
@@ -190,9 +190,9 @@
 These tests are able to be run locally on a developer’s workstation without a VM
 or special hardware.</p>
 <p>KUnit is heavily inspired by JUnit, Python’s <code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code>, and
-Googletest/Googlemock for C++; it provides many of the same features in a
-similar manner (mocking, spying, assertions, etc) in a way that makes sense
-with the Linux kernel’s flavor of C.</p>
+Googletest/Googlemock for C++. They have the same structure for defining test
+suites and test cases. KUnit defines a way to mock out C style classes and
+functions and create expectations on methods called within the code under test.</p>
 <p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
 </div>
 <div class="section" id="why-kunit">
@@ -232,7 +232,7 @@ difficult to write, and require a special setup or special hardware to run,
 then you wait a lot longer to write tests, and you wait a lot longer to run
 tests; this means that tests are likely to break, unlikely to test a lot of
 things, and are unlikely to be rerun once they pass. If your tests are really
-fast, you run them all the time, everytime you make a change, and everytime
+fast, you run them all the time, every time you make a change, and every time
 someone sends you some code. Why trust that someone ran all their tests
 correctly on every change when you can just run them yourself in less time than
 it takes to read his / her test log?</p>
@@ -287,7 +287,7 @@ it takes to read his / her test log?</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'4.18.0-00031-gc590ddf14837a',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -19,19 +19,15 @@ KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
 These tests are able to be run locally on a developer's workstation without a VM
 or special hardware.
 
-KUnit is heavily inspired by JUnit, Python's ``unittest.mock``, and
-Googletest/Googlemock for C++. They have the same structure for defining test
-suites and test cases. KUnit defines a way to mock out C style classes and
-functions and create expectations on methods called within the code under test.
+KUnit is heavily inspired by JUnit, Python's unittest.mock, and
+Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
+cases, grouping related test cases into test suites, providing common
+infrastructure for running tests, and much more.
 
 Get started now: :doc:`start`
 
 Why KUnit?
 ==========
-
-Aside from KUnit there is no true unit testing framework for the Linux kernel.
-Autotest and kselftest are sometimes cited as unit testing frameworks; however,
-they are not by most reasonable definitions of unit tests.
 
 A unit test is supposed to test a single unit of code in isolation, hence the
 name. A unit test should be the finest granularity of testing and as such should

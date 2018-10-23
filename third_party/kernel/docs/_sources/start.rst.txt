@@ -103,8 +103,7 @@ Now we are ready to write the test. The test will be in
 
 .. code-block:: c
 
-	#include <linux/test.h>
-	#include <linux/mock.h>
+	#include <kunit/test.h>
 	#include "example.h"
 
 	/* Define the test cases. */
@@ -141,7 +140,7 @@ Now add the following to ``drivers/misc/Kconfig``:
 
 	config MISC_EXAMPLE_TEST
 		bool "Test for my example"
-		depends on MISC_EXAMPLE && TEST
+		depends on MISC_EXAMPLE && KUNIT
 
 and the following to ``drivers/misc/Makefile``:
 
@@ -164,18 +163,14 @@ Now you can run the test:
 
 You should see the following failure:
 
-.. TODO(brendanhiggins@google.com): update me!!!
-
 .. code-block:: none
 
 	...
-	kunit misc-example: misc_example_bar_test_success passed
-	kunit misc-example: EXPECTATION FAILED at drivers/misc/example-test.c:48
-		Expected -22 == misc_example_bar(example), but
-			-22 == -22
-			misc_example_bar(example) == -5
-	kunit misc-example: misc_example_bar_test_failure failed
-	kunit misc-example: one or more tests failed
+	[16:08:57] [PASSED] misc-example:misc_example_add_test_basic
+	[16:08:57] [FAILED] misc-example:misc_example_test_failure
+	[16:08:57] EXPECTATION FAILED at drivers/misc/example-test.c:17
+	[16:08:57] 	This test never passes.
+	...
 
 Congrats! You just wrote your first KUnit test!
 

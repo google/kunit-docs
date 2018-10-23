@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; The Linux Kernel 4.18.0-00031-gc590ddf14837a documentation</title>
+  <title>Getting Started &mdash; The Linux Kernel 4.19.0-00033-gc58019fb4fe15 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.18.0
+                4.19.0
               </div>
             
           
@@ -244,8 +244,7 @@ Starting KUnit Kernel ...
 </div>
 <p>Now we are ready to write the test. The test will be in
 <code class="docutils literal notranslate"><span class="pre">drivers/misc/example-test.c</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;linux/test.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;linux/mock.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;kunit/test.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;example.h&quot;</span><span class="cp"></span>
 
 <span class="cm">/* Define the test cases. */</span>
@@ -280,7 +279,7 @@ Starting KUnit Kernel ...
 <p>Now add the following to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Kconfig</span></code>:</p>
 <div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="k">config</span> MISC_EXAMPLE_TEST
         <span class="nb">bool</span> <span class="s2">&quot;Test for my example&quot;</span>
-        <span class="k">depends on</span> MISC_EXAMPLE <span class="o">&amp;&amp;</span> TEST
+        <span class="k">depends on</span> MISC_EXAMPLE <span class="o">&amp;&amp;</span> KUNIT
 </pre></div>
 </div>
 <p>and the following to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Makefile</span></code>:</p>
@@ -298,13 +297,11 @@ CONFIG_MISC_EXAMPLE_TEST=y
 </div>
 <p>You should see the following failure:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>...
-kunit misc-example: misc_example_bar_test_success passed
-kunit misc-example: EXPECTATION FAILED at drivers/misc/example-test.c:48
-        Expected -22 == misc_example_bar(example), but
-                -22 == -22
-                misc_example_bar(example) == -5
-kunit misc-example: misc_example_bar_test_failure failed
-kunit misc-example: one or more tests failed
+[16:08:57] [PASSED] misc-example:misc_example_add_test_basic
+[16:08:57] [FAILED] misc-example:misc_example_test_failure
+[16:08:57] EXPECTATION FAILED at drivers/misc/example-test.c:17
+[16:08:57]      This test never passes.
+...
 </pre></div>
 </div>
 <p>Congrats! You just wrote your first KUnit test!</p>
@@ -360,7 +357,7 @@ in-depth explanation of KUnit.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.18.0-00031-gc590ddf14837a',
+            VERSION:'4.19.0-00033-gc58019fb4fe15',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

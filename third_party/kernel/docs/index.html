@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel 4.18.0-00031-gc590ddf14837a documentation</title>
+  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel 4.19.0-00033-gc58019fb4fe15 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                4.18.0
+                4.19.0
               </div>
             
           
@@ -167,14 +167,10 @@
 <li class="toctree-l2"><a class="reference internal" href="usage.html#organization-of-this-document">Organization of this document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#isolating-behavior">Isolating Behavior</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#method-call-expectations">Method Call Expectations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#the-nice-the-strict-and-the-naggy">The Nice, the Strict, and the Naggy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/test.html">Test API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/class-and-function-mocking.html">Class and Function Mocking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/platform-mocking.html">Platform Mocking</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
@@ -189,17 +185,14 @@
 <p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
 These tests are able to be run locally on a developer’s workstation without a VM
 or special hardware.</p>
-<p>KUnit is heavily inspired by JUnit, Python’s <code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code>, and
-Googletest/Googlemock for C++. They have the same structure for defining test
-suites and test cases. KUnit defines a way to mock out C style classes and
-functions and create expectations on methods called within the code under test.</p>
+<p>KUnit is heavily inspired by JUnit, Python’s unittest.mock, and
+Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
+cases, grouping related test cases into test suites, providing common
+infrastructure for running tests, and much more.</p>
 <p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
 </div>
 <div class="section" id="why-kunit">
 <h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
-<p>Aside from KUnit there is no true unit testing framework for the Linux kernel.
-Autotest and kselftest are sometimes cited as unit testing frameworks; however,
-they are not by most reasonable definitions of unit tests.</p>
 <p>A unit test is supposed to test a single unit of code in isolation, hence the
 name. A unit test should be the finest granularity of testing and as such should
 allow all possible code paths to be tested in the code under test; this is only
@@ -287,7 +280,7 @@ it takes to read his / her test log?</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.18.0-00031-gc590ddf14837a',
+            VERSION:'4.19.0-00033-gc58019fb4fe15',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

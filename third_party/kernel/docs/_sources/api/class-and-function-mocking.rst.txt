@@ -59,8 +59,8 @@ mocked function is intercepted via :c:func:`EXPECT_CALL`.
 
 .. code-block:: c
 
-        struct mock_action *int_return(struct test *test, int ret);
-        struct mock_action *u32_return(struct test *test, u32 ret);
+        struct mock_action *test_int_return(struct test *test, int ret);
+        struct mock_action *test_u32_return(struct test *test, u32 ret);
 
 API
 ---

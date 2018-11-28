@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using KUnit &mdash; The Linux Kernel 4.19.0-00033-gc58019fb4fe15 documentation</title>
+  <title>Using KUnit &mdash; The Linux Kernel 4.19.0-00019-g8b49ba0b2cf10 documentation</title>
   
 
   
@@ -214,22 +214,22 @@ compilation unit; so that is all the functions that are exported in either a
 <div class="section" id="test-cases">
 <h4>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h4>
 <p>The fundamental unit in KUnit is the test case. A test case is a function with
-the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*test)</span></code>. It calls a function to be tested
+the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*test)</span></code>. It calls a function to be tested
 and then sets <em>expectations</em> for what should happen. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
+        <span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example <code class="docutils literal notranslate"><span class="pre">example_test_success</span></code> always passes because it does
 nothing; no expectations are set, so all expectations pass. On the other hand
-<code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">TEST_FAIL</span></code>, which is a
-special expectation that logs a message and causes the test case to fail.</p>
+<code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL</span></code>, which is
+a special expectation that logs a message and causes the test case to fail.</p>
 </div>
 <div class="section" id="expectations">
 <h4>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h4>
@@ -238,16 +238,16 @@ something in a test. An expectation is called like a function. A test is made
 by setting expectations about the behavior of a piece of code under test; when
 one or more of the expectations fail, the test case fails and information about
 the failure is logged. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> makes a number of assertions about the
 behavior of a function called <code class="docutils literal notranslate"><span class="pre">add</span></code>; the first parameter is always of type
-<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span></code>, which contains information about the current test context;
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span></code>, which contains information about the current test context;
 the second parameter, in this case, is what the value is expected to be; the
 last value is what the value actually is. If <code class="docutils literal notranslate"><span class="pre">add</span></code> passes all of these
 expectations, the test case, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> will pass; if any one of these
@@ -265,26 +265,26 @@ focused on a single behavior.</p>
 <p>For example, if we wanted to properly test the add function above, we would
 create additional tests cases which would each test a different property that an
 add function should have like this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">add_test_negative</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">add_test_negative</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">add_test_max</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">add_test_max</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">add_test_overflow</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">add_test_overflow</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -297,7 +297,7 @@ for are.</p>
 expectation except the assertion immediately terminates the test case if it is
 not satisfied.</p>
 <p>For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">mock_test_do_expect_default_return</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">mock_test_do_expect_default_return</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">mock_test_context</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
         <span class="k">struct</span> <span class="n">mock</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock</span><span class="p">;</span>
@@ -310,8 +310,8 @@ not satisfied.</p>
                               <span class="s">&quot;test_printk&quot;</span><span class="p">,</span> <span class="n">test_printk</span><span class="p">,</span>
                               <span class="n">two_param_types</span><span class="p">,</span> <span class="n">two_params</span><span class="p">,</span>
                               <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">two_params</span><span class="p">));</span>
-        <span class="n">TEST_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -332,14 +332,14 @@ test cases for a unit of code with a set up function that gets invoked before
 every test cases and then a tear down function that gets invoked after every
 test case completes.</p>
 <p>Example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_baz</span><span class="p">),</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_baz</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_module</span> <span class="n">example_test_module</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_module</span> <span class="n">example_test_module</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;example&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">example_test_init</span><span class="p">,</span>
         <span class="p">.</span><span class="n">exit</span> <span class="o">=</span> <span class="n">example_test_exit</span><span class="p">,</span>
@@ -493,7 +493,7 @@ represents an EEPROM:</p>
         <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
@@ -503,17 +503,17 @@ represents an EEPROM:</p>
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="n">SIZE_MAX</span><span class="p">;</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_after_flush_count_met</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_after_flush_count_met</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
@@ -523,14 +523,14 @@ represents an EEPROM:</p>
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_increments_of_flush_count</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_flushes_increments_of_flush_count</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer</span> <span class="o">*</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
@@ -540,23 +540,23 @@ represents an EEPROM:</p>
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
 
         <span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0xff</span><span class="p">);</span>
         <span class="cm">/* Should have only flushed the first two bytes. */</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
 
-        <span class="n">ctx</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
         <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="p">);</span>
 
-        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
         <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
 
         <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
@@ -567,7 +567,7 @@ represents an EEPROM:</p>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
 
@@ -622,7 +622,7 @@ represents an EEPROM:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.19.0-00033-gc58019fb4fe15',
+            VERSION:'4.19.0-00019-g8b49ba0b2cf10',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

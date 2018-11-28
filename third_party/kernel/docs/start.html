@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; The Linux Kernel 4.19.0-00033-gc58019fb4fe15 documentation</title>
+  <title>Getting Started &mdash; The Linux Kernel 4.19.0-00019-g8b49ba0b2cf10 documentation</title>
   
 
   
@@ -249,27 +249,27 @@ Starting KUnit Kernel ...
 
 <span class="cm">/* Define the test cases. */</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">misc_example_add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">misc_example_add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">misc_example_add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">misc_example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">misc_example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
+        <span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">misc_example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_add_test_basic</span><span class="p">),</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_test_failure</span><span class="p">),</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_case</span> <span class="n">misc_example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">misc_example_add_test_basic</span><span class="p">),</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">misc_example_test_failure</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_module</span> <span class="n">misc_example_test_module</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_module</span> <span class="n">misc_example_test_module</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;misc-example&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">test_cases</span> <span class="o">=</span> <span class="n">misc_example_test_cases</span><span class="p">,</span>
 <span class="p">};</span>
@@ -357,7 +357,7 @@ in-depth explanation of KUnit.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.19.0-00033-gc58019fb4fe15',
+            VERSION:'4.19.0-00019-g8b49ba0b2cf10',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

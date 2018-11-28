@@ -10,6 +10,6 @@ related features.
 .. kernel-doc:: include/kunit/test.h
    :internal:
 
-.. kernel-doc:: include/kunit/test-stream.h
+.. kernel-doc:: include/kunit/kunit-stream.h
    :internal:
 

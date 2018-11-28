@@ -108,27 +108,27 @@ Now we are ready to write the test. The test will be in
 
 	/* Define the test cases. */
 
-	static void misc_example_add_test_basic(struct test *test)
+	static void misc_example_add_test_basic(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, 1, misc_example_add(1, 0));
-		TEST_EXPECT_EQ(test, 2, misc_example_add(1, 1));
-		TEST_EXPECT_EQ(test, 0, misc_example_add(-1, 1));
-		TEST_EXPECT_EQ(test, INT_MAX, misc_example_add(0, INT_MAX));
-		TEST_EXPECT_EQ(test, -1, misc_example_add(INT_MAX, INT_MIN));
+		KUNIT_EXPECT_EQ(test, 1, misc_example_add(1, 0));
+		KUNIT_EXPECT_EQ(test, 2, misc_example_add(1, 1));
+		KUNIT_EXPECT_EQ(test, 0, misc_example_add(-1, 1));
+		KUNIT_EXPECT_EQ(test, INT_MAX, misc_example_add(0, INT_MAX));
+		KUNIT_EXPECT_EQ(test, -1, misc_example_add(INT_MAX, INT_MIN));
 	}
 
-	static void misc_example_test_failure(struct test *test)
+	static void misc_example_test_failure(struct kunit *test)
 	{
-		TEST_FAIL(test, "This test never passes.");
+		KUNIT_FAIL(test, "This test never passes.");
 	}
 
-	static struct test_case misc_example_test_cases[] = {
-		TEST_CASE(misc_example_add_test_basic),
-		TEST_CASE(misc_example_test_failure),
+	static struct kunit_case misc_example_test_cases[] = {
+		KUNIT_CASE(misc_example_add_test_basic),
+		KUNIT_CASE(misc_example_test_failure),
 		{},
 	};
 
-	static struct test_module misc_example_test_module = {
+	static struct kunit_module misc_example_test_module = {
 		.name = "misc-example",
 		.test_cases = misc_example_test_cases,
 	};

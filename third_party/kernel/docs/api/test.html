@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 4.19.0-00033-gc58019fb4fe15 documentation</title>
+  <title>Test API &mdash; The Linux Kernel 4.19.0-00019-g8b49ba0b2cf10 documentation</title>
   
 
   
@@ -162,15 +162,15 @@
 <p>This file documents all of the standard testing API excluding mocking or mocking
 related features.</p>
 <dl class="type">
-<dt id="c.test_resource">
-struct <code class="descname">test_resource</code><a class="headerlink" href="#c.test_resource" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_resource">
+struct <code class="descname">kunit_resource</code><a class="headerlink" href="#c.kunit_resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>represents a <em>test managed resource</em></p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_resource {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_resource {
   void *allocation;
-  test_resource_free_t free;
+  kunit_resource_free_t free;
 };
 </pre></div>
 </div>
@@ -180,20 +180,20 @@ struct <code class="descname">test_resource</code><a class="headerlink" href="#c
 <dd>for the user to store arbitrary data.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">free</span></code></dt>
 <dd>a user supplied function to free the resource. Populated by
-<a class="reference internal" href="#c.test_alloc_resource" title="test_alloc_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_alloc_resource()</span></code></a>.</dd>
+<a class="reference internal" href="#c.kunit_alloc_resource" title="kunit_alloc_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_alloc_resource()</span></code></a>.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Represents a <em>test managed resource</em>, a resource which will automatically be
 cleaned up at the end of a test case.</p>
 <p><strong>Example</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">kunit_kmalloc_params</span> <span class="p">{</span>
         <span class="kt">size_t</span> <span class="n">size</span><span class="p">;</span>
         <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">kunit_kmalloc_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="o">*</span><span class="n">params</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">kunit_kmalloc_params</span> <span class="o">*</span><span class="n">params</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
         <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">gfp</span><span class="p">);</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">)</span>
@@ -202,21 +202,21 @@ cleaned up at the end of a test case.</p>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">kunit_kmalloc_free</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">kfree</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="o">*</span><span class="nf">test_kmalloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
+<span class="kt">void</span> <span class="o">*</span><span class="nf">kunit_kmalloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">test_kmalloc_params</span> <span class="n">params</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">kunit_kmalloc_params</span> <span class="n">params</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">kunit_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
 
         <span class="n">params</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
         <span class="n">params</span><span class="p">.</span><span class="n">gfp</span> <span class="o">=</span> <span class="n">gfp</span><span class="p">;</span>
 
-        <span class="n">res</span> <span class="o">=</span> <span class="n">test_alloc_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">test_kmalloc_init</span><span class="p">,</span>
-                <span class="n">test_kmalloc_free</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">params</span><span class="p">);</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">kunit_alloc_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">kunit_kmalloc_init</span><span class="p">,</span>
+                <span class="n">kunit_kmalloc_free</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">params</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">;</span>
         <span class="k">else</span>
@@ -225,14 +225,14 @@ cleaned up at the end of a test case.</p>
 </pre></div>
 </div>
 <dl class="type">
-<dt id="c.test_case">
-struct <code class="descname">test_case</code><a class="headerlink" href="#c.test_case" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_case">
+struct <code class="descname">kunit_case</code><a class="headerlink" href="#c.kunit_case" title="Permalink to this definition">¶</a></dt>
 <dd><p>represents an individual test case.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_case {
-  void (*run_case)(struct test *test);
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_case {
+  void (*run_case)(struct kunit *test);
   const char name[256];
 };
 </pre></div>
@@ -245,34 +245,34 @@ struct <code class="descname">test_case</code><a class="headerlink" href="#c.tes
 <dd>the name of the test case.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*)</span></code>
-that makes expectations and assertions (see <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> and
-<a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) about code under test. Each test case is associated with
-a <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> and will be run after the module’s init function and
+<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*)</span></code>
+that makes expectations and assertions (see <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> and
+<a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) about code under test. Each test case is associated with
+a <a class="reference internal" href="#c.kunit_module" title="kunit_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_module</span></code></a> and will be run after the module’s init function and
 followed by the module’s exit function.</p>
-<p>A test case should be static and should only be created with the <a class="reference internal" href="#c.TEST_CASE" title="TEST_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_CASE()</span></code></a>
+<p>A test case should be static and should only be created with the <a class="reference internal" href="#c.KUNIT_CASE" title="KUNIT_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_CASE()</span></code></a>
 macro; additionally, every array of test cases should be terminated with an
 empty test case.</p>
 <p><strong>Example</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
-        <span class="n">TEST_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <dl class="function">
-<dt id="c.TEST_CASE">
-<code class="descname">TEST_CASE</code><span class="sig-paren">(</span><em>test_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_CASE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A helper for creating a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a></p>
+<dt id="c.KUNIT_CASE">
+<code class="descname">KUNIT_CASE</code><span class="sig-paren">(</span><em>test_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_CASE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper for creating a <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a></p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -281,21 +281,21 @@ empty test case.</p>
 <dd>a reference to a test case function.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Takes a symbol for a function representing a test case and creates a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
-<span class="pre">test_case</span></code></a> object from it. See the documentation for <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> for an
-example on how to use it.</p>
+<p>Takes a symbol for a function representing a test case and creates a
+<a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> object from it. See the documentation for
+<a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> for an example on how to use it.</p>
 <dl class="type">
-<dt id="c.test_module">
-struct <code class="descname">test_module</code><a class="headerlink" href="#c.test_module" title="Permalink to this definition">¶</a></dt>
-<dd><p>describes a related collection of <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s.</p>
+<dt id="c.kunit_module">
+struct <code class="descname">kunit_module</code><a class="headerlink" href="#c.kunit_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>describes a related collection of <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> s.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_module {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_module {
   const char name[256];
-  int (*init)(struct test *test);
-  void (*exit)(struct test *test);
-  struct test_case *test_cases;
+  int (*init)(struct kunit *test);
+  void (*exit)(struct kunit *test);
+  struct kunit_case *test_cases;
 };
 </pre></div>
 </div>
@@ -311,20 +311,20 @@ struct <code class="descname">test_module</code><a class="headerlink" href="#c.t
 <dd>a null terminated array of test cases.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>A test_module is a collection of related <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s, such that
+<p>A kunit_module is a collection of related <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> s, such that
 <strong>init</strong> is called before every test case and <strong>exit</strong> is called after every test
 case, similar to the notion of a <em>test fixture</em> or a <em>test class</em> in other
 unit testing frameworks like JUnit or Googletest.</p>
-<p>Every <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> must be associated with a test_module for KUnit to
+<p>Every <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> must be associated with a kunit_module for KUnit to
 run it.</p>
 <dl class="type">
-<dt id="c.test">
-struct <code class="descname">test</code><a class="headerlink" href="#c.test" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit">
+struct <code class="descname">kunit</code><a class="headerlink" href="#c.kunit" title="Permalink to this definition">¶</a></dt>
 <dd><p>represents a running instance of a test.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit {
   void *priv;
 };
 </pre></div>
@@ -333,7 +333,7 @@ struct <code class="descname">test</code><a class="headerlink" href="#c.test" ti
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">priv</span></code></dt>
 <dd>for user to store arbitrary data. Commonly used to pass data created
-in the init function (see <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>).</dd>
+in the init function (see <a class="reference internal" href="#c.kunit_module" title="kunit_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_module</span></code></a>).</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Used to store information about the current context under which the test is
@@ -343,47 +343,47 @@ test writer to store arbitrary data.</p>
 <dl class="function">
 <dt id="c.module_test">
 <code class="descname">module_test</code><span class="sig-paren">(</span><em>module</em><span class="sig-paren">)</span><a class="headerlink" href="#c.module_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>used to register a <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> with KUnit.</p>
+<dd><p>used to register a <a class="reference internal" href="#c.kunit_module" title="kunit_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_module</span></code></a> with KUnit.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">module</span></code></dt>
-<dd>a statically allocated <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>.</dd>
+<dd>a statically allocated <a class="reference internal" href="#c.kunit_module" title="kunit_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_module</span></code></a>.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Registers <strong>module</strong> with the test framework. See <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> for more
+<p>Registers <strong>module</strong> with the test framework. See <a class="reference internal" href="#c.kunit_module" title="kunit_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_module</span></code></a> for more
 information.</p>
 <dl class="function">
-<dt id="c.test_alloc_resource">
-struct <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a> * <code class="descname">test_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, test_resource_init_t<em>&nbsp;init</em>, test_resource_free_t<em>&nbsp;free</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_alloc_resource">
+struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> * <code class="descname">kunit_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">test_resource_init_t</span> <span class="pre">init</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_init_t</span> <span class="pre">init</span></code></dt>
 <dd>a user supplied function to initialize the resource.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">test_resource_free_t</span> <span class="pre">free</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_free_t</span> <span class="pre">free</span></code></dt>
 <dd>a user supplied function to free the resource.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">context</span></code></dt>
 <dd>for the user to pass in arbitrary data.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Allocates a <em>test managed resource</em>, a resource which will automatically be
-cleaned up at the end of a test case. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_resource</span></code></a> for an
+cleaned up at the end of a test case. See <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> for an
 example.</p>
 <dl class="function">
-<dt id="c.test_kmalloc">
-void * <code class="descname">test_kmalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Just like <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code> except the allocation is <em>test managed</em>.</p>
+<dt id="c.kunit_kmalloc">
+void * <code class="descname">kunit_kmalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kmalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code> except the allocation is <em>test managed</em>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
 <dd>The size in bytes of the desired memory.</dd>
@@ -392,17 +392,17 @@ void * <code class="descname">test_kmalloc</code><span class="sig-paren">(</span
 </dl>
 <p><strong>Description</strong></p>
 <p>Just like <cite>kmalloc(…)</cite>, except the allocation is managed by the test case
-and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
-<span class="pre">test_resource</span></code></a> for more information.</p>
+and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">kunit_resource</span></code></a> for more information.</p>
 <dl class="function">
-<dt id="c.test_kzalloc">
-void * <code class="descname">test_kzalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Just like <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a>, but zeroes the allocation.</p>
+<dt id="c.kunit_kzalloc">
+void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kzalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a>, but zeroes the allocation.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
 <dd>The size in bytes of the desired memory.</dd>
@@ -410,10 +410,10 @@ void * <code class="descname">test_kzalloc</code><span class="sig-paren">(</span
 <dd>flags passed to underlying <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code>.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <code class="xref c c-func docutils literal notranslate"><span class="pre">kzalloc()</span></code> and <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a> for more information.</p>
+<p>See <code class="xref c c-func docutils literal notranslate"><span class="pre">kzalloc()</span></code> and <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a> for more information.</p>
 <dl class="function">
-<dt id="c.test_info">
-<code class="descname">test_info</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_info" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_info">
+<code class="descname">kunit_info</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints an INFO level message associated with the current test.</p>
 </dd></dl>
 
@@ -430,8 +430,8 @@ void * <code class="descname">test_kzalloc</code><span class="sig-paren">(</span
 <p>Prints an info level message associated with the test module being run. Takes
 a variable number of format parameters just like <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code>.</p>
 <dl class="function">
-<dt id="c.test_warn">
-<code class="descname">test_warn</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_warn" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_warn">
+<code class="descname">kunit_warn</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_warn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints a WARN level message associated with the current test.</p>
 </dd></dl>
 
@@ -445,10 +445,10 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
+<p>See <a class="reference internal" href="#c.kunit_info" title="kunit_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_info()</span></code></a>.</p>
 <dl class="function">
-<dt id="c.test_err">
-<code class="descname">test_err</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_err" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_err">
+<code class="descname">kunit_err</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_err" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints an ERROR level message associated with the current test.</p>
 </dd></dl>
 
@@ -462,10 +462,10 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
+<p>See <a class="reference internal" href="#c.kunit_info" title="kunit_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_info()</span></code></a>.</p>
 <dl class="function">
-<dt id="c.TEST_SUCCEED">
-<code class="descname">TEST_SUCCEED</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_SUCCEED" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_SUCCEED">
+<code class="descname">KUNIT_SUCCEED</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_SUCCEED" title="Permalink to this definition">¶</a></dt>
 <dd><p>A no-op expectation. Only exists for code clarity.</p>
 </dd></dl>
 
@@ -475,12 +475,12 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dd>The test context object.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>The opposite of <a class="reference internal" href="#c.TEST_FAIL" title="TEST_FAIL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_FAIL()</span></code></a>, it is an expectation that cannot fail. In other
+<p>The opposite of <a class="reference internal" href="#c.KUNIT_FAIL" title="KUNIT_FAIL"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_FAIL()</span></code></a>, it is an expectation that cannot fail. In other
 words, it does nothing and only exists for code clarity. See
-<a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more information.</p>
+<a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="function">
-<dt id="c.TEST_FAIL">
-<code class="descname">TEST_FAIL</code><span class="sig-paren">(</span><em>test</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_FAIL" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_FAIL">
+<code class="descname">KUNIT_FAIL</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_FAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Always causes a test to fail when evaluated.</p>
 </dd></dl>
 
@@ -488,17 +488,19 @@ words, it does nothing and only exists for code clarity. See
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">message</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
 <dd>an informational message to be printed when the assertion is made.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
+<dd>string format arguments.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>The opposite of <a class="reference internal" href="#c.TEST_SUCCEED" title="TEST_SUCCEED"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_SUCCEED()</span></code></a>, it is an expectation that always fails. In
+<p>The opposite of <a class="reference internal" href="#c.KUNIT_SUCCEED" title="KUNIT_SUCCEED"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_SUCCEED()</span></code></a>, it is an expectation that always fails. In
 other words, it always results in a failed expectation, and consequently
-always causes the test case to fail when evaluated. See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a>
+always causes the test case to fail when evaluated. See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a>
 for more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_TRUE">
-<code class="descname">TEST_EXPECT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_TRUE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_TRUE">
+<code class="descname">KUNIT_EXPECT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_TRUE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Causes a test failure when the expression is not true.</p>
 </dd></dl>
 
@@ -511,14 +513,14 @@ for more information.</p>
 not evaluate to true.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>This and expectations of the form <cite>TEST_EXPECT_*</cite> will cause the test case to
-fail when the specified condition is not met; however, it will not prevent
+<p>This and expectations of the form <cite>KUNIT_EXPECT_*</cite> will cause the test case
+to fail when the specified condition is not met; however, it will not prevent
 the test case from continuing to run; this is otherwise known as an
 <em>expectation failure</em>.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_FALSE">
-<code class="descname">TEST_EXPECT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_FALSE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes a test failure when the expression is not false.</p>
+<dt id="c.KUNIT_EXPECT_FALSE">
+<code class="descname">KUNIT_EXPECT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_FALSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a test failure when the expression is not false.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -531,10 +533,10 @@ not evaluate to false.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that <strong>condition</strong> evaluates to false. See
-<a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more information.</p>
+<a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_EQ">
-<code class="descname">TEST_EXPECT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_EQ" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_EQ">
+<code class="descname">KUNIT_EXPECT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_EQ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets an expectation that <strong>left</strong> and <strong>right</strong> are equal.</p>
 </dd></dl>
 
@@ -550,11 +552,11 @@ not evaluate to false.</dd>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
 equal. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more
-information.</p>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_NE">
-<code class="descname">TEST_EXPECT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_NE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_NE">
+<code class="descname">KUNIT_EXPECT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_NE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An expectation that <strong>left</strong> and <strong>right</strong> are not equal.</p>
 </dd></dl>
 
@@ -570,11 +572,11 @@ information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
 equal. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) != (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more
-information.</p>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) != (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_LT">
-<code class="descname">TEST_EXPECT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_LT" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_LT">
+<code class="descname">KUNIT_EXPECT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_LT" title="Permalink to this definition">¶</a></dt>
 <dd><p>An expectation that <strong>left</strong> is less than <strong>right</strong>.</p>
 </dd></dl>
 
@@ -590,12 +592,12 @@ information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the value that <strong>left</strong> evaluates to is less than the
 value that <strong>right</strong> evaluates to. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt; (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more
-information.</p>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt; (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_LE">
-<code class="descname">TEST_EXPECT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_LE" title="Permalink to this definition">¶</a></dt>
-<dd><p>An expectation that <strong>left</strong> is less than or equal to <strong>right</strong>.</p>
+<dt id="c.KUNIT_EXPECT_LE">
+<code class="descname">KUNIT_EXPECT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_LE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that <strong>left</strong> is less than or equal to <strong>right</strong>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -610,11 +612,11 @@ information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the value that <strong>left</strong> evaluates to is less than or
 equal to the value that <strong>right</strong> evaluates to. Semantically this is equivalent
-to TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for
+to KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
 more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_GT">
-<code class="descname">TEST_EXPECT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_GT" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_GT">
+<code class="descname">KUNIT_EXPECT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_GT" title="Permalink to this definition">¶</a></dt>
 <dd><p>An expectation that <strong>left</strong> is greater than <strong>right</strong>.</p>
 </dd></dl>
 
@@ -630,11 +632,11 @@ more information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the value that <strong>left</strong> evaluates to is greater than
 the value that <strong>right</strong> evaluates to. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt; (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more
-information.</p>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt; (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_GE">
-<code class="descname">TEST_EXPECT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_GE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_GE">
+<code class="descname">KUNIT_EXPECT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_GE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expects that <strong>left</strong> is greater than or equal to <strong>right</strong>.</p>
 </dd></dl>
 
@@ -650,12 +652,12 @@ information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the value that <strong>left</strong> evaluates to is greater than
 the value that <strong>right</strong> evaluates to. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for more
-information.</p>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_STREQ">
-<code class="descname">TEST_EXPECT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_STREQ" title="Permalink to this definition">¶</a></dt>
-<dd><p>An expectation that strings <strong>left</strong> and <strong>right</strong> are equal.</p>
+<dt id="c.KUNIT_EXPECT_STREQ">
+<code class="descname">KUNIT_EXPECT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_STREQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that strings <strong>left</strong> and <strong>right</strong> are equal.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -670,11 +672,11 @@ information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
 equal. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a>
+KUNIT_EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a>
 for more information.</p>
 <dl class="function">
-<dt id="c.TEST_EXPECT_NOT_ERR_OR_NULL">
-<code class="descname">TEST_EXPECT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_EXPECT_NOT_ERR_OR_NULL">
+<code class="descname">KUNIT_EXPECT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expects that <strong>ptr</strong> is not null and not err.</p>
 </dd></dl>
 
@@ -688,12 +690,12 @@ for more information.</p>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the value that <strong>ptr</strong> evaluates to is not null and not
 an errno stored in a pointer. This is semantically equivalent to
-TEST_EXPECT_TRUE(<strong>test</strong>, !IS_ERR_OR_NULL(<strong>ptr</strong>)). See <a class="reference internal" href="#c.TEST_EXPECT_TRUE" title="TEST_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_TRUE()</span></code></a> for
+KUNIT_EXPECT_TRUE(<strong>test</strong>, !IS_ERR_OR_NULL(<strong>ptr</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
 more information.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_TRUE">
-<code class="descname">TEST_ASSERT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_TRUE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Causes an assertion failure when expression is not true.</p>
+<dt id="c.KUNIT_ASSERT_TRUE">
+<code class="descname">KUNIT_ASSERT_TRUE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_TRUE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets an assertion that <strong>condition</strong> is true.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -705,13 +707,13 @@ more information.</p>
 this does not evaluate to true.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>This and assertions of the form <cite>TEST_ASSERT_*</cite> will cause the test case to
+<p>This and assertions of the form <cite>KUNIT_ASSERT_*</cite> will cause the test case to
 fail <em>and immediately abort</em> when the specified condition is not met. Unlike
 an expectation failure, it will prevent the test case from continuing to run;
 this is otherwise known as an <em>assertion failure</em>.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_FALSE">
-<code class="descname">TEST_ASSERT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_FALSE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_FALSE">
+<code class="descname">KUNIT_ASSERT_FALSE</code><span class="sig-paren">(</span><em>test</em>, <em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_FALSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets an assertion that <strong>condition</strong> is false.</p>
 </dd></dl>
 
@@ -723,12 +725,12 @@ this is otherwise known as an <em>assertion failure</em>.</p>
 <dd>an arbitrary boolean expression.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Sets an assertion that the value that <strong>condition</strong> evaluates to is false.  This
-is the same as <a class="reference internal" href="#c.TEST_EXPECT_FALSE" title="TEST_EXPECT_FALSE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_FALSE()</span></code></a>, except it causes an assertion failure
-(see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<p>Sets an assertion that the value that <strong>condition</strong> evaluates to is false. This
+is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_FALSE" title="KUNIT_EXPECT_FALSE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_FALSE()</span></code></a>, except it causes an assertion failure
+(see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_EQ">
-<code class="descname">TEST_ASSERT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_EQ" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_EQ">
+<code class="descname">KUNIT_ASSERT_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_EQ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets an assertion that <strong>left</strong> and <strong>right</strong> are equal.</p>
 </dd></dl>
 
@@ -743,11 +745,11 @@ is the same as <a class="reference internal" href="#c.TEST_EXPECT_FALSE" title="
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
-equal. This is the same as <a class="reference internal" href="#c.TEST_EXPECT_EQ" title="TEST_EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_EQ()</span></code></a>, except it causes an assertion
-failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_EQ" title="KUNIT_EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ()</span></code></a>, except it causes an assertion
+failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_NE">
-<code class="descname">TEST_ASSERT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_NE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_NE">
+<code class="descname">KUNIT_ASSERT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_NE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>left</strong> and <strong>right</strong> are not equal.</p>
 </dd></dl>
 
@@ -762,11 +764,11 @@ failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TES
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
-equal. This is the same as <a class="reference internal" href="#c.TEST_EXPECT_NE" title="TEST_EXPECT_NE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_NE()</span></code></a>, except it causes an assertion
-failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_NE" title="KUNIT_EXPECT_NE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NE()</span></code></a>, except it causes an assertion
+failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_LT">
-<code class="descname">TEST_ASSERT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_LT" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_LT">
+<code class="descname">KUNIT_ASSERT_LT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_LT" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>left</strong> is less than <strong>right</strong>.</p>
 </dd></dl>
 
@@ -781,12 +783,12 @@ failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TES
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the value that <strong>left</strong> evaluates to is less than the
-value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.TEST_EXPECT_LT" title="TEST_EXPECT_LT"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_LT()</span></code></a>, except
-it causes an assertion failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is
-not met.</p>
+value that <strong>right</strong> evaluates to. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_LT" title="KUNIT_EXPECT_LT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_LT()</span></code></a>, except
+it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion
+is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_LE">
-<code class="descname">TEST_ASSERT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_LE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_LE">
+<code class="descname">KUNIT_ASSERT_LE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_LE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>left</strong> is less than or equal to <strong>right</strong>.</p>
 </dd></dl>
 
@@ -801,12 +803,12 @@ not met.</p>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the value that <strong>left</strong> evaluates to is less than or
-equal to the value that <strong>right</strong> evaluates to.  This is the same as
-<a class="reference internal" href="#c.TEST_EXPECT_LE" title="TEST_EXPECT_LE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_LE()</span></code></a>, except it causes an assertion failure (see
-<a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+equal to the value that <strong>right</strong> evaluates to. This is the same as
+<a class="reference internal" href="#c.KUNIT_EXPECT_LE" title="KUNIT_EXPECT_LE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_LE()</span></code></a>, except it causes an assertion failure (see
+<a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_GT">
-<code class="descname">TEST_ASSERT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_GT" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_GT">
+<code class="descname">KUNIT_ASSERT_GT</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_GT" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>left</strong> is greater than <strong>right</strong>.</p>
 </dd></dl>
 
@@ -821,12 +823,12 @@ equal to the value that <strong>right</strong> evaluates to.  This is the same a
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the value that <strong>left</strong> evaluates to is greater than the
-value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.TEST_EXPECT_GT" title="TEST_EXPECT_GT"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_GT()</span></code></a>, except
-it causes an assertion failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is
-not met.</p>
+value that <strong>right</strong> evaluates to. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_GT" title="KUNIT_EXPECT_GT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_GT()</span></code></a>, except
+it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion
+is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_GE">
-<code class="descname">TEST_ASSERT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_GE" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_GE">
+<code class="descname">KUNIT_ASSERT_GE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_GE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assertion that <strong>left</strong> is greater than or equal to <strong>right</strong>.</p>
 </dd></dl>
 
@@ -841,12 +843,12 @@ not met.</p>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the value that <strong>left</strong> evaluates to is greater than the
-value that <strong>right</strong> evaluates to.  This is the same as <a class="reference internal" href="#c.TEST_EXPECT_GE" title="TEST_EXPECT_GE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_GE()</span></code></a>, except
-it causes an assertion failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is
-not met.</p>
+value that <strong>right</strong> evaluates to. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_GE" title="KUNIT_EXPECT_GE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_GE()</span></code></a>, except
+it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion
+is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_STREQ">
-<code class="descname">TEST_ASSERT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_STREQ" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_STREQ">
+<code class="descname">KUNIT_ASSERT_STREQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_STREQ" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that strings <strong>left</strong> and <strong>right</strong> are equal.</p>
 </dd></dl>
 
@@ -861,11 +863,11 @@ not met.</p>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
-equal.  This is the same as <a class="reference internal" href="#c.TEST_EXPECT_STREQ" title="TEST_EXPECT_STREQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_STREQ()</span></code></a>, except it causes an
-assertion failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_STREQ" title="KUNIT_EXPECT_STREQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ()</span></code></a>, except it causes an
+assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_NOT_ERR_OR_NULL">
-<code class="descname">TEST_ASSERT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_NOT_ERR_OR_NULL">
+<code class="descname">KUNIT_ASSERT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assertion that <strong>ptr</strong> is not null and not err.</p>
 </dd></dl>
 
@@ -878,12 +880,12 @@ assertion failure (see <a class="reference internal" href="#c.TEST_ASSERT_TRUE" 
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the value that <strong>ptr</strong> evaluates to is not null and not
-an errno stored in a pointer.  This is the same as
-<a class="reference internal" href="#c.TEST_EXPECT_NOT_ERR_OR_NULL" title="TEST_EXPECT_NOT_ERR_OR_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_EXPECT_NOT_ERR_OR_NULL()</span></code></a>, except it causes an assertion failure (see
-<a class="reference internal" href="#c.TEST_ASSERT_TRUE" title="TEST_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+an errno stored in a pointer. This is the same as
+<a class="reference internal" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="KUNIT_EXPECT_NOT_ERR_OR_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NOT_ERR_OR_NULL()</span></code></a>, except it causes an assertion failure (see
+<a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
-<dt id="c.TEST_ASSERT_SIGSEGV">
-<code class="descname">TEST_ASSERT_SIGSEGV</code><span class="sig-paren">(</span><em>test</em>, <em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.TEST_ASSERT_SIGSEGV" title="Permalink to this definition">¶</a></dt>
+<dt id="c.KUNIT_ASSERT_SIGSEGV">
+<code class="descname">KUNIT_ASSERT_SIGSEGV</code><span class="sig-paren">(</span><em>test</em>, <em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_SIGSEGV" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>expr</strong> will cause a segfault.</p>
 </dd></dl>
 
@@ -906,18 +908,18 @@ which will probably be massaged to make sense in the context of the kernel
 <p><strong>NOTE</strong></p>
 <p>no code after this assertion will ever be executed.</p>
 <dl class="type">
-<dt id="c.test_stream">
-struct <code class="descname">test_stream</code><a class="headerlink" href="#c.test_stream" title="Permalink to this definition">¶</a></dt>
+<dt id="c.kunit_stream">
+struct <code class="descname">kunit_stream</code><a class="headerlink" href="#c.kunit_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>a std::stream style string builder.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_stream {
-  void (*set_level)(struct test_stream *this, const char *level);
-  void (*add)(struct test_stream *this, const char *fmt, ...);
-  void (*append)(struct test_stream *this, struct test_stream *other);
-  void (*commit)(struct test_stream *this);
-  void (*clear)(struct test_stream *this);
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_stream {
+  void (*set_level)(struct kunit_stream *this, const char *level);
+  void (*add)(struct kunit_stream *this, const char *fmt, ...);
+  void (*append)(struct kunit_stream *this, struct kunit_stream *other);
+  void (*commit)(struct kunit_stream *this);
+  void (*clear)(struct kunit_stream *this);
 };
 </pre></div>
 </div>
@@ -927,6 +929,8 @@ struct <code class="descname">test_stream</code><a class="headerlink" href="#c.t
 <dd>sets the level that this string should be printed at.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">add</span></code></dt>
 <dd>adds the formatted input to the internal buffer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">append</span></code></dt>
+<dd>adds the contents of other to this.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">commit</span></code></dt>
 <dd>prints out the internal buffer to the user.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">clear</span></code></dt>
@@ -936,18 +940,18 @@ struct <code class="descname">test_stream</code><a class="headerlink" href="#c.t
 <p>A std::stream style string builder. Allows messages to be built up and
 printed all at once.</p>
 <dl class="function">
-<dt id="c.test_new_stream">
-struct <a class="reference internal" href="#c.test_stream" title="test_stream">test_stream</a> * <code class="descname">test_new_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.test" title="test">test</a> *<em>&nbsp;test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a></dt>
-<dd><p>constructs a new <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
+<dt id="c.kunit_new_stream">
+struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> * <code class="descname">kunit_new_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_new_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a new <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Constructs a new test managed <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
+<p>Constructs a new test managed <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
 </div>
 
 
@@ -992,7 +996,7 @@ struct <a class="reference internal" href="#c.test_stream" title="test_stream">t
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.19.0-00033-gc58019fb4fe15',
+            VERSION:'4.19.0-00019-g8b49ba0b2cf10',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

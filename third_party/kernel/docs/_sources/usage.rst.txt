@@ -51,24 +51,24 @@ Test Cases
 ~~~~~~~~~~
 
 The fundamental unit in KUnit is the test case. A test case is a function with
-the signature ``void (*)(struct test *test)``. It calls a function to be tested
+the signature ``void (*)(struct kunit *test)``. It calls a function to be tested
 and then sets *expectations* for what should happen. For example:
 
 .. code-block:: c
 
-	void example_test_success(struct test *test)
+	void example_test_success(struct kunit *test)
 	{
 	}
 
-	void example_test_failure(struct test *test)
+	void example_test_failure(struct kunit *test)
 	{
-		TEST_FAIL(test, "This test never passes.");
+		KUNIT_FAIL(test, "This test never passes.");
 	}
 
 In the above example ``example_test_success`` always passes because it does
 nothing; no expectations are set, so all expectations pass. On the other hand
-``example_test_failure`` always fails because it calls ``TEST_FAIL``, which is a
-special expectation that logs a message and causes the test case to fail.
+``example_test_failure`` always fails because it calls ``KUNIT_FAIL``, which is
+a special expectation that logs a message and causes the test case to fail.
 
 Expectations
 ~~~~~~~~~~~~
@@ -80,15 +80,15 @@ the failure is logged. For example:
 
 .. code-block:: c
 
-	void add_test_basic(struct test *test)
+	void add_test_basic(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, 1, add(1, 0));
-		TEST_EXPECT_EQ(test, 2, add(1, 1));
+		KUNIT_EXPECT_EQ(test, 1, add(1, 0));
+		KUNIT_EXPECT_EQ(test, 2, add(1, 1));
 	}
 
 In the above example ``add_test_basic`` makes a number of assertions about the
 behavior of a function called ``add``; the first parameter is always of type
-``struct test *``, which contains information about the current test context;
+``struct kunit *``, which contains information about the current test context;
 the second parameter, in this case, is what the value is expected to be; the
 last value is what the value actually is. If ``add`` passes all of these
 expectations, the test case, ``add_test_basic`` will pass; if any one of these
@@ -111,26 +111,26 @@ add function should have like this:
 
 .. code-block:: c
 
-	void add_test_basic(struct test *test)
+	void add_test_basic(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, 1, add(1, 0));
-		TEST_EXPECT_EQ(test, 2, add(1, 1));
+		KUNIT_EXPECT_EQ(test, 1, add(1, 0));
+		KUNIT_EXPECT_EQ(test, 2, add(1, 1));
 	}
 
-	void add_test_negative(struct test *test)
+	void add_test_negative(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, 0, add(-1, 1));
+		KUNIT_EXPECT_EQ(test, 0, add(-1, 1));
 	}
 
-	void add_test_max(struct test *test)
+	void add_test_max(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, INT_MAX, add(0, INT_MAX));
-		TEST_EXPECT_EQ(test, -1, add(INT_MAX, INT_MIN));
+		KUNIT_EXPECT_EQ(test, INT_MAX, add(0, INT_MAX));
+		KUNIT_EXPECT_EQ(test, -1, add(INT_MAX, INT_MIN));
 	}
 
-	void add_test_overflow(struct test *test)
+	void add_test_overflow(struct kunit *test)
 	{
-		TEST_EXPECT_EQ(test, INT_MIN, add(INT_MAX, 1));
+		KUNIT_EXPECT_EQ(test, INT_MIN, add(INT_MAX, 1));
 	}
 
 Notice how it is immediately obvious what all the properties that we are testing
@@ -147,7 +147,7 @@ For example:
 
 .. code-block:: c
 
-	static void mock_test_do_expect_default_return(struct test *test)
+	static void mock_test_do_expect_default_return(struct kunit *test)
 	{
 		struct mock_test_context *ctx = test->priv;
 		struct mock *mock = ctx->mock;
@@ -160,8 +160,8 @@ For example:
 				      "test_printk", test_printk,
 				      two_param_types, two_params,
 				      ARRAY_SIZE(two_params));
-		TEST_ASSERT_NOT_ERR_OR_NULL(test, ret);
-		TEST_EXPECT_EQ(test, -4, *((int *) ret));
+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ret);
+		KUNIT_EXPECT_EQ(test, -4, *((int *) ret));
 	}
 
 In this example, the method under test should return a pointer to a value, so
@@ -186,14 +186,14 @@ Example:
 
 .. code-block:: c
 
-	static struct test_case example_test_cases[] = {
-		TEST_CASE(example_test_foo),
-		TEST_CASE(example_test_bar),
-		TEST_CASE(example_test_baz),
+	static struct kunit_case example_test_cases[] = {
+		KUNIT_CASE(example_test_foo),
+		KUNIT_CASE(example_test_bar),
+		KUNIT_CASE(example_test_baz),
 		{},
 	};
 
-	static struct test_module example_test_module[] = {
+	static struct kunit_module example_test_module[] = {
 		.name = "example",
 		.init = example_test_init,
 		.exit = example_test_exit,
@@ -364,7 +364,7 @@ We can now use it to test ``struct eeprom_buffer``:
 		struct eeprom_buffer *eeprom_buffer;
 	};
 
-	static void eeprom_buffer_test_does_not_write_until_flush(struct test *test)
+	static void eeprom_buffer_test_does_not_write_until_flush(struct kunit *test)
 	{
 		struct eeprom_buffer_test *ctx = test->priv;
 		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
@@ -374,17 +374,17 @@ We can now use it to test ``struct eeprom_buffer``:
 		eeprom_buffer->flush_count = SIZE_MAX;
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 1);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 1);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[1], 0);
 
 		eeprom_buffer->flush(eeprom_buffer);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
 	}
 
-	static void eeprom_buffer_test_flushes_after_flush_count_met(struct test *test)
+	static void eeprom_buffer_test_flushes_after_flush_count_met(struct kunit *test)
 	{
 		struct eeprom_buffer_test *ctx = test->priv;
 		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
@@ -394,14 +394,14 @@ We can now use it to test ``struct eeprom_buffer``:
 		eeprom_buffer->flush_count = 2;
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 1);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 1);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
 	}
 
-	static void eeprom_buffer_test_flushes_increments_of_flush_count(struct test *test)
+	static void eeprom_buffer_test_flushes_increments_of_flush_count(struct kunit *test)
 	{
 		struct eeprom_buffer_test *ctx = test->priv;
 		struct eeprom_buffer *eeprom_buffer = ctx->eeprom_buffer;
@@ -411,23 +411,23 @@ We can now use it to test ``struct eeprom_buffer``:
 		eeprom_buffer->flush_count = 2;
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 1);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0);
 
 		eeprom_buffer->write(eeprom_buffer, buffer, 2);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[0], 0xff);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[1], 0xff);
 		/* Should have only flushed the first two bytes. */
-		TEST_EXPECT_EQ(test, fake_eeprom->contents[2], 0);
+		KUNIT_EXPECT_EQ(test, fake_eeprom->contents[2], 0);
 	}
 
-	static int eeprom_buffer_test_init(struct test *test)
+	static int eeprom_buffer_test_init(struct kunit *test)
 	{
 		struct eeprom_buffer_test *ctx;
 
-		ctx = test_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+		ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
 		ASSERT_NOT_ERR_OR_NULL(test, ctx);
 
-		ctx->fake_eeprom = test_kzalloc(test, sizeof(*ctx->fake_eeprom), GFP_KERNEL);
+		ctx->fake_eeprom = kunit_kzalloc(test, sizeof(*ctx->fake_eeprom), GFP_KERNEL);
 		ASSERT_NOT_ERR_OR_NULL(test, ctx->fake_eeprom);
 
 		ctx->eeprom_buffer = new_eeprom_buffer(&ctx->fake_eeprom->parent);
@@ -438,7 +438,7 @@ We can now use it to test ``struct eeprom_buffer``:
 		return 0;
 	}
 
-	static void eeprom_buffer_test_exit(struct test *test)
+	static void eeprom_buffer_test_exit(struct kunit *test)
 	{
 		struct eeprom_buffer_test *ctx = test->priv;
 

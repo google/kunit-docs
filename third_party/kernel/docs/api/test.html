@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 4.19.0-00019-g8b49ba0b2cf10 documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.0.0-rc5-00018-gbdc53b58b51ba documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.19.0
+                5.0.0-rc5
               </div>
             
           
@@ -675,6 +675,26 @@ equal. This is semantically equivalent to
 KUNIT_EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a>
 for more information.</p>
 <dl class="function">
+<dt id="c.KUNIT_EXPECT_STRNEQ">
+<code class="descname">KUNIT_EXPECT_STRNEQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_STRNEQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that strings <strong>left</strong> and <strong>right</strong> are not equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+not equal. This is semantically equivalent to
+KUNIT_EXPECT_TRUE(<strong>test</strong>, strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a>
+for more information.</p>
+<dl class="function">
 <dt id="c.KUNIT_EXPECT_NOT_ERR_OR_NULL">
 <code class="descname">KUNIT_EXPECT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expects that <strong>ptr</strong> is not null and not err.</p>
@@ -866,6 +886,26 @@ is not met.</p>
 equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_STREQ" title="KUNIT_EXPECT_STREQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ()</span></code></a>, except it causes an
 assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
+<dt id="c.KUNIT_ASSERT_STRNEQ">
+<code class="descname">KUNIT_ASSERT_STRNEQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_STRNEQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that strings <strong>left</strong> and <strong>right</strong> are not equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a null terminated string.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+not equal. This is semantically equivalent to
+KUNIT_ASSERT_TRUE(<strong>test</strong>, strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>
+for more information.</p>
+<dl class="function">
 <dt id="c.KUNIT_ASSERT_NOT_ERR_OR_NULL">
 <code class="descname">KUNIT_ASSERT_NOT_ERR_OR_NULL</code><span class="sig-paren">(</span><em>test</em>, <em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assertion that <strong>ptr</strong> is not null and not err.</p>
@@ -883,30 +923,6 @@ assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE"
 an errno stored in a pointer. This is the same as
 <a class="reference internal" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="KUNIT_EXPECT_NOT_ERR_OR_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NOT_ERR_OR_NULL()</span></code></a>, except it causes an assertion failure (see
 <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
-<dl class="function">
-<dt id="c.KUNIT_ASSERT_SIGSEGV">
-<code class="descname">KUNIT_ASSERT_SIGSEGV</code><span class="sig-paren">(</span><em>test</em>, <em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_SIGSEGV" title="Permalink to this definition">¶</a></dt>
-<dd><p>An assertion that <strong>expr</strong> will cause a segfault.</p>
-</dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
-<dd>The test context object.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">expr</span></code></dt>
-<dd>an arbitrary block of code.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Sets an assertion that <strong>expr</strong>, when evaluated, will cause a segfault.
-Currently this assertion is only really useful for testing the KUnit
-framework, as a segmentation fault in normal kernel code is always incorrect.
-However, the plan is to replace this assertion with an arbitrary death
-assertion similar to
-<a class="reference external" href="https://github.com/google/googletest/blob/master/googletest/docs/advanced.md#death-tests">https://github.com/google/googletest/blob/master/googletest/docs/advanced.md#death-tests</a>
-which will probably be massaged to make sense in the context of the kernel
-(maybe assert that a panic occurred, or that <code class="xref c c-func docutils literal notranslate"><span class="pre">BUG()</span></code> was called).</p>
-<p><strong>NOTE</strong></p>
-<p>no code after this assertion will ever be executed.</p>
 <dl class="type">
 <dt id="c.kunit_stream">
 struct <code class="descname">kunit_stream</code><a class="headerlink" href="#c.kunit_stream" title="Permalink to this definition">¶</a></dt>
@@ -996,7 +1012,7 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.19.0-00019-g8b49ba0b2cf10',
+            VERSION:'5.0.0-rc5-00018-gbdc53b58b51ba',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

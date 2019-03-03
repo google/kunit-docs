@@ -193,7 +193,7 @@ Example:
 		{},
 	};
 
-	static struct kunit_module example_test_module[] = {
+	static struct kunit_module example_test_module = {
 		.name = "example",
 		.init = example_test_init,
 		.exit = example_test_exit,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.0.0-rc5-00067-g5f23e745aa5bd documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.1.0-rc2-00017-g316af5d96ffba documentation</title>
   
 
   
@@ -24,20 +24,30 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Frequently Asked Questions" href="../faq.html" />
-    <link rel="prev" title="API Reference" href="index.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="The Linux Kernel 5.1.0-rc2-00017-g316af5d96ffba documentation" href="../index.html"/>
+        <link rel="up" title="API Reference" href="index.html"/>
+        <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
+        <link rel="prev" title="API Reference" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
    
   <div class="wy-grid-for-nav">
@@ -59,7 +69,7 @@
             
             
               <div class="version">
-                5.0.0-rc5
+                5.1.0-rc2
               </div>
             
           
@@ -102,7 +112,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">The Linux Kernel</a>
@@ -110,10 +120,9 @@
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
 
@@ -931,27 +940,10 @@ struct <code class="descname">kunit_stream</code><a class="headerlink" href="#c.
 
 <p><strong>Definition</strong></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_stream {
-  void (*set_level)(struct kunit_stream *this, const char *level);
-  void (*add)(struct kunit_stream *this, const char *fmt, ...);
-  void (*append)(struct kunit_stream *this, struct kunit_stream *other);
-  void (*commit)(struct kunit_stream *this);
-  void (*clear)(struct kunit_stream *this);
 };
 </pre></div>
 </div>
 <p><strong>Members</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">set_level</span></code></dt>
-<dd>sets the level that this string should be printed at.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">add</span></code></dt>
-<dd>adds the formatted input to the internal buffer.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">append</span></code></dt>
-<dd>adds the contents of other to this.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">commit</span></code></dt>
-<dd>prints out the internal buffer to the user.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">clear</span></code></dt>
-<dd>clears the internal buffer.</dd>
-</dl>
 <p><strong>Description</strong></p>
 <p>A std::stream style string builder. Allows messages to be built up and
 printed all at once.</p>
@@ -968,11 +960,80 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
 </dl>
 <p><strong>Description</strong></p>
 <p>Constructs a new test managed <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
+<dl class="function">
+<dt id="c.kunit_stream_set_level">
+void <code class="descname">kunit_stream_set_level</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em>, const char *<em>&nbsp;level</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_set_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dd>the stream being operated on.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">level</span></code></dt>
+<dd>the print level the stream is set to output to.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets the print level at which the stream outputs.</p>
+<dl class="function">
+<dt id="c.__printf">
+void <code class="descname">__printf</code><span class="sig-paren">(</span>2, 3<span class="sig-paren">)</span><a class="headerlink" href="#c.__printf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">2</span></code></dt>
+<dd><em>undescribed</em></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">3</span></code></dt>
+<dd><em>undescribed</em></dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Appends the formatted string, <strong>fmt</strong>, to the internal buffer.</p>
+<dl class="function">
+<dt id="c.kunit_stream_append">
+void <code class="descname">kunit_stream_append</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em>, struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;other</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dd>the stream to which <strong>other</strong> is appended.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">other</span></code></dt>
+<dd>the stream whose contents are appended to <strong>this</strong>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Appends the contents of <strong>other</strong> to <strong>this</strong>.</p>
+<dl class="function">
+<dt id="c.kunit_stream_commit">
+void <code class="descname">kunit_stream_commit</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dd>the stream being operated on.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Outputs the contents of the internal buffer as a kunit_printk formatted
+output.</p>
+<dl class="function">
+<dt id="c.kunit_stream_clear">
+void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dd>the stream being operated on.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Clears the contents of the internal buffer.</p>
 </div>
 
 
            </div>
-           
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -994,7 +1055,7 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1012,8 +1073,7 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.0.0-rc5-00067-g5f23e745aa5bd',
-            LANGUAGE:'None',
+            VERSION:'5.1.0-rc2-00017-g316af5d96ffba',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -1026,13 +1086,19 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

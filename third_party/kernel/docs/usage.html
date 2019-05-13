@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using KUnit &mdash; The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation</title>
+  <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation" href="index.html"/>
+    <link rel="top" title="The Linux Kernel  documentation" href="index.html"/>
         <link rel="next" title="API Reference" href="api/index.html"/>
         <link rel="prev" title="Getting Started" href="start.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                5.1.0-rc2
+                5.1.0
               </div>
             
           
@@ -113,6 +113,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#faking-classes">Faking Classes</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kunit-on-non-uml-architectures">KUnit on non-UML architectures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-existing-kunit-tests-on-non-uml-architectures">Running existing KUnit tests on non-UML architectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-new-tests-for-other-architectures">Writing new tests for other architectures</a></li>
 </ul>
 </li>
 </ul>
@@ -586,6 +591,110 @@ represents an EEPROM:</p>
 </div>
 </div>
 </div>
+<div class="section" id="kunit-on-non-uml-architectures">
+<span id="kunit-on-non-uml"></span><h2>KUnit on non-UML architectures<a class="headerlink" href="#kunit-on-non-uml-architectures" title="Permalink to this headline">¶</a></h2>
+<p>By default KUnit uses UML as a way to provide dependencies for code under test.
+Under most circumstances KUnit’s usage of UML should be treated as an
+implementation detail of how KUnit works under the hood. Nevertheless, there
+are instances where being able to run architecture specific code, or test
+against real hardware is desirable. For these reasons KUnit supports running on
+other architectures.</p>
+<div class="section" id="running-existing-kunit-tests-on-non-uml-architectures">
+<h3>Running existing KUnit tests on non-UML architectures<a class="headerlink" href="#running-existing-kunit-tests-on-non-uml-architectures" title="Permalink to this headline">¶</a></h3>
+<p>There are some special considerations when running existing KUnit tests on
+non-UML architectures:</p>
+<ul class="simple">
+<li>Hardware may not be deterministic, so a test that always passes or fails
+when run under UML may not always do so on real hardware.</li>
+<li>Hardware and VM environments may not be hermetic. KUnit tries its best to
+provide a hermetic environment to run tests; however, it cannot manage state
+that it doesn’t know about outside of the kernel. Consequently, tests that
+may be hermetic on UML may not be hermetic on other architectures.</li>
+<li>Some features and tooling may not be supported outside of UML.</li>
+<li>Hardware and VMs are slower than UML.</li>
+</ul>
+<p>None of these are reasons not to run your KUnit tests on real hardware; they are
+only things to be aware of when doing so.</p>
+<p>The biggest impediment will likely be that certain KUnit features and
+infrastructure may not support your target environment. For example, at this
+time the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) does not work outside
+of UML. Unfortunately, there is no way around this. Using UML (or even just a
+particular architecture) allows us to make a lot of assumptions that make it
+possible to do things which might otherwise be impossible.</p>
+<p>Nevertheless, all core KUnit framework features are fully supported on all
+architectures, and using them is straightforward: all you need to do is to take
+your kunitconfig, your Kconfig options for the tests you would like to run, and
+merge them into whatever config your are using for your platform. That’s it!</p>
+<p>For example, let’s say you have the following kunitconfig:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
+CONFIG_KUNIT_EXAMPLE_TEST=y
+</pre></div>
+</div>
+<p>If you wanted to run this test on an x86 VM, you might add the following config
+options to your <code class="docutils literal notranslate"><span class="pre">.config</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
+CONFIG_KUNIT_EXAMPLE_TEST=y
+CONFIG_SERIAL_8250=y
+CONFIG_SERIAL_8250_CONSOLE=y
+</pre></div>
+</div>
+<p>All these new options do is enable support for a common serial console needed
+for logging.</p>
+<p>Next, you could build a kernel with these tests as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make <span class="nv">ARCH</span><span class="o">=</span>x86 olddefconfig
+make <span class="nv">ARCH</span><span class="o">=</span>x86
+</pre></div>
+</div>
+<p>Once you have built a kernel, you could run it on QEMU as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qemu-system-x86_64 -enable-kvm <span class="se">\</span>
+                   -m <span class="m">1024</span> <span class="se">\</span>
+                   -kernel arch/x86_64/boot/bzImage <span class="se">\</span>
+                   -append <span class="s1">&#39;console=ttyS0&#39;</span> <span class="se">\</span>
+                   --nographic
+</pre></div>
+</div>
+<p>Interspersed in the kernel logs you might see the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TAP version 14
+        # Subtest: example
+        1..1
+        # example_simple_test: initializing
+        ok 1 - example_simple_test
+ok 1 - example
+</pre></div>
+</div>
+<p>Congratulations, you just ran a KUnit test on the x86 architecture!</p>
+</div>
+<div class="section" id="writing-new-tests-for-other-architectures">
+<h3>Writing new tests for other architectures<a class="headerlink" href="#writing-new-tests-for-other-architectures" title="Permalink to this headline">¶</a></h3>
+<p>The first thing you must do is ask yourself whether it is necessary to write a
+KUnit test for a specific architecture, and then whether it is necessary to
+write that test for a particular piece of hardware. In general, writing a test
+that depends on having access to a particular piece of hardware or software (not
+included in the Linux source repo) should be avoided at all costs.</p>
+<p>Even if you only ever plan on running your KUnit test on your hardware
+configuration, other people may want to run your tests and may not have access
+to your hardware. If you write your test to run on UML, then anyone can run your
+tests without knowing anything about your particular setup, and you can still
+run your tests on your hardware setup just by compiling for your architecture.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Always prefer tests that run on UML to tests that only run under a particular
+architecture, and always prefer tests that run under QEMU or another easy
+(and monitarily free) to obtain software environment to a specific piece of
+hardware.</p>
+</div>
+<p>Nevertheless, there are still valid reasons to write an architecture or hardware
+specific test: for example, you might want to test some code that really belongs
+in <code class="docutils literal notranslate"><span class="pre">arch/some-arch/*</span></code>. Even so, try your best to write the test so that it
+does not depend on physical hardware: if some of your test cases don’t need the
+hardware, only require the hardware for tests that actually need it.</p>
+<p>Now that you have narrowed down exactly what bits are hardware specific, the
+actual procedure for writing and running the tests is pretty much the same as
+writing normal KUnit tests. One special caveat is that you have to reset
+hardware state in between test cases; if this is not possible, you may only be
+able to run one test case per invocation.</p>
+</div>
+</div>
 </div>
 
 
@@ -632,7 +741,7 @@ represents an EEPROM:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'5.1.0-rc2-00050-g711f2579ba79f',
+            VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

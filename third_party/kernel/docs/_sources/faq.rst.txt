@@ -1,8 +1,8 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-=========================================
+==========================
 Frequently Asked Questions
-=========================================
+==========================
 
 How is this different from Autotest, kselftest, etc?
 ====================================================
@@ -21,6 +21,22 @@ require installing the kernel on a test machine or in a VM and all require
 tests to be written in userspace and run on the kernel under test; this is true
 for Autotest, kselftest, and some others, disqualifying any of them from being
 considered unit testing frameworks.
+
+Does KUnit support running on architectures other than UML?
+===========================================================
+
+Yes, well, mostly.
+
+For the most part, the KUnit core framework (what you use to write the tests)
+can compile to any architecture; it compiles like just another part of the
+kernel and runs when the kernel boots. However, there is some infrastructure,
+like the KUnit Wrapper (``tools/testing/kunit/kunit.py``) that does not support
+other architectures.
+
+In short, this means that, yes, you can run KUnit on other architectures, but
+it might require more work than using KUnit on UML.
+
+For more information, see :ref:`kunit-on-non-uml`.
 
 What is the difference between a unit test and these other kinds of tests?
 ==========================================================================

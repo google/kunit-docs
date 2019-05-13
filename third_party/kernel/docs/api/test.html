@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation</title>
+  <title>Test API &mdash; The Linux Kernel  documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation" href="../index.html"/>
+    <link rel="top" title="The Linux Kernel  documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                5.1.0-rc2
+                5.1.0
               </div>
             
           
@@ -564,6 +564,26 @@ equal. This is semantically equivalent to
 KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
 more information.</p>
 <dl class="function">
+<dt id="c.KUNIT_EXPECT_PTR_EQ">
+<code class="descname">KUNIT_EXPECT_PTR_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_EQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that pointers <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal. This is semantically equivalent to
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
+<dl class="function">
 <dt id="c.KUNIT_EXPECT_NE">
 <code class="descname">KUNIT_EXPECT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_NE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An expectation that <strong>left</strong> and <strong>right</strong> are not equal.</p>
@@ -577,6 +597,26 @@ more information.</p>
 <dd>an arbitrary expression that evaluates to a primitive C type.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
 <dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
+equal. This is semantically equivalent to
+KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) != (<strong>right</strong>)). See <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for
+more information.</p>
+<dl class="function">
+<dt id="c.KUNIT_EXPECT_PTR_NE">
+<code class="descname">KUNIT_EXPECT_PTR_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_NE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects that pointers <strong>left</strong> and <strong>right</strong> are not equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an expectation that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
@@ -777,6 +817,25 @@ is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_FALSE" title=
 equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_EQ" title="KUNIT_EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ()</span></code></a>, except it causes an assertion
 failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="function">
+<dt id="c.KUNIT_ASSERT_PTR_EQ">
+<code class="descname">KUNIT_ASSERT_PTR_EQ</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_EQ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asserts that pointers <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are
+equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_EQ" title="KUNIT_EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ()</span></code></a>, except it causes an assertion
+failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
 <dt id="c.KUNIT_ASSERT_NE">
 <code class="descname">KUNIT_ASSERT_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_NE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An assertion that <strong>left</strong> and <strong>right</strong> are not equal.</p>
@@ -790,6 +849,25 @@ failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KU
 <dd>an arbitrary expression that evaluates to a primitive C type.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
 <dd>an arbitrary expression that evaluates to a primitive C type.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
+equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_NE" title="KUNIT_EXPECT_NE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NE()</span></code></a>, except it causes an assertion
+failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
+<dl class="function">
+<dt id="c.KUNIT_ASSERT_PTR_NE">
+<code class="descname">KUNIT_ASSERT_PTR_NE</code><span class="sig-paren">(</span><em>test</em>, <em>left</em>, <em>right</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_NE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asserts that pointers <strong>left</strong> and <strong>right</strong> are not equal. <a class="reference internal" href="#c.KUNIT_ASSERT_PTR_EQ" title="KUNIT_ASSERT_PTR_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_PTR_EQ()</span></code></a> - Asserts that pointers <strong>left</strong> and <strong>right</strong> are equal.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
+<dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">left</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">right</span></code></dt>
+<dd>an arbitrary expression that evaluates to a pointer.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Sets an assertion that the values that <strong>left</strong> and <strong>right</strong> evaluate to are not
@@ -1073,7 +1151,7 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.1.0-rc2-00050-g711f2579ba79f',
+            VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

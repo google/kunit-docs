@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frequently Asked Questions &mdash; The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation</title>
+  <title>Frequently Asked Questions &mdash; The Linux Kernel  documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="The Linux Kernel 5.1.0-rc2-00050-g711f2579ba79f documentation" href="index.html"/>
+    <link rel="top" title="The Linux Kernel  documentation" href="index.html"/>
         <link rel="prev" title="Test API" href="api/test.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                5.1.0-rc2
+                5.1.0
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#does-kunit-support-running-on-architectures-other-than-uml">Does KUnit support running on architectures other than UML?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">What is the difference between a unit test and these other kinds of tests?</a></li>
 </ul>
 </li>
@@ -181,6 +182,18 @@ tests to be written in userspace and run on the kernel under test; this is true
 for Autotest, kselftest, and some others, disqualifying any of them from being
 considered unit testing frameworks.</p>
 </div>
+<div class="section" id="does-kunit-support-running-on-architectures-other-than-uml">
+<h2>Does KUnit support running on architectures other than UML?<a class="headerlink" href="#does-kunit-support-running-on-architectures-other-than-uml" title="Permalink to this headline">¶</a></h2>
+<p>Yes, well, mostly.</p>
+<p>For the most part, the KUnit core framework (what you use to write the tests)
+can compile to any architecture; it compiles like just another part of the
+kernel and runs when the kernel boots. However, there is some infrastructure,
+like the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) that does not support
+other architectures.</p>
+<p>In short, this means that, yes, you can run KUnit on other architectures, but
+it might require more work than using KUnit on UML.</p>
+<p>For more information, see <a class="reference internal" href="usage.html#kunit-on-non-uml"><span class="std std-ref">KUnit on non-UML architectures</span></a>.</p>
+</div>
 <div class="section" id="what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">
 <h2>What is the difference between a unit test and these other kinds of tests?<a class="headerlink" href="#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests" title="Permalink to this headline">¶</a></h2>
 <p>Most existing tests for the Linux kernel would be categorized as an integration
@@ -249,7 +262,7 @@ that depends on interactions between the hardware, the kernel, and userspace.</l
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'5.1.0-rc2-00050-g711f2579ba79f',
+            VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

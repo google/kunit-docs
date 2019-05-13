@@ -7,8 +7,8 @@ API Reference
 
 	test
 
-This section documents the KUnit kernel testing API. It is divided into 3
-sections:
+This section documents the KUnit kernel testing API. It is divided into the
+following sections:
 
 ================================= ==============================================
 :doc:`test`                       documents all of the standard testing API

@@ -12,4 +12,3 @@ related features.
 
 .. kernel-doc:: include/kunit/kunit-stream.h
    :internal:
-

@@ -36,7 +36,7 @@ regular Kernel config, with the specific test targets as well.
 You may want to add kunitconfig to your local gitignore.
 
 Verifying KUnit Works
--------------------------
+---------------------
 
 To make sure that everything is set up correctly, simply invoke the Python
 wrapper from your kernel repo:
@@ -63,7 +63,7 @@ followed by a list of tests that are run. All of them should be passing.
    kunit kernel`` step may take a while.
 
 Writing your first test
-==========================
+=======================
 
 In your kernel repo let's add some code that we can test. Create a file
 ``drivers/misc/example.h`` with the contents:
@@ -175,6 +175,6 @@ You should see the following failure:
 Congrats! You just wrote your first KUnit test!
 
 Next Steps
-=============
+==========
 *   Check out the :doc:`usage` page for a more
     in-depth explanation of KUnit.

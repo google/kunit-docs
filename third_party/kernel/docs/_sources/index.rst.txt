@@ -72,9 +72,8 @@ correctly on every change when you can just run them yourself in less time than
 it takes to read his / her test log?
 
 How do I use it?
-===================
+================
 
 *   :doc:`start` - for new users of KUnit
 *   :doc:`usage` - for a more detailed explanation of KUnit features
 *   :doc:`api/index` - for the list of KUnit APIs used for testing
-

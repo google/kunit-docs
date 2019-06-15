@@ -28,6 +28,6 @@ make -C $PATH_TO_KUNIT_KERNEL htmldocs SPHINXDIRS=dev-tools/kunit
 cd kunit-docs
 rm -rf third_party/kernel/*
 cp -r $PATH_TO_KUNIT_KERNEL/LICENSES/ third_party/kernel/
-cp -r $PATH_TO_KUNIT_KERNEL/Documentation/output/test/ third_party/kernel/docs/
+cp -r $PATH_TO_KUNIT_KERNEL/Documentation/output/dev-tools/kunit/ third_party/kernel/docs/
 ```
 

@@ -24,7 +24,7 @@ kernel-docs, and copy them to the kernel-docs repo in this repository:
 ```bash
 git clone https://github.com/google/kunit-docs.git
 git clone https://kunit.googlesource.com/linux $PATH_TO_KUNIT_KERNEL
-make -C $PATH_TO_KUNIT_KERNEL htmldocs SPHINXDIRS=test
+make -C $PATH_TO_KUNIT_KERNEL htmldocs SPHINXDIRS=dev-tools/kunit
 cd kunit-docs
 rm -rf third_party/kernel/*
 cp -r $PATH_TO_KUNIT_KERNEL/LICENSES/ third_party/kernel/

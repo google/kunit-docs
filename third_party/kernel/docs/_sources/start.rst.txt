@@ -125,7 +125,7 @@ Now we are ready to write the test. The test will be in
 	static struct kunit_case misc_example_test_cases[] = {
 		KUNIT_CASE(misc_example_add_test_basic),
 		KUNIT_CASE(misc_example_test_failure),
-		{},
+		{}
 	};
 
 	static struct kunit_module misc_example_test_module = {

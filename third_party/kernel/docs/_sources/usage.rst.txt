@@ -190,7 +190,7 @@ Example:
 		KUNIT_CASE(example_test_foo),
 		KUNIT_CASE(example_test_bar),
 		KUNIT_CASE(example_test_baz),
-		{},
+		{}
 	};
 
 	static struct kunit_module example_test_module = {

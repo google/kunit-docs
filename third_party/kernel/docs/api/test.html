@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel  documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.2.0-rc4-00018-g81368b7c318a2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="The Linux Kernel  documentation" href="../index.html"/>
+    <link rel="top" title="The Linux Kernel 5.2.0-rc4-00018-g81368b7c318a2 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                5.1.0
+                5.2.0-rc4
               </div>
             
           
@@ -228,8 +228,8 @@ cleaned up at the end of a test case.</p>
                 <span class="n">kunit_kmalloc_free</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">params</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">;</span>
-        <span class="k">else</span>
-                <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -242,7 +242,7 @@ struct <code class="descname">kunit_case</code><a class="headerlink" href="#c.ku
 <p><strong>Definition</strong></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_case {
   void (*run_case)(struct kunit *test);
-  const char name[256];
+  const char *name;
 };
 </pre></div>
 </div>
@@ -274,7 +274,7 @@ empty test case.</p>
 
 <span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
-        <span class="p">{},</span>
+        <span class="p">{}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -454,7 +454,7 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <a class="reference internal" href="#c.kunit_info" title="kunit_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_info()</span></code></a>.</p>
+<p>Prints a warning level message.</p>
 <dl class="function">
 <dt id="c.kunit_err">
 <code class="descname">kunit_err</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_err" title="Permalink to this definition">¶</a></dt>
@@ -471,7 +471,7 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <a class="reference internal" href="#c.kunit_info" title="kunit_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_info()</span></code></a>.</p>
+<p>Prints an error level message.</p>
 <dl class="function">
 <dt id="c.KUNIT_SUCCEED">
 <code class="descname">KUNIT_SUCCEED</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.KUNIT_SUCCEED" title="Permalink to this definition">¶</a></dt>
@@ -1026,8 +1026,8 @@ struct <code class="descname">kunit_stream</code><a class="headerlink" href="#c.
 <p>A std::stream style string builder. Allows messages to be built up and
 printed all at once.</p>
 <dl class="function">
-<dt id="c.kunit_new_stream">
-struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> * <code class="descname">kunit_new_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_new_stream" title="Permalink to this definition">¶</a></dt>
+<dt id="c.alloc_kunit_stream">
+struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> * <code class="descname">alloc_kunit_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, const char *<em>&nbsp;level</em><span class="sig-paren">)</span><a class="headerlink" href="#c.alloc_kunit_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>constructs a new <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
 </dd></dl>
 
@@ -1035,23 +1035,11 @@ struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">level</span></code></dt>
+<dd>The log level at which to print out the message.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Constructs a new test managed <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
-<dl class="function">
-<dt id="c.kunit_stream_set_level">
-void <code class="descname">kunit_stream_set_level</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em>, const char *<em>&nbsp;level</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_set_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
-<dd>the stream being operated on.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">level</span></code></dt>
-<dd>the print level the stream is set to output to.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Sets the print level at which the stream outputs.</p>
 <dl class="function">
 <dt id="c.__printf">
 void <code class="descname">__printf</code><span class="sig-paren">(</span>2, 3<span class="sig-paren">)</span><a class="headerlink" href="#c.__printf" title="Permalink to this definition">¶</a></dt>
@@ -1068,39 +1056,43 @@ void <code class="descname">__printf</code><span class="sig-paren">(</span>2, 3<
 <p>Appends the formatted string, <strong>fmt</strong>, to the internal buffer.</p>
 <dl class="function">
 <dt id="c.kunit_stream_append">
-void <code class="descname">kunit_stream_append</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em>, struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;other</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_append" title="Permalink to this definition">¶</a></dt>
+void <code class="descname">kunit_stream_append</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em>, struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;other</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_append" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
 <dd>the stream to which <strong>other</strong> is appended.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">other</span></code></dt>
-<dd>the stream whose contents are appended to <strong>this</strong>.</dd>
+<dd>the stream whose contents are appended to <strong>kstream</strong>.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Appends the contents of <strong>other</strong> to <strong>this</strong>.</p>
+<p>Appends the contents of <strong>other</strong> to <strong>kstream</strong>.</p>
 <dl class="function">
 <dt id="c.kunit_stream_commit">
-void <code class="descname">kunit_stream_commit</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_commit" title="Permalink to this definition">¶</a></dt>
+void <code class="descname">kunit_stream_commit</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_commit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
 <dd>the stream being operated on.</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Outputs the contents of the internal buffer as a kunit_printk formatted
-output.</p>
+output. KUNIT_STREAM ONLY OUTPUTS ITS BUFFER TO THE USER IF COMMIT IS
+CALLED!!! The reason for this is that it allows us to construct a message
+before we know whether we want to print it out; this can be extremely handy
+if there is information you might need for a failure message that is easiest
+to collect in the steps leading up to the actual check.</p>
 <dl class="function">
 <dt id="c.kunit_stream_clear">
-void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;this</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_clear" title="Permalink to this definition">¶</a></dt>
+void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">this</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
 <dd>the stream being operated on.</dd>
 </dl>
 <p><strong>Description</strong></p>
@@ -1151,7 +1143,7 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'',
+            VERSION:'5.2.0-rc4-00018-g81368b7c318a2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

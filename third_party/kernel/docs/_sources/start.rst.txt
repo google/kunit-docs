@@ -19,7 +19,7 @@ The wrapper can be run with:
 
 .. code-block:: bash
 
-   ./tools/testing/kunit/kunit.py
+   ./tools/testing/kunit/kunit.py run
 
 Creating a kunitconfig
 ======================
@@ -128,11 +128,11 @@ Now we are ready to write the test. The test will be in
 		{}
 	};
 
-	static struct kunit_module misc_example_test_module = {
+	static struct kunit_suite misc_example_test_suite = {
 		.name = "misc-example",
 		.test_cases = misc_example_test_cases,
 	};
-	module_test(misc_example_test_module);
+	kunit_test_suite(misc_example_test_suite);
 
 Now add the following to ``drivers/misc/Kconfig``:
 

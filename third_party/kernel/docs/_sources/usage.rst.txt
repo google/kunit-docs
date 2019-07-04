@@ -170,14 +170,14 @@ bother continuing the test since the following expectation could crash the test
 case. `ASSERT_NOT_ERR_OR_NULL(...)` allows us to bail out of the test case if
 the appropriate conditions have not been satisfied to complete the test.
 
-Modules / Test Suites
-~~~~~~~~~~~~~~~~~~~~~
+Test Suites
+~~~~~~~~~~~
 
 Now obviously one unit test isn't very helpful; the power comes from having
 many test cases covering all of your behaviors. Consequently it is common to
 have many *similar* tests; in order to reduce duplication in these closely
 related tests most unit testing frameworks provide the concept of a *test
-suite*, in KUnit we call it a *test module*; all it is is just a collection of
+suite*, in KUnit we call it a *test suite*; all it is is just a collection of
 test cases for a unit of code with a set up function that gets invoked before
 every test cases and then a tear down function that gets invoked after every
 test case completes.
@@ -193,20 +193,20 @@ Example:
 		{}
 	};
 
-	static struct kunit_module example_test_module = {
+	static struct kunit_suite example_test_suite = {
 		.name = "example",
 		.init = example_test_init,
 		.exit = example_test_exit,
 		.test_cases = example_test_cases,
 	};
-	module_test(example_test_module);
+	kunit_test_suite(example_test_suite);
 
-In the above example the test suite, ``example_test_module``, would run the test
-cases ``example_test_foo``, ``example_test_bar``, and ``example_test_baz``, each
-would have ``example_test_init`` called immediately before it and would have
-``example_test_exit`` called immediately after it.
-``module_test(example_test_module)`` registers the test suite with the KUnit
-test framework.
+In the above example the test suite, ``example_test_suite``, would run the test
+cases ``example_test_foo``, ``example_test_bar``, and ``example_test_baz``,
+each would have ``example_test_init`` called immediately before it and would
+have ``example_test_exit`` called immediately after it.
+``kunit_test_suite(example_test_suite)`` registers the test suite with the
+KUnit test framework.
 
 .. note::
    A test case will only be run if it is associated with a test suite.

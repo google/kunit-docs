@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using KUnit &mdash; The Linux Kernel 5.2.0-rc4-00018-g81368b7c318a2 documentation</title>
+  <title>Using KUnit &mdash; The Linux Kernel 5.2.0-rc7-00018-g2e171353781d7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="The Linux Kernel 5.2.0-rc4-00018-g81368b7c318a2 documentation" href="index.html"/>
+    <link rel="top" title="The Linux Kernel 5.2.0-rc7-00018-g2e171353781d7 documentation" href="index.html"/>
         <link rel="next" title="API Reference" href="api/index.html"/>
         <link rel="prev" title="Getting Started" href="start.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                5.2.0-rc4
+                5.2.0-rc7
               </div>
             
           
@@ -103,7 +103,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#test-cases">Test Cases</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#expectations">Expectations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#assertions">Assertions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#modules-test-suites">Modules / Test Suites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-suites">Test Suites</a></li>
 </ul>
 </li>
 </ul>
@@ -334,13 +334,13 @@ bother continuing the test since the following expectation could crash the test
 case. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us to bail out of the test case if
 the appropriate conditions have not been satisfied to complete the test.</p>
 </div>
-<div class="section" id="modules-test-suites">
-<h4>Modules / Test Suites<a class="headerlink" href="#modules-test-suites" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="test-suites">
+<h4>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h4>
 <p>Now obviously one unit test isn’t very helpful; the power comes from having
 many test cases covering all of your behaviors. Consequently it is common to
 have many <em>similar</em> tests; in order to reduce duplication in these closely
 related tests most unit testing frameworks provide the concept of a <em>test
-suite</em>, in KUnit we call it a <em>test module</em>; all it is is just a collection of
+suite</em>, in KUnit we call it a <em>test suite</em>; all it is is just a collection of
 test cases for a unit of code with a set up function that gets invoked before
 every test cases and then a tear down function that gets invoked after every
 test case completes.</p>
@@ -352,21 +352,21 @@ test case completes.</p>
         <span class="p">{}</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_module</span> <span class="n">example_test_module</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_suite</span> <span class="n">example_test_suite</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;example&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">example_test_init</span><span class="p">,</span>
         <span class="p">.</span><span class="n">exit</span> <span class="o">=</span> <span class="n">example_test_exit</span><span class="p">,</span>
         <span class="p">.</span><span class="n">test_cases</span> <span class="o">=</span> <span class="n">example_test_cases</span><span class="p">,</span>
 <span class="p">};</span>
-<span class="n">module_test</span><span class="p">(</span><span class="n">example_test_module</span><span class="p">);</span>
+<span class="n">kunit_test_suite</span><span class="p">(</span><span class="n">example_test_suite</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>In the above example the test suite, <code class="docutils literal notranslate"><span class="pre">example_test_module</span></code>, would run the test
-cases <code class="docutils literal notranslate"><span class="pre">example_test_foo</span></code>, <code class="docutils literal notranslate"><span class="pre">example_test_bar</span></code>, and <code class="docutils literal notranslate"><span class="pre">example_test_baz</span></code>, each
-would have <code class="docutils literal notranslate"><span class="pre">example_test_init</span></code> called immediately before it and would have
-<code class="docutils literal notranslate"><span class="pre">example_test_exit</span></code> called immediately after it.
-<code class="docutils literal notranslate"><span class="pre">module_test(example_test_module)</span></code> registers the test suite with the KUnit
-test framework.</p>
+<p>In the above example the test suite, <code class="docutils literal notranslate"><span class="pre">example_test_suite</span></code>, would run the test
+cases <code class="docutils literal notranslate"><span class="pre">example_test_foo</span></code>, <code class="docutils literal notranslate"><span class="pre">example_test_bar</span></code>, and <code class="docutils literal notranslate"><span class="pre">example_test_baz</span></code>,
+each would have <code class="docutils literal notranslate"><span class="pre">example_test_init</span></code> called immediately before it and would
+have <code class="docutils literal notranslate"><span class="pre">example_test_exit</span></code> called immediately after it.
+<code class="docutils literal notranslate"><span class="pre">kunit_test_suite(example_test_suite)</span></code> registers the test suite with the
+KUnit test framework.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">A test case will only be run if it is associated with a test suite.</p>
@@ -741,7 +741,7 @@ able to run one test case per invocation.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'5.2.0-rc4-00018-g81368b7c318a2',
+            VERSION:'5.2.0-rc7-00018-g2e171353781d7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

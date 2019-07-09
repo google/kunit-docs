@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.2.0-rc7-00018-g2e171353781d7 documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.2.0-00018-gb83f78b75df48 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="The Linux Kernel 5.2.0-rc7-00018-g2e171353781d7 documentation" href="../index.html"/>
+    <link rel="top" title="The Linux Kernel 5.2.0-00018-gb83f78b75df48 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                5.2.0-rc7
+                5.2.0
               </div>
             
           
@@ -349,15 +349,6 @@ in the init function (see <a class="reference internal" href="#c.kunit_suite" ti
 running. Most of this data is private and should only be accessed indirectly
 via public functions; the one exception is <strong>priv</strong> which can be used by the
 test writer to store arbitrary data.</p>
-<p>A brief note on locking:</p>
-<p>First off, we need to lock because in certain cases a user may want to use an
-expectation in a thread other than the thread that the test case is running
-in.</p>
-<p>The next point is that the locking should be safe in an irq context.
-Technically speaking a user should use a mock/fake irqchip or some other fake
-method to trigger an irq handler under test; however, the irq handler should
-think that it is in a real irq context. Given that the code being run expects
-to be in an irq context, we should act as though it is.</p>
 <dl class="function">
 <dt id="c.kunit_test_suite">
 <code class="descname">kunit_test_suite</code><span class="sig-paren">(</span><em>suite</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_test_suite" title="Permalink to this definition">¶</a></dt>
@@ -376,11 +367,8 @@ information.</p>
 <p>Currently KUnit tests are all run as late_initcalls; this means that
 they cannot test anything where tests must run at a different init phase. One
 significant restriction resulting from this is that KUnit cannot reliably
-test anything that is initialize in the late_init phase.</p>
-<p>TODO(brendanhiggins**google.com**): Don’t run all KUnit tests as late_initcalls.
-I have some future work planned to dispatch all KUnit tests from the same
-place, and at the very least to do so after everything else is definitely
-initialized.</p>
+test anything that is initialize in the late_init phase; another is that
+KUnit is useless to test things that need to be run in an earlier init phase.</p>
 <dl class="function">
 <dt id="c.kunit_alloc_resource">
 struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> * <code class="descname">kunit_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a></dt>
@@ -1161,7 +1149,7 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.2.0-rc7-00018-g2e171353781d7',
+            VERSION:'5.2.0-00018-gb83f78b75df48',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

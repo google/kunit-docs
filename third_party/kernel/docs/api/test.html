@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.2.0-00018-gb83f78b75df48 documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.2.0-00018-gd25c1309cf816 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="The Linux Kernel 5.2.0-00018-gb83f78b75df48 documentation" href="../index.html"/>
+    <link rel="top" title="The Linux Kernel 5.2.0-00018-gd25c1309cf816 documentation" href="../index.html"/>
         <link rel="up" title="API Reference" href="index.html"/>
         <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
         <link rel="prev" title="API Reference" href="index.html"/> 
@@ -370,8 +370,28 @@ significant restriction resulting from this is that KUnit cannot reliably
 test anything that is initialize in the late_init phase; another is that
 KUnit is useless to test things that need to be run in an earlier init phase.</p>
 <dl class="function">
+<dt id="c.kunit_alloc_and_get_resource">
+struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> * <code class="descname">kunit_alloc_and_get_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, gfp_t<em>&nbsp;internal_gfp</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_and_get_resource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd><em>undescribed</em></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_init_t</span> <span class="pre">init</span></code></dt>
+<dd><em>undescribed</em></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_free_t</span> <span class="pre">free</span></code></dt>
+<dd><em>undescribed</em></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">internal_gfp</span></code></dt>
+<dd><em>undescribed</em></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">context</span></code></dt>
+<dd><em>undescribed</em></dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>object that contains the allocation. This is mostly for testing purposes.</p>
+<dl class="function">
 <dt id="c.kunit_alloc_resource">
-struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> * <code class="descname">kunit_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a></dt>
+void * <code class="descname">kunit_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, gfp_t<em>&nbsp;internal_gfp</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -383,6 +403,8 @@ struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resou
 <dd>a user supplied function to initialize the resource.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_free_t</span> <span class="pre">free</span></code></dt>
 <dd>a user supplied function to free the resource.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">internal_gfp</span></code></dt>
+<dd>gfp to use for internal allocations, if unsure, use GFP_KERNEL</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">context</span></code></dt>
 <dd>for the user to pass in arbitrary data to the init function.</dd>
 </dl>
@@ -390,6 +412,10 @@ struct <a class="reference internal" href="#c.kunit_resource" title="kunit_resou
 <p>Allocates a <em>test managed resource</em>, a resource which will automatically be
 cleaned up at the end of a test case. See <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> for an
 example.</p>
+<p><strong>NOTE</strong></p>
+<p>KUnit needs to allocate memory for each kunit_resource object. You must
+specify an <strong>internal_gfp</strong> that is compatible with the use context of your
+resource.</p>
 <dl class="function">
 <dt id="c.kunit_kmalloc">
 void * <code class="descname">kunit_kmalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kmalloc" title="Permalink to this definition">¶</a></dt>
@@ -1149,7 +1175,7 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.2.0-00018-gb83f78b75df48',
+            VERSION:'5.2.0-00018-gd25c1309cf816',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using KUnit &mdash; The Linux Kernel 5.2.0-00018-g0442cbdc4ea52 documentation</title>
+  <title>Using KUnit &mdash; The Linux Kernel 5.3.0-rc3+ documentation</title>
   
 
   
@@ -24,29 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="The Linux Kernel 5.2.0-00018-g0442cbdc4ea52 documentation" href="index.html"/>
-        <link rel="next" title="API Reference" href="api/index.html"/>
-        <link rel="prev" title="Getting Started" href="start.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Getting Started" href="start.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -68,7 +59,7 @@
             
             
               <div class="version">
-                5.2.0
+                5.3.0-rc3
               </div>
             
           
@@ -135,7 +126,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">The Linux Kernel</a>
@@ -143,9 +134,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -567,13 +559,14 @@ represents an EEPROM:</p>
         <span class="k">struct</span> <span class="n">eeprom_buffer_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
 
         <span class="n">ctx</span> <span class="o">=</span> <span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
-        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="p">);</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="p">);</span>
 
         <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span> <span class="o">=</span> <span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
-        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
+        <span class="n">fake_eeprom_init</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
 
         <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span> <span class="o">=</span> <span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
-        <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
 
         <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">;</span>
 
@@ -699,9 +692,7 @@ able to run one test case per invocation.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -719,11 +710,11 @@ able to run one test case per invocation.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright The kernel development community.
+        &copy; Copyright The kernel development community
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -738,35 +729,33 @@ able to run one test case per invocation.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'5.2.0-00018-g0442cbdc4ea52',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'5.3.0-rc3+',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

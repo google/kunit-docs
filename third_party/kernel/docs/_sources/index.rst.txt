@@ -69,7 +69,7 @@ things, and are unlikely to be rerun once they pass. If your tests are really
 fast, you run them all the time, every time you make a change, and every time
 someone sends you some code. Why trust that someone ran all their tests
 correctly on every change when you can just run them yourself in less time than
-it takes to read his / her test log?
+it takes to read their test log?
 
 How do I use it?
 ================

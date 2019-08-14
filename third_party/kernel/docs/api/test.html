@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.2.0-00018-g0442cbdc4ea52 documentation</title>
+  <title>Test API &mdash; The Linux Kernel 5.3.0-rc3+ documentation</title>
   
 
   
@@ -24,30 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="The Linux Kernel 5.2.0-00018-g0442cbdc4ea52 documentation" href="../index.html"/>
-        <link rel="up" title="API Reference" href="index.html"/>
-        <link rel="next" title="Frequently Asked Questions" href="../faq.html"/>
-        <link rel="prev" title="API Reference" href="index.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="../faq.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -69,7 +59,7 @@
             
             
               <div class="version">
-                5.2.0
+                5.3.0-rc3
               </div>
             
           
@@ -112,7 +102,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">The Linux Kernel</a>
@@ -120,9 +110,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -397,9 +388,50 @@ example.</p>
 specify an <strong>internal_gfp</strong> that is compatible with the use context of your
 resource.</p>
 <dl class="function">
+<dt id="c.kunit_resource_instance_match">
+bool <code class="descname">kunit_resource_instance_match</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, const void *<em>&nbsp;res</em>, void *<em>&nbsp;match_data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_instance_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match a resource with the same instance.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>Test case to which the resource belongs.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">void</span> <span class="pre">*</span> <span class="pre">res</span></code></dt>
+<dd>The data stored in kunit_resource-&gt;allocation.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">match_data</span></code></dt>
+<dd>The resource pointer to match against.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>An instance of kunit_resource_match_t that matches a resource whose
+allocation matches <strong>match_data</strong>.</p>
+<dl class="function">
+<dt id="c.kunit_resource_destroy">
+int <code class="descname">kunit_resource_destroy</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_match_t<em>&nbsp;match</em>, kunit_resource_free_t<em>&nbsp;free</em>, void *<em>&nbsp;match_data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a kunit_resource and destroy it.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>Test case to which the resource belongs.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_match_t</span> <span class="pre">match</span></code></dt>
+<dd>Match function. Returns whether a given resource matches <strong>match_data</strong>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">kunit_resource_free_t</span> <span class="pre">free</span></code></dt>
+<dd>Must match free on the kunit_resource to free.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span> <span class="pre">match_data</span></code></dt>
+<dd>Data passed into <strong>match</strong>.</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Free the latest kunit_resource of <strong>test</strong> for which <strong>free</strong> matches the
+kunit_resource_free_t associated with the resource and for which <strong>match</strong>
+returns true.</p>
+<p><strong>Return</strong></p>
+<p>0 if kunit_resource is found and freed, -ENOENT if not found.</p>
+<dl class="function">
 <dt id="c.kunit_kmalloc">
 void * <code class="descname">kunit_kmalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kmalloc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Like <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code> except the allocation is <em>test managed</em>.</p>
+<dd><p>Like kmalloc() except the allocation is <em>test managed</em>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -409,12 +441,25 @@ void * <code class="descname">kunit_kmalloc</code><span class="sig-paren">(</spa
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
 <dd>The size in bytes of the desired memory.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">gfp</span></code></dt>
-<dd>flags passed to underlying <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code>.</dd>
+<dd>flags passed to underlying kmalloc().</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Just like <cite>kmalloc(…)</cite>, except the allocation is managed by the test case
 and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
 <span class="pre">kunit_resource</span></code></a> for more information.</p>
+<dl class="function">
+<dt id="c.kunit_kfree">
+void <code class="descname">kunit_kfree</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, const void *<em>&nbsp;ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kfree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like kfree except for allocations managed by KUnit.</p>
+</dd></dl>
+
+<p><strong>Parameters</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
+<dd>The test case to which the resource belongs.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">void</span> <span class="pre">*</span> <span class="pre">ptr</span></code></dt>
+<dd>The memory allocation to free.</dd>
+</dl>
 <dl class="function">
 <dt id="c.kunit_kzalloc">
 void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, size_t<em>&nbsp;size</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kzalloc" title="Permalink to this definition">¶</a></dt>
@@ -428,10 +473,10 @@ void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</spa
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt>
 <dd>The size in bytes of the desired memory.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">gfp</span></code></dt>
-<dd>flags passed to underlying <code class="xref c c-func docutils literal notranslate"><span class="pre">kmalloc()</span></code>.</dd>
+<dd>flags passed to underlying kmalloc().</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>See <code class="xref c c-func docutils literal notranslate"><span class="pre">kzalloc()</span></code> and <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a> for more information.</p>
+<p>See kzalloc() and <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a> for more information.</p>
 <dl class="function">
 <dt id="c.kunit_info">
 <code class="descname">kunit_info</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_info" title="Permalink to this definition">¶</a></dt>
@@ -443,13 +488,13 @@ void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</spa
 <dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
-<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dd>A printk() style format string.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Prints an info level message associated with the test suite being run. Takes
-a variable number of format parameters just like <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code>.</p>
+a variable number of format parameters just like printk().</p>
 <dl class="function">
 <dt id="c.kunit_warn">
 <code class="descname">kunit_warn</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_warn" title="Permalink to this definition">¶</a></dt>
@@ -461,7 +506,7 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
-<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dd>A printk() style format string.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
 <dd>variable arguments</dd>
 </dl>
@@ -478,7 +523,7 @@ a variable number of format parameters just like <code class="xref c c-func docu
 <dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt>
 <dd>The test context object.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">fmt</span></code></dt>
-<dd>A <code class="xref c c-func docutils literal notranslate"><span class="pre">printk()</span></code> style format string.</dd>
+<dd>A printk() style format string.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
 <dd>variable arguments</dd>
 </dl>
@@ -1022,114 +1067,11 @@ for more information.</p>
 an errno stored in a pointer. This is the same as
 <a class="reference internal" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="KUNIT_EXPECT_NOT_ERR_OR_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NOT_ERR_OR_NULL()</span></code></a>, except it causes an assertion failure (see
 <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
-<dl class="type">
-<dt id="c.kunit_stream">
-struct <code class="descname">kunit_stream</code><a class="headerlink" href="#c.kunit_stream" title="Permalink to this definition">¶</a></dt>
-<dd><p>a std::stream style string builder.</p>
-</dd></dl>
-
-<p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct kunit_stream {
-};
-</pre></div>
-</div>
-<p><strong>Members</strong></p>
-<p><strong>Description</strong></p>
-<p>A std::stream style string builder. Allows messages to be built up and
-printed all at once. Note that the intention is to only use
-<a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a> to communicate with a user of KUnit, most often to
-communicate something about an expectation or an assertion to the user. If
-you want a similar interface, but aren’t sure if this is the right class for
-you to use, you probably want to use the related string_stream class, which
-is allowed for generic string construction in a similar manner. This class is
-really only for the KUnit library to communicate certain kinds of information
-to KUnit users and should not be used by anyone else.</p>
-<p>A note on <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>’s usage: a kunit_stream will generally
-accompany <em>one</em> expectation or assertion. Multiple expectations/assertions
-may be validated concurrently at any given time, even within a single test
-case, so sharing a kunit_stream between expectations/assertions may result in
-unintended consequences.</p>
-<dl class="function">
-<dt id="c.alloc_kunit_stream">
-struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> * <code class="descname">alloc_kunit_stream</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, const char *<em>&nbsp;level</em>, gfp_t<em>&nbsp;gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.alloc_kunit_stream" title="Permalink to this definition">¶</a></dt>
-<dd><p>constructs a new <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
-</dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
-<dd>The test context object.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">level</span></code></dt>
-<dd>The log level at which to print out the message.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">gfp_t</span> <span class="pre">gfp</span></code></dt>
-<dd>The GFP flags to use for internal allocations.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Constructs a new test managed <a class="reference internal" href="#c.kunit_stream" title="kunit_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span></code></a>.</p>
-<dl class="function">
-<dt id="c.__printf">
-void <code class="descname">__printf</code><span class="sig-paren">(</span>2, 3<span class="sig-paren">)</span><a class="headerlink" href="#c.__printf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">2</span></code></dt>
-<dd><em>undescribed</em></dd>
-<dt><code class="docutils literal notranslate"><span class="pre">3</span></code></dt>
-<dd><em>undescribed</em></dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Appends the formatted string, <strong>fmt</strong>, to the internal buffer.</p>
-<dl class="function">
-<dt id="c.kunit_stream_append">
-void <code class="descname">kunit_stream_append</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em>, struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;other</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_append" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
-<dd>the stream to which <strong>other</strong> is appended.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">other</span></code></dt>
-<dd>the stream whose contents are appended to <strong>kstream</strong>.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Appends the contents of <strong>other</strong> to <strong>kstream</strong>.</p>
-<dl class="function">
-<dt id="c.kunit_stream_commit">
-void <code class="descname">kunit_stream_commit</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_commit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
-<dd>the stream being operated on.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Outputs the contents of the internal buffer as a kunit_printk formatted
-output. KUNIT_STREAM ONLY OUTPUTS ITS BUFFER TO THE USER IF COMMIT IS
-CALLED!!! The reason for this is that it allows us to construct a message
-before we know whether we want to print it out; this can be extremely handy
-if there is information you might need for a failure message that is easiest
-to collect in the steps leading up to the actual check.</p>
-<dl class="function">
-<dt id="c.kunit_stream_clear">
-void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit_stream" title="kunit_stream">kunit_stream</a> *<em>&nbsp;kstream</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_stream_clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_stream</span> <span class="pre">*</span> <span class="pre">kstream</span></code></dt>
-<dd>the stream being operated on.</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>Clears the contents of the internal buffer.</p>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -1147,11 +1089,11 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright The kernel development community.
+        &copy; Copyright The kernel development community
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1166,35 +1108,33 @@ void <code class="descname">kunit_stream_clear</code><span class="sig-paren">(</
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'5.2.0-00018-g0442cbdc4ea52',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'5.3.0-rc3+',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

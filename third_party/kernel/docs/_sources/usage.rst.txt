@@ -425,13 +425,14 @@ We can now use it to test ``struct eeprom_buffer``:
 		struct eeprom_buffer_test *ctx;
 
 		ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-		ASSERT_NOT_ERR_OR_NULL(test, ctx);
+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
 
 		ctx->fake_eeprom = kunit_kzalloc(test, sizeof(*ctx->fake_eeprom), GFP_KERNEL);
-		ASSERT_NOT_ERR_OR_NULL(test, ctx->fake_eeprom);
+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->fake_eeprom);
+		fake_eeprom_init(ctx->fake_eeprom);
 
 		ctx->eeprom_buffer = new_eeprom_buffer(&ctx->fake_eeprom->parent);
-		ASSERT_NOT_ERR_OR_NULL(test, ctx->eeprom_buffer);
+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->eeprom_buffer);
 
 		test->priv = ctx;
 

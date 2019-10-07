@@ -1,0 +1,80 @@
+================================
+Getting Started Developing KUnit
+================================
+
+Setting Up Your Work Environment
+================================
+
+Follow the instructions at `../usage/index`.
+
+Familiarize Yourself with KUnit's Design
+========================================
+
+KUnit's design is discussed in the :doc:`design` section.
+
+Contributing to code in the Linux kernel
+========================================
+
+Please follow the guide in the Linux kernel:
+https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development
+
+In addition, remember to CC kunit-dev@googlegroups.com and
+linux-kselftest@vger.kernel.org.
+
+Contributing to code outside of the Linux kernel
+================================================
+
+This section is for contributing code to repos that live outside of
+https://git.kernel.org.
+
+Why is there a distinction?
+---------------------------
+
+The Linux kernel has been around a lot longer than KUnit, and thus has rules
+that we have no say on. However, any code that lives outside of the kernel is
+managed by Google; it's open source and everyone has equal right to it, but
+because it is under the Google umbrella and not the Linux Foundation's umbrella
+it means that there are certain rules we have to follow in one place, and
+different rules in the other.
+
+The details are not important, all you have to know is that if you send code to
+the Linux kernel you should follow the rules above, and if you are contributing
+to any other KUnit repos, you should follow the rules here.
+
+If you still have confusion, feel free to reach out to us.
+
+Sign the Contributor License Agreement
+--------------------------------------
+
+For any contributions not sent directly to the Linux kernel via the Linux
+kernel mailing lists, we require contributors to sign our Contributor License
+Agreement (CLA).
+
+You may sign our CLA here: https://cla.developers.google.com/
+
+.. note::
+   Your company may already have a CLA on file with Google.
+
+Submitting Changes
+------------------
+
+We use `Gerrit <https://kunit-review.googlesource.com>`_ for all non-upstream
+code reviews.
+
+In order for Gerrit to accept your change, you must first make sure your commit
+messages are formatted correctly. It should have a:
+
+- ``Change-Id`` - see
+  https://gerrit-review.googlesource.com/Documentation/user-changeid.html for
+  more information.
+- ``Signed-off-by`` - see
+  https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+
+Now you are ready to send your change for review:
+
+.. code-block:: bash
+
+   git push -u origin HEAD:refs/for/master
+
+For more information on submitting changes through Gerrit, please see the
+following section :doc:`gerrit-workflow`.

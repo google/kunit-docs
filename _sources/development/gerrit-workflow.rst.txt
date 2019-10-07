@@ -1,0 +1,183 @@
+===============
+Gerrit Workflow
+===============
+
+KUnit can refer both to the unit testing code within the Linux kernel and to
+the project as a whole, which includes some other supporting code. The meaning
+is usually clear when used in context.
+
+With that said, KUnit, as a project, is made up of several repositories. As
+mentioned elsewhere, the actual KUnit unit testing code is in the upstream
+Linux kernel or is otherwise staged on Gerrit waiting to get into the Linux
+kernel.  All our other code is in Gerrit. For an introduction to Gerrit (with a
+high level overview of git), see
+https://gerrit-review.googlesource.com/Documentation/intro-user.html. For
+detailed introduction to git, see https://try.github.io.
+
+Starting from Scratch
+=====================
+
+This section describes how to start a change from scratch.
+
+Cloning a repo for the first time
+---------------------------------
+
+If you have not done so yet, clone the repository you want to make changes to.
+For example:
+
+.. code-block:: bash
+
+   git clone https://kunit.googlesource.com/prow-presubmit
+
+Checkout the desired branch
+---------------------------
+
+Checkout the branch on which you want to make changes to. For example:
+
+.. code-block:: bash
+
+   git checkout master
+
+Make sure your branch is up to date
+-----------------------------------
+
+If you have not done so in a while, you will need to update your repo and
+branches. Your remote references can be updated with the ``fetch`` command. For
+example:
+
+.. code-block:: bash
+
+   git fetch origin
+
+where ``origin`` it the name of the KUnit remote, by default ``origin`` is the
+name of the repository that was cloned.
+
+Now that you have updated your remote references, you need to update the local
+branch you will be working on. If this branch is only local to your repository,
+you may need to rebase it on the remote branch you are trying to get your
+changes into (in this case, you would already have changes underway. See
+:ref:`updating-changes` for more information.); here we assume that is not the case.
+Update your branch with the `pull` command. For example:
+
+.. code-block:: bash
+
+   git pull origin -ff
+
+``-ff`` forces git not to merge upstream changes into your branch. This is
+important as we, the KUnit project, do not want merge commits in our git repos.
+This command will fail if you have local changes.
+
+Making a change
+---------------
+
+Once you have made a change, that you are happy with and would like to send up
+for review you first need to ``commit`` the change. For example:
+
+.. code-block:: bash
+
+   git add path/to/a/file/you/modified
+   git add path/to/a/different/file/you/changed
+   git commit
+
+A git commit should be a logical, bite-size change that is easy for your
+reviewer to understand.
+
+Your commit message should have a:
+
+- **subject** - line on top that provides a vague idea of what you are doing.
+- **body** - which describes in more detail what you are doing.
+
+The bottome of your commit message should have:
+
+- ``Change-Id`` - see
+  https://gerrit-review.googlesource.com/Documentation/user-changeid.html for
+  more information.
+- ``Signed-off-by`` - see
+  https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+
+Sending changes for review
+--------------------------
+
+Now that you are happy with your commits, you need to send them for review.
+This is done by pushing them to Gerrit with the ``push`` command. For example,
+let's say you want your changes to be submitted on ``master``
+branch, and ``origin`` is the prow-presubmit repo:
+
+.. code-block:: bash
+
+   git push -u origin HEAD:refs/for/master
+
+If pushing succeeds, Gerrit will respond by printing out the link where you can find the review.
+
+.. _updating-changes:
+
+Updating Existing Changes
+=========================
+
+This section describes how to update your or another user's changes.
+
+Checking out someone else's changes
+-----------------------------------
+
+Gerrit allows users to take over changes made by other users. This can be done
+by checking out a change that is currently under review (and then pushing
+modified versions of those changes). Let's say there is a change at
+https://kunit-review.googlesource.com/c/prow-presubmit/+/2569; you can checkout
+this change and its dependencies by clicking on the download button; it will
+provide you several options, the first option provides a git command that you
+can copy to your command line and run, such as:
+
+.. code-block:: bash
+
+   git fetch "https://kunit.googlesource.com/prow-presubmit" refs/changes/69/2569/1 && git checkout FETCH_HEAD
+
+.. tip::
+   You can also use this to checkout changes that you have misplaced or lost.
+
+Updating changes
+----------------
+
+Once you have checked out the changes that you need to update, you may want to
+update them, as the branch you are looking to submit to may have progressed;
+this can be accomplished by rebasing against the branch you want to submit to.
+For example:
+
+.. code-block:: bash
+
+   git rebase master
+
+Now you need to modify the commits to address reviewer's comments, or maybe you
+realized that you forgot something that should be in an earlier commit.
+Modifying commits may be accomplished with interactive rebase. Interactive
+rebase is a very powerful git command and is discussed in some detail here:
+https://dev.to/blakedeboer/beginners-guide-to-interactive-rebasing-1ob.
+
+You might start an interactive rebase with:
+
+.. code-block:: bash
+
+   git rebase -i master
+
+.. note::
+   Only modify commits that are actually under review; changing commits that
+   have already been checked in will cause Gerrit to yell at you.
+
+Sending changes for review (again)
+----------------------------------
+
+All you need to do to update your changes on Gerrit under review is to push
+your modified commits to the same branch that you would have as if you were
+pushing for the first time.
+
+For example, let's say you want to submit your changes to ``master``; you would
+then
+
+.. code-block:: bash
+
+   git push -u origin HEAD:refs/for/master
+
+You may wonder how Gerrit knows to replace the old commits at this location
+with the ones that you modified; the secret is the ``Change-Id``. **A Change-Id
+should almost never be changed when updating a commit**; it tells Gerrit that
+the commit is the same commit as before even though everything else may have
+changed about the commit (including the commit hash).

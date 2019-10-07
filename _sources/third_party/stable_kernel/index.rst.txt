@@ -1,0 +1,17 @@
+=================================
+Stable Version (aka Not Upstream)
+=================================
+
+Here we have a copy of the documentation taken from the stable branch of KUnit.
+
+For convenience:
+
+Where to get the code
+---------------------
+
+https://kunit.googlesource.com/linux/+/kunit/alpha/master
+
+Getting Started Guide
+---------------------
+
+`docs/ <docs/>`_

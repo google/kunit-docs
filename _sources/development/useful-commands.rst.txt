@@ -1,0 +1,30 @@
+===============
+Useful Commands
+===============
+
+Building and Running KUnit Manually
+===================================
+
+Sometimes for debugging kunit_tool or the interaction between the KUnit kernel
+and kunit_tool it is useful to build and run the tests manually:
+
+.. code-block:: bash
+
+   cp kunitconfig .config
+   make ARCH=um -j 12
+   ./linux mem=1G log_buf_len=2M
+
+Cleaning the Kernel
+===================
+
+As typical, cleaning object files can be accomplished with:
+
+.. code-block:: bash
+
+   make clean
+
+and the tree can be fully cleaned with:
+
+.. code-block:: bash
+
+   make mrproper

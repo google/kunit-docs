@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Test API &mdash; The Linux Kernel 5.3.0-rc3+ documentation</title>
+  <title>Test API &mdash; The Linux Kernel  documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                5.3.0-rc3
+                5.3.0-rc5
               </div>
             
           
@@ -245,14 +245,15 @@ struct <code class="descname">kunit_case</code><a class="headerlink" href="#c.ku
 <dd>the name of the test case.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*)</span></code>
+<p>A test case is a function with the signature,
+<code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*)</span></code>
 that makes expectations and assertions (see <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> and
-<a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) about code under test. Each test case is associated with
-a <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> and will be run after the suite’s init function and
-followed by the suite’s exit function.</p>
-<p>A test case should be static and should only be created with the <a class="reference internal" href="#c.KUNIT_CASE" title="KUNIT_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_CASE()</span></code></a>
-macro; additionally, every array of test cases should be terminated with an
-empty test case.</p>
+<a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) about code under test. Each test case is associated
+with a <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> and will be run after the suite’s init
+function and followed by the suite’s exit function.</p>
+<p>A test case should be static and should only be created with the
+<a class="reference internal" href="#c.KUNIT_CASE" title="KUNIT_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_CASE()</span></code></a> macro; additionally, every array of test cases should be
+terminated with an empty test case.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
@@ -287,7 +288,7 @@ empty test case.</p>
 <dl class="type">
 <dt id="c.kunit_suite">
 struct <code class="descname">kunit_suite</code><a class="headerlink" href="#c.kunit_suite" title="Permalink to this definition">¶</a></dt>
-<dd><p>describes a related collection of <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> s.</p>
+<dd><p>describes a related collection of <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a></p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
@@ -312,11 +313,11 @@ struct <code class="descname">kunit_suite</code><a class="headerlink" href="#c.k
 </dl>
 <p><strong>Description</strong></p>
 <p>A kunit_suite is a collection of related <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> s, such that
-<strong>init</strong> is called before every test case and <strong>exit</strong> is called after every test
-case, similar to the notion of a <em>test fixture</em> or a <em>test class</em> in other
-unit testing frameworks like JUnit or Googletest.</p>
-<p>Every <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> must be associated with a kunit_suite for KUnit to
-run it.</p>
+<strong>init</strong> is called before every test case and <strong>exit</strong> is called after every
+test case, similar to the notion of a <em>test fixture</em> or a <em>test class</em>
+in other unit testing frameworks like JUnit or Googletest.</p>
+<p>Every <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> must be associated with a kunit_suite for KUnit
+to run it.</p>
 <dl class="type">
 <dt id="c.kunit">
 struct <code class="descname">kunit</code><a class="headerlink" href="#c.kunit" title="Permalink to this definition">¶</a></dt>
@@ -332,14 +333,14 @@ struct <code class="descname">kunit</code><a class="headerlink" href="#c.kunit" 
 <p><strong>Members</strong></p>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">priv</span></code></dt>
-<dd>for user to store arbitrary data. Commonly used to pass data created
-in the init function (see <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a>).</dd>
+<dd>for user to store arbitrary data. Commonly used to pass data
+created in the init function (see <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a>).</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Used to store information about the current context under which the test is
-running. Most of this data is private and should only be accessed indirectly
-via public functions; the one exception is <strong>priv</strong> which can be used by the
-test writer to store arbitrary data.</p>
+<p>Used to store information about the current context under which the test
+is running. Most of this data is private and should only be accessed
+indirectly via public functions; the one exception is <strong>priv</strong> which can be
+used by the test writer to store arbitrary data.</p>
 <dl class="function">
 <dt id="c.kunit_test_suite">
 <code class="descname">kunit_test_suite</code><span class="sig-paren">(</span><em>suite</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_test_suite" title="Permalink to this definition">¶</a></dt>
@@ -352,14 +353,19 @@ test writer to store arbitrary data.</p>
 <dd>a statically allocated <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a>.</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Registers <strong>suite</strong> with the test framework. See <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> for more
-information.</p>
+<p>Registers <strong>suite</strong> with the test framework. See <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> for
+more information.</p>
 <p><strong>NOTE</strong></p>
-<p>Currently KUnit tests are all run as late_initcalls; this means that
-they cannot test anything where tests must run at a different init phase. One
-significant restriction resulting from this is that KUnit cannot reliably
-test anything that is initialize in the late_init phase; another is that
-KUnit is useless to test things that need to be run in an earlier init phase.</p>
+<p>Currently KUnit tests are all run as late_initcalls; this means
+that they cannot test anything where tests must run at a different init
+phase. One significant restriction resulting from this is that KUnit
+cannot reliably test anything that is initialize in the late_init phase;
+another is that KUnit is useless to test things that need to be run in
+an earlier init phase.</p>
+<p>TODO(brendanhiggins**google.com**): Don’t run all KUnit tests as
+late_initcalls.  I have some future work planned to dispatch all KUnit
+tests from the same place, and at the very least to do so after
+everything else is definitely initialized.</p>
 <dl class="function">
 <dt id="c.kunit_alloc_resource">
 void * <code class="descname">kunit_alloc_resource</code><span class="sig-paren">(</span>struct <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>&nbsp;test</em>, kunit_resource_init_t<em>&nbsp;init</em>, kunit_resource_free_t<em>&nbsp;free</em>, gfp_t<em>&nbsp;internal_gfp</em>, void *<em>&nbsp;context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a></dt>
@@ -480,7 +486,7 @@ void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</spa
 <dl class="function">
 <dt id="c.kunit_info">
 <code class="descname">kunit_info</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints an INFO level message associated with the current test.</p>
+<dd><p>Prints an INFO level message associated with <strong>test</strong>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -493,12 +499,12 @@ void * <code class="descname">kunit_kzalloc</code><span class="sig-paren">(</spa
 <dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Prints an info level message associated with the test suite being run. Takes
-a variable number of format parameters just like printk().</p>
+<p>Prints an info level message associated with the test suite being run.
+Takes a variable number of format parameters just like printk().</p>
 <dl class="function">
 <dt id="c.kunit_warn">
 <code class="descname">kunit_warn</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_warn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints a WARN level message associated with the current test.</p>
+<dd><p>Prints a WARN level message associated with <strong>test</strong>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -515,7 +521,7 @@ a variable number of format parameters just like printk().</p>
 <dl class="function">
 <dt id="c.kunit_err">
 <code class="descname">kunit_err</code><span class="sig-paren">(</span><em>test</em>, <em>fmt</em>, <em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_err" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints an ERROR level message associated with the current test.</p>
+<dd><p>Prints an ERROR level message associated with <strong>test</strong>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -1110,20 +1116,11 @@ an errno stored in a pointer. This is the same as
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'5.3.0-rc3+',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

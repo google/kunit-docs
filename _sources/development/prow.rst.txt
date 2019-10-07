@@ -1,0 +1,18 @@
+===============================
+Prow Presubmit for KUnit Gerrit
+===============================
+
+We, KUnit, use `Prow
+<https://github.com/kubernetes/test-infra/tree/master/prow>`_, a Kubernetes
+based CI/CD system, for our Presubmit system.
+
+Prow has built in support for Gerrit and GitHub integration. The only thing
+needed to run KUnit on Prow is a special test runner container, which we
+maintain here: https://kunit.googlesource.com/prow-presubmit.
+
+The Prow config which specifies our container can be found `here
+<https://github.com/GoogleCloudPlatform/oss-test-infra/blob/master/prow/prowjobs/kunit-review.googlesource.com/linux/kunit-linux-config.yaml>`_
+in the google-oss prow cluster.
+
+For more information, please refer to our Prow container repo:
+https://kunit.googlesource.com/prow-presubmit/

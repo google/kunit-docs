@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started Developing KUnit &mdash; KUnit  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gerrit Workflow" href="gerrit-workflow.html" />
+    <link rel="prev" title="Development" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KUnit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Getting Started Developing KUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-your-work-environment">Setting Up Your Work Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#familiarize-yourself-with-kunit-s-design">Familiarize Yourself with KUnit’s Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-code-in-the-linux-kernel">Contributing to code in the Linux kernel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-code-outside-of-the-linux-kernel">Contributing to code outside of the Linux kernel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#why-is-there-a-distinction">Why is there a distinction?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sign-the-contributor-license-agreement">Sign the Contributor License Agreement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submitting-changes">Submitting Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">KUnit Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">KUnit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Development</a> &raquo;</li>
+        
+      <li>Getting Started Developing KUnit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/development/start.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started-developing-kunit">
+<h1>Getting Started Developing KUnit<a class="headerlink" href="#getting-started-developing-kunit" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setting-up-your-work-environment">
+<h2>Setting Up Your Work Environment<a class="headerlink" href="#setting-up-your-work-environment" title="Permalink to this headline">¶</a></h2>
+<p>Follow the instructions at <cite>../usage/index</cite>.</p>
+</div>
+<div class="section" id="familiarize-yourself-with-kunit-s-design">
+<h2>Familiarize Yourself with KUnit’s Design<a class="headerlink" href="#familiarize-yourself-with-kunit-s-design" title="Permalink to this headline">¶</a></h2>
+<p>KUnit’s design is discussed in the <a class="reference internal" href="design.html"><span class="doc">KUnit Design</span></a> section.</p>
+</div>
+<div class="section" id="contributing-to-code-in-the-linux-kernel">
+<h2>Contributing to code in the Linux kernel<a class="headerlink" href="#contributing-to-code-in-the-linux-kernel" title="Permalink to this headline">¶</a></h2>
+<p>Please follow the guide in the Linux kernel:
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development">https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development</a></p>
+<p>In addition, remember to CC <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a> and
+<a class="reference external" href="mailto:linux-kselftest&#37;&#52;&#48;vger&#46;kernel&#46;org">linux-kselftest<span>&#64;</span>vger<span>&#46;</span>kernel<span>&#46;</span>org</a>.</p>
+</div>
+<div class="section" id="contributing-to-code-outside-of-the-linux-kernel">
+<h2>Contributing to code outside of the Linux kernel<a class="headerlink" href="#contributing-to-code-outside-of-the-linux-kernel" title="Permalink to this headline">¶</a></h2>
+<p>This section is for contributing code to repos that live outside of
+<a class="reference external" href="https://git.kernel.org">https://git.kernel.org</a>.</p>
+<div class="section" id="why-is-there-a-distinction">
+<h3>Why is there a distinction?<a class="headerlink" href="#why-is-there-a-distinction" title="Permalink to this headline">¶</a></h3>
+<p>The Linux kernel has been around a lot longer than KUnit, and thus has rules
+that we have no say on. However, any code that lives outside of the kernel is
+managed by Google; it’s open source and everyone has equal right to it, but
+because it is under the Google umbrella and not the Linux Foundation’s umbrella
+it means that there are certain rules we have to follow in one place, and
+different rules in the other.</p>
+<p>The details are not important, all you have to know is that if you send code to
+the Linux kernel you should follow the rules above, and if you are contributing
+to any other KUnit repos, you should follow the rules here.</p>
+<p>If you still have confusion, feel free to reach out to us.</p>
+</div>
+<div class="section" id="sign-the-contributor-license-agreement">
+<h3>Sign the Contributor License Agreement<a class="headerlink" href="#sign-the-contributor-license-agreement" title="Permalink to this headline">¶</a></h3>
+<p>For any contributions not sent directly to the Linux kernel via the Linux
+kernel mailing lists, we require contributors to sign our Contributor License
+Agreement (CLA).</p>
+<p>You may sign our CLA here: <a class="reference external" href="https://cla.developers.google.com/">https://cla.developers.google.com/</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Your company may already have a CLA on file with Google.</p>
+</div>
+</div>
+<div class="section" id="submitting-changes">
+<h3>Submitting Changes<a class="headerlink" href="#submitting-changes" title="Permalink to this headline">¶</a></h3>
+<p>We use <a class="reference external" href="https://kunit-review.googlesource.com">Gerrit</a> for all non-upstream
+code reviews.</p>
+<p>In order for Gerrit to accept your change, you must first make sure your commit
+messages are formatted correctly. It should have a:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Change-Id</span></code> - see
+<a class="reference external" href="https://gerrit-review.googlesource.com/Documentation/user-changeid.html">https://gerrit-review.googlesource.com/Documentation/user-changeid.html</a> for
+more information.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Signed-off-by</span></code> - see
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin">https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin</a></li>
+</ul>
+<p>Now you are ready to send your change for review:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push -u origin HEAD:refs/for/master
+</pre></div>
+</div>
+<p>For more information on submitting changes through Gerrit, please see the
+following section <a class="reference internal" href="gerrit-workflow.html"><span class="doc">Gerrit Workflow</span></a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gerrit-workflow.html" class="btn btn-neutral float-right" title="Gerrit Workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brendan Higgins
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

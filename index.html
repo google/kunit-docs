@@ -1,4 +1,317 @@
+
+
 <!DOCTYPE html>
-<meta charset="utf-8">
-<!-- DO NOT SUBMIT: Fix Page Title. Missing tags? http://go/optional-html -->
-<title>KUnit</title>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>KUnit &mdash; KUnit  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="usage/index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> KUnit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">KUnit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>KUnit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kunit">
+<h1>KUnit<a class="headerlink" href="#kunit" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#why-are-there-multiple-versions">Why are there multiple versions?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#which-version-should-i-use">Which version should I use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#where-to-go">Where to go</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development/start.html">Getting Started Developing KUnit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/gerrit-workflow.html">Gerrit Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/design.html">KUnit Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/useful-commands.html">Useful Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development/prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="third_party/kernel/index.html#where-to-get-the-code">Where to get the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party/kernel/index.html#getting-started-guide">Getting Started Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="third_party/stable_kernel/index.html#where-to-get-the-code">Where to get the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party/stable_kernel/index.html#getting-started-guide">Getting Started Guide</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-kunit">
+<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h2>
+<p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
+These tests are able to be run locally on a developer’s workstation without a
+VM or special hardware.</p>
+<p>KUnit is heavily inspired by JUnit, Python’s unittest.mock, and
+Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
+cases, grouping related test cases into test suites, providing common
+infrastructure for running tests, mocking, spying, and much more. Get started
+now: <a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a></p>
+</div>
+<div class="section" id="who-is-it-for">
+<h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Permalink to this headline">¶</a></h2>
+<p>If you work on the Linux kernel, then KUnit is for you.</p>
+</div>
+<div class="section" id="why-kunit">
+<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
+<p>Aside from KUnit there is no true unit testing framework for the Linux kernel.
+Autotest and kselftest (and within Google, Kokonut) are sometimes cited as unit
+testing frameworks; however, they are not by most reasonable definitions of
+unit tests.</p>
+<p>A unit test is supposed to test a single unit of code in isolation, hence the
+name. A unit test should be the finest granularity of testing and as such
+should allow all possible code paths to be tested in the code under test; this
+is only possible if the code under test is very small and does not have any
+external dependencies outside of the test’s control like hardware.</p>
+<p>As far as I know, outside of KUnit, there are no testing frameworks currently
+available for the kernel that do not require installing the kernel on a test
+machine or in a VM and all require tests to be written in userspace running on
+the kernel; this is true for Autotest, kselftest, and Kokonut, disqualifying
+any of them from being considered unit testing frameworks.</p>
+<p>KUnit addresses the problem of being able to run tests without needing a
+virtual machine or actual hardware with User Mode Linux. User Mode Linux is a
+Linux architecture, like ARM or x86; however, unlike other architectures it
+compiles to a standalone program that can be run like any other program
+directly inside of a host operating system; to be clear, it does not require
+any virtualization support; it is just a regular program. User Mode Linux is
+fast: on my desktop it boots to init process in under a second.</p>
+</div>
+<div class="section" id="how-do-i-use-it">
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</li>
+<li>For upstream KUnit:
+- <a class="reference external" href="third_party/kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features
+- <a class="reference external" href="third_party/kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</li>
+<li>For stable KUnit:
+- <a class="reference external" href="third_party/stable_kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features
+- <a class="reference external" href="third_party/stable_kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</li>
+</ul>
+</div>
+<div class="section" id="where-do-i-get-it">
+<h2>Where do I get it?<a class="headerlink" href="#where-do-i-get-it" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Upstream: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next</a></li>
+<li>Stable: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></li>
+</ul>
+<p>Not sure which one you want? Take a look at <a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a>.</p>
+</div>
+<div class="section" id="connect-with-us">
+<h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Mailing List: <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a></li>
+<li>Google Groups (web interface for above): <a class="reference external" href="https://groups.google.com/forum/#!forum/kunit-dev">https://groups.google.com/forum/#!forum/kunit-dev</a></li>
+<li>IRC: #kunit on oftc.net</li>
+<li>Riot: <a class="reference external" href="https://riot.im/app/#/room/#_oftc_#kunit:matrix.org">#kunit:matrix.org</a></li>
+</ul>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>If you want to contribute to KUnit in the Linux kernel (which is just the same
+as contributing to the Linux kernel, please see <a class="reference external" href="https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development">the Linux kernel’s guide on
+contributing</a>.</p>
+<p>For other KUnit repositories (CI/CD, vim plugin, etc), please see
+<a class="reference download internal" download="" href="_downloads/b60787948d3e4e2f644cbd3967442c7e/CONTRIBUTING.md"><code class="xref download docutils literal notranslate"><span class="pre">CONTRIBUTING.md</span></code></a>.</p>
+<p>In all cases, you will also want to take a look at <a class="reference internal" href="development/index.html"><span class="doc">Development</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brendan Higgins
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

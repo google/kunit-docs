@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gerrit Workflow &mdash; KUnit  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KUnit Design" href="design.html" />
+    <link rel="prev" title="Getting Started Developing KUnit" href="start.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KUnit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="start.html">Getting Started Developing KUnit</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Gerrit Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-from-scratch">Starting from Scratch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cloning-a-repo-for-the-first-time">Cloning a repo for the first time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checkout-the-desired-branch">Checkout the desired branch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#make-sure-your-branch-is-up-to-date">Make sure your branch is up to date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#making-a-change">Making a change</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sending-changes-for-review">Sending changes for review</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-existing-changes">Updating Existing Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#checking-out-someone-else-s-changes">Checking out someone else’s changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Updating changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sending-changes-for-review-again">Sending changes for review (again)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">KUnit Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">KUnit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Development</a> &raquo;</li>
+        
+      <li>Gerrit Workflow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/development/gerrit-workflow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gerrit-workflow">
+<h1>Gerrit Workflow<a class="headerlink" href="#gerrit-workflow" title="Permalink to this headline">¶</a></h1>
+<p>KUnit can refer both to the unit testing code within the Linux kernel and to
+the project as a whole, which includes some other supporting code. The meaning
+is usually clear when used in context.</p>
+<p>With that said, KUnit, as a project, is made up of several repositories. As
+mentioned elsewhere, the actual KUnit unit testing code is in the upstream
+Linux kernel or is otherwise staged on Gerrit waiting to get into the Linux
+kernel.  All our other code is in Gerrit. For an introduction to Gerrit (with a
+high level overview of git), see
+<a class="reference external" href="https://gerrit-review.googlesource.com/Documentation/intro-user.html">https://gerrit-review.googlesource.com/Documentation/intro-user.html</a>. For
+detailed introduction to git, see <a class="reference external" href="https://try.github.io">https://try.github.io</a>.</p>
+<div class="section" id="starting-from-scratch">
+<h2>Starting from Scratch<a class="headerlink" href="#starting-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to start a change from scratch.</p>
+<div class="section" id="cloning-a-repo-for-the-first-time">
+<h3>Cloning a repo for the first time<a class="headerlink" href="#cloning-a-repo-for-the-first-time" title="Permalink to this headline">¶</a></h3>
+<p>If you have not done so yet, clone the repository you want to make changes to.
+For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://kunit.googlesource.com/prow-presubmit
+</pre></div>
+</div>
+</div>
+<div class="section" id="checkout-the-desired-branch">
+<h3>Checkout the desired branch<a class="headerlink" href="#checkout-the-desired-branch" title="Permalink to this headline">¶</a></h3>
+<p>Checkout the branch on which you want to make changes to. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git checkout master
+</pre></div>
+</div>
+</div>
+<div class="section" id="make-sure-your-branch-is-up-to-date">
+<h3>Make sure your branch is up to date<a class="headerlink" href="#make-sure-your-branch-is-up-to-date" title="Permalink to this headline">¶</a></h3>
+<p>If you have not done so in a while, you will need to update your repo and
+branches. Your remote references can be updated with the <code class="docutils literal notranslate"><span class="pre">fetch</span></code> command. For
+example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch origin
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">origin</span></code> it the name of the KUnit remote, by default <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the
+name of the repository that was cloned.</p>
+<p>Now that you have updated your remote references, you need to update the local
+branch you will be working on. If this branch is only local to your repository,
+you may need to rebase it on the remote branch you are trying to get your
+changes into (in this case, you would already have changes underway. See
+<a class="reference internal" href="#updating-changes"><span class="std std-ref">Updating Existing Changes</span></a> for more information.); here we assume that is not the case.
+Update your branch with the <cite>pull</cite> command. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git pull origin -ff
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-ff</span></code> forces git not to merge upstream changes into your branch. This is
+important as we, the KUnit project, do not want merge commits in our git repos.
+This command will fail if you have local changes.</p>
+</div>
+<div class="section" id="making-a-change">
+<h3>Making a change<a class="headerlink" href="#making-a-change" title="Permalink to this headline">¶</a></h3>
+<p>Once you have made a change, that you are happy with and would like to send up
+for review you first need to <code class="docutils literal notranslate"><span class="pre">commit</span></code> the change. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git add path/to/a/file/you/modified
+git add path/to/a/different/file/you/changed
+git commit
+</pre></div>
+</div>
+<p>A git commit should be a logical, bite-size change that is easy for your
+reviewer to understand.</p>
+<p>Your commit message should have a:</p>
+<ul class="simple">
+<li><strong>subject</strong> - line on top that provides a vague idea of what you are doing.</li>
+<li><strong>body</strong> - which describes in more detail what you are doing.</li>
+</ul>
+<p>The bottome of your commit message should have:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Change-Id</span></code> - see
+<a class="reference external" href="https://gerrit-review.googlesource.com/Documentation/user-changeid.html">https://gerrit-review.googlesource.com/Documentation/user-changeid.html</a> for
+more information.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Signed-off-by</span></code> - see
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin">https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin</a></li>
+</ul>
+</div>
+<div class="section" id="sending-changes-for-review">
+<h3>Sending changes for review<a class="headerlink" href="#sending-changes-for-review" title="Permalink to this headline">¶</a></h3>
+<p>Now that you are happy with your commits, you need to send them for review.
+This is done by pushing them to Gerrit with the <code class="docutils literal notranslate"><span class="pre">push</span></code> command. For example,
+let’s say you want your changes to be submitted on <code class="docutils literal notranslate"><span class="pre">master</span></code>
+branch, and <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the prow-presubmit repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push -u origin HEAD:refs/for/master
+</pre></div>
+</div>
+<p>If pushing succeeds, Gerrit will respond by printing out the link where you can find the review.</p>
+</div>
+</div>
+<div class="section" id="updating-existing-changes">
+<span id="updating-changes"></span><h2>Updating Existing Changes<a class="headerlink" href="#updating-existing-changes" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to update your or another user’s changes.</p>
+<div class="section" id="checking-out-someone-else-s-changes">
+<h3>Checking out someone else’s changes<a class="headerlink" href="#checking-out-someone-else-s-changes" title="Permalink to this headline">¶</a></h3>
+<p>Gerrit allows users to take over changes made by other users. This can be done
+by checking out a change that is currently under review (and then pushing
+modified versions of those changes). Let’s say there is a change at
+<a class="reference external" href="https://kunit-review.googlesource.com/c/prow-presubmit/+/2569">https://kunit-review.googlesource.com/c/prow-presubmit/+/2569</a>; you can checkout
+this change and its dependencies by clicking on the download button; it will
+provide you several options, the first option provides a git command that you
+can copy to your command line and run, such as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch <span class="s2">&quot;https://kunit.googlesource.com/prow-presubmit&quot;</span> refs/changes/69/2569/1 <span class="o">&amp;&amp;</span> git checkout FETCH_HEAD
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can also use this to checkout changes that you have misplaced or lost.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Updating changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Once you have checked out the changes that you need to update, you may want to
+update them, as the branch you are looking to submit to may have progressed;
+this can be accomplished by rebasing against the branch you want to submit to.
+For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git rebase master
+</pre></div>
+</div>
+<p>Now you need to modify the commits to address reviewer’s comments, or maybe you
+realized that you forgot something that should be in an earlier commit.
+Modifying commits may be accomplished with interactive rebase. Interactive
+rebase is a very powerful git command and is discussed in some detail here:
+<a class="reference external" href="https://dev.to/blakedeboer/beginners-guide-to-interactive-rebasing-1ob">https://dev.to/blakedeboer/beginners-guide-to-interactive-rebasing-1ob</a>.</p>
+<p>You might start an interactive rebase with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git rebase -i master
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only modify commits that are actually under review; changing commits that
+have already been checked in will cause Gerrit to yell at you.</p>
+</div>
+</div>
+<div class="section" id="sending-changes-for-review-again">
+<h3>Sending changes for review (again)<a class="headerlink" href="#sending-changes-for-review-again" title="Permalink to this headline">¶</a></h3>
+<p>All you need to do to update your changes on Gerrit under review is to push
+your modified commits to the same branch that you would have as if you were
+pushing for the first time.</p>
+<p>For example, let’s say you want to submit your changes to <code class="docutils literal notranslate"><span class="pre">master</span></code>; you would
+then</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push -u origin HEAD:refs/for/master
+</pre></div>
+</div>
+<p>You may wonder how Gerrit knows to replace the old commits at this location
+with the ones that you modified; the secret is the <code class="docutils literal notranslate"><span class="pre">Change-Id</span></code>. <strong>A Change-Id
+should almost never be changed when updating a commit</strong>; it tells Gerrit that
+the commit is the same commit as before even though everything else may have
+changed about the commit (including the commit hash).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="design.html" class="btn btn-neutral float-right" title="KUnit Design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="start.html" class="btn btn-neutral" title="Getting Started Developing KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brendan Higgins
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

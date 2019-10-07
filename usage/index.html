@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; KUnit  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Development" href="../development/index.html" />
+    <link rel="prev" title="KUnit" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KUnit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-are-there-multiple-versions">Why are there multiple versions?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#but-wait-i-see-more-than-two-branches">But wait, I see more than two branches!</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#which-version-should-i-use">Which version should I use?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-features-are-available-upstream">What features are available upstream?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-features-are-not-upstream-yet">What features are not upstream yet?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#where-to-go">Where to go</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#upstream-getting-started">Upstream Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stable-getting-started">Stable Getting Started</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">KUnit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>In order to use KUnit, you must first determine which branch you would like to
+use. What do we mean by that? We are in the process of upstreaming KUnit into
+the Linux kernel, so that means we have code under development that is not in
+the upstream repository or otherwise doesn’t match what is currently upstream.</p>
+<p>For more information on why there are multiple versions of KUnit, see
+<a class="reference internal" href="#why-multiple-versions"><span class="std std-ref">Why are there multiple versions?</span></a>.</p>
+<p>For information on deciding which version you should use see
+<a class="reference internal" href="#which-version"><span class="std std-ref">Which version should I use?</span></a>.</p>
+<div class="section" id="why-are-there-multiple-versions">
+<span id="why-multiple-versions"></span><h2>Why are there multiple versions?<a class="headerlink" href="#why-are-there-multiple-versions" title="Permalink to this headline">¶</a></h2>
+<p>Ideally, upstreaming code to the Linux kernel would be fast, we would be able to
+develope features entirely on LKML, no one would use code that had not yet been
+accepted upstream, and everything would have been done this way from the start.
+Unfortunately, we do not live in a perfect world, and consequently none of these
+are true.</p>
+<p>In short, we wrote a bunch of stuff to experiment with before we started sending
+things upstream, people started using that stuff, and upstream diverged. We made
+the decision that it is better to have 2 versions of KUnit rather than <code class="docutils literal notranslate"><span class="pre">n</span></code>
+versions where <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>, so we decided to maintain a non-upstream branch called
+<em>stable</em> which has all the features not yet upstreamed, and would be maintained
+under the assumption that people are actually using it (hence, we don’t make API
+breaking changes, or anything like that); this is why it’s called <em>stable</em>. Our
+other branch is just upstream Linux.</p>
+<div class="section" id="but-wait-i-see-more-than-two-branches">
+<h3>But wait, I see more than two branches!<a class="headerlink" href="#but-wait-i-see-more-than-two-branches" title="Permalink to this headline">¶</a></h3>
+<p>For the upstream version, just use torvalds/master. Our <em>stable</em> branch is
+hosted at <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a>.</p>
+<p>Nevertheless, you may notice that there are other branches hosted at
+<a class="reference external" href="https://kunit.googlesource.com/linux">https://kunit.googlesource.com/linux</a>. All these branches are either based on
+upstream (and should not be used since they are not upstream yet), or are based
+on stable.</p>
+</div>
+</div>
+<div class="section" id="which-version-should-i-use">
+<span id="which-version"></span><h2>Which version should I use?<a class="headerlink" href="#which-version-should-i-use" title="Permalink to this headline">¶</a></h2>
+<p>As for which branch you should use, upstream should be generally preferred (just
+as upstreaming your own code should be generally preferred); nevertheless, there
+are a lot of features that are not upstream yet, and will not be upstream for
+some time (possibly more than a year), if you need these features for your tests
+then you have no choice other than to use the stable branch.</p>
+<div class="section" id="what-features-are-available-upstream">
+<h3>What features are available upstream?<a class="headerlink" href="#what-features-are-available-upstream" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Basic test structure for defining test cases and test suites</li>
+<li>Basic expectations and assertions</li>
+<li>KUnit managed resources</li>
+<li>Error reporting</li>
+</ul>
+</div>
+<div class="section" id="what-features-are-not-upstream-yet">
+<h3>What features are not upstream yet?<a class="headerlink" href="#what-features-are-not-upstream-yet" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Class mocking</li>
+<li>Function mocking</li>
+<li>Hardware/platform faking</li>
+<li>Error recovery</li>
+</ul>
+</div>
+</div>
+<div class="section" id="where-to-go">
+<h2>Where to go<a class="headerlink" href="#where-to-go" title="Permalink to this headline">¶</a></h2>
+<p>Hopefully you now have a good idea whether you want to use the stable version,
+or the upstream version. As for where to go, see the following sections:</p>
+<div class="section" id="upstream-getting-started">
+<h3>Upstream Getting Started<a class="headerlink" href="#upstream-getting-started" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Code: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next</a></li>
+<li>Documentation: <a class="reference internal" href="../third_party/kernel/index.html"><span class="doc">Upstream Version</span></a></li>
+</ul>
+</div>
+<div class="section" id="stable-getting-started">
+<h3>Stable Getting Started<a class="headerlink" href="#stable-getting-started" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Code: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></li>
+<li>Documentation: <a class="reference internal" href="../third_party/stable_kernel/index.html"><span class="doc">Stable Version (aka Not Upstream)</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../development/index.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brendan Higgins
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

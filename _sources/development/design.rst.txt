@@ -1,0 +1,121 @@
+============
+KUnit Design
+============
+
+High Level Structure
+====================
+
+KUnit in practice is divided into two components: the KUnit kernel (more often
+referred to as the KUnit kernel, or just the kernel), and the kunit_tool. Most
+of KUnit, including all the test cases, all of the test libraries, and even the
+test runner itself are all part of the Linux kernel.
+
+.. todo: Discuss the non-UML design of KUnit.
+
+.. _uml:
+
+User Mode Linux
+---------------
+
+User Mode Linux, or UML, is a way to compile and run the Linux kernel as a
+normal program that can run in userspace without the help of a VM or any
+virtualization support.
+
+UML is an architecture `arch/um/
+<https://elixir.bootlin.com/linux/latest/source/arch/um>`_ that maps all the
+architecture specific elements, which would normally map to low level hardware
+features, to the POSIX interface allowing the Linux kernel to be compiled and
+run as a normal userspace program.
+
+For more information on UML, see: http://user-mode-linux.sourceforge.net/
+
+KUnit Kernel
+------------
+
+Most of the complexity of KUnit lies in the Linux kernel itself. Within the
+KUnit kernel there are several parts:
+
+- The :ref:`test-runner` which schedules and runs all the tests, which is
+  composed of:
+
+  - The Linux initcall subsystem which invokes:
+  - The :ref:`test-case-runner` which handles sandboxing and running individual
+    test cases.
+
+- The :ref:`test-library` which provide wrappers around the API provided by the
+  Test Case Runner to test cases to communicate with it.
+
+The Linux kernel itself is **much** more complicated than this, but a full
+overview is outside of the scope of this document.
+
+.. _test-runner:
+
+Test Runner
+~~~~~~~~~~~
+
+The test runner in KUnit is more or less the KUnit kernel itself. Each `kunit
+suite <../third_party/kernel/docs/api/test.html#c.kunit_suite>`_, KUnit's name
+for a test suite, registers its test case runner as an init call with the Linux
+initcall system with |kunit_test_suite|_. When the kernel boots up, it runs
+through all the initcalls to initialize all its subsystems; the last initcalls
+it executes are the test case runners.
+
+.. |kunit_test_suite| replace:: ``kunit_test_suite(suite)``
+.. _kunit_test_suite: third_party/kernel/docs/api/test.html#c.kunit_test_suite
+
+.. _test-case-runner:
+
+Test Case Runner
+~~~~~~~~~~~~~~~~
+
+Each test case runner is associated with a `kunit suite
+<../third_party/kernel/docs/api/test.html#c.kunit_suite>`_. When the test case
+runner is invoked, it runs through each test case and for each test case, does
+the following:
+
+- Register a failure handler with the UML trap subsytem.
+- Run the init function provided by the ``kunit_suite``.
+- Run the test case.
+- Run the exit function provided by the ``kunit_suite``.
+- Deallocate all the test allocated resources.
+- Report test results.
+
+All this happens in `lib/kunit/test.c
+<https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&id=741a98d022362c90609ac9dcd8ad56314d8e68b3>`_.
+
+.. _test-library:
+
+Test Library
+~~~~~~~~~~~~
+
+Currently, the test runner provides the function ``kunit_do_assertion`` for the
+test case to communicate a failed assertion:
+
+.. code-block:: c
+
+   void kunit_do_assertion(struct kunit *test,
+                           struct kunit_assert *assert,
+                           bool pass,
+                           const char *fmt, ...);
+
+It takes a
+
+- `kunit (test context object) <../third_party/kernel/docs/api/test.html#c.kunit>`_
+- `assertion object <https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/include/kunit/assert.h?h=test&id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n42>`_
+- whether the expectation/assertion failed or not
+- log message to show on failure represented as a C format string.
+
+The function definition can be found here:
+https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152
+
+kunit_tool
+----------
+
+Currently the main purpose kunit_tool serves is just to make to process of
+building the kernel and running tests easier, but it also serves as a place
+where workarounds can be added in. For example, there are some bugs (for
+example, if the UML kernel crashes, it will corrupt the user's terminal
+settings) with the UML user interface that are much easier to work around
+outside of the kernel than fix in the kernel itself. One of the function it
+serves is to parse the kernel output and print out the summarized results in a
+nice, human readable format.

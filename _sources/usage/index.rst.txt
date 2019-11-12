@@ -1,90 +1,65 @@
-===============
-Getting Started
-===============
-
-In order to use KUnit, you must first determine which branch you would like to
-use. What do we mean by that? We are in the process of upstreaming KUnit into
-the Linux kernel, so that means we have code under development that is not in
-the upstream repository or otherwise doesn't match what is currently upstream.
-
-For more information on why there are multiple versions of KUnit, see
-:ref:`why-multiple-versions`.
-
-For information on deciding which version you should use see
-:ref:`which-version`.
-
-.. _why-multiple-versions:
-
-Why are there multiple versions?
-================================
-
-Ideally, upstreaming code to the Linux kernel would be fast, we would be able to
-develope features entirely on LKML, no one would use code that had not yet been
-accepted upstream, and everything would have been done this way from the start.
-Unfortunately, we do not live in a perfect world, and consequently none of these
-are true.
-
-In short, we wrote a bunch of stuff to experiment with before we started sending
-things upstream, people started using that stuff, and upstream diverged. We made
-the decision that it is better to have 2 versions of KUnit rather than ``n``
-versions where ``n > 2``, so we decided to maintain a non-upstream branch called
-*stable* which has all the features not yet upstreamed, and would be maintained
-under the assumption that people are actually using it (hence, we don't make API
-breaking changes, or anything like that); this is why it's called *stable*. Our
-other branch is just upstream Linux.
-
-But wait, I see more than two branches!
----------------------------------------
-
-For the upstream version, just use torvalds/master. Our *stable* branch is
-hosted at https://kunit.googlesource.com/linux/+/kunit/alpha/master.
-
-Nevertheless, you may notice that there are other branches hosted at
-https://kunit.googlesource.com/linux. All these branches are either based on
-upstream (and should not be used since they are not upstream yet), or are based
-on stable.
-
-.. _which-version:
-
-Which version should I use?
-===========================
-
-As for which branch you should use, upstream should be generally preferred (just
-as upstreaming your own code should be generally preferred); nevertheless, there
-are a lot of features that are not upstream yet, and will not be upstream for
-some time (possibly more than a year), if you need these features for your tests
-then you have no choice other than to use the stable branch.
-
-What features are available upstream?
--------------------------------------
-
-- Basic test structure for defining test cases and test suites
-- Basic expectations and assertions
-- KUnit managed resources
-- Error reporting
-
-What features are not upstream yet?
------------------------------------
-
-- Class mocking
-- Function mocking
-- Hardware/platform faking
-- Error recovery
-
-Where to go
+===========
+Using KUnit
 ===========
 
-Hopefully you now have a good idea whether you want to use the stable version,
-or the upstream version. As for where to go, see the following sections:
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-Upstream Getting Started
-------------------------
+   getting_kunit
+   faq
 
-- Code: https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next
-- Documentation: :doc:`../third_party/kernel/index`
+Where is KUnit?
+:doc:`getting_kunit`
 
-Stable Getting Started
-----------------------
 
-- Code: https://kunit.googlesource.com/linux/+/kunit/alpha/master
-- Documentation: :doc:`../third_party/stable_kernel/index`
+KUnit is integrated into the Linux kernel, so all you need is a version of the
+kernel which contains KUnit, and a config file with which to build it. The
+:doc: `getting_kunit` page covers the different versions of KUnit available, and
+where to get them.
+
+
+Running tests
+=============
+
+To run KUnit tests, you'll need to provide a 'kunitconfig' file, which contains
+the list of test modules to build, and their dependencies.
+
+Once you have the ``kunitconfig`` file, just run:
+
+``$ ./tools/testing/kunit/kunit.py run``
+
+This will build a UML (User Mode Linux) kernel, run the specified tests, and
+print the results (nicely formatted) to the screen.
+
+
+Writing tests
+=============
+
+Once you have KUnit working, writing tests is easy. Each test is a function
+which accepts a ``struct kunit`` argument, and which calls the various
+``KUNIT_EXPECT_*`` macros to verify the state under test.
+
+More details can be found in the `Getting Started <../third_party/kernel/docs/start.html>`_
+guide.
+
+
+Submitting tests upstream
+=========================
+
+Ideally, KUnit tests will be submitted upstream alongside the code being tested,
+so any user or developer can run the tests and test any changes they make. Once
+KUnit itself is upstream, this means that KUnit tests should ideally be treated
+as any other change, and submitted via the maintainer of the subsystem being
+tested. (Though do feel free to copy in the ``kunit-dev@googlegroups.com`` list
+if you want.)
+
+For the time being, though, we recommend submitting patches via the
+``linux-kselftest/test`` branch, which contains the version of KUnit likely to
+head upstream. To do so, please send your patch via the
+``linux-kselftest@vger.kernel.org`` list, and include ``linux-kselftest/test``
+in the subject prefix. You should still get a review from the subsystem
+maintainer, though.
+
+And, of course, you should follow the general rules and guidelines laid out in
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html

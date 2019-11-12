@@ -1,0 +1,104 @@
+=============
+Getting KUnit
+=============
+
+In order to use KUnit, you must first determine which branch you would like to
+use. What do we mean by that? We are in the process of upstreaming KUnit into
+the Linux kernel, so that means we have code under development that is not in
+the upstream repository or otherwise doesn't match what is currently upstream.
+
+For more information on why there are multiple versions of KUnit, see
+:ref:`why-multiple-versions`.
+
+For information on deciding which version you should use see
+:ref:`which-version`.
+
+For the actual URL you need, see
+:ref:`download-links`
+
+.. _why-multiple-versions:
+
+Why are there multiple versions?
+================================
+
+Ideally, upstreaming code to the Linux kernel would be fast, we would be able to
+develop features entirely on LKML, no one would use code that had not yet been
+accepted upstream, and everything would have been done this way from the start.
+Unfortunately, we do not live in a perfect world, and consequently none of these
+are true.
+
+This means that there are some features that we've developed which aren't yet
+going upstream. We've developed these in an *experimental* branch. This is
+basically a staging branch for features we're still actively experimenting with,
+or which depend on code which isn't yet upstream.
+
+
+But wait, I see more than two branches!
+---------------------------------------
+
+For the upstream version, just use torvalds/master. Our *experimental* branch is
+hosted at https://kunit.googlesource.com/linux/+/kunit/alpha/master.
+
+We will be periodically replacing the *experimental* branch with one based on
+newer upstream kernels, in order to minimise the divergence between
+*experimental* and upstream. For more details on how this will work, see:
+https://lore.kernel.org/linux-kselftest/20190924000503.GA97201@google.com/T/#e73eab088e4791c234bf13156cc276ad15c8376de
+
+.. _which-version:
+
+Which version should I use?
+===========================
+
+As for which branch you should use, upstream should be generally preferred (just
+as upstreaming your own code should be generally preferred); nevertheless, there
+are a lot of features that are not upstream yet, and will not be upstream for
+some time (possibly more than a year), if you need these features for your tests
+then you have no choice other than to use the *experimental* branch.
+
+What features are available upstream?
+-------------------------------------
+
+- Basic test structure for defining test cases and test suites
+- Basic expectations and assertions
+- KUnit managed resources
+- Error reporting
+
+What features are not upstream yet?
+-----------------------------------
+
+- Class mocking
+- Function mocking
+- Hardware/platform faking
+- Error recovery
+
+.. _download-links:
+
+Where are these versions?
+=========================
+
+Upstream
+--------
+
+Alas, KUnit is not quite upstream yet. You can find the current to-be-upstreamed
+branch in the kselftest tree, but be warned that, until it's upstreamed, things
+may change at any point!
+
+- Code: https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next
+- `Usage <third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
+- `API <third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
+- kunitconfig file: https://kunit.googlesource.com/kunitconfig/+/refs/heads/master/kunitconfig
+
+You can also find KUnit in linux-next.
+
+Experimental
+------------
+
+The *experimental* branch is stored in a Google-hosted gerrit instance. Going
+forward, there will be a set of versioned *experimental* branches, of which only
+the latest will be actively supported. Until this is available, however, there
+is a historic *kunit/alpha/master* branch containing our experimental code.
+
+- Code: https://kunit.googlesource.com/linux/+/kunit/alpha/master.
+- `Usage <third_party/stable_kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
+- `API <third_party/stable_kernel/docs/api>`__ - for the list of KUnit APIs used for testing
+- kunitconfig file: https://kunit.googlesource.com/kunitconfig/+/refs/heads/kunit/alpha/master/kunitconfig

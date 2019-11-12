@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started" href="usage/index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="next" title="Using KUnit" href="usage/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -79,7 +81,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
@@ -152,10 +154,12 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage/index.html#why-are-there-multiple-versions">Why are there multiple versions?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/index.html#which-version-should-i-use">Which version should I use?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/index.html#where-to-go">Where to go</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Using KUnit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/getting_kunit.html">Getting KUnit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#running-tests">Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#writing-tests">Writing tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/index.html#submitting-tests-upstream">Submitting tests upstream</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a><ul>
@@ -187,7 +191,7 @@ VM or special hardware.</p>
 Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
 cases, grouping related test cases into test suites, providing common
 infrastructure for running tests, mocking, spying, and much more. Get started
-now: <a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a></p>
+now: <a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a></p>
 </div>
 <div class="section" id="who-is-it-for">
 <h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Permalink to this headline">¶</a></h2>
@@ -196,9 +200,8 @@ now: <a class="reference internal" href="usage/index.html"><span class="doc">Get
 <div class="section" id="why-kunit">
 <h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
 <p>Aside from KUnit there is no true unit testing framework for the Linux kernel.
-Autotest and kselftest (and within Google, Kokonut) are sometimes cited as unit
-testing frameworks; however, they are not by most reasonable definitions of
-unit tests.</p>
+Autotest and kselftest are sometimes cited as unit testing frameworks; however,
+they are not by most reasonable definitions of unit tests.</p>
 <p>A unit test is supposed to test a single unit of code in isolation, hence the
 name. A unit test should be the finest granularity of testing and as such
 should allow all possible code paths to be tested in the code under test; this
@@ -220,11 +223,11 @@ fast: on my desktop it boots to init process in under a second.</p>
 <div class="section" id="how-do-i-use-it">
 <h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</li>
+<li><a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a> - for new users of KUnit</li>
 <li>For upstream KUnit:
 - <a class="reference external" href="third_party/kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features
 - <a class="reference external" href="third_party/kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</li>
-<li>For stable KUnit:
+<li>For experimental KUnit:
 - <a class="reference external" href="third_party/stable_kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features
 - <a class="reference external" href="third_party/stable_kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</li>
 </ul>
@@ -235,7 +238,7 @@ fast: on my desktop it boots to init process in under a second.</p>
 <li>Upstream: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next</a></li>
 <li>Stable: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></li>
 </ul>
-<p>Not sure which one you want? Take a look at <a class="reference internal" href="usage/index.html"><span class="doc">Getting Started</span></a>.</p>
+<p>Not sure which one you want? Take a look at <a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a>.</p>
 </div>
 <div class="section" id="connect-with-us">
 <h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Permalink to this headline">¶</a></h2>
@@ -252,7 +255,7 @@ fast: on my desktop it boots to init process in under a second.</p>
 as contributing to the Linux kernel, please see <a class="reference external" href="https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development">the Linux kernel’s guide on
 contributing</a>.</p>
 <p>For other KUnit repositories (CI/CD, vim plugin, etc), please see
-<a class="reference download internal" download="" href="_downloads/b60787948d3e4e2f644cbd3967442c7e/CONTRIBUTING.md"><code class="xref download docutils literal notranslate"><span class="pre">CONTRIBUTING.md</span></code></a>.</p>
+<a class="reference download internal" download="" href="_downloads/6a3371457528722a734f3c51d9238c13/CONTRIBUTING.md"><code class="xref download docutils literal notranslate"><span class="pre">CONTRIBUTING.md</span></code></a>.</p>
 <p>In all cases, you will also want to take a look at <a class="reference internal" href="development/index.html"><span class="doc">Development</span></a>.</p>
 </div>
 </div>
@@ -265,7 +268,7 @@ contributing</a>.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="usage/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="usage/index.html" class="btn btn-neutral float-right" title="Using KUnit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -292,26 +295,16 @@ contributing</a>.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

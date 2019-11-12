@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; KUnit  documentation</title>
+  <title>Using KUnit &mdash; KUnit  documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Development" href="../development/index.html" />
+    <link rel="next" title="Getting KUnit" href="getting_kunit.html" />
     <link rel="prev" title="KUnit" href="../index.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -80,21 +82,12 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why-are-there-multiple-versions">Why are there multiple versions?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#but-wait-i-see-more-than-two-branches">But wait, I see more than two branches!</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#which-version-should-i-use">Which version should I use?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#what-features-are-available-upstream">What features are available upstream?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-features-are-not-upstream-yet">What features are not upstream yet?</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#where-to-go">Where to go</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#upstream-getting-started">Upstream Getting Started</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stable-getting-started">Stable Getting Started</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using KUnit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_kunit.html">Getting KUnit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-tests">Writing tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submitting-tests-upstream">Submitting tests upstream</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
@@ -145,7 +138,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Getting Started</li>
+      <li>Using KUnit</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -164,85 +157,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>In order to use KUnit, you must first determine which branch you would like to
-use. What do we mean by that? We are in the process of upstreaming KUnit into
-the Linux kernel, so that means we have code under development that is not in
-the upstream repository or otherwise doesn’t match what is currently upstream.</p>
-<p>For more information on why there are multiple versions of KUnit, see
-<a class="reference internal" href="#why-multiple-versions"><span class="std std-ref">Why are there multiple versions?</span></a>.</p>
-<p>For information on deciding which version you should use see
-<a class="reference internal" href="#which-version"><span class="std std-ref">Which version should I use?</span></a>.</p>
-<div class="section" id="why-are-there-multiple-versions">
-<span id="why-multiple-versions"></span><h2>Why are there multiple versions?<a class="headerlink" href="#why-are-there-multiple-versions" title="Permalink to this headline">¶</a></h2>
-<p>Ideally, upstreaming code to the Linux kernel would be fast, we would be able to
-develope features entirely on LKML, no one would use code that had not yet been
-accepted upstream, and everything would have been done this way from the start.
-Unfortunately, we do not live in a perfect world, and consequently none of these
-are true.</p>
-<p>In short, we wrote a bunch of stuff to experiment with before we started sending
-things upstream, people started using that stuff, and upstream diverged. We made
-the decision that it is better to have 2 versions of KUnit rather than <code class="docutils literal notranslate"><span class="pre">n</span></code>
-versions where <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>, so we decided to maintain a non-upstream branch called
-<em>stable</em> which has all the features not yet upstreamed, and would be maintained
-under the assumption that people are actually using it (hence, we don’t make API
-breaking changes, or anything like that); this is why it’s called <em>stable</em>. Our
-other branch is just upstream Linux.</p>
-<div class="section" id="but-wait-i-see-more-than-two-branches">
-<h3>But wait, I see more than two branches!<a class="headerlink" href="#but-wait-i-see-more-than-two-branches" title="Permalink to this headline">¶</a></h3>
-<p>For the upstream version, just use torvalds/master. Our <em>stable</em> branch is
-hosted at <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a>.</p>
-<p>Nevertheless, you may notice that there are other branches hosted at
-<a class="reference external" href="https://kunit.googlesource.com/linux">https://kunit.googlesource.com/linux</a>. All these branches are either based on
-upstream (and should not be used since they are not upstream yet), or are based
-on stable.</p>
-</div>
-</div>
-<div class="section" id="which-version-should-i-use">
-<span id="which-version"></span><h2>Which version should I use?<a class="headerlink" href="#which-version-should-i-use" title="Permalink to this headline">¶</a></h2>
-<p>As for which branch you should use, upstream should be generally preferred (just
-as upstreaming your own code should be generally preferred); nevertheless, there
-are a lot of features that are not upstream yet, and will not be upstream for
-some time (possibly more than a year), if you need these features for your tests
-then you have no choice other than to use the stable branch.</p>
-<div class="section" id="what-features-are-available-upstream">
-<h3>What features are available upstream?<a class="headerlink" href="#what-features-are-available-upstream" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Basic test structure for defining test cases and test suites</li>
-<li>Basic expectations and assertions</li>
-<li>KUnit managed resources</li>
-<li>Error reporting</li>
+  <div class="section" id="using-kunit">
+<h1>Using KUnit<a class="headerlink" href="#using-kunit" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_kunit.html">Getting KUnit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_kunit.html#why-are-there-multiple-versions">Why are there multiple versions?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_kunit.html#which-version-should-i-use">Which version should I use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_kunit.html#where-are-these-versions">Where are these versions?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#im-seeing-error-root-kconfig-is-not-contained-in-validated-config">I’m seeing ‘Error:root:Kconfig is not contained in validated .config!’</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#im-seeing-a-lot-of-makes-integer-from-pointer-without-a-cast-errors-in-kunit-assertion">I’m seeing a lot of ‘makes integer from pointer without a cast’ errors in KUNIT_ASSERTION</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="section" id="what-features-are-not-upstream-yet">
-<h3>What features are not upstream yet?<a class="headerlink" href="#what-features-are-not-upstream-yet" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Class mocking</li>
-<li>Function mocking</li>
-<li>Hardware/platform faking</li>
-<li>Error recovery</li>
-</ul>
+<p>Where is KUnit?
+<a class="reference internal" href="getting_kunit.html"><span class="doc">Getting KUnit</span></a></p>
+<p>KUnit is integrated into the Linux kernel, so all you need is a version of the
+kernel which contains KUnit, and a config file with which to build it. The
+:doc: <cite>getting_kunit</cite> page covers the different versions of KUnit available, and
+where to get them.</p>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>To run KUnit tests, you’ll need to provide a ‘kunitconfig’ file, which contains
+the list of test modules to build, and their dependencies.</p>
+<p>Once you have the <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file, just run:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">./tools/testing/kunit/kunit.py</span> <span class="pre">run</span></code></p>
+<p>This will build a UML (User Mode Linux) kernel, run the specified tests, and
+print the results (nicely formatted) to the screen.</p>
 </div>
+<div class="section" id="writing-tests">
+<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h2>
+<p>Once you have KUnit working, writing tests is easy. Each test is a function
+which accepts a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code> argument, and which calls the various
+<code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_*</span></code> macros to verify the state under test.</p>
+<p>More details can be found in the <a class="reference external" href="../third_party/kernel/docs/start.html">Getting Started</a>
+guide.</p>
 </div>
-<div class="section" id="where-to-go">
-<h2>Where to go<a class="headerlink" href="#where-to-go" title="Permalink to this headline">¶</a></h2>
-<p>Hopefully you now have a good idea whether you want to use the stable version,
-or the upstream version. As for where to go, see the following sections:</p>
-<div class="section" id="upstream-getting-started">
-<h3>Upstream Getting Started<a class="headerlink" href="#upstream-getting-started" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Code: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next</a></li>
-<li>Documentation: <a class="reference internal" href="../third_party/kernel/index.html"><span class="doc">Upstream Version</span></a></li>
-</ul>
-</div>
-<div class="section" id="stable-getting-started">
-<h3>Stable Getting Started<a class="headerlink" href="#stable-getting-started" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Code: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></li>
-<li>Documentation: <a class="reference internal" href="../third_party/stable_kernel/index.html"><span class="doc">Stable Version (aka Not Upstream)</span></a></li>
-</ul>
-</div>
+<div class="section" id="submitting-tests-upstream">
+<h2>Submitting tests upstream<a class="headerlink" href="#submitting-tests-upstream" title="Permalink to this headline">¶</a></h2>
+<p>Ideally, KUnit tests will be submitted upstream alongside the code being tested,
+so any user or developer can run the tests and test any changes they make. Once
+KUnit itself is upstream, this means that KUnit tests should ideally be treated
+as any other change, and submitted via the maintainer of the subsystem being
+tested. (Though do feel free to copy in the <code class="docutils literal notranslate"><span class="pre">kunit-dev&#64;googlegroups.com</span></code> list
+if you want.)</p>
+<p>For the time being, though, we recommend submitting patches via the
+<code class="docutils literal notranslate"><span class="pre">linux-kselftest/test</span></code> branch, which contains the version of KUnit likely to
+head upstream. To do so, please send your patch via the
+<code class="docutils literal notranslate"><span class="pre">linux-kselftest&#64;vger.kernel.org</span></code> list, and include <code class="docutils literal notranslate"><span class="pre">linux-kselftest/test</span></code>
+in the subject prefix. You should still get a review from the subsystem
+maintainer, though.</p>
+<p>And, of course, you should follow the general rules and guidelines laid out in
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html">https://www.kernel.org/doc/html/latest/process/submitting-patches.html</a></p>
 </div>
 </div>
 
@@ -254,10 +225,10 @@ or the upstream version. As for where to go, see the following sections:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../development/index.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="getting_kunit.html" class="btn btn-neutral float-right" title="Getting KUnit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -283,26 +254,16 @@ or the upstream version. As for where to go, see the following sections:</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

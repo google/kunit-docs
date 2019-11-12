@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Frequently Asked Questions" href="../faq.html" />
     <link rel="prev" title="Class and Function Mocking" href="class-and-function-mocking.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -213,14 +215,14 @@ name and otherwise behaves as a real <code class="xref c c-type docutils literal
 <p>the faked <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code></p>
 <dl class="function">
 <dt id="c.of_fake_probe_platform">
-struct platform_device * <code class="descname">of_fake_probe_platform</code><span class="sig-paren">(</span>struct <a class="reference internal" href="test.html#c.test" title="test">test</a> *<em>&nbsp;test</em>, const struct platform_driver *<em>&nbsp;driver</em>, const char *<em>&nbsp;node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a></dt>
+struct platform_device * <code class="descname">of_fake_probe_platform</code><span class="sig-paren">(</span>struct <a class="reference internal" href="test.html#c.test" title="test">test</a> *<em>&nbsp;test</em>, struct platform_driver *<em>&nbsp;driver</em>, const char *<em>&nbsp;node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
 <dd>the test to associate the fake platform device with</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">struct</span> <span class="pre">platform_driver</span> <span class="pre">*</span> <span class="pre">driver</span></code></dt>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_driver</span> <span class="pre">*</span> <span class="pre">driver</span></code></dt>
 <dd>driver to probe</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">node_name</span></code></dt>
 <dd>name of the device node created</dd>
@@ -263,7 +265,7 @@ the provided name.</p>
         <a href="../faq.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="class-and-function-mocking.html" class="btn btn-neutral" title="Class and Function Mocking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="class-and-function-mocking.html" class="btn btn-neutral float-left" title="Class and Function Mocking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -289,26 +291,16 @@ the provided name.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

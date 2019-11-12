@@ -38,9 +38,8 @@ Why KUnit?
 ==========
 
 Aside from KUnit there is no true unit testing framework for the Linux kernel.
-Autotest and kselftest (and within Google, Kokonut) are sometimes cited as unit
-testing frameworks; however, they are not by most reasonable definitions of
-unit tests.
+Autotest and kselftest are sometimes cited as unit testing frameworks; however,
+they are not by most reasonable definitions of unit tests.
 
 A unit test is supposed to test a single unit of code in isolation, hence the
 name. A unit test should be the finest granularity of testing and as such
@@ -69,7 +68,7 @@ How do I use it?
 - For upstream KUnit:
   - `Usage <third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
   - `API <third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
-- For stable KUnit:
+- For experimental KUnit:
   - `Usage <third_party/stable_kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
   - `API <third_party/stable_kernel/docs/api>`__ - for the list of KUnit APIs used for testing
 

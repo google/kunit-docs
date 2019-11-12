@@ -1,0 +1,29 @@
+==========================
+Frequently Asked Questions
+==========================
+
+I’m seeing 'Error:root:Kconfig is not contained in validated .config!'
+----------------------------------------------------------------------
+
+This means that there are some missing or wrong entries in your ``kunitconfig``
+file. Make sure you’ve spelt all of your config entries correctly, and that
+you’ve included all of their dependencies.
+
+If you’ve not changed the kunitconfig file, make sure you’ve got the correct
+version. In particular, some earlier versions used ``CONFIG_TEST=y`` instead
+of ``CONFIG_KUNIT=y``.
+
+.. note:: This error message can be confusing, so we intend to improve it.
+	See https://bugzilla.kernel.org/show_bug.cgi?id=205235 for more details.
+
+
+I’m seeing a lot of 'makes integer from pointer without a cast' errors in KUNIT_ASSERTION
+-----------------------------------------------------------------------------------------
+
+If you wish to compare pointers, you’ll need to use the _PTR variants of the
+``KUNIT_EXPECT`` macros. For example, you need to use
+``KUNIT_EXPECT_PTR_EQ(test, ptr1, ptr2)`` instead of
+``KUNIT_EXPECT_EQ(test, ptr1, ptr2)``.
+
+This is required for KUnit to use the correct format specifier when printing out
+expectation failures.

@@ -93,6 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Stable Version (aka Not Upstream)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
 </ul>
 
             
@@ -179,16 +180,46 @@
 <a class="reference internal" href="getting_kunit.html"><span class="doc">Getting KUnit</span></a></p>
 <p>KUnit is integrated into the Linux kernel, so all you need is a version of the
 kernel which contains KUnit, and a config file with which to build it. The
-:doc: <cite>getting_kunit</cite> page covers the different versions of KUnit available, and
+<a class="reference internal" href="getting_kunit.html"><span class="doc">Getting KUnit</span></a> page covers the different versions of KUnit available, and
 where to get them.</p>
 <div class="section" id="running-tests">
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
 <p>To run KUnit tests, you’ll need to provide a ‘kunitconfig’ file, which contains
 the list of test modules to build, and their dependencies.</p>
 <p>Once you have the <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file, just run:</p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">./tools/testing/kunit/kunit.py</span> <span class="pre">run</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>You may want to run KUnit with flags like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout<span class="o">=</span><span class="m">30</span> --jobs<span class="o">=</span><span class="m">24</span> --defconfig
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--timeout</span></code> sets a maximum amount of time to allow tests to run.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--jobs</span></code> sets the number of threads to use to build the kernel.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--defconfig</span></code> uses an default kunitconfig in the kernel source.</li>
+</ul>
+<p>For more information on these and other flags, try running:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help
+</pre></div>
+</div>
+</div>
 <p>This will build a UML (User Mode Linux) kernel, run the specified tests, and
 print the results (nicely formatted) to the screen.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>If you get the error message: <code class="docutils literal notranslate"><span class="pre">/bin/sh:</span> <span class="pre">flex:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code> or
+similarly <code class="docutils literal notranslate"><span class="pre">/bin/sh:</span> <span class="pre">bison:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, you are most likely missing
+the flex and bison packages. On a system using the apt package manager you
+can install them with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install flex bison
+</pre></div>
+</div>
+<p class="last">For more information on building the kernel, see
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/process/changes.html">https://www.kernel.org/doc/html/latest/process/changes.html</a></p>
+</div>
 </div>
 <div class="section" id="writing-tests">
 <h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h2>

@@ -5,7 +5,7 @@ Getting Started Developing KUnit
 Setting Up Your Work Environment
 ================================
 
-Follow the instructions at `../usage/index`.
+Follow the instructions at :doc:`../usage/index`.
 
 Familiarize Yourself with KUnit's Design
 ========================================

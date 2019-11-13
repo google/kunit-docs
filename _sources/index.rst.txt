@@ -15,6 +15,7 @@ KUnit
    development/index
    third_party/kernel/index.rst
    third_party/stable_kernel/index.rst
+   press
 
 What is KUnit?
 ==============

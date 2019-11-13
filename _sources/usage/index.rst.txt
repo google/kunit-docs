@@ -15,7 +15,7 @@ Where is KUnit?
 
 KUnit is integrated into the Linux kernel, so all you need is a version of the
 kernel which contains KUnit, and a config file with which to build it. The
-:doc: `getting_kunit` page covers the different versions of KUnit available, and
+:doc:`getting_kunit` page covers the different versions of KUnit available, and
 where to get them.
 
 
@@ -27,11 +27,44 @@ the list of test modules to build, and their dependencies.
 
 Once you have the ``kunitconfig`` file, just run:
 
-``$ ./tools/testing/kunit/kunit.py run``
+.. code-block:: bash
+
+   ./tools/testing/kunit/kunit.py run
+
+.. tip::
+
+   You may want to run KUnit with flags like:
+
+   .. code-block:: bash
+
+      ./tools/testing/kunit/kunit.py run --timeout=30 --jobs=24 --defconfig
+
+   - ``--timeout`` sets a maximum amount of time to allow tests to run.
+   - ``--jobs`` sets the number of threads to use to build the kernel.
+   - ``--defconfig`` uses an default kunitconfig in the kernel source.
+
+   For more information on these and other flags, try running:
+
+   .. code-block:: bash
+
+      ./tools/testing/kunit/kunit.py run --help
 
 This will build a UML (User Mode Linux) kernel, run the specified tests, and
 print the results (nicely formatted) to the screen.
 
+.. tip::
+
+   If you get the error message: ``/bin/sh: flex: command not found`` or
+   similarly ``/bin/sh: bison: command not found``, you are most likely missing
+   the flex and bison packages. On a system using the apt package manager you
+   can install them with
+
+   .. code-block:: bash
+
+      sudo apt-get install flex bison
+
+   For more information on building the kernel, see
+   https://www.kernel.org/doc/html/latest/process/changes.html
 
 Writing tests
 =============

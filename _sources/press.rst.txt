@@ -1,0 +1,20 @@
+=====
+Press
+=====
+
+Talks about KUnit
+=================
+
+ - `Introduction to KUnit - Linux Plumbers Conference 2019
+   <https://linuxplumbersconf.org/event/4/contributions/545/>`_
+
+Articles about KUnit
+====================
+
+ - https://lwn.net/Articles/780985/
+ - https://www.linuxjournal.com/content/unit-testing-linux-kernel
+ - https://lwn.net/Articles/790235/
+ - https://www.linuxjournal.com/content/kunit-and-assertions
+ - https://www.phoronix.com/scan.php?page=news_item&px=KUnit-Linux-Kernel-V1
+ - https://www.phoronix.com/scan.php?page=news_item&px=Linux-Kernel-KUnit-Framework
+ - https://hub.packtpub.com/kunit-a-new-unit-testing-framework-for-linux-kernel

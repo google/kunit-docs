@@ -76,7 +76,7 @@ How do I use it?
 Where do I get it?
 ==================
 
-- Upstream: https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next
+- Upstream: https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=test
 - Stable: https://kunit.googlesource.com/linux/+/kunit/alpha/master
 
 Not sure which one you want? Take a look at :doc:`usage/index`.

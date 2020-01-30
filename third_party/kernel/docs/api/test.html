@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.4.0-rc1
+                5.5.0
               </div>
             
           
@@ -88,6 +88,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Test API</a></li>
 </ul>
@@ -344,26 +345,28 @@ is running. Most of this data is private and should only be accessed
 indirectly via public functions; the one exception is <strong>priv</strong> which can be
 used by the test writer to store arbitrary data.</p>
 <dl class="function">
-<dt id="c.kunit_test_suite">
-<code class="descname">kunit_test_suite</code><span class="sig-paren">(</span><em>suite</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_test_suite" title="Permalink to this definition">¶</a></dt>
-<dd><p>used to register a <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> with KUnit.</p>
+<dt id="c.kunit_test_suites">
+<code class="descname">kunit_test_suites</code><span class="sig-paren">(</span><em>…</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_test_suites" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to register one or more <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> with KUnit.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">suite</span></code></dt>
-<dd>a statically allocated <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">...</span></code></dt>
+<dd>variable arguments</dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Registers <strong>suite</strong> with the test framework. See <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> for
+<p>Registers <strong>suites</strong> with the test framework. See <a class="reference internal" href="#c.kunit_suite" title="kunit_suite"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code></a> for
 more information.</p>
-<p><strong>NOTE</strong></p>
-<p>Currently KUnit tests are all run as late_initcalls; this means
+<p>When builtin,  KUnit tests are all run as late_initcalls; this means
 that they cannot test anything where tests must run at a different init
 phase. One significant restriction resulting from this is that KUnit
 cannot reliably test anything that is initialize in the late_init phase;
 another is that KUnit is useless to test things that need to be run in
 an earlier init phase.</p>
+<p>An alternative is to build the tests as a module.  Because modules
+do not support multiple late_initcall()s, we need to initialize an
+array of suites for a module.</p>
 <p>TODO(brendanhiggins**google.com**): Don’t run all KUnit tests as
 late_initcalls.  I have some future work planned to dispatch all KUnit
 tests from the same place, and at the very least to do so after

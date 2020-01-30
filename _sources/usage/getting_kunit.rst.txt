@@ -79,16 +79,15 @@ Where are these versions?
 Upstream
 --------
 
-Alas, KUnit is not quite upstream yet. You can find the current to-be-upstreamed
-branch in the kselftest tree, but be warned that, until it's upstreamed, things
-may change at any point!
+KUnit can be found in Linux 5.5 and newer.
 
-- Code: https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=next
-- `Usage <third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
-- `API <third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
+- Code: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/
+- `Usage <../third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
+- `API <../third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
 - kunitconfig file: https://kunit.googlesource.com/kunitconfig/+/refs/heads/master/kunitconfig
 
-You can also find KUnit in linux-next.
+The KUnit code itself is primarily found in the `lib/kunit <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/kunit>`__
+directory.
 
 Experimental
 ------------
@@ -99,6 +98,6 @@ the latest will be actively supported. Until this is available, however, there
 is a historic *kunit/alpha/master* branch containing our experimental code.
 
 - Code: https://kunit.googlesource.com/linux/+/kunit/alpha/master.
-- `Usage <third_party/stable_kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
-- `API <third_party/stable_kernel/docs/api>`__ - for the list of KUnit APIs used for testing
+- `Usage <../third_party/stable_kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
+- `API <../third_party/stable_kernel/docs/api>`__ - for the list of KUnit APIs used for testing
 - kunitconfig file: https://kunit.googlesource.com/kunitconfig/+/refs/heads/kunit/alpha/master/kunitconfig

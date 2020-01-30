@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                5.4.0-rc1
+                5.5.0
               </div>
             
           
@@ -87,6 +87,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
@@ -181,7 +182,8 @@ considered unit testing frameworks.</p>
 <p>Yes, well, mostly.</p>
 <p>For the most part, the KUnit core framework (what you use to write the tests)
 can compile to any architecture; it compiles like just another part of the
-kernel and runs when the kernel boots. However, there is some infrastructure,
+kernel and runs when the kernel boots, or when built as a module, when the
+module is loaded.  However, there is some infrastructure,
 like the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) that does not support
 other architectures.</p>
 <p>In short, this means that, yes, you can run KUnit on other architectures, but

@@ -81,18 +81,17 @@ Submitting tests upstream
 =========================
 
 Ideally, KUnit tests will be submitted upstream alongside the code being tested,
-so any user or developer can run the tests and test any changes they make. Once
-KUnit itself is upstream, this means that KUnit tests should ideally be treated
-as any other change, and submitted via the maintainer of the subsystem being
-tested. (Though do feel free to copy in the ``kunit-dev@googlegroups.com`` list
-if you want.)
+so any user or developer can run the tests and test any changes they make.
+Unless they affect KUnit itself, this means that KUnit tests should ideally be
+treated as any other change, and submitted via the maintainer of the subsystem
+being tested. (Though do feel free to copy in the
+``kunit-dev@googlegroups.com`` list if you want.)
 
-For the time being, though, we recommend submitting patches via the
-``linux-kselftest/test`` branch, which contains the version of KUnit likely to
+For changes to KUnit itself, we recommend submitting patches via the
+``linux-kselftest/kunit`` branch, which contains the version of KUnit likely to
 head upstream. To do so, please send your patch via the
-``linux-kselftest@vger.kernel.org`` list, and include ``linux-kselftest/test``
-in the subject prefix. You should still get a review from the subsystem
-maintainer, though.
+``linux-kselftest@vger.kernel.org`` list. You should still get a review from
+any relevant the subsystem maintainers, though.
 
 And, of course, you should follow the general rules and guidelines laid out in
 https://www.kernel.org/doc/html/latest/process/submitting-patches.html

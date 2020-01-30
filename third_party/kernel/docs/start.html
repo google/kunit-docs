@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.4.0-rc1
+                5.5.0
               </div>
             
           
@@ -89,7 +89,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kunit-wrapper">KUnit Wrapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-kunitconfig">Creating a kunitconfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-kunitconfig">Creating a .kunitconfig</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verifying-kunit-works">Verifying KUnit Works</a></li>
 </ul>
 </li>
@@ -98,6 +98,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
@@ -177,21 +178,21 @@ the kernel, you can run KUnit.</p>
 easily use and read KUnit output. It handles building and running the kernel, as
 well as formatting the output.</p>
 <p>The wrapper can be run with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --defconfig
 </pre></div>
 </div>
+<p>For more information on this wrapper (also called kunit_tool) checkout the
+<a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> page.</p>
 </div>
 <div class="section" id="creating-a-kunitconfig">
-<h2>Creating a kunitconfig<a class="headerlink" href="#creating-a-kunitconfig" title="Permalink to this headline">¶</a></h2>
-<p>The Python script is a thin wrapper around Kbuild as such, it needs to be
-configured with a <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file. This file essentially contains the
+<h2>Creating a .kunitconfig<a class="headerlink" href="#creating-a-kunitconfig" title="Permalink to this headline">¶</a></h2>
+<p>The Python script is a thin wrapper around Kbuild. As such, it needs to be
+configured with a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file. This file essentially contains the
 regular Kernel config, with the specific test targets as well.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone -b master https://kunit.googlesource.com/kunitconfig <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>
-<span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
-ln -s <span class="nv">$PATH_TO_KUNIT_CONFIG_REPO</span>/kunitconfig kunitconfig
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
+cp arch/um/configs/kunit_defconfig .kunitconfig
 </pre></div>
 </div>
-<p>You may want to add kunitconfig to your local gitignore.</p>
 <div class="section" id="verifying-kunit-works">
 <h3>Verifying KUnit Works<a class="headerlink" href="#verifying-kunit-works" title="Permalink to this headline">¶</a></h3>
 <p>To make sure that everything is set up correctly, simply invoke the Python
@@ -212,8 +213,8 @@ Starting KUnit Kernel ...
 <p>followed by a list of tests that are run. All of them should be passing.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Because it is building a lot of sources for the first time, the <code class="docutils literal notranslate"><span class="pre">Building</span>
-<span class="pre">kunit</span> <span class="pre">kernel</span></code> step may take a while.</p>
+<p class="last">Because it is building a lot of sources for the first time, the
+<code class="docutils literal notranslate"><span class="pre">Building</span> <span class="pre">KUnit</span> <span class="pre">kernel</span></code> step may take a while.</p>
 </div>
 </div>
 </div>
@@ -288,13 +289,13 @@ Starting KUnit Kernel ...
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">obj-$(CONFIG_MISC_EXAMPLE_TEST)</span> <span class="o">+=</span> example-test.o
 </pre></div>
 </div>
-<p>Now add it to your <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code>:</p>
+<p>Now add it to your <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_MISC_EXAMPLE=y
 CONFIG_MISC_EXAMPLE_TEST=y
 </pre></div>
 </div>
 <p>Now you can run the test:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
 </pre></div>
 </div>
 <p>You should see the following failure:</p>

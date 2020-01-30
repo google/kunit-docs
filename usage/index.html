@@ -232,17 +232,16 @@ guide.</p>
 <div class="section" id="submitting-tests-upstream">
 <h2>Submitting tests upstream<a class="headerlink" href="#submitting-tests-upstream" title="Permalink to this headline">¶</a></h2>
 <p>Ideally, KUnit tests will be submitted upstream alongside the code being tested,
-so any user or developer can run the tests and test any changes they make. Once
-KUnit itself is upstream, this means that KUnit tests should ideally be treated
-as any other change, and submitted via the maintainer of the subsystem being
-tested. (Though do feel free to copy in the <code class="docutils literal notranslate"><span class="pre">kunit-dev&#64;googlegroups.com</span></code> list
-if you want.)</p>
-<p>For the time being, though, we recommend submitting patches via the
-<code class="docutils literal notranslate"><span class="pre">linux-kselftest/test</span></code> branch, which contains the version of KUnit likely to
+so any user or developer can run the tests and test any changes they make.
+Unless they affect KUnit itself, this means that KUnit tests should ideally be
+treated as any other change, and submitted via the maintainer of the subsystem
+being tested. (Though do feel free to copy in the
+<code class="docutils literal notranslate"><span class="pre">kunit-dev&#64;googlegroups.com</span></code> list if you want.)</p>
+<p>For changes to KUnit itself, we recommend submitting patches via the
+<code class="docutils literal notranslate"><span class="pre">linux-kselftest/kunit</span></code> branch, which contains the version of KUnit likely to
 head upstream. To do so, please send your patch via the
-<code class="docutils literal notranslate"><span class="pre">linux-kselftest&#64;vger.kernel.org</span></code> list, and include <code class="docutils literal notranslate"><span class="pre">linux-kselftest/test</span></code>
-in the subject prefix. You should still get a review from the subsystem
-maintainer, though.</p>
+<code class="docutils literal notranslate"><span class="pre">linux-kselftest&#64;vger.kernel.org</span></code> list. You should still get a review from
+any relevant the subsystem maintainers, though.</p>
 <p>And, of course, you should follow the general rules and guidelines laid out in
 <a class="reference external" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html">https://www.kernel.org/doc/html/latest/process/submitting-patches.html</a></p>
 </div>

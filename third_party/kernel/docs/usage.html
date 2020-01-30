@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="next" title="kunit_tool How-To" href="kunit-tool.html" />
     <link rel="prev" title="Getting Started" href="start.html" /> 
 </head>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.4.0-rc1
+                5.5.0
               </div>
             
           
@@ -115,6 +115,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
@@ -192,7 +193,7 @@ project, see <a class="reference internal" href="start.html"><span class="doc">G
 <div class="section" id="organization-of-this-document">
 <h2>Organization of this document<a class="headerlink" href="#organization-of-this-document" title="Permalink to this headline">¶</a></h2>
 <p>This document is organized into two main sections: Testing and Isolating
-Behavior. The first covers what a unit test is and how to use KUnit to write
+Behavior. The first covers what unit tests are and how to use KUnit to write
 them. The second covers how to use KUnit to isolate code and make it possible
 to unit test code that was otherwise un-unit-testable.</p>
 </div>
@@ -331,13 +332,13 @@ the appropriate conditions have not been satisfied to complete the test.</p>
 <div class="section" id="test-suites">
 <h4>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h4>
 <p>Now obviously one unit test isn’t very helpful; the power comes from having
-many test cases covering all of your behaviors. Consequently it is common to
-have many <em>similar</em> tests; in order to reduce duplication in these closely
-related tests most unit testing frameworks provide the concept of a <em>test
-suite</em>, in KUnit we call it a <em>test suite</em>; all it is is just a collection of
-test cases for a unit of code with a set up function that gets invoked before
-every test cases and then a tear down function that gets invoked after every
-test case completes.</p>
+many test cases covering all of a unit’s behaviors. Consequently it is common
+to have many <em>similar</em> tests; in order to reduce duplication in these closely
+related tests most unit testing frameworks - including KUnit - provide the
+concept of a <em>test suite</em>. A <em>test suite</em> is just a collection of test cases
+for a unit of code with a set up function that gets invoked before every test
+case and then a tear down function that gets invoked after every test case
+completes.</p>
 <p>Example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="n">kunit_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
@@ -365,7 +366,7 @@ KUnit test framework.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">A test case will only be run if it is associated with a test suite.</p>
 </div>
-<p>For a more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<p>For more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
 </div>
 </div>
 </div>
@@ -476,7 +477,7 @@ represents an EEPROM:</p>
         <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">ssize_t</span> <span class="nf">fake_eeprom_write</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
+<span class="kt">ssize_t</span> <span class="nf">fake_eeprom_write</span><span class="p">(</span><span class="k">struct</span> <span class="n">eeprom</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="n">fake_eeprom</span> <span class="o">*</span><span class="n">this</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="k">struct</span> <span class="n">fake_eeprom</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
 
@@ -591,7 +592,7 @@ represents an EEPROM:</p>
 <p>By default KUnit uses UML as a way to provide dependencies for code under test.
 Under most circumstances KUnit’s usage of UML should be treated as an
 implementation detail of how KUnit works under the hood. Nevertheless, there
-are instances where being able to run architecture specific code, or test
+are instances where being able to run architecture specific code or test
 against real hardware is desirable. For these reasons KUnit supports running on
 other architectures.</p>
 <div class="section" id="running-existing-kunit-tests-on-non-uml-architectures">
@@ -658,6 +659,15 @@ ok 1 - example
 </pre></div>
 </div>
 <p>Congratulations, you just ran a KUnit test on the x86 architecture!</p>
+<p>In a similar manner, kunit and kunit tests can also be built as modules,
+so if you wanted to run tests in this way you might add the following config
+options to your <code class="docutils literal notranslate"><span class="pre">.config</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=m
+CONFIG_KUNIT_EXAMPLE_TEST=m
+</pre></div>
+</div>
+<p>Once the kernel is built and installed, a simple</p>
+<p>…will run the tests.</p>
 </div>
 <div class="section" id="writing-new-tests-for-other-architectures">
 <h3>Writing new tests for other architectures<a class="headerlink" href="#writing-new-tests-for-other-architectures" title="Permalink to this headline">¶</a></h3>
@@ -675,7 +685,7 @@ run your tests on your hardware setup just by compiling for your architecture.</
 <p class="first admonition-title">Important</p>
 <p class="last">Always prefer tests that run on UML to tests that only run under a particular
 architecture, and always prefer tests that run under QEMU or another easy
-(and monitarily free) to obtain software environment to a specific piece of
+(and monetarily free) to obtain software environment to a specific piece of
 hardware.</p>
 </div>
 <p>Nevertheless, there are still valid reasons to write an architecture or hardware
@@ -700,7 +710,7 @@ able to run one test case per invocation.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="kunit-tool.html" class="btn btn-neutral float-right" title="kunit_tool How-To" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

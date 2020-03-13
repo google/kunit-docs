@@ -9,9 +9,15 @@ For convenience:
 Where to get the code
 ---------------------
 
-https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=test
+This documentation is taken from torvalds' master branch:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/
+
+Most KUnit upstream development is done against the 'kunit' branch of the linux kselftest repository:
+https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/log/?h=kunit
 
 Getting Started Guide
 ---------------------
 
 `docs/ <docs/>`_
+
+This documentation is also `mirrored on kernel.org <https://www.kernel.org/doc/html/latest/dev-tools/kunit/index.html>`_.

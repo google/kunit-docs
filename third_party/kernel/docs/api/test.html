@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.5.0
+                5.6.0
               </div>
             
           
@@ -300,6 +300,8 @@ struct <code class="descname">kunit_suite</code><a class="headerlink" href="#c.k
   int (*init)(struct kunit *test);
   void (*exit)(struct kunit *test);
   struct kunit_case *test_cases;
+  struct dentry *debugfs;
+  char *log;
 };
 </pre></div>
 </div>

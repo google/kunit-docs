@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                5.5.0
+                5.6.0
               </div>
             
           
@@ -160,8 +160,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="start.html#installing-dependencies">Installing dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start.html#kunit-wrapper">KUnit Wrapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start.html#creating-a-kunitconfig">Creating a .kunitconfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-with-the-kunit-wrapper">Running tests with the KUnit Wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-without-the-kunit-wrapper">Running tests without the KUnit Wrapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="start.html#writing-your-first-test">Writing your first test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="start.html#next-steps">Next Steps</a></li>
 </ul>
@@ -171,6 +171,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usage.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#isolating-behavior">Isolating Behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#kunit-on-non-uml-architectures">KUnit on non-UML architectures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#kunit-debugfs-representation">KUnit debugfs representation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a><ul>
@@ -193,13 +194,19 @@
 </div>
 <div class="section" id="what-is-kunit">
 <h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h2>
-<p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
-These tests are able to be run locally on a developer’s workstation without a VM
-or special hardware.</p>
+<p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.</p>
 <p>KUnit is heavily inspired by JUnit, Python’s unittest.mock, and
 Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
 cases, grouping related test cases into test suites, providing common
 infrastructure for running tests, and much more.</p>
+<p>KUnit consists of a kernel component, which provides a set of macros for easily
+writing unit tests. Tests written against KUnit will run on kernel boot if
+built-in, or when loaded if built as a module. These tests write out results to
+the kernel log in <a class="reference external" href="https://testanything.org/">TAP</a> format.</p>
+<p>To make running these tests (and reading the results) easier, KUnit offers
+<a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool</span></a>, which builds a <a class="reference external" href="http://user-mode-linux.sourceforge.net">User Mode Linux</a> kernel, runs it, and parses the test
+results. This provides a quick way of running KUnit tests during development,
+without requiring a virtual machine or separate hardware.</p>
 <p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
 </div>
 <div class="section" id="why-kunit">
@@ -209,19 +216,19 @@ name. A unit test should be the finest granularity of testing and as such should
 allow all possible code paths to be tested in the code under test; this is only
 possible if the code under test is very small and does not have any external
 dependencies outside of the test’s control like hardware.</p>
-<p>Outside of KUnit, there are no testing frameworks currently
-available for the kernel that do not require installing the kernel on a test
-machine or in a VM and all require tests to be written in userspace running on
-the kernel; this is true for Autotest, and kselftest, disqualifying
-any of them from being considered unit testing frameworks.</p>
-<p>KUnit addresses the problem of being able to run tests without needing a virtual
-machine or actual hardware with User Mode Linux. User Mode Linux is a Linux
-architecture, like ARM or x86; however, unlike other architectures it compiles
-to a standalone program that can be run like any other program directly inside
-of a host operating system; to be clear, it does not require any virtualization
-support; it is just a regular program.</p>
-<p>Alternatively, kunit and kunit tests can be built as modules and tests will
-run when the test module is loaded.</p>
+<p>KUnit provides a common framework for unit tests within the kernel.</p>
+<p>KUnit tests can be run on most architectures, and most tests are architecture
+independent. All built-in KUnit tests run on kernel startup.  Alternatively,
+KUnit and KUnit tests can be built as modules and tests will run when the test
+module is loaded.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">KUnit can also run tests without needing a virtual machine or actual
+hardware under User Mode Linux. User Mode Linux is a Linux architecture,
+like ARM or x86, which compiles the kernel as a Linux executable. KUnit
+can be used with UML either by building with <code class="docutils literal notranslate"><span class="pre">ARCH=um</span></code> (like any other
+architecture), or by using <a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool</span></a>.</p>
+</div>
 <p>KUnit is fast. Excluding build time, from invocation to completion KUnit can run
 several dozen tests in only 10 to 20 seconds; this might not sound like a big
 deal to some people, but having such fast and easy to run tests fundamentally
@@ -249,6 +256,8 @@ it takes to read their test log?</p>
 <li><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</li>
 <li><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</li>
 <li><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</li>
+<li><a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> - for more information on the kunit_tool helper script</li>
+<li><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> - for answers to some common questions about KUnit</li>
 </ul>
 </div>
 </div>

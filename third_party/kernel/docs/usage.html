@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.5.0
+                5.6.0
               </div>
             
           
@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#writing-new-tests-for-other-architectures">Writing new tests for other architectures</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#kunit-debugfs-representation">KUnit debugfs representation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
@@ -667,6 +668,9 @@ CONFIG_KUNIT_EXAMPLE_TEST=m
 </pre></div>
 </div>
 <p>Once the kernel is built and installed, a simple</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe example-test
+</pre></div>
+</div>
 <p>…will run the tests.</p>
 </div>
 <div class="section" id="writing-new-tests-for-other-architectures">
@@ -699,6 +703,20 @@ writing normal KUnit tests. One special caveat is that you have to reset
 hardware state in between test cases; if this is not possible, you may only be
 able to run one test case per invocation.</p>
 </div>
+</div>
+<div class="section" id="kunit-debugfs-representation">
+<h2>KUnit debugfs representation<a class="headerlink" href="#kunit-debugfs-representation" title="Permalink to this headline">¶</a></h2>
+<p>When kunit test suites are initialized, they create an associated directory
+in /sys/kernel/debug/kunit/&lt;test-suite&gt;.  The directory contains one file</p>
+<ul class="simple">
+<li>results: “cat results” displays results of each test case and the results
+of the entire suite for the last test run.</li>
+</ul>
+<p>The debugfs representation is primarily of use when kunit test suites are
+run in a native environment, either as modules or builtin.  Having a way
+to display results like this is valuable as otherwise results can be
+intermixed with other events in dmesg output.  The maximum size of each
+results file is KUNIT_LOG_SIZE bytes (defined in include/kunit/test.h).</p>
 </div>
 </div>
 

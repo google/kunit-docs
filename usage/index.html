@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -191,25 +191,25 @@ the list of test modules to build, and their dependencies.</p>
 </pre></div>
 </div>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
+<p class="admonition-title">Tip</p>
 <p>You may want to run KUnit with flags like:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout<span class="o">=</span><span class="m">30</span> --jobs<span class="o">=</span><span class="m">24</span> --defconfig
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">--timeout</span></code> sets a maximum amount of time to allow tests to run.</li>
-<li><code class="docutils literal notranslate"><span class="pre">--jobs</span></code> sets the number of threads to use to build the kernel.</li>
-<li><code class="docutils literal notranslate"><span class="pre">--defconfig</span></code> uses an default kunitconfig in the kernel source.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--timeout</span></code> sets a maximum amount of time to allow tests to run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--jobs</span></code> sets the number of threads to use to build the kernel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--defconfig</span></code> uses an default kunitconfig in the kernel source.</p></li>
 </ul>
 <p>For more information on these and other flags, try running:</p>
-<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help
 </pre></div>
 </div>
 </div>
 <p>This will build a UML (User Mode Linux) kernel, run the specified tests, and
 print the results (nicely formatted) to the screen.</p>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
+<p class="admonition-title">Tip</p>
 <p>If you get the error message: <code class="docutils literal notranslate"><span class="pre">/bin/sh:</span> <span class="pre">flex:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code> or
 similarly <code class="docutils literal notranslate"><span class="pre">/bin/sh:</span> <span class="pre">bison:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, you are most likely missing
 the flex and bison packages. On a system using the apt package manager you
@@ -217,7 +217,7 @@ can install them with</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install flex bison
 </pre></div>
 </div>
-<p class="last">For more information on building the kernel, see
+<p>For more information on building the kernel, see
 <a class="reference external" href="https://www.kernel.org/doc/html/latest/process/changes.html">https://www.kernel.org/doc/html/latest/process/changes.html</a></p>
 </div>
 </div>

@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.6.0
+                5.8.0
               </div>
             
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">kunit_tool How-To</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-kunit-tool">What is kunit_tool?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-is-a-kunitconfig">What is a kunitconfig?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-kunitconfig">What is a .kunitconfig?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-use-kunit-tool">How do I use kunit_tool?</a></li>
 </ul>
 </li>
@@ -175,11 +175,11 @@ other program directly inside of a host operating system. To be clear, it does
 not require any virtualization support: it is just a regular program.</p>
 </div>
 <div class="section" id="what-is-a-kunitconfig">
-<h2>What is a kunitconfig?<a class="headerlink" href="#what-is-a-kunitconfig" title="Permalink to this headline">¶</a></h2>
+<h2>What is a .kunitconfig?<a class="headerlink" href="#what-is-a-kunitconfig" title="Permalink to this headline">¶</a></h2>
 <p>It’s just a defconfig that kunit_tool looks for in the base directory.
 kunit_tool uses it to generate a .config as you might expect. In addition, it
 verifies that the generated .config contains the CONFIG options in the
-kunitconfig; the reason it does this is so that it is easy to be sure that a
+.kunitconfig; the reason it does this is so that it is easy to be sure that a
 CONFIG that enables a test actually ends up in the .config.</p>
 </div>
 <div class="section" id="how-do-i-use-kunit-tool">
@@ -193,18 +193,13 @@ CONFIG that enables a test actually ends up in the .config.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">--timeout</span></code> sets a maximum amount of time to allow tests to run.</li>
-<li><code class="docutils literal notranslate"><span class="pre">--jobs</span></code> sets the number of threads to use to build the kernel.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--timeout</span></code> sets a maximum amount of time to allow tests to run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--jobs</span></code> sets the number of threads to use to build the kernel.</p></li>
 </ul>
-<p>If you just want to use the defconfig that ships with the kernel, you can
-append the <code class="docutils literal notranslate"><span class="pre">--defconfig</span></code> flag as well:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout<span class="o">=</span><span class="m">30</span> --jobs<span class="o">=</span><span class="sb">`</span>nproc --all<span class="sb">`</span> --defconfig
-</pre></div>
-</div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This command is particularly helpful for getting started because it
-just works. No kunitconfig needs to be present.</p>
+<p class="admonition-title">Note</p>
+<p>This command will work even without a .kunitconfig file: if no
+.kunitconfig is present, a default one will be used instead.</p>
 </div>
 <p>For a list of all the flags supported by kunit_tool, you can run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help

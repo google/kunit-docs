@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.6.0
+                5.8.0
               </div>
             
           
@@ -267,8 +267,8 @@ expectations until the test case ends or is otherwise terminated. This is as
 opposed to <em>assertions</em> which are discussed later.</p>
 <p>To learn about more expectations supported by KUnit, see <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A single test case should be pretty short, pretty easy to understand,
+<p class="admonition-title">Note</p>
+<p>A single test case should be pretty short, pretty easy to understand,
 focused on a single behavior.</p>
 </div>
 <p>For example, if we wanted to properly test the add function above, we would
@@ -364,8 +364,8 @@ have <code class="docutils literal notranslate"><span class="pre">example_test_e
 <code class="docutils literal notranslate"><span class="pre">kunit_test_suite(example_test_suite)</span></code> registers the test suite with the
 KUnit test framework.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A test case will only be run if it is associated with a test suite.</p>
+<p class="admonition-title">Note</p>
+<p>A test case will only be run if it is associated with a test suite.</p>
 </div>
 <p>For more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
 </div>
@@ -601,14 +601,14 @@ other architectures.</p>
 <p>There are some special considerations when running existing KUnit tests on
 non-UML architectures:</p>
 <ul class="simple">
-<li>Hardware may not be deterministic, so a test that always passes or fails
-when run under UML may not always do so on real hardware.</li>
-<li>Hardware and VM environments may not be hermetic. KUnit tries its best to
+<li><p>Hardware may not be deterministic, so a test that always passes or fails
+when run under UML may not always do so on real hardware.</p></li>
+<li><p>Hardware and VM environments may not be hermetic. KUnit tries its best to
 provide a hermetic environment to run tests; however, it cannot manage state
 that it doesn’t know about outside of the kernel. Consequently, tests that
-may be hermetic on UML may not be hermetic on other architectures.</li>
-<li>Some features and tooling may not be supported outside of UML.</li>
-<li>Hardware and VMs are slower than UML.</li>
+may be hermetic on UML may not be hermetic on other architectures.</p></li>
+<li><p>Some features and tooling may not be supported outside of UML.</p></li>
+<li><p>Hardware and VMs are slower than UML.</p></li>
 </ul>
 <p>None of these are reasons not to run your KUnit tests on real hardware; they are
 only things to be aware of when doing so.</p>
@@ -686,8 +686,8 @@ to your hardware. If you write your test to run on UML, then anyone can run your
 tests without knowing anything about your particular setup, and you can still
 run your tests on your hardware setup just by compiling for your architecture.</p>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Always prefer tests that run on UML to tests that only run under a particular
+<p class="admonition-title">Important</p>
+<p>Always prefer tests that run on UML to tests that only run under a particular
 architecture, and always prefer tests that run under QEMU or another easy
 (and monetarily free) to obtain software environment to a specific piece of
 hardware.</p>
@@ -707,16 +707,16 @@ able to run one test case per invocation.</p>
 <div class="section" id="kunit-debugfs-representation">
 <h2>KUnit debugfs representation<a class="headerlink" href="#kunit-debugfs-representation" title="Permalink to this headline">¶</a></h2>
 <p>When kunit test suites are initialized, they create an associated directory
-in /sys/kernel/debug/kunit/&lt;test-suite&gt;.  The directory contains one file</p>
+in <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;test-suite&gt;</span></code>.  The directory contains one file</p>
 <ul class="simple">
-<li>results: “cat results” displays results of each test case and the results
-of the entire suite for the last test run.</li>
+<li><p>results: “cat results” displays results of each test case and the results
+of the entire suite for the last test run.</p></li>
 </ul>
 <p>The debugfs representation is primarily of use when kunit test suites are
 run in a native environment, either as modules or builtin.  Having a way
 to display results like this is valuable as otherwise results can be
 intermixed with other events in dmesg output.  The maximum size of each
-results file is KUNIT_LOG_SIZE bytes (defined in include/kunit/test.h).</p>
+results file is KUNIT_LOG_SIZE bytes (defined in <code class="docutils literal notranslate"><span class="pre">include/kunit/test.h</span></code>).</p>
 </div>
 </div>
 

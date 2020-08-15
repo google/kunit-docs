@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -192,15 +192,16 @@ run as a normal userspace program.</p>
 <p>Most of the complexity of KUnit lies in the Linux kernel itself. Within the
 KUnit kernel there are several parts:</p>
 <ul class="simple">
-<li>The <a class="reference internal" href="#test-runner"><span class="std std-ref">Test Runner</span></a> which schedules and runs all the tests, which is
-composed of:<ul>
-<li>The Linux initcall subsystem which invokes:</li>
-<li>The <a class="reference internal" href="#test-case-runner"><span class="std std-ref">Test Case Runner</span></a> which handles sandboxing and running individual
-test cases.</li>
+<li><p>The <a class="reference internal" href="#test-runner"><span class="std std-ref">Test Runner</span></a> which schedules and runs all the tests, which is
+composed of:</p>
+<ul>
+<li><p>The Linux initcall subsystem which invokes:</p></li>
+<li><p>The <a class="reference internal" href="#test-case-runner"><span class="std std-ref">Test Case Runner</span></a> which handles sandboxing and running individual
+test cases.</p></li>
 </ul>
 </li>
-<li>The <a class="reference internal" href="#test-library"><span class="std std-ref">Test Library</span></a> which provide wrappers around the API provided by the
-Test Case Runner to test cases to communicate with it.</li>
+<li><p>The <a class="reference internal" href="#test-library"><span class="std std-ref">Test Library</span></a> which provide wrappers around the API provided by the
+Test Case Runner to test cases to communicate with it.</p></li>
 </ul>
 <p>The Linux kernel itself is <strong>much</strong> more complicated than this, but a full
 overview is outside of the scope of this document.</p>
@@ -219,12 +220,12 @@ it executes are the test case runners.</p>
 runner is invoked, it runs through each test case and for each test case, does
 the following:</p>
 <ul class="simple">
-<li>Register a failure handler with the UML trap subsytem.</li>
-<li>Run the init function provided by the <code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>.</li>
-<li>Run the test case.</li>
-<li>Run the exit function provided by the <code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>.</li>
-<li>Deallocate all the test allocated resources.</li>
-<li>Report test results.</li>
+<li><p>Register a failure handler with the UML trap subsytem.</p></li>
+<li><p>Run the init function provided by the <code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>.</p></li>
+<li><p>Run the test case.</p></li>
+<li><p>Run the exit function provided by the <code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>.</p></li>
+<li><p>Deallocate all the test allocated resources.</p></li>
+<li><p>Report test results.</p></li>
 </ul>
 <p>All this happens in <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3">lib/kunit/test.c</a>.</p>
 </div>
@@ -240,10 +241,10 @@ test case to communicate a failed assertion:</p>
 </div>
 <p>It takes a</p>
 <ul class="simple">
-<li><a class="reference external" href="../third_party/kernel/docs/api/test.html#c.kunit">kunit (test context object)</a></li>
-<li><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/include/kunit/assert.h?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n42">assertion object</a></li>
-<li>whether the expectation/assertion failed or not</li>
-<li>log message to show on failure represented as a C format string.</li>
+<li><p><a class="reference external" href="../third_party/kernel/docs/api/test.html#c.kunit">kunit (test context object)</a></p></li>
+<li><p><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/include/kunit/assert.h?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n42">assertion object</a></p></li>
+<li><p>whether the expectation/assertion failed or not</p></li>
+<li><p>log message to show on failure represented as a C format string.</p></li>
 </ul>
 <p>The function definition can be found here:
 <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152</a></p>

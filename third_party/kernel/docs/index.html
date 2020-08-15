@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                5.6.0
+                5.8.0
               </div>
             
           
@@ -176,7 +176,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-kunit-tool">What is kunit_tool?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-a-kunitconfig">What is a kunitconfig?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-a-kunitconfig">What is a .kunitconfig?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#how-do-i-use-kunit-tool">How do I use kunit_tool?</a></li>
 </ul>
 </li>
@@ -188,6 +188,7 @@
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#does-kunit-support-running-on-architectures-other-than-uml">Does KUnit support running on architectures other than UML?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">What is the difference between a unit test and these other kinds of tests?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#kunit-isn-t-working-what-should-i-do">KUnit isn’t working, what should I do?</a></li>
 </ul>
 </li>
 </ul>
@@ -222,8 +223,8 @@ independent. All built-in KUnit tests run on kernel startup.  Alternatively,
 KUnit and KUnit tests can be built as modules and tests will run when the test
 module is loaded.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">KUnit can also run tests without needing a virtual machine or actual
+<p class="admonition-title">Note</p>
+<p>KUnit can also run tests without needing a virtual machine or actual
 hardware under User Mode Linux. User Mode Linux is a Linux architecture,
 like ARM or x86, which compiles the kernel as a Linux executable. KUnit
 can be used with UML either by building with <code class="docutils literal notranslate"><span class="pre">ARCH=um</span></code> (like any other
@@ -235,10 +236,11 @@ deal to some people, but having such fast and easy to run tests fundamentally
 changes the way you go about testing and even writing code in the first place.
 Linus himself said in his <a class="reference external" href="https://gist.github.com/lorn/1272686/revisions#diff-53c65572127855f1b003db4064a94573R874">git talk at Google</a>:</p>
 <blockquote>
-<div>“… a lot of people seem to think that performance is about doing the
+<div><p>“… a lot of people seem to think that performance is about doing the
 same thing, just doing it faster, and that is not true. That is not what
 performance is all about. If you can do something really fast, really
-well, people will start using it differently.”</div></blockquote>
+well, people will start using it differently.”</p>
+</div></blockquote>
 <p>In this context Linus was talking about branching and merging,
 but this point also applies to testing. If your tests are slow, unreliable, are
 difficult to write, and require a special setup or special hardware to run,
@@ -253,11 +255,11 @@ it takes to read their test log?</p>
 <div class="section" id="how-do-i-use-it">
 <h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</li>
-<li><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</li>
-<li><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</li>
-<li><a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> - for more information on the kunit_tool helper script</li>
-<li><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> - for answers to some common questions about KUnit</li>
+<li><p><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</p></li>
+<li><p><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</p></li>
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</p></li>
+<li><p><a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> - for more information on the kunit_tool helper script</p></li>
+<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> - for answers to some common questions about KUnit</p></li>
 </ul>
 </div>
 </div>

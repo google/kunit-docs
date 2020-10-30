@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                5.8.0
+                5.10.0-rc1
               </div>
             
           
@@ -118,6 +118,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
@@ -367,6 +368,10 @@ KUnit test framework.</p>
 <p class="admonition-title">Note</p>
 <p>A test case will only be run if it is associated with a test suite.</p>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">kunit_test_suite(...)</span></code> is a macro which tells the linker to put the specified
+test suite in a special linker section so that it can be run by KUnit either
+after late_init, or when the test module is loaded (depending on whether the
+test was built in or not).</p>
 <p>For more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
 </div>
 </div>

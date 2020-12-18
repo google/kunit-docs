@@ -1,9 +1,7 @@
 
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -13,12 +11,19 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -30,11 +35,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> The Linux Kernel
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> The Linux Kernel
           
 
           
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                5.10.0-rc1
+                5.10.0
               </div>
             
           
@@ -77,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -96,6 +97,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,7 +136,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Index</li>
     
@@ -163,7 +165,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/test.html#c.kunit">kunit (C type)</a>
+      <li><a href="api/test.html#c.kunit">kunit (C struct)</a>
 </li>
       <li><a href="api/test.html#c.kunit_add_named_resource">kunit_add_named_resource (C function)</a>
 </li>
@@ -171,69 +173,73 @@
 </li>
       <li><a href="api/test.html#c.kunit_alloc_resource">kunit_alloc_resource (C function)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_EQ">KUNIT_ASSERT_EQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ARRAY_PARAM">KUNIT_ARRAY_PARAM (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_FALSE">KUNIT_ASSERT_FALSE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_EQ">KUNIT_ASSERT_EQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_GE">KUNIT_ASSERT_GE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_FALSE">KUNIT_ASSERT_FALSE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_GT">KUNIT_ASSERT_GT (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_GE">KUNIT_ASSERT_GE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_LE">KUNIT_ASSERT_LE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_GT">KUNIT_ASSERT_GT (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_LT">KUNIT_ASSERT_LT (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_LE">KUNIT_ASSERT_LE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_NE">KUNIT_ASSERT_NE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_LT">KUNIT_ASSERT_LT (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_NOT_ERR_OR_NULL">KUNIT_ASSERT_NOT_ERR_OR_NULL (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_NE">KUNIT_ASSERT_NE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_PTR_EQ">KUNIT_ASSERT_PTR_EQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_NOT_ERR_OR_NULL">KUNIT_ASSERT_NOT_ERR_OR_NULL (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_PTR_NE">KUNIT_ASSERT_PTR_NE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_PTR_EQ">KUNIT_ASSERT_PTR_EQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_STREQ">KUNIT_ASSERT_STREQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_PTR_NE">KUNIT_ASSERT_PTR_NE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_STRNEQ">KUNIT_ASSERT_STRNEQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_STREQ">KUNIT_ASSERT_STREQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_ASSERT_TRUE">KUNIT_ASSERT_TRUE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_STRNEQ">KUNIT_ASSERT_STRNEQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_CASE">KUNIT_CASE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_ASSERT_TRUE">KUNIT_ASSERT_TRUE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_case">kunit_case (C type)</a>
+      <li><a href="api/test.html#c.KUNIT_CASE">KUNIT_CASE (C macro)</a>
+</li>
+      <li><a href="api/test.html#c.kunit_case">kunit_case (C struct)</a>
+</li>
+      <li><a href="api/test.html#c.KUNIT_CASE_PARAM">KUNIT_CASE_PARAM (C macro)</a>
 </li>
       <li><a href="api/test.html#c.kunit_destroy_resource">kunit_destroy_resource (C function)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_err">kunit_err (C function)</a>
+      <li><a href="api/test.html#c.kunit_err">kunit_err (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_EQ">KUNIT_EXPECT_EQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_EQ">KUNIT_EXPECT_EQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_FALSE">KUNIT_EXPECT_FALSE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_FALSE">KUNIT_EXPECT_FALSE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_GE">KUNIT_EXPECT_GE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_GE">KUNIT_EXPECT_GE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_GT">KUNIT_EXPECT_GT (C function)</a>
-</li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_LE">KUNIT_EXPECT_LE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_GT">KUNIT_EXPECT_GT (C macro)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_LT">KUNIT_EXPECT_LT (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_LE">KUNIT_EXPECT_LE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_NE">KUNIT_EXPECT_NE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_LT">KUNIT_EXPECT_LT (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_NOT_ERR_OR_NULL">KUNIT_EXPECT_NOT_ERR_OR_NULL (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_NE">KUNIT_EXPECT_NE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_PTR_EQ">KUNIT_EXPECT_PTR_EQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_NOT_ERR_OR_NULL">KUNIT_EXPECT_NOT_ERR_OR_NULL (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_PTR_NE">KUNIT_EXPECT_PTR_NE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_PTR_EQ">KUNIT_EXPECT_PTR_EQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_STREQ">KUNIT_EXPECT_STREQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_PTR_NE">KUNIT_EXPECT_PTR_NE (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_STRNEQ">KUNIT_EXPECT_STRNEQ (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_STREQ">KUNIT_EXPECT_STREQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_EXPECT_TRUE">KUNIT_EXPECT_TRUE (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_STRNEQ">KUNIT_EXPECT_STRNEQ (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_FAIL">KUNIT_FAIL (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_EXPECT_TRUE">KUNIT_EXPECT_TRUE (C macro)</a>
+</li>
+      <li><a href="api/test.html#c.KUNIT_FAIL">KUNIT_FAIL (C macro)</a>
 </li>
       <li><a href="api/test.html#c.kunit_find_named_resource">kunit_find_named_resource (C function)</a>
 </li>
@@ -241,7 +247,7 @@
 </li>
       <li><a href="api/test.html#c.kunit_get_resource">kunit_get_resource (C function)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_info">kunit_info (C function)</a>
+      <li><a href="api/test.html#c.kunit_info">kunit_info (C macro)</a>
 </li>
       <li><a href="api/test.html#c.kunit_kfree">kunit_kfree (C function)</a>
 </li>
@@ -253,21 +259,21 @@
 </li>
       <li><a href="api/test.html#c.kunit_remove_resource">kunit_remove_resource (C function)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_resource">kunit_resource (C type)</a>
+      <li><a href="api/test.html#c.kunit_resource">kunit_resource (C struct)</a>
 </li>
       <li><a href="api/test.html#c.kunit_resource_instance_match">kunit_resource_instance_match (C function)</a>
 </li>
       <li><a href="api/test.html#c.kunit_resource_name_match">kunit_resource_name_match (C function)</a>
 </li>
-      <li><a href="api/test.html#c.KUNIT_SUCCEED">KUNIT_SUCCEED (C function)</a>
+      <li><a href="api/test.html#c.KUNIT_SUCCEED">KUNIT_SUCCEED (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_suite">kunit_suite (C type)</a>
+      <li><a href="api/test.html#c.kunit_suite">kunit_suite (C struct)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_test_suites">kunit_test_suites (C function)</a>
+      <li><a href="api/test.html#c.kunit_test_suites">kunit_test_suites (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_test_suites_for_module">kunit_test_suites_for_module (C function)</a>
+      <li><a href="api/test.html#c.kunit_test_suites_for_module">kunit_test_suites_for_module (C macro)</a>
 </li>
-      <li><a href="api/test.html#c.kunit_warn">kunit_warn (C function)</a>
+      <li><a href="api/test.html#c.kunit_warn">kunit_warn (C macro)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -284,11 +290,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright The kernel development community
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -299,7 +313,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

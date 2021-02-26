@@ -1,39 +1,39 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api/index.html" />
@@ -78,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -116,7 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#method-call-expectations">Method Call Expectations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matchers">Matchers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#additional-expect-call-properties">Additional <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code> Properties</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#additional-expect-call-properties">Additional <code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code> Properties</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#times-called">Times Called</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mocked-actions">Mocked Actions</a></li>
 </ul>
@@ -133,6 +134,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -167,18 +169,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Using KUnit</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -236,11 +240,11 @@ functions which are <strong>not</strong> static.</p>
 <p>The fundamental unit in KUnit is the test case. A test case is a function with
 the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*test)</span></code>. It calls a function to be tested
 and then sets <em>expectations</em> for what should happen. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -261,13 +265,13 @@ do in a test. An expectation is called like a function. A test is made by
 setting expectations about the behavior of a piece of code under test; when one
 or more of the expectations fail, the test case fails and information about the
 failure is logged. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">));</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -286,11 +290,11 @@ fail, the test case will fail.</p>
 expectation except the assertion immediately terminates the test case if it is
 not satisfied.</p>
 <p>For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">mock_test_do_expect_default_return</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">mock_test_do_expect_default_return</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">mock_test_context</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">mock</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">param0</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">param1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">mock_test_context</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">mock</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">param0</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">param1</span> <span class="o">=</span> <span class="mi">-5</span><span class="p">;</span>
         <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">two_param_types</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;int&quot;</span><span class="p">,</span> <span class="s">&quot;int&quot;</span><span class="p">};</span>
         <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">two_params</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">param0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">param1</span><span class="p">};</span>
         <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ret</span><span class="p">;</span>
@@ -300,7 +304,7 @@ not satisfied.</p>
                               <span class="n">two_param_types</span><span class="p">,</span> <span class="n">two_params</span><span class="p">,</span>
                               <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">two_params</span><span class="p">));</span>
         <span class="n">ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
-        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
+        <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">-4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -323,14 +327,14 @@ specified to run before and after each test case, respectively; this is useful
 when the procedure to setup a unit for testing requires several steps and needs
 to be done in every test case.</p>
 <p>Example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="nc">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">example_test_baz</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_module</span> <span class="n">example_test_module</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="nc">test_module</span> <span class="n">example_test_module</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;example&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">example_test_init</span><span class="p">,</span>
         <span class="p">.</span><span class="n">exit</span> <span class="o">=</span> <span class="n">example_test_exit</span><span class="p">,</span>
@@ -346,8 +350,8 @@ would have <code class="docutils literal notranslate"><span class="pre">example_
 <code class="docutils literal notranslate"><span class="pre">module_test(example_test_module)</span></code> registers the test suite with the KUnit
 test framework.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A test case will only be run if it is associated with a test suite.</p>
+<p class="admonition-title">Note</p>
+<p>A test case will only be run if it is associated with a test suite.</p>
 </div>
 <p>For a more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
 </div>
@@ -388,24 +392,24 @@ of a parent contained within the child; because of this, the child can compute
 the pointer to itself because the pointer to the parent is always a fixed offset
 from the pointer to the child; this offset is the offset of the parent contained
 in the child struct. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">shape</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">area</span><span class="p">)(</span><span class="k">struct</span> <span class="n">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">shape</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">area</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">);</span>
 <span class="p">};</span>
 
-<span class="k">struct</span> <span class="n">rectangle</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">shape</span> <span class="n">parent</span><span class="p">;</span>
+<span class="k">struct</span> <span class="nc">rectangle</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="nc">shape</span> <span class="n">parent</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kt">int</span> <span class="nf">rectangle_area</span><span class="p">(</span><span class="k">struct</span> <span class="n">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">)</span>
+<span class="kt">int</span> <span class="nf">rectangle_area</span><span class="p">(</span><span class="k">struct</span> <span class="nc">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">rectangle</span> <span class="o">*</span><span class="n">self</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="k">struct</span> <span class="n">shape</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">rectangle</span> <span class="o">*</span><span class="n">self</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">shape</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
 
         <span class="k">return</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">*</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kt">void</span> <span class="nf">rectangle_new</span><span class="p">(</span><span class="k">struct</span> <span class="n">rectangle</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">rectangle_new</span><span class="p">(</span><span class="k">struct</span> <span class="nc">rectangle</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">self</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">rectangle_area</span><span class="p">;</span>
         <span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span><span class="p">;</span>
@@ -425,7 +429,7 @@ test case. KUnit accomplishes this with two sets of macros: the mock generation
 macros and the <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span></code> macro.</p>
 <p>For example, let’s say you have a file named <code class="docutils literal notranslate"><span class="pre">drivers/foo/example.c</span></code> and it
 contains the following code you would like to test:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">example_bar</span><span class="p">(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">example_bar</span><span class="p">(</span><span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="n">example</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
                 <span class="k">return</span> <span class="o">-</span><span class="n">EIO</span><span class="p">;</span>
@@ -435,8 +439,8 @@ contains the following code you would like to test:</p>
 </pre></div>
 </div>
 <p>For the purposes of this example, assume <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">example</span></code> is defined as such:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">example</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">foo</span><span class="p">)(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">example</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">foo</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -448,11 +452,11 @@ contain the following code:</p>
 
 <span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">foo</span><span class="p">),</span> <span class="n">CLASS</span><span class="p">(</span><span class="n">example</span><span class="p">),</span>
                          <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
-                         <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">));</span>
+                         <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">));</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">example_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">example_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
 
         <span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -462,11 +466,11 @@ contain the following code:</p>
 
 <span class="cm">/* Define the test cases. */</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
         <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
         <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -474,18 +478,18 @@ contain the following code:</p>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">foo_example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">foo_example_test_failure</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
         <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
         <span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span> <span class="o">=</span> <span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">);</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">,</span> <span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">example_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">example_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span> <span class="o">=</span> <span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">test</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">)</span>
@@ -494,17 +498,17 @@ contain the following code:</p>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">example_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">example_test_exit</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_case</span> <span class="n">foo_example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="nc">test_case</span> <span class="n">foo_example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">foo_example_test_success</span><span class="p">),</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">foo_example_test_failure</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="n">test_module</span> <span class="n">foo_example_test_module</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="nc">test_module</span> <span class="n">foo_example_test_module</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;example&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">example_test_init</span><span class="p">,</span>
         <span class="p">.</span><span class="n">exit</span> <span class="o">=</span> <span class="n">example_test_exit</span><span class="p">,</span>
@@ -524,8 +528,8 @@ using an <em>action</em>. Finally, it calls the function under test.</p>
 <div class="section" id="mocking-arbitrary-functions">
 <h3>Mocking Arbitrary Functions<a class="headerlink" href="#mocking-arbitrary-functions" title="Permalink to this headline">¶</a></h3>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Always prefer class mocking over arbitrary function mocking where possible.
+<p class="admonition-title">Important</p>
+<p>Always prefer class mocking over arbitrary function mocking where possible.
 Class mocking has a much more limited scope and provides more control.</p>
 </div>
 <p>Sometimes it is necessary to mock a function that does not use any class style
@@ -536,7 +540,7 @@ mocking features.</p>
 <p>KUnit provides macros to allow arbitrary functions to be overridden so that the
 original definition is replaced with a mock stub. For most functions, all you
 have to do is label the function <code class="docutils literal notranslate"><span class="pre">__mockable</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">__mockable</span> <span class="nf">example</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg</span><span class="p">)</span> <span class="p">{...}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">__mockable</span> <span class="n">example</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg</span><span class="p">)</span> <span class="p">{...}</span>
 </pre></div>
 </div>
 <p>If a function is <code class="docutils literal notranslate"><span class="pre">__mockable</span></code> and a mock is defined:</p>
@@ -545,21 +549,21 @@ have to do is label the function <code class="docutils literal notranslate"><spa
 </div>
 <p>When the function is called, the mock stub will actually be called.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is no performance penalty or potential side effects from doing this.
+<p class="admonition-title">Note</p>
+<p>There is no performance penalty or potential side effects from doing this.
 When not compiling for testing, <code class="docutils literal notranslate"><span class="pre">__mockable</span></code> compiles away.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">__mockable</span></code> does not work on inlined functions.</p>
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">__mockable</span></code> does not work on inlined functions.</p>
 </div>
 <div class="section" id="redirect-mockable">
 <h4>Redirect-mockable<a class="headerlink" href="#redirect-mockable" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes it is desirable to have a mock function that delegates to the original
 definition in some or all circumstances. This is possible by making the function
 <em>redirect-mockable</em>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_REDIRECT_MOCKABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span> <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="p">));</span>
-<span class="kt">int</span> <span class="nf">REAL_ID</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">)(</span><span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="n">adapter</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_REDIRECT_MOCKABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span> <span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span> <span class="nc">i2c_adapter</span> <span class="o">*</span><span class="p">));</span>
+<span class="kt">int</span> <span class="nf">REAL_ID</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">i2c_adapter</span> <span class="o">*</span><span class="n">adapter</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="p">...</span>
 <span class="p">}</span>
@@ -570,11 +574,11 @@ however, it associates the original definition of the function with alternate
 symbol that KUnit can still reference. This makes it possible to mock the
 function and then have the mock delegate to the original function definition
 with the <code class="docutils literal notranslate"><span class="pre">INVOKE_REAL(...)</span></code> action:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">mock_param_capturer</span> <span class="o">*</span><span class="n">adap_capturer</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">aspeed_i2c_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">mock_param_capturer</span> <span class="o">*</span><span class="n">adap_capturer</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">aspeed_i2c_test</span> <span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
 
         <span class="n">ctx</span> <span class="o">=</span> <span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
@@ -592,7 +596,7 @@ with the <code class="docutils literal notranslate"><span class="pre">INVOKE_REA
                 <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 
         <span class="n">ASSERT_PARAM_CAPTURED</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">adap_capturer</span><span class="p">);</span>
-        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">adap</span> <span class="o">=</span> <span class="n">mock_capturer_get</span><span class="p">(</span><span class="n">adap_capturer</span><span class="p">,</span> <span class="k">struct</span> <span class="n">i2c_adapter</span> <span class="o">*</span><span class="p">);</span>
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">adap</span> <span class="o">=</span> <span class="n">mock_capturer_get</span><span class="p">(</span><span class="n">adap_capturer</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">i2c_adapter</span> <span class="o">*</span><span class="p">);</span>
 
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -627,7 +631,7 @@ given some code to be run.</p>
 <div class="section" id="basic-usage">
 <h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
 <p>Imagine we had some kind of dependency like this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">Printer</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">Printer</span> <span class="p">{</span>
         <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">print</span><span class="p">)(</span><span class="kt">int</span> <span class="n">arg</span><span class="p">);</span>
 <span class="p">};</span>
 
@@ -637,13 +641,13 @@ given some code to be run.</p>
         <span class="n">do_something_to_print_to_screen</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">Printer</span> <span class="o">*</span><span class="n">internal_printer</span><span class="p">;</span>
-        <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">print_add_two</span><span class="p">)(</span><span class="k">struct</span> <span class="n">Foo</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="nc">Printer</span> <span class="o">*</span><span class="n">internal_printer</span><span class="p">;</span>
+        <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">print_add_two</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">Foo</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="c1">// Foo&#39;s print_add_two:</span>
-<span class="kt">void</span> <span class="nf">foo_print_add_two</span><span class="p">(</span><span class="k">struct</span> <span class="n">Foo</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">foo_print_add_two</span><span class="p">(</span><span class="k">struct</span> <span class="nc">Foo</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">internal_printer</span><span class="o">-&gt;</span><span class="n">print</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
 <span class="p">}</span>
@@ -658,10 +662,10 @@ We first setup stubs for <code class="docutils literal notranslate"><span class=
 test, we’d construct a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Foo</span></code> with our <code class="docutils literal notranslate"><span class="pre">MOCK(Printer)</span></code>.</p>
 <p>Finally, we can place expectations on the <code class="docutils literal notranslate"><span class="pre">MOCK(Printer)</span></code>.</p>
 <p>For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_foo_add_two</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">test_foo_add_two</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">Printer</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_printer</span> <span class="o">=</span> <span class="n">get_mocked_printer</span><span class="p">();</span>
-        <span class="k">struct</span> <span class="n">Foo</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="n">initialize_foo</span><span class="p">(</span><span class="n">mock_printer</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">Printer</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_printer</span> <span class="o">=</span> <span class="n">get_mocked_printer</span><span class="p">();</span>
+        <span class="k">struct</span> <span class="nc">Foo</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="n">initialize_foo</span><span class="p">(</span><span class="n">mock_printer</span><span class="p">);</span>
 
         <span class="c1">// print() is a mocked method stub</span>
         <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">print</span><span class="p">(</span><span class="n">any</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="n">int_eq</span><span class="p">(</span><span class="mi">12</span><span class="p">)));</span>
@@ -685,8 +689,8 @@ the argument passed to that function must equal 12. If we had called:
 fulfilled. There are a variety of built-in matchers:
 <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a> has a section about these matchers.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> only works with mocked functions and methods.
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> only works with mocked functions and methods.
 Matchers may only be used within the function inside the
 <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a>.</p>
 </div>
@@ -701,7 +705,7 @@ properties to it as defined by the <code class="xref c c-func docutils literal n
 <p>In the previous example, if we wanted assert that the method is never called,
 we could write:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="k">struct</span> <span class="n">mock_expectation</span><span class="o">*</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(...);</span>
+<span class="k">struct</span> <span class="nc">mock_expectation</span><span class="o">*</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(...);</span>
 <span class="n">handle</span><span class="o">-&gt;</span><span class="n">min_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">handle</span><span class="o">-&gt;</span><span class="n">max_calls_expected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">...</span>
@@ -733,49 +737,49 @@ mocks, strict mocks, and naggy mocks. These are set via the corresponding macros
 mocks being the default.</p>
 <p>The type of mock simply dictates the behaviour the mock exhibits when
 expectations are placed on it.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="31%" />
-<col width="16%" />
-<col width="27%" />
-<col width="27%" />
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><strong>Nice</strong></td>
-<td><strong>Naggy (default)</strong></td>
-<td><strong>Strict</strong></td>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><strong>Nice</strong></p></td>
+<td><p><strong>Naggy (default)</strong></p></td>
+<td><p><strong>Strict</strong></p></td>
 </tr>
-<tr class="row-even"><td>Method called with no
-expectations on it</td>
-<td>Do nothing</td>
-<td>Prints warning for
-uninteresting call</td>
-<td>Fails test, prints
+<tr class="row-even"><td><p>Method called with no
+expectations on it</p></td>
+<td><p>Do nothing</p></td>
+<td><p>Prints warning for
+uninteresting call</p></td>
+<td><p>Fails test, prints
 warning
-uninteresting call</td>
+uninteresting call</p></td>
 </tr>
-<tr class="row-odd"><td>Method called with no
+<tr class="row-odd"><td><p>Method called with no
 matching expectations
-on it</td>
-<td colspan="3">Fails test, prints warnings, prints tried
-expectations</td>
+on it</p></td>
+<td colspan="3"><p>Fails test, prints warnings, prints tried
+expectations</p></td>
 </tr>
-<tr class="row-even"><td>Test ends with an
+<tr class="row-even"><td><p>Test ends with an
 unfulfilled
-expectation</td>
-<td colspan="3">Fail test, print warning</td>
+expectation</p></td>
+<td colspan="3"><p>Fail test, print warning</p></td>
 </tr>
 </tbody>
 </table>
 <p>These macros take a <code class="docutils literal notranslate"><span class="pre">MOCK(struct_name)</span></code> and so should be used when retrieving
 the mocked object. Following the example in <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a>, there was this test
 case:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">misc_example_bar_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">misc_example_bar_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="n">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="n">misc_example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">misc_example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
         <span class="n">handle</span> <span class="o">=</span> <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
                                               <span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)));</span>
@@ -797,29 +801,29 @@ case:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright The kernel development community
+        &#169; Copyright The kernel development community.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -827,7 +831,6 @@ case:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

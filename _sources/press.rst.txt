@@ -7,6 +7,12 @@ Talks about KUnit
 
  - `Introduction to KUnit - Linux Plumbers Conference 2019
    <https://linuxplumbersconf.org/event/4/contributions/545/>`_
+ - `KUnit - Unit Testing for the Linux Kernel - linux.conf.au 2020
+   <https://lca2020.linux.org.au/schedule/presentation/97/>`_
+ - `KUnit - One Year Later - Linux Plumbers Conference 2020
+   <https://linuxplumbersconf.org/event/7/contributions/747/>`_
+ - `KUnit: Past, Present, and Future - linux.conf.au 2021
+   <https://linux.conf.au/schedule/presentation/98/>`_
 
 Articles about KUnit
 ====================

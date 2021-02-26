@@ -1,39 +1,39 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Platform Mocking &mdash; The Linux Kernel  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Frequently Asked Questions" href="../faq.html" />
@@ -78,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -105,6 +106,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -139,11 +141,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">API Reference</a> &raquo;</li>
         
@@ -152,7 +156,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/api/platform-mocking.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -190,61 +194,61 @@ enable platform mocking.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These functions do not have any non-mocked behaviour in UML.</p>
+<p class="admonition-title">Note</p>
+<p>These functions do not have any non-mocked behaviour in UML.</p>
 </div>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="c function">
 <dt id="c.of_fake_node">
-struct device_node * <code class="descname">of_fake_node</code><span class="sig-paren">(</span>struct <a class="reference internal" href="test.html#c.test" title="test">test</a> *<em>&nbsp;test</em>, const char *<em>&nbsp;name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_node" title="Permalink to this definition">¶</a></dt>
+<em class="property">struct</em> device_node *<code class="sig-name descname">of_fake_node</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_node" title="test">test</a> *<em>test</em>, <em class="property">const</em> char *<em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_node" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
-<dd>the test to associate node with</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">name</span></code></dt>
-<dd>name of the node</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>the test to associate node with</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*name</span></code></dt><dd><p>name of the node</p>
+</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>The <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code> returned is allocated as a root node with the given
 name and otherwise behaves as a real <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code>.</p>
 <p><strong>Return</strong></p>
 <p>the faked <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code></p>
-<dl class="function">
+<dl class="c function">
 <dt id="c.of_fake_probe_platform">
-struct platform_device * <code class="descname">of_fake_probe_platform</code><span class="sig-paren">(</span>struct <a class="reference internal" href="test.html#c.test" title="test">test</a> *<em>&nbsp;test</em>, struct platform_driver *<em>&nbsp;driver</em>, const char *<em>&nbsp;node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a></dt>
+<em class="property">struct</em> platform_device *<code class="sig-name descname">of_fake_probe_platform</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_probe_platform" title="test">test</a> *<em>test</em>, <em class="property">struct</em> platform_driver *<em>driver</em>, <em class="property">const</em> char *<em>node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
-<dd>the test to associate the fake platform device with</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_driver</span> <span class="pre">*</span> <span class="pre">driver</span></code></dt>
-<dd>driver to probe</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">node_name</span></code></dt>
-<dd>name of the device node created</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>the test to associate the fake platform device with</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_driver</span> <span class="pre">*driver</span></code></dt><dd><p>driver to probe</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*node_name</span></code></dt><dd><p>name of the device node created</p>
+</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Creates a <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_device</span></code> and an associated <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code>,
 probes the provided <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_driver</span></code> with the <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_device</span></code>.</p>
 <p><strong>Return</strong></p>
 <p>the <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_device</span></code> that was created</p>
-<dl class="function">
+<dl class="c function">
 <dt id="c.of_fake_probe_platform_by_name">
-struct platform_device * <code class="descname">of_fake_probe_platform_by_name</code><span class="sig-paren">(</span>struct <a class="reference internal" href="test.html#c.test" title="test">test</a> *<em>&nbsp;test</em>, const char *<em>&nbsp;driver_name</em>, const char *<em>&nbsp;node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform_by_name" title="Permalink to this definition">¶</a></dt>
+<em class="property">struct</em> platform_device *<code class="sig-name descname">of_fake_probe_platform_by_name</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_probe_platform_by_name" title="test">test</a> *<em>test</em>, <em class="property">const</em> char *<em>driver_name</em>, <em class="property">const</em> char *<em>node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform_by_name" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*</span> <span class="pre">test</span></code></dt>
-<dd>the test to associate the fake platform device with</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">driver_name</span></code></dt>
-<dd>name of the driver to probe</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span> <span class="pre">node_name</span></code></dt>
-<dd>name of the device node created</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>the test to associate the fake platform device with</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*driver_name</span></code></dt><dd><p>name of the driver to probe</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*node_name</span></code></dt><dd><p>name of the device node created</p>
+</dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Same as <a class="reference internal" href="#c.of_fake_probe_platform" title="of_fake_probe_platform"><code class="xref c c-func docutils literal notranslate"><span class="pre">of_fake_probe_platform()</span></code></a> but looks up the <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_driver</span></code> by
@@ -259,29 +263,29 @@ the provided name.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../faq.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="class-and-function-mocking.html" class="btn btn-neutral float-left" title="Class and Function Mocking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../faq.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="class-and-function-mocking.html" class="btn btn-neutral float-left" title="Class and Function Mocking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright The kernel development community
+        &#169; Copyright The kernel development community.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -289,7 +293,6 @@ the provided name.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

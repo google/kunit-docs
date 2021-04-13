@@ -13,6 +13,8 @@ Talks about KUnit
    <https://linuxplumbersconf.org/event/7/contributions/747/>`_
  - `KUnit: Past, Present, and Future - linux.conf.au 2021
    <https://linux.conf.au/schedule/presentation/98/>`_
+ - `KUnit Testing Stragegies — Linux Foundation Mentorship Series
+   <https://linuxfoundation.org/webinars/kunit-testing-strategies/>`_
 
 Articles about KUnit
 ====================

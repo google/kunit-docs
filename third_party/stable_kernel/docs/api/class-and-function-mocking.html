@@ -213,7 +213,7 @@ arguments should be passed in with the readability macros.</p>
 <p>These are the matchers that can be used when matching arguments in
 <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> (more can be defined manually).</p>
 <p>For example, there’s a matcher that matches any arguments:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">any</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">any</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>There are matchers for integers based on the binary condition:</p>
@@ -225,12 +225,12 @@ arguments should be passed in with the readability macros.</p>
 <li><p>gt: greater than</p></li>
 <li><p>ge: greater than or equal to</p></li>
 </ul>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_eq</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_ne</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_lt</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_le</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_gt</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_ge</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_eq</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_ne</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_lt</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_le</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_gt</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span> <span class="nc">mock_param_matcher</span> <span class="o">*</span><span class="n">int_ge</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>For a detailed list, please see
@@ -421,7 +421,7 @@ matchers.</p>
 
 <span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">example_init</span><span class="p">);</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span><span class="p">;</span>
         <span class="k">struct</span> <span class="nc">example</span> <span class="o">*</span><span class="n">example</span> <span class="o">=</span> <span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
@@ -710,7 +710,7 @@ function to be mocked and refer to the original definition via
         <span class="p">...</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="nc">mock_param_capturer</span> <span class="o">*</span><span class="n">adap_capturer</span><span class="p">;</span>
         <span class="k">struct</span> <span class="nc">mock_expectation</span> <span class="o">*</span><span class="n">handle</span><span class="p">;</span>
@@ -918,7 +918,7 @@ tests.</p>
 <p>Use the associated helper macros to access relevant fields.
 .. code-block::c</p>
 <blockquote>
-<div><p>static int some_test(<a class="reference internal" href="test.html#c.test" title="test"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span></code></a> <a href="#id1"><span class="problematic" id="id2">*</span></a>test)
+<div><p>static int some_test(<a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span></code></a> <a href="#id1"><span class="problematic" id="id2">*</span></a>test)
 {</p>
 <blockquote>
 <div><p>// imagine a mocked function: int add(int a, int b)
@@ -935,13 +935,13 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 <p><strong>Example</strong></p>
 <dl class="c function">
 <dt id="c.mock_int_capturer_create">
-<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_int_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_int_capturer_create" title="test">test</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_int_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_int_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_int_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>creates a int parameter capturer</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>associated test</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>associated test</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_param_matcher</span> <span class="pre">*child_matcher</span></code></dt><dd><p>matcher used to match the integer</p>
 </dd>
@@ -950,13 +950,13 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 <p>The capturer will capture the value if the matcher is satisfied.</p>
 <dl class="c function">
 <dt id="c.mock_ptr_capturer_create">
-<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_ptr_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_ptr_capturer_create" title="test">test</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_ptr_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_ptr_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_ptr_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>creates a generic pointer parameter capturer</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>associated test</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>associated test</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_param_matcher</span> <span class="pre">*child_matcher</span></code></dt><dd><p>matcher used to match the pointer</p>
 </dd>

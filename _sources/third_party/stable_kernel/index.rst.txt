@@ -1,10 +1,13 @@
 =================================
-Stable Version (aka Not Upstream)
+Deprecated Version ("kunit/alpha/master")
 =================================
 
-Here we have a copy of the documentation taken from the stable branch of KUnit.
+Here we have a copy of the documentation taken from the old "alpha" version
+KUnit.
 
-For convenience:
+You should really prefer using the upstream version if possible, but the alpha
+version has some features that still haven't made their way upstream (class
+mocking, feature mocking, death tests, etc.)
 
 Where to get the code
 ---------------------

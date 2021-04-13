@@ -170,15 +170,15 @@
 <p>This file documents all of the standard testing API excluding mocking or mocking
 related features.</p>
 <dl class="c struct">
-<dt id="c.test_resource">
-<em class="property">struct </em><code class="sig-name descname">test_resource</code><a class="headerlink" href="#c.test_resource" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.KUNIT_RESOURCE_T">
+<em class="property">struct </em><code class="sig-name descname">KUNIT_RESOURCE_T</code><a class="headerlink" href="#c.KUNIT_RESOURCE_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a <em>test managed resource</em></p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_resource {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct KUNIT_RESOURCE_T {
   void *allocation;
-  void (*free)(struct test_resource *res);
+  void (*free)(struct KUNIT_RESOURCE_T *res);
 };
 </pre></div>
 </div>
@@ -198,7 +198,7 @@ cleaned up at the end of a test case.</p>
         <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_RESOURCE_T</span> <span class="o">*</span><span class="n">res</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="nc">test_kmalloc_params</span> <span class="o">*</span><span class="n">params</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
         <span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">gfp</span><span class="p">);</span>
@@ -209,15 +209,15 @@ cleaned up at the end of a test case.</p>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_RESOURCE_T</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">kfree</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="o">*</span><span class="n">test_kmalloc</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
+<span class="kt">void</span> <span class="o">*</span><span class="n">test_kmalloc</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">struct</span> <span class="nc">test_kmalloc_params</span> <span class="n">params</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="nc">test_resource</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">KUNIT_RESOURCE_T</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
 
         <span class="n">params</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
         <span class="n">params</span><span class="p">.</span><span class="n">gfp</span> <span class="o">=</span> <span class="n">gfp</span><span class="p">;</span>
@@ -235,14 +235,14 @@ cleaned up at the end of a test case.</p>
 </div>
 <p><strong>Example</strong></p>
 <dl class="c struct">
-<dt id="c.test_case">
-<em class="property">struct </em><code class="sig-name descname">test_case</code><a class="headerlink" href="#c.test_case" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.KUNIT_CASE_T">
+<em class="property">struct </em><code class="sig-name descname">KUNIT_CASE_T</code><a class="headerlink" href="#c.KUNIT_CASE_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents an individual test case.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_case {
-  void (*run_case)(struct test *test);
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct KUNIT_CASE_T {
+  void (*run_case)(struct KUNIT_T *test);
   const char name[256];
 };
 </pre></div>
@@ -255,15 +255,15 @@ cleaned up at the end of a test case.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*)</span></code>
+<p>A test case is a function with the signature, <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*)</span></code>
 that makes expectations and assertions (see <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> and <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>)
 about code under test. Each test case is associated with a
-<a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> and will be run after the module’s init function and
+<a class="reference internal" href="#c.KUNIT_SUITE_T" title="KUNIT_SUITE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_SUITE_T</span></code></a> and will be run after the module’s init function and
 followed by the module’s exit function.</p>
 <p>A test case should be static and should only be created with the <a class="reference internal" href="#c.TEST_CASE" title="TEST_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_CASE()</span></code></a>
 macro; additionally, every array of test cases should be terminated with an
 empty test case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="nc">KUNIT_T</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
@@ -272,7 +272,7 @@ empty test case.</p>
         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">INT_MIN</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="nc">test_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="nc">KUNIT_CASE_T</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">TEST_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
         <span class="p">{},</span>
 <span class="p">};</span>
@@ -286,7 +286,7 @@ empty test case.</p>
 
 <p><code class="docutils literal notranslate"><span class="pre">TEST_CASE</span> <span class="pre">(test_name)</span></code></p>
 <blockquote>
-<div><p>A helper for creating a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a></p>
+<div><p>A helper for creating a <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a></p>
 </div></blockquote>
 <p><strong>Parameters</strong></p>
 <dl class="simple">
@@ -294,21 +294,21 @@ empty test case.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Takes a symbol for a function representing a test case and creates a <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
-<span class="pre">test_case</span></code></a> object from it. See the documentation for <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> for an
+<p>Takes a symbol for a function representing a test case and creates a <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">test_case</span></code> object from it. See the documentation for <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> for an
 example on how to use it.</p>
 <dl class="c struct">
-<dt id="c.test_module">
-<em class="property">struct </em><code class="sig-name descname">test_module</code><a class="headerlink" href="#c.test_module" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>describes a related collection of <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s.</p>
+<dt id="c.KUNIT_SUITE_T">
+<em class="property">struct </em><code class="sig-name descname">KUNIT_SUITE_T</code><a class="headerlink" href="#c.KUNIT_SUITE_T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>describes a related collection of <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> s.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test_module {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct KUNIT_SUITE_T {
   const char name[256];
-  int (*init)(struct test *test);
-  void (*exit)(struct test *test);
-  struct test_case *test_cases;
+  int (*init)(struct KUNIT_T *test);
+  void (*exit)(struct KUNIT_T *test);
+  struct KUNIT_CASE_T *test_cases;
 };
 </pre></div>
 </div>
@@ -324,20 +324,20 @@ example on how to use it.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>A test_module is a collection of related <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> s, such that
+<p>A test_module is a collection of related <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> s, such that
 <strong>init</strong> is called before every test case and <strong>exit</strong> is called after every test
 case, similar to the notion of a <em>test fixture</em> or a <em>test class</em> in other
 unit testing frameworks like JUnit or Googletest.</p>
-<p>Every <a class="reference internal" href="#c.test_case" title="test_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_case</span></code></a> must be associated with a test_module for KUnit to
+<p>Every <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> must be associated with a test_module for KUnit to
 run it.</p>
 <dl class="c struct">
-<dt id="c.test">
-<em class="property">struct </em><code class="sig-name descname">test</code><a class="headerlink" href="#c.test" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.KUNIT_T">
+<em class="property">struct </em><code class="sig-name descname">KUNIT_T</code><a class="headerlink" href="#c.KUNIT_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a running instance of a test.</p>
 </dd></dl>
 
 <p><strong>Definition</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct test {
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct KUNIT_T {
   void *priv;
 };
 </pre></div>
@@ -345,7 +345,7 @@ run it.</p>
 <p><strong>Members</strong></p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">priv</span></code></dt><dd><p>for user to store arbitrary data. Commonly used to pass data created
-in the init function (see <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>).</p>
+in the init function (see <a class="reference internal" href="#c.KUNIT_SUITE_T" title="KUNIT_SUITE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_SUITE_T</span></code></a>).</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
@@ -360,15 +360,15 @@ test writer to store arbitrary data.</p>
 
 <p><code class="docutils literal notranslate"><span class="pre">module_test</span> <span class="pre">(module)</span></code></p>
 <blockquote>
-<div><p>used to register a <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> with KUnit.</p>
+<div><p>used to register a <a class="reference internal" href="#c.KUNIT_SUITE_T" title="KUNIT_SUITE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_SUITE_T</span></code></a> with KUnit.</p>
 </div></blockquote>
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">module</span></code></dt><dd><p>a statically allocated <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">module</span></code></dt><dd><p>a statically allocated <a class="reference internal" href="#c.KUNIT_SUITE_T" title="KUNIT_SUITE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_SUITE_T</span></code></a>.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
-<p>Registers <strong>module</strong> with the test framework. See <a class="reference internal" href="#c.test_module" title="test_module"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_module</span></code></a> for more
+<p>Registers <strong>module</strong> with the test framework. See <a class="reference internal" href="#c.KUNIT_SUITE_T" title="KUNIT_SUITE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_SUITE_T</span></code></a> for more
 information.
 Hardcoding the alignment to 8 was chosen as the most likely to remain
 between the compiler laying out the test module pointers in the custom
@@ -379,34 +379,34 @@ the test executor views the .test_modules section as an array of
 (test_module <a href="#id5"><span class="problematic" id="id6">*</span></a>) starting at __test_modules_start.</p>
 <dl class="c function">
 <dt id="c.test_alloc_resource">
-<em class="property">struct</em> <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a> *<code class="sig-name descname">test_alloc_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_alloc_resource" title="test">test</a> *<em>test</em>, int (*<em>init</em>)<span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a>*, void*<span class="sig-paren">)</span>, void (*<em>free</em>)<span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_resource" title="test_resource">test_resource</a>*<span class="sig-paren">)</span>, void *<em>context</em>, <span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T">KUNIT_RESOURCE_T</a> *<code class="sig-name descname">test_alloc_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, int (*<em>init</em>)<span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T">KUNIT_RESOURCE_T</a>*, void*<span class="sig-paren">)</span>, void (*<em>free</em>)<span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T">KUNIT_RESOURCE_T</a>*<span class="sig-paren">)</span>, void *<em>context</em>, <span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">(*init)(struct</span> <span class="pre">test_resource</span> <span class="pre">*,</span> <span class="pre">void</span> <span class="pre">*)</span></code></dt><dd><p>a user supplied function to initialize the resource.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">(*init)(struct</span> <span class="pre">KUNIT_RESOURCE_T</span> <span class="pre">*,</span> <span class="pre">void</span> <span class="pre">*)</span></code></dt><dd><p>a user supplied function to initialize the resource.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*free)(struct</span> <span class="pre">test_resource</span> <span class="pre">*)</span></code></dt><dd><p>a user supplied function to free the resource.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*free)(struct</span> <span class="pre">KUNIT_RESOURCE_T</span> <span class="pre">*)</span></code></dt><dd><p>a user supplied function to free the resource.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*context</span></code></dt><dd><p>for the user to pass in arbitrary data.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
 <p>Allocates a <em>test managed resource</em>, a resource which will automatically be
-cleaned up at the end of a test case. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_resource</span></code></a> for an
+cleaned up at the end of a test case. See <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_RESOURCE_T</span></code></a> for an
 example.</p>
 <dl class="c function">
 <dt id="c.test_kmalloc">
-void *<code class="sig-name descname">test_kmalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_kmalloc" title="test">test</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
+void *<code class="sig-name descname">test_kmalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Just like kmalloc() except the allocation is <em>test managed</em>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt><dd><p>The size in bytes of the desired memory.</p>
 </dd>
@@ -415,17 +415,17 @@ void *<code class="sig-name descname">test_kmalloc</code><span class="sig-paren"
 </dl>
 <p><strong>Description</strong></p>
 <p>Just like <cite>kmalloc(…)</cite>, except the allocation is managed by the test case
-and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.test_resource" title="test_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
-<span class="pre">test_resource</span></code></a> for more information.</p>
+and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
+<span class="pre">KUNIT_RESOURCE_T</span></code></a> for more information.</p>
 <dl class="c function">
 <dt id="c.test_kzalloc">
-void *<code class="sig-name descname">test_kzalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_kzalloc" title="test">test</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
+void *<code class="sig-name descname">test_kzalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Just like <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a>, but zeroes the allocation.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">size</span></code></dt><dd><p>The size in bytes of the desired memory.</p>
 </dd>
@@ -1197,13 +1197,13 @@ which will probably be massaged to make sense in the context of the kernel
 printed all at once.</p>
 <dl class="c function">
 <dt id="c.test_new_stream">
-<em class="property">struct</em> <a class="reference internal" href="#c.test_stream" title="test_stream">test_stream</a> *<code class="sig-name descname">test_new_stream</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.test_new_stream" title="test">test</a> *<em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.test_stream" title="test_stream">test_stream</a> *<code class="sig-name descname">test_new_stream</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>constructs a new <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
 </dd></dl>
 
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_T</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>

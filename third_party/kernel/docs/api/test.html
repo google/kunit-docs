@@ -24,6 +24,9 @@
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -172,7 +175,7 @@
 related features.</p>
 <dl class="c struct">
 <dt id="c.kunit_resource">
-<em class="property">struct </em><code class="sig-name descname">kunit_resource</code><a class="headerlink" href="#c.kunit_resource" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">kunit_resource</span></code><a class="headerlink" href="#c.kunit_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a <em>test managed resource</em></p>
 </dd></dl>
 
@@ -242,7 +245,7 @@ unique within the test instance.</p>
 <p><strong>Example</strong></p>
 <dl class="c struct">
 <dt id="c.kunit_case">
-<em class="property">struct </em><code class="sig-name descname">kunit_case</code><a class="headerlink" href="#c.kunit_case" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">kunit_case</span></code><a class="headerlink" href="#c.kunit_case" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents an individual test case.</p>
 </dd></dl>
 
@@ -291,7 +294,7 @@ terminated with an empty test case.</p>
 <p><strong>Example</strong></p>
 <dl class="c macro">
 <dt id="c.KUNIT_CASE">
-<code class="sig-name descname">KUNIT_CASE</code><a class="headerlink" href="#c.KUNIT_CASE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_CASE</span></code><a class="headerlink" href="#c.KUNIT_CASE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_CASE</span> <span class="pre">(test_name)</span></code></p>
@@ -309,7 +312,7 @@ terminated with an empty test case.</p>
 <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a> for an example on how to use it.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_CASE_PARAM">
-<code class="sig-name descname">KUNIT_CASE_PARAM</code><a class="headerlink" href="#c.KUNIT_CASE_PARAM" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_CASE_PARAM</span></code><a class="headerlink" href="#c.KUNIT_CASE_PARAM" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_CASE_PARAM</span> <span class="pre">(test_name,</span> <span class="pre">gen_params)</span></code></p>
@@ -336,7 +339,7 @@ Optionally write a string into <strong>desc</strong> (size of KUNIT_PARAM_DESC_S
 describing the parameter.</p>
 <dl class="c struct">
 <dt id="c.kunit_suite">
-<em class="property">struct </em><code class="sig-name descname">kunit_suite</code><a class="headerlink" href="#c.kunit_suite" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">kunit_suite</span></code><a class="headerlink" href="#c.kunit_suite" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>describes a related collection of <a class="reference internal" href="#c.kunit_case" title="kunit_case"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_case</span></code></a></p>
 </dd></dl>
 
@@ -369,7 +372,7 @@ in other unit testing frameworks like JUnit or Googletest.</p>
 to run it.</p>
 <dl class="c struct">
 <dt id="c.kunit">
-<em class="property">struct </em><code class="sig-name descname">kunit</code><a class="headerlink" href="#c.kunit" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">kunit</span></code><a class="headerlink" href="#c.kunit" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a running instance of a test.</p>
 </dd></dl>
 
@@ -392,7 +395,7 @@ indirectly via public functions; the one exception is <strong>priv</strong> whic
 used by the test writer to store arbitrary data.</p>
 <dl class="c macro">
 <dt id="c.kunit_test_suites_for_module">
-<code class="sig-name descname">kunit_test_suites_for_module</code><a class="headerlink" href="#c.kunit_test_suites_for_module" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">kunit_test_suites_for_module</span></code><a class="headerlink" href="#c.kunit_test_suites_for_module" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_test_suites_for_module</span> <span class="pre">(__suites)</span></code></p>
@@ -414,7 +417,7 @@ module_{init|exit} functions for the builtin case when registering
 suites via <a class="reference internal" href="#c.kunit_test_suites" title="kunit_test_suites"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_test_suites()</span></code></a> below.</p>
 <dl class="c macro">
 <dt id="c.kunit_test_suites">
-<code class="sig-name descname">kunit_test_suites</code><a class="headerlink" href="#c.kunit_test_suites" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">kunit_test_suites</span></code><a class="headerlink" href="#c.kunit_test_suites" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_test_suites</span> <span class="pre">(__suites...)</span></code></p>
@@ -437,7 +440,7 @@ support multiple initcall()s, we need to initialize an array of suites for a
 module.</p>
 <dl class="c function">
 <dt id="c.kunit_get_resource">
-void <code class="sig-name descname">kunit_get_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_get_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <code class="sig-name descname"><span class="pre">kunit_get_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_get_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Hold resource for use. Should not need to be used by most users as we automatically get resources retrieved by kunit_find_resource*().</p>
 </dd></dl>
 
@@ -448,7 +451,7 @@ void <code class="sig-name descname">kunit_get_resource</code><span class="sig-p
 </dl>
 <dl class="c function">
 <dt id="c.kunit_put_resource">
-void <code class="sig-name descname">kunit_put_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_put_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <code class="sig-name descname"><span class="pre">kunit_put_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_put_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>When caller is done with retrieved resource, <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> should be called to drop reference count. The resource list maintains a reference count on resources, so if no users are utilizing a resource and it is removed from the resource list, it will be freed via the associated free function (if any). Only needs to be used if we alloc_and_get() or find() resource.</p>
 </dd></dl>
 
@@ -459,7 +462,7 @@ void <code class="sig-name descname">kunit_put_resource</code><span class="sig-p
 </dl>
 <dl class="c function">
 <dt id="c.kunit_add_resource">
-int <code class="sig-name descname">kunit_add_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, kunit_resource_init_t <em>init</em>, kunit_resource_free_t <em>free</em>, <em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em>, void *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">int</span> <code class="sig-name descname"><span class="pre">kunit_add_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">kunit_resource_init_t</span> <em><span class="pre">init</span></em>, <span class="pre">kunit_resource_free_t</span> <em><span class="pre">free</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Add a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -480,7 +483,7 @@ If an init function is supplied, <strong>data</strong> is passed to it instead.<
 </dl>
 <dl class="c function">
 <dt id="c.kunit_add_named_resource">
-int <code class="sig-name descname">kunit_add_named_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, kunit_resource_init_t <em>init</em>, kunit_resource_free_t <em>free</em>, <em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em>, <em class="property">const</em> char *<em>name</em>, void *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_named_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">int</span> <code class="sig-name descname"><span class="pre">kunit_add_named_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">kunit_resource_init_t</span> <em><span class="pre">init</span></em>, <span class="pre">kunit_resource_free_t</span> <em><span class="pre">free</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">name</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_named_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Add a named <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -501,7 +504,7 @@ int <code class="sig-name descname">kunit_add_named_resource</code><span class="
 </dl>
 <dl class="c function">
 <dt id="c.kunit_alloc_resource">
-void *<code class="sig-name descname">kunit_alloc_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, kunit_resource_init_t <em>init</em>, kunit_resource_free_t <em>free</em>, gfp_t <em>internal_gfp</em>, void *<em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">kunit_alloc_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">kunit_resource_init_t</span> <em><span class="pre">init</span></em>, <span class="pre">kunit_resource_free_t</span> <em><span class="pre">free</span></em>, <span class="pre">gfp_t</span> <em><span class="pre">internal_gfp</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">context</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -528,7 +531,7 @@ specify an <strong>internal_gfp</strong> that is compatible with the use context
 resource.</p>
 <dl class="c function">
 <dt id="c.kunit_resource_instance_match">
-bool <code class="sig-name descname">kunit_resource_instance_match</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em>, void *<em>match_data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_instance_match" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">bool</span> <code class="sig-name descname"><span class="pre">kunit_resource_instance_match</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">match_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_instance_match" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Match a resource with the same instance.</p>
 </dd></dl>
 
@@ -546,7 +549,7 @@ bool <code class="sig-name descname">kunit_resource_instance_match</code><span c
 allocation matches <strong>match_data</strong>.</p>
 <dl class="c function">
 <dt id="c.kunit_resource_name_match">
-bool <code class="sig-name descname">kunit_resource_name_match</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em>, void *<em>match_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_name_match" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">bool</span> <code class="sig-name descname"><span class="pre">kunit_resource_name_match</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">match_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_name_match" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Match a resource with the same name.</p>
 </dd></dl>
 
@@ -561,7 +564,7 @@ bool <code class="sig-name descname">kunit_resource_name_match</code><span class
 </dl>
 <dl class="c function">
 <dt id="c.kunit_find_resource">
-<em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<code class="sig-name descname">kunit_find_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, kunit_resource_match_t <em>match</em>, void *<em>match_data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_resource" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">kunit_find_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">kunit_resource_match_t</span> <em><span class="pre">match</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">match_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Find a resource using match function/data.</p>
 </dd></dl>
 
@@ -576,7 +579,7 @@ bool <code class="sig-name descname">kunit_resource_name_match</code><span class
 </dl>
 <dl class="c function">
 <dt id="c.kunit_find_named_resource">
-<em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<code class="sig-name descname">kunit_find_named_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, <em class="property">const</em> char *<em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_named_resource" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">kunit_find_named_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_named_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Find a resource using match name.</p>
 </dd></dl>
 
@@ -589,7 +592,7 @@ bool <code class="sig-name descname">kunit_resource_name_match</code><span class
 </dl>
 <dl class="c function">
 <dt id="c.kunit_destroy_resource">
-int <code class="sig-name descname">kunit_destroy_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, kunit_resource_match_t <em>match</em>, void *<em>match_data</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_destroy_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">int</span> <code class="sig-name descname"><span class="pre">kunit_destroy_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">kunit_resource_match_t</span> <em><span class="pre">match</span></em>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">match_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_destroy_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Find a kunit_resource and destroy it.</p>
 </dd></dl>
 
@@ -606,7 +609,7 @@ int <code class="sig-name descname">kunit_destroy_resource</code><span class="si
 <p>0 if kunit_resource is found and freed, -ENOENT if not found.</p>
 <dl class="c function">
 <dt id="c.kunit_remove_resource">
-void <code class="sig-name descname">kunit_remove_resource</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource">kunit_resource</a> *<em>res</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <code class="sig-name descname"><span class="pre">kunit_remove_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="pre">kunit_resource</span></a> <span class="pre">*</span><em><span class="pre">res</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove resource from resource list associated with test.</p>
 </dd></dl>
 
@@ -623,7 +626,7 @@ the caller has a reference to it via alloc_and_get() or find();
 in this case a final call to <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> is required.</p>
 <dl class="c function">
 <dt id="c.kunit_kmalloc">
-void *<code class="sig-name descname">kunit_kmalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">kunit_kmalloc</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">size_t</span> <em><span class="pre">size</span></em>, <span class="pre">gfp_t</span> <em><span class="pre">gfp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Like kmalloc() except the allocation is <em>test managed</em>.</p>
 </dd></dl>
 
@@ -642,7 +645,7 @@ and is automatically cleaned up after the test case concludes. See <a class="ref
 <span class="pre">kunit_resource</span></code></a> for more information.</p>
 <dl class="c function">
 <dt id="c.kunit_kfree">
-void <code class="sig-name descname">kunit_kfree</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, <em class="property">const</em> void *<em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kfree" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <code class="sig-name descname"><span class="pre">kunit_kfree</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">ptr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kfree" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Like kfree except for allocations managed by KUnit.</p>
 </dd></dl>
 
@@ -655,7 +658,7 @@ void <code class="sig-name descname">kunit_kfree</code><span class="sig-paren">(
 </dl>
 <dl class="c function">
 <dt id="c.kunit_kzalloc">
-void *<code class="sig-name descname">kunit_kzalloc</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.kunit" title="kunit">kunit</a> *<em>test</em>, size_t <em>size</em>, gfp_t <em>gfp</em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
+<span class="pre">void</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">kunit_kzalloc</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.kunit" title="kunit"><span class="pre">kunit</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">size_t</span> <em><span class="pre">size</span></em>, <span class="pre">gfp_t</span> <em><span class="pre">gfp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Just like <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a>, but zeroes the allocation.</p>
 </dd></dl>
 
@@ -672,7 +675,7 @@ void *<code class="sig-name descname">kunit_kzalloc</code><span class="sig-paren
 <p>See kzalloc() and <a class="reference internal" href="#c.kunit_kmalloc" title="kunit_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_kmalloc()</span></code></a> for more information.</p>
 <dl class="c macro">
 <dt id="c.kunit_info">
-<code class="sig-name descname">kunit_info</code><a class="headerlink" href="#c.kunit_info" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">kunit_info</span></code><a class="headerlink" href="#c.kunit_info" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_info</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -693,7 +696,7 @@ void *<code class="sig-name descname">kunit_kzalloc</code><span class="sig-paren
 Takes a variable number of format parameters just like printk().</p>
 <dl class="c macro">
 <dt id="c.kunit_warn">
-<code class="sig-name descname">kunit_warn</code><a class="headerlink" href="#c.kunit_warn" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">kunit_warn</span></code><a class="headerlink" href="#c.kunit_warn" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_warn</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -713,7 +716,7 @@ Takes a variable number of format parameters just like printk().</p>
 <p>Prints a warning level message.</p>
 <dl class="c macro">
 <dt id="c.kunit_err">
-<code class="sig-name descname">kunit_err</code><a class="headerlink" href="#c.kunit_err" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">kunit_err</span></code><a class="headerlink" href="#c.kunit_err" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_err</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -733,7 +736,7 @@ Takes a variable number of format parameters just like printk().</p>
 <p>Prints an error level message.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_SUCCEED">
-<code class="sig-name descname">KUNIT_SUCCEED</code><a class="headerlink" href="#c.KUNIT_SUCCEED" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_SUCCEED</span></code><a class="headerlink" href="#c.KUNIT_SUCCEED" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_SUCCEED</span> <span class="pre">(test)</span></code></p>
@@ -751,7 +754,7 @@ words, it does nothing and only exists for code clarity. See
 <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_FAIL">
-<code class="sig-name descname">KUNIT_FAIL</code><a class="headerlink" href="#c.KUNIT_FAIL" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_FAIL</span></code><a class="headerlink" href="#c.KUNIT_FAIL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -774,7 +777,7 @@ always causes the test case to fail when evaluated. See <a class="reference inte
 for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_TRUE">
-<code class="sig-name descname">KUNIT_EXPECT_TRUE</code><a class="headerlink" href="#c.KUNIT_EXPECT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_TRUE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -796,7 +799,7 @@ the test case from continuing to run; this is otherwise known as an
 <em>expectation failure</em>.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_FALSE">
-<code class="sig-name descname">KUNIT_EXPECT_FALSE</code><a class="headerlink" href="#c.KUNIT_EXPECT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_FALSE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_FALSE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -816,7 +819,7 @@ not evaluate to false.</p>
 <a class="reference internal" href="#c.KUNIT_EXPECT_TRUE" title="KUNIT_EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_EQ">
-<code class="sig-name descname">KUNIT_EXPECT_EQ</code><a class="headerlink" href="#c.KUNIT_EXPECT_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_EQ</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -839,7 +842,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>rig
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_PTR_EQ">
-<code class="sig-name descname">KUNIT_EXPECT_PTR_EQ</code><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_PTR_EQ</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_PTR_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -862,7 +865,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) == (<strong>rig
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_NE">
-<code class="sig-name descname">KUNIT_EXPECT_NE</code><a class="headerlink" href="#c.KUNIT_EXPECT_NE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_NE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -885,7 +888,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) != (<strong>rig
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_PTR_NE">
-<code class="sig-name descname">KUNIT_EXPECT_PTR_NE</code><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_NE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_PTR_NE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_PTR_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_PTR_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -908,7 +911,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) != (<strong>rig
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_LT">
-<code class="sig-name descname">KUNIT_EXPECT_LT</code><a class="headerlink" href="#c.KUNIT_EXPECT_LT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_LT</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_LT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_LT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -931,7 +934,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt; (<strong>r
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_LE">
-<code class="sig-name descname">KUNIT_EXPECT_LE</code><a class="headerlink" href="#c.KUNIT_EXPECT_LE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_LE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_LE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_LE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -954,7 +957,7 @@ to KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt;= (<stro
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_GT">
-<code class="sig-name descname">KUNIT_EXPECT_GT</code><a class="headerlink" href="#c.KUNIT_EXPECT_GT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_GT</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_GT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_GT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -977,7 +980,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt; (<strong>r
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_GE">
-<code class="sig-name descname">KUNIT_EXPECT_GE</code><a class="headerlink" href="#c.KUNIT_EXPECT_GE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_GE</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_GE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_GE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1000,7 +1003,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt;= (<strong>
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_STREQ">
-<code class="sig-name descname">KUNIT_EXPECT_STREQ</code><a class="headerlink" href="#c.KUNIT_EXPECT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_STREQ</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1023,7 +1026,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<stro
 for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_STRNEQ">
-<code class="sig-name descname">KUNIT_EXPECT_STRNEQ</code><a class="headerlink" href="#c.KUNIT_EXPECT_STRNEQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_STRNEQ</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_STRNEQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STRNEQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1046,7 +1049,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, strcmp((<strong>left</strong>), (<stron
 for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_EXPECT_NOT_ERR_OR_NULL">
-<code class="sig-name descname">KUNIT_EXPECT_NOT_ERR_OR_NULL</code><a class="headerlink" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_EXPECT_NOT_ERR_OR_NULL</span></code><a class="headerlink" href="#c.KUNIT_EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NOT_ERR_OR_NULL</span> <span class="pre">(test,</span> <span class="pre">ptr)</span></code></p>
@@ -1067,7 +1070,7 @@ KUNIT_EXPECT_TRUE(<strong>test</strong>, !IS_ERR_OR_NULL(<strong>ptr</strong>)).
 more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_TRUE">
-<code class="sig-name descname">KUNIT_ASSERT_TRUE</code><a class="headerlink" href="#c.KUNIT_ASSERT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_TRUE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -1089,7 +1092,7 @@ an expectation failure, it will prevent the test case from continuing to run;
 this is otherwise known as an <em>assertion failure</em>.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_FALSE">
-<code class="sig-name descname">KUNIT_ASSERT_FALSE</code><a class="headerlink" href="#c.KUNIT_ASSERT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_FALSE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_FALSE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -1109,7 +1112,7 @@ is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_FALSE" title=
 (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_EQ">
-<code class="sig-name descname">KUNIT_ASSERT_EQ</code><a class="headerlink" href="#c.KUNIT_ASSERT_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_EQ</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1131,7 +1134,7 @@ equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_E
 failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_PTR_EQ">
-<code class="sig-name descname">KUNIT_ASSERT_PTR_EQ</code><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_PTR_EQ</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_PTR_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1153,7 +1156,7 @@ equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_E
 failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_NE">
-<code class="sig-name descname">KUNIT_ASSERT_NE</code><a class="headerlink" href="#c.KUNIT_ASSERT_NE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_NE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1175,7 +1178,7 @@ equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_N
 failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_PTR_NE">
-<code class="sig-name descname">KUNIT_ASSERT_PTR_NE</code><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_NE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_PTR_NE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_PTR_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_PTR_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1197,7 +1200,7 @@ equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_N
 failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_LT">
-<code class="sig-name descname">KUNIT_ASSERT_LT</code><a class="headerlink" href="#c.KUNIT_ASSERT_LT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_LT</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_LT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_LT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1220,7 +1223,7 @@ it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT
 is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_LE">
-<code class="sig-name descname">KUNIT_ASSERT_LE</code><a class="headerlink" href="#c.KUNIT_ASSERT_LE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_LE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_LE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_LE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1243,7 +1246,7 @@ equal to the value that <strong>right</strong> evaluates to. This is the same as
 <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_GT">
-<code class="sig-name descname">KUNIT_ASSERT_GT</code><a class="headerlink" href="#c.KUNIT_ASSERT_GT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_GT</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_GT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_GT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1266,7 +1269,7 @@ it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT
 is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_GE">
-<code class="sig-name descname">KUNIT_ASSERT_GE</code><a class="headerlink" href="#c.KUNIT_ASSERT_GE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_GE</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_GE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_GE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1289,7 +1292,7 @@ it causes an assertion failure (see <a class="reference internal" href="#c.KUNIT
 is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_STREQ">
-<code class="sig-name descname">KUNIT_ASSERT_STREQ</code><a class="headerlink" href="#c.KUNIT_ASSERT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_STREQ</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_STREQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1311,7 +1314,7 @@ equal. This is the same as <a class="reference internal" href="#c.KUNIT_EXPECT_S
 assertion failure (see <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_STRNEQ">
-<code class="sig-name descname">KUNIT_ASSERT_STRNEQ</code><a class="headerlink" href="#c.KUNIT_ASSERT_STRNEQ" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_STRNEQ</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_STRNEQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_STRNEQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1334,7 +1337,7 @@ KUNIT_ASSERT_TRUE(<strong>test</strong>, strcmp((<strong>left</strong>), (<stron
 for more information.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ASSERT_NOT_ERR_OR_NULL">
-<code class="sig-name descname">KUNIT_ASSERT_NOT_ERR_OR_NULL</code><a class="headerlink" href="#c.KUNIT_ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ASSERT_NOT_ERR_OR_NULL</span></code><a class="headerlink" href="#c.KUNIT_ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_NOT_ERR_OR_NULL</span> <span class="pre">(test,</span> <span class="pre">ptr)</span></code></p>
@@ -1355,7 +1358,7 @@ an errno stored in a pointer. This is the same as
 <a class="reference internal" href="#c.KUNIT_ASSERT_TRUE" title="KUNIT_ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
 <dt id="c.KUNIT_ARRAY_PARAM">
-<code class="sig-name descname">KUNIT_ARRAY_PARAM</code><a class="headerlink" href="#c.KUNIT_ARRAY_PARAM" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname"><span class="pre">KUNIT_ARRAY_PARAM</span></code><a class="headerlink" href="#c.KUNIT_ARRAY_PARAM" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_ARRAY_PARAM</span> <span class="pre">(name,</span> <span class="pre">array,</span> <span class="pre">get_desc)</span></code></p>

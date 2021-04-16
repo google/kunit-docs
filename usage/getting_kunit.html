@@ -23,6 +23,9 @@
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -85,18 +88,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Using KUnit</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Getting KUnit</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#why-are-there-multiple-versions">Why are there multiple versions?</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#but-wait-i-see-more-than-two-branches">But wait, I see more than two branches!</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#which-version-should-i-use">Which version should I use?</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#what-features-are-available-upstream">What features are available upstream?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#what-features-are-not-upstream-yet">What features are not upstream yet?</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="#where-are-these-versions">Where are these versions?</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#upstream">Upstream</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#experimental">Experimental</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deprecated">Deprecated</a></li>
 </ul>
 </li>
 </ul>
@@ -182,63 +176,11 @@
             
   <div class="section" id="getting-kunit">
 <h1>Getting KUnit<a class="headerlink" href="#getting-kunit" title="Permalink to this headline">¶</a></h1>
-<p>In order to use KUnit, you must first determine which branch you would like to
-use. What do we mean by that? We are in the process of upstreaming KUnit into
-the Linux kernel, so that means we have code under development that is not in
-the upstream repository or otherwise doesn’t match what is currently upstream.</p>
-<p>For more information on why there are multiple versions of KUnit, see
-<a class="reference internal" href="#why-multiple-versions"><span class="std std-ref">Why are there multiple versions?</span></a>.</p>
-<p>For information on deciding which version you should use see
-<a class="reference internal" href="#which-version"><span class="std std-ref">Which version should I use?</span></a>.</p>
-<p>For the actual URL you need, see
-<a class="reference internal" href="#download-links"><span class="std std-ref">Where are these versions?</span></a></p>
-<div class="section" id="why-are-there-multiple-versions">
-<span id="why-multiple-versions"></span><h2>Why are there multiple versions?<a class="headerlink" href="#why-are-there-multiple-versions" title="Permalink to this headline">¶</a></h2>
-<p>Ideally, upstreaming code to the Linux kernel would be fast, we would be able to
-develop features entirely on LKML, no one would use code that had not yet been
-accepted upstream, and everything would have been done this way from the start.
-Unfortunately, we do not live in a perfect world, and consequently none of these
-are true.</p>
-<p>This means that there are some features that we’ve developed which aren’t yet
-going upstream. We’ve developed these in an <em>experimental</em> branch. This is
-basically a staging branch for features we’re still actively experimenting with,
-or which depend on code which isn’t yet upstream.</p>
-<div class="section" id="but-wait-i-see-more-than-two-branches">
-<h3>But wait, I see more than two branches!<a class="headerlink" href="#but-wait-i-see-more-than-two-branches" title="Permalink to this headline">¶</a></h3>
-<p>For the upstream version, just use torvalds/master. Our <em>experimental</em> branch is
-hosted at <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a>.</p>
-<p>We will be periodically replacing the <em>experimental</em> branch with one based on
-newer upstream kernels, in order to minimise the divergence between
-<em>experimental</em> and upstream. For more details on how this will work, see:
-<a class="reference external" href="https://lore.kernel.org/linux-kselftest/20190924000503.GA97201&#64;google.com/T/#e73eab088e4791c234bf13156cc276ad15c8376de">https://lore.kernel.org/linux-kselftest/20190924000503.GA97201&#64;google.com/T/#e73eab088e4791c234bf13156cc276ad15c8376de</a></p>
-</div>
-</div>
-<div class="section" id="which-version-should-i-use">
-<span id="which-version"></span><h2>Which version should I use?<a class="headerlink" href="#which-version-should-i-use" title="Permalink to this headline">¶</a></h2>
-<p>As for which branch you should use, upstream should be generally preferred (just
-as upstreaming your own code should be generally preferred); nevertheless, there
-are a lot of features that are not upstream yet, and will not be upstream for
-some time (possibly more than a year), if you need these features for your tests
-then you have no choice other than to use the <em>experimental</em> branch.</p>
-<div class="section" id="what-features-are-available-upstream">
-<h3>What features are available upstream?<a class="headerlink" href="#what-features-are-available-upstream" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Basic test structure for defining test cases and test suites</p></li>
-<li><p>Basic expectations and assertions</p></li>
-<li><p>KUnit managed resources</p></li>
-<li><p>Error reporting</p></li>
-</ul>
-</div>
-<div class="section" id="what-features-are-not-upstream-yet">
-<h3>What features are not upstream yet?<a class="headerlink" href="#what-features-are-not-upstream-yet" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Class mocking</p></li>
-<li><p>Function mocking</p></li>
-<li><p>Hardware/platform faking</p></li>
-<li><p>Error recovery</p></li>
-</ul>
-</div>
-</div>
+<p>If you’re working on Linux 5.5+, you have KUnit.
+Otherwise, you’ll want to backport the patches, which should all begin with <code class="docutils literal notranslate"><span class="pre">&quot;kunit:</span> <span class="pre">&quot;</span></code>.</p>
+<p>An option of last resort is to use the deprecated and incompatible
+<code class="docutils literal notranslate"><span class="pre">kunit/alpha/master</span></code> branch.
+See <a class="reference internal" href="#alpha-master"><span class="std std-ref">Deprecated</span></a> below for more details.</p>
 <div class="section" id="where-are-these-versions">
 <span id="download-links"></span><h2>Where are these versions?<a class="headerlink" href="#where-are-these-versions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="upstream">
@@ -248,17 +190,30 @@ then you have no choice other than to use the <em>experimental</em> branch.</p>
 <li><p>Code: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/</a></p></li>
 <li><p><a class="reference external" href="../third_party/kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features</p></li>
 <li><p><a class="reference external" href="../third_party/kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</p></li>
-<li><p>kunitconfig file: <a class="reference external" href="https://kunit.googlesource.com/kunitconfig/+/refs/heads/master/kunitconfig">https://kunit.googlesource.com/kunitconfig/+/refs/heads/master/kunitconfig</a></p></li>
 </ul>
 <p>The KUnit code itself is primarily found in the <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/kunit">lib/kunit</a>
 directory.</p>
 </div>
-<div class="section" id="experimental">
-<h3>Experimental<a class="headerlink" href="#experimental" title="Permalink to this headline">¶</a></h3>
-<p>The <em>experimental</em> branch is stored in a Google-hosted gerrit instance. Going
-forward, there will be a set of versioned <em>experimental</em> branches, of which only
-the latest will be actively supported. Until this is available, however, there
-is a historic <em>kunit/alpha/master</em> branch containing our experimental code.</p>
+<div class="section" id="deprecated">
+<span id="alpha-master"></span><h3>Deprecated<a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h3>
+<p>This is where KUnit development was done prior to getting upstreamed, but all
+development on it has since ceased.</p>
+<p>It has a couple of features that haven’t made their way in the upstream version
+of KUnit yet, namely:</p>
+<ul class="simple">
+<li><p>Class mocking</p></li>
+<li><p>Function mocking</p></li>
+<li><p>Hardware/platform faking</p></li>
+<li><p>Error recovery</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tests written against the <code class="docutils literal notranslate"><span class="pre">kunit/alpha/master</span></code> branch will <em>not</em> be
+directly compatible with the upstream version, however.  You can set
+<code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_USE_UPSTREAM_NAMES=y</span></code> to make it act a bit more like the
+upstream version, see <a class="reference external" href="https://kunit-review.googlesource.com/c/linux/+/4029/">this patch series</a> for details.</p>
+</div>
+<p>The old, deprecated branch is stored in a Google-hosted gerrit instance.</p>
 <ul class="simple">
 <li><p>Code: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a>.</p></li>
 <li><p><a class="reference external" href="../third_party/stable_kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features</p></li>

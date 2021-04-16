@@ -1,6 +1,6 @@
-=================================
+=========================================
 Deprecated Version ("kunit/alpha/master")
-=================================
+=========================================
 
 Here we have a copy of the documentation taken from the old "alpha" version
 KUnit.

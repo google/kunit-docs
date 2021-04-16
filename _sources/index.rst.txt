@@ -69,17 +69,12 @@ How do I use it?
 - For upstream KUnit:
   - `Usage <third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
   - `API <third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
-- For experimental KUnit:
-  - `Usage <third_party/stable_kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
-  - `API <third_party/stable_kernel/docs/api>`__ - for the list of KUnit APIs used for testing
 
 Where do I get it?
 ==================
 
 - Upstream: https://www.kernel.org/ (version 5.5 or later)
-- Experimental: https://kunit.googlesource.com/linux/+/kunit/alpha/master
-
-Not sure which one you want? Take a look at :doc:`usage/index`.
+- Deprecated version: https://kunit.googlesource.com/linux/+/kunit/alpha/master
 
 Connect with us
 ===============

@@ -20,47 +20,80 @@ KUnit
 What is KUnit?
 ==============
 
-KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
+KUnit is a lightweight unit testing framework for the Linux kernel.
 These tests are able to be run locally on a developer’s workstation without a
 VM or special hardware.
 
 KUnit is heavily inspired by JUnit, Python's unittest.mock, and
 Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
 cases, grouping related test cases into test suites, providing common
-infrastructure for running tests, mocking, spying, and much more. Get started
-now: :doc:`usage/index`
+infrastructure for running tests, and more.
+
+Get started now: :doc:`usage/index`
 
 Who is it for?
 ==============
 
 If you work on the Linux kernel, then KUnit is for you.
 
+Why unit test the kernel?
+=========================
+
+The first question is, "why write unit tests in the first place?"
+
+A unit test is a test focused on testing a small "unit" of code. This is
+usually on the level of a few functions at most. Unit tests try to avoid
+external dependencies like hardware and/or stub them out where possible.
+
+This ideally makes unit tests more stable, faster, and easier to debug when
+they fail.
+
+In-kernel testing
+-----------------
+
+.. note::
+	In our case, "unit test" implies in-kernel test code. It's not really possible
+	to be a "unit test" if you're relying on a kernel working enough to have a
+	functional userspace on top of it.
+
+For internal libraries (e.g. ``include/linux/list.h``), there's no good way to
+test from userspace. It's *far* easier to write in-kernel code to test these.
+That are some tests that make this work, but if you're starting from scratch,
+just use KUnit.
+
+For code with a user facing component, you'll want some tests in userspace.
+But it can be useful to have unit tests as well. For example, it can be hard to
+trigger certain code paths from userspace, particularly error paths.
+Furthermore, it's probably much faster and more hermetic to build and run the
+tests under KUnit instead of booting a machine and waiting for all the needed
+userspace processes to come up.
+
 Why KUnit?
 ==========
 
-Aside from KUnit there is no true unit testing framework for the Linux kernel.
-Autotest and kselftest are sometimes cited as unit testing frameworks; however,
-they are not by most reasonable definitions of unit tests.
+KUnit provides a library to help making writing tests easy: including making
+assertions, setting up and cleaning up test resources, and more.
+It also provides a `python script <third_party/kernel/docs/kunit-tool.html>`__
+to make building and running tests easy.
 
-A unit test is supposed to test a single unit of code in isolation, hence the
-name. A unit test should be the finest granularity of testing and as such
-should allow all possible code paths to be tested in the code under test; this
-is only possible if the code under test is very small and does not have any
-external dependencies outside of the test's control like hardware.
+kselftest has a way of writing unit tests as kernel modules via the helpers in
+``tools/testing/selftests/kselftest_module.h``. But this requires more
+boilerplate scattered across several files and potentially several directories.
 
-As far as I know, outside of KUnit, there are no testing frameworks currently
-available for the kernel that do not require installing the kernel on a test
-machine or in a VM and all require tests to be written in userspace running on
-the kernel; this is true for Autotest, kselftest, and Kokonut, disqualifying
-any of them from being considered unit testing frameworks.
+UML
+---
 
-KUnit addresses the problem of being able to run tests without needing a
+KUnit is able to run tests without needing a
 virtual machine or actual hardware with User Mode Linux. User Mode Linux is a
 Linux architecture, like ARM or x86; however, unlike other architectures it
 compiles to a standalone program that can be run like any other program
 directly inside of a host operating system; to be clear, it does not require
 any virtualization support; it is just a regular program. User Mode Linux is
 fast: on my desktop it boots to init process in under a second.
+
+The provided tooling (``tools/testing/kunit/kunit.py``) mainly works with UML,
+but you can use KUnit manually on different architectures, if wanted. See `here
+<third_party/kernel/docs/start.html>`__ for more details.
 
 How do I use it?
 ================

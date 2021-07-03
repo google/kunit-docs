@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -39,6 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tips For Running KUnit Tests" href="running_tips.html" />
     <link rel="prev" title="Frequently Asked Questions" href="faq.html" /> 
 </head>
 
@@ -63,7 +61,7 @@
             
             
               <div class="version">
-                5.12.0-rc7
+                5.13.0
               </div>
             
           
@@ -100,12 +98,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#allocating-memory">Allocating memory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing-static-functions">Testing static functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#injecting-test-only-code">Injecting test-only code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-the-current-test">Accessing the current test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#failing-the-current-test">Failing the current test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#customizing-error-messages">Customizing error messages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
             
@@ -237,8 +238,74 @@ is to conditionally <code class="docutils literal notranslate"><span class="pre"
 <span class="cp">#endif</span>
 </pre></div>
 </div>
-<p>TODO(<a class="reference external" href="mailto:dlatypov&#37;&#52;&#48;google&#46;com">dlatypov<span>&#64;</span>google<span>&#46;</span>com</a>): add an example of using <code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code> in
-such a hook when it’s not only updated for <code class="docutils literal notranslate"><span class="pre">CONFIG_KASAN=y</span></code>.</p>
+<p>This test-only code can be made more useful by accessing the current kunit
+test, see below.</p>
+</div>
+<div class="section" id="accessing-the-current-test">
+<h2>Accessing the current test<a class="headerlink" href="#accessing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<p>In some cases, you need to call test-only code from outside the test file, e.g.
+like in the example above or if you’re providing a fake implementation of an
+ops struct.
+There is a <code class="docutils literal notranslate"><span class="pre">kunit_test</span></code> field in <code class="docutils literal notranslate"><span class="pre">task_struct</span></code>, so you can access it via
+<code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code>.</p>
+<p>Here’s a slightly in-depth example of how one could implement “mocking”:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;linux/sched.h&gt;</span><span class="c1"> /* for current */</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="nc">test_data</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">foo_result</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">want_foo_called_with</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">fake_foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">test_data</span> <span class="o">*</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="p">,</span> <span class="n">arg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">example_simple_test</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="cm">/* Assume priv is allocated in the suite&#39;s .init */</span>
+        <span class="k">struct</span> <span class="nc">test_data</span> <span class="o">*</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+
+        <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+        <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="cm">/* In a real test, we&#39;d probably pass a pointer to fake_foo somewhere</span>
+<span class="cm">         * like an ops struct, etc. instead of calling it directly. */</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">42</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note: here we’re able to get away with using <code class="docutils literal notranslate"><span class="pre">test-&gt;priv</span></code>, but if you wanted
+something more flexible you could use a named <code class="docutils literal notranslate"><span class="pre">kunit_resource</span></code>, see
+Documentation/dev-tools/kunit/api/test.rst.</p>
+</div>
+<div class="section" id="failing-the-current-test">
+<h2>Failing the current test<a class="headerlink" href="#failing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<p>But sometimes, you might just want to fail the current test. In that case, we
+have <code class="docutils literal notranslate"><span class="pre">kunit_fail_current_test(fmt,</span> <span class="pre">args...)</span></code> which is defined in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test-bug.h&gt;</span></code> and
+doesn’t require pulling in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code>.</p>
+<p>E.g. say we had an option to enable some extra debug checks on some data structure:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;kunit/test-bug.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#ifdef CONFIG_EXTRA_DEBUG_CHECKS</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">validate_my_data</span><span class="p">(</span><span class="k">struct</span> <span class="nc">data</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                <span class="k">return</span><span class="p">;</span>
+
+        <span class="n">kunit_fail_current_test</span><span class="p">(</span><span class="s">&quot;data %p is invalid&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+
+        <span class="cm">/* Normal, non-KUnit, error reporting code here. */</span>
+<span class="p">}</span>
+<span class="cp">#else</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">my_debug_function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="customizing-error-messages">
 <h2>Customizing error messages<a class="headerlink" href="#customizing-error-messages" title="Permalink to this headline">¶</a></h2>
@@ -266,7 +333,7 @@ These take a format string and arguments to provide additional context to the au
 <div class="section" id="next-steps">
 <h3>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Optional: see the <a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> page for a more
+<li><p>Optional: see the Documentation/dev-tools/kunit/usage.rst page for a more
 in-depth explanation of KUnit.</p></li>
 </ul>
 </div>
@@ -279,6 +346,7 @@ in-depth explanation of KUnit.</p></li>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="running_tips.html" class="btn btn-neutral float-right" title="Tips For Running KUnit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="faq.html" class="btn btn-neutral float-left" title="Frequently Asked Questions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

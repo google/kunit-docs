@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -205,7 +202,7 @@ enable platform mocking.</p>
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="c function">
 <dt id="c.of_fake_node">
-<em class="property"><span class="pre">struct</span></em> <span class="pre">device_node</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">of_fake_node</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.of_fake_node" title="test"><span class="pre">test</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_node" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> device_node *<code class="sig-name descname">of_fake_node</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_node" title="test">test</a> *<em>test</em>, <em class="property">const</em> char *<em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_node" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -222,7 +219,7 @@ name and otherwise behaves as a real <code class="xref c c-type docutils literal
 <p>the faked <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device_node</span></code></p>
 <dl class="c function">
 <dt id="c.of_fake_probe_platform">
-<em class="property"><span class="pre">struct</span></em> <span class="pre">platform_device</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">of_fake_probe_platform</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.of_fake_probe_platform" title="test"><span class="pre">test</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <span class="pre">platform_driver</span> <span class="pre">*</span><em><span class="pre">driver</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">node_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> platform_device *<code class="sig-name descname">of_fake_probe_platform</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_probe_platform" title="test">test</a> *<em>test</em>, <em class="property">struct</em> platform_driver *<em>driver</em>, <em class="property">const</em> char *<em>node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>
@@ -241,7 +238,7 @@ probes the provided <code class="xref c c-type docutils literal notranslate"><sp
 <p>the <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">platform_device</span></code> that was created</p>
 <dl class="c function">
 <dt id="c.of_fake_probe_platform_by_name">
-<em class="property"><span class="pre">struct</span></em> <span class="pre">platform_device</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">of_fake_probe_platform_by_name</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.of_fake_probe_platform_by_name" title="test"><span class="pre">test</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">driver_name</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">node_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform_by_name" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> platform_device *<code class="sig-name descname">of_fake_probe_platform_by_name</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.of_fake_probe_platform_by_name" title="test">test</a> *<em>test</em>, <em class="property">const</em> char *<em>driver_name</em>, <em class="property">const</em> char *<em>node_name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_probe_platform_by_name" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Parameters</strong></p>

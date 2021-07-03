@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                5.12.0-rc7
+                5.13.0
               </div>
             
           
@@ -103,6 +100,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
             
@@ -259,7 +257,7 @@ seeing. When tests are built-in, they will execute when the kernel boots, and
 modules will automatically execute associated tests when loaded. Test results
 can be collected from <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;test</span> <span class="pre">suite&gt;/results</span></code>, and
 can be parsed with <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">parse</span></code>. For more details, see “KUnit on
-non-UML architectures” in <a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a>.</p></li>
+non-UML architectures” in Documentation/dev-tools/kunit/usage.rst.</p></li>
 </ol>
 <p>If none of the above tricks help, you are always welcome to email any issues to
 <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a>.</p>

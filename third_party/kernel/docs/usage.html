@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                5.12.0-rc7
+                5.13.0
               </div>
             
           
@@ -130,6 +127,7 @@
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
             
@@ -204,7 +202,7 @@ is intended to be used, and all the concepts and terminology that are needed to
 understand it. This guide assumes a working knowledge of the Linux kernel and
 some basic knowledge of testing.</p>
 <p>For a high level introduction to KUnit, including setting up KUnit for your
-project, see <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a>.</p>
+project, see Documentation/dev-tools/kunit/start.rst.</p>
 <div class="section" id="organization-of-this-document">
 <h2>Organization of this document<a class="headerlink" href="#organization-of-this-document" title="Permalink to this headline">¶</a></h2>
 <p>This document is organized into two main sections: Testing and Common Patterns.
@@ -279,7 +277,8 @@ expectations fails, the test case will fail.</p>
 violated; however, the test will continue running, potentially trying other
 expectations until the test case ends or is otherwise terminated. This is as
 opposed to <em>assertions</em> which are discussed later.</p>
-<p>To learn about more expectations supported by KUnit, see <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<p>To learn about more expectations supported by KUnit, see
+Documentation/dev-tools/kunit/api/test.rst.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A single test case should be pretty short, pretty easy to understand,
@@ -385,7 +384,8 @@ KUnit test framework.</p>
 test suite in a special linker section so that it can be run by KUnit either
 after late_init, or when the test module is loaded (depending on whether the
 test was built in or not).</p>
-<p>For more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<p>For more information on these types of things see the
+Documentation/dev-tools/kunit/api/test.rst.</p>
 </div>
 </div>
 </div>
@@ -614,10 +614,9 @@ represents an EEPROM:</p>
 works correctly, e.g. for a hash function.</p>
 <p>In such cases, it can be helpful to have a helper macro or function, e.g. this
 fictitious example for <code class="docutils literal notranslate"><span class="pre">sha1sum(1)</span></code></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Note: the cast is to satisfy overly strict type-checking. */</span>
-<span class="cp">#define TEST_SHA1(in, want) \</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TEST_SHA1(in, want) \</span>
 <span class="cp">        sha1sum(in, out); \</span>
-<span class="cp">        KUNIT_EXPECT_STREQ_MSG(test, (char *)out, want, &quot;sha1sum(%s)&quot;, in);</span>
+<span class="cp">        KUNIT_EXPECT_STREQ_MSG(test, out, want, &quot;sha1sum(%s)&quot;, in);</span>
 
 <span class="kt">char</span> <span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
 <span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span>  <span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">);</span>
@@ -651,7 +650,7 @@ enough to identify what failed, like below.</p>
 <span class="p">};</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">cases</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">sha1sum</span><span class="p">(</span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
-        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">out</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span>
+        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span>
                               <span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -710,7 +709,7 @@ support for it.</p>
         <span class="k">struct</span> <span class="nc">sha1_test_case</span> <span class="o">*</span><span class="n">test_param</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sha1_test_case</span> <span class="o">*</span><span class="p">)(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">param_value</span><span class="p">);</span>
 
         <span class="n">sha1sum</span><span class="p">(</span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
-        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">out</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span>
+        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span>
                               <span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 
@@ -749,16 +748,42 @@ may be hermetic on UML may not be hermetic on other architectures.</p></li>
 </ul>
 <p>None of these are reasons not to run your KUnit tests on real hardware; they are
 only things to be aware of when doing so.</p>
-<p>The biggest impediment will likely be that certain KUnit features and
-infrastructure may not support your target environment. For example, at this
-time the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) does not work outside
-of UML. Unfortunately, there is no way around this. Using UML (or even just a
-particular architecture) allows us to make a lot of assumptions that make it
-possible to do things which might otherwise be impossible.</p>
-<p>Nevertheless, all core KUnit framework features are fully supported on all
-architectures, and using them is straightforward: all you need to do is to take
-your kunitconfig, your Kconfig options for the tests you would like to run, and
-merge them into whatever config your are using for your platform. That’s it!</p>
+<p>Currently, the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) (aka
+kunit_tool) only fully supports running tests inside of UML and QEMU; however,
+this is only due to our own time limitations as humans working on KUnit. It is
+entirely possible to support other emulators and even actual hardware, but for
+now QEMU and UML is what is fully supported within the KUnit Wrapper. Again, to
+be clear, this is just the Wrapper. The actualy KUnit tests and the KUnit
+library they are written in is fully architecture agnostic and can be used in
+virtually any setup, you just won’t have the benefit of typing a single command
+out of the box and having everything magically work perfectly.</p>
+<p>Again, all core KUnit framework features are fully supported on all
+architectures, and using them is straightforward: Most popular architectures
+are supported directly in the KUnit Wrapper via QEMU. Currently, supported
+architectures on QEMU include:</p>
+<ul class="simple">
+<li><p>i386</p></li>
+<li><p>x86_64</p></li>
+<li><p>arm</p></li>
+<li><p>arm64</p></li>
+<li><p>alpha</p></li>
+<li><p>powerpc</p></li>
+<li><p>riscv</p></li>
+<li><p>s390</p></li>
+<li><p>sparc</p></li>
+</ul>
+<p>In order to run KUnit tests on one of these architectures via QEMU with the
+KUnit wrapper, all you need to do is specify the flags <code class="docutils literal notranslate"><span class="pre">--arch</span></code> and
+<code class="docutils literal notranslate"><span class="pre">--cross_compile</span></code> when invoking the KUnit Wrapper. For example, we could run
+the default KUnit tests on ARM in the following manner (assuming we have an ARM
+toolchain installed):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tools/testing/kunit/kunit.py run --timeout<span class="o">=</span><span class="m">60</span> --jobs<span class="o">=</span><span class="m">12</span> --arch<span class="o">=</span>arm --cross_compile<span class="o">=</span>arm-linux-gnueabihf-
+</pre></div>
+</div>
+<p>Alternatively, if you want to run your tests on real hardware or in some other
+emulation environment, all you need to do is to take your kunitconfig, your
+Kconfig options for the tests you would like to run, and merge them into
+whatever config your are using for your platform. That’s it!</p>
 <p>For example, let’s say you have the following kunitconfig:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
 CONFIG_KUNIT_EXAMPLE_TEST=y

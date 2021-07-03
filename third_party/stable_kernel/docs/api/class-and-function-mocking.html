@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -252,7 +249,7 @@ mocked function is intercepted via <a class="reference internal" href="#c.EXPECT
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="c struct">
 <dt id="c.mock_param_matcher">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">mock_param_matcher</span></code><a class="headerlink" href="#c.mock_param_matcher" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct </em><code class="sig-name descname">mock_param_matcher</code><a class="headerlink" href="#c.mock_param_matcher" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a matcher used in a <em>call expectation</em></p>
 </dd></dl>
 
@@ -279,7 +276,7 @@ to why the parameter matches or not</p></li>
 matches.</p>
 <dl class="c struct">
 <dt id="c.mock_action">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">mock_action</span></code><a class="headerlink" href="#c.mock_action" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct </em><code class="sig-name descname">mock_action</code><a class="headerlink" href="#c.mock_action" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents an action that a mock performs when expectation is matched</p>
 </dd></dl>
 
@@ -307,7 +304,7 @@ method.</strong></p></li>
 or function should be returning.</p>
 <dl class="c struct">
 <dt id="c.mock_expectation">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">mock_expectation</span></code><a class="headerlink" href="#c.mock_expectation" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct </em><code class="sig-name descname">mock_expectation</code><a class="headerlink" href="#c.mock_expectation" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a <em>call expectation</em> on a function.</p>
 </dd></dl>
 
@@ -336,7 +333,7 @@ reached.</p>
 <p>Represents a <em>call expectation</em> on a function created with <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a>.</p>
 <dl class="c macro">
 <dt id="c.STRICT_MOCK">
-<code class="sig-name descname"><span class="pre">STRICT_MOCK</span></code><a class="headerlink" href="#c.STRICT_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">STRICT_MOCK</code><a class="headerlink" href="#c.STRICT_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">STRICT_MOCK</span> <span class="pre">(mock)</span></code></p>
@@ -353,7 +350,7 @@ reached.</p>
 <code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">KUnit</span></code>.</p>
 <dl class="c macro">
 <dt id="c.NICE_MOCK">
-<code class="sig-name descname"><span class="pre">NICE_MOCK</span></code><a class="headerlink" href="#c.NICE_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">NICE_MOCK</code><a class="headerlink" href="#c.NICE_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">NICE_MOCK</span> <span class="pre">(mock)</span></code></p>
@@ -370,7 +367,7 @@ reached.</p>
 <code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">KUnit</span></code>.</p>
 <dl class="c macro">
 <dt id="c.NAGGY_MOCK">
-<code class="sig-name descname"><span class="pre">NAGGY_MOCK</span></code><a class="headerlink" href="#c.NAGGY_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">NAGGY_MOCK</code><a class="headerlink" href="#c.NAGGY_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">NAGGY_MOCK</span> <span class="pre">(mock)</span></code></p>
@@ -387,7 +384,7 @@ reached.</p>
 <code class="docutils literal notranslate"><span class="pre">Using</span> <span class="pre">KUnit</span></code>.</p>
 <dl class="c macro">
 <dt id="c.EXPECT_CALL">
-<code class="sig-name descname"><span class="pre">EXPECT_CALL</span></code><a class="headerlink" href="#c.EXPECT_CALL" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">EXPECT_CALL</code><a class="headerlink" href="#c.EXPECT_CALL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span> <span class="pre">(expectation_call)</span></code></p>
@@ -445,7 +442,7 @@ matchers.</p>
 allowing additional conditions and actions to be specified.</p>
 <dl class="c function">
 <dt id="c.Times">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">Times</span></code><span class="sig-paren">(</span><span class="pre">int</span> <em><span class="pre">times</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Times" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">Times</code><span class="sig-paren">(</span>int <em>times</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.Times" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the number of times a method is expected be called with the matching parameters</p>
 </dd></dl>
 
@@ -460,7 +457,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.AtLeast">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">AtLeast</span></code><span class="sig-paren">(</span><span class="pre">int</span> <em><span class="pre">times</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.AtLeast" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">AtLeast</code><span class="sig-paren">(</span>int <em>times</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.AtLeast" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the minimum number of times a method is expected to be called with matching parameters</p>
 </dd></dl>
 
@@ -475,7 +472,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.AtMost">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">AtMost</span></code><span class="sig-paren">(</span><span class="pre">int</span> <em><span class="pre">times</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.AtMost" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">AtMost</code><span class="sig-paren">(</span>int <em>times</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.AtMost" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the maximum number of times a method is expected to be called with matching parameters</p>
 </dd></dl>
 
@@ -490,7 +487,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.Between">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">Between</span></code><span class="sig-paren">(</span><span class="pre">int</span> <em><span class="pre">min_times</span></em>, <span class="pre">int</span> <em><span class="pre">max_times</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Between" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">Between</code><span class="sig-paren">(</span>int <em>min_times</em>, int <em>max_times</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.Between" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the minimum and maximum number of times a method is expected to be called with matching parameters</p>
 </dd></dl>
 
@@ -507,7 +504,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.Never">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">Never</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Never" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">Never</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.Never" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>alias for Times(0)</p>
 </dd></dl>
 
@@ -520,7 +517,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.RetireOnSaturation">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">RetireOnSaturation</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.RetireOnSaturation" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">RetireOnSaturation</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#c.RetireOnSaturation" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the expectation to retire on saturation</p>
 </dd></dl>
 
@@ -533,7 +530,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.ActionOnMatch">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">ActionOnMatch</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_action" title="mock_action"><span class="pre">mock_action</span></a> <span class="pre">*</span><em><span class="pre">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.ActionOnMatch" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">ActionOnMatch</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_action" title="mock_action">mock_action</a> *<em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#c.ActionOnMatch" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets a action of the expectation when matched</p>
 </dd></dl>
 
@@ -553,7 +550,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c function">
 <dt id="c.Returns">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">Returns</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><span class="pre">mock_expectation</span></a> <span class="pre">*</span><em><span class="pre">expectation</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_action" title="mock_action"><span class="pre">mock_action</span></a> <span class="pre">*</span><em><span class="pre">return_action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Returns" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<code class="sig-name descname">Returns</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#c.mock_expectation" title="mock_expectation">mock_expectation</a> *<em>expectation</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_action" title="mock_action">mock_action</a> *<em>return_action</em><span class="sig-paren">)</span><a class="headerlink" href="#c.Returns" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets a action of the expectation to return a value</p>
 </dd></dl>
 
@@ -573,7 +570,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>the same <a class="reference internal" href="#c.mock_expectation" title="mock_expectation"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation</span></code></a> passed in</p>
 <dl class="c macro">
 <dt id="c.InSequence">
-<code class="sig-name descname"><span class="pre">InSequence</span></code><a class="headerlink" href="#c.InSequence" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">InSequence</code><a class="headerlink" href="#c.InSequence" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">InSequence</span> <span class="pre">(test,</span> <span class="pre">first,</span> <span class="pre">...)</span></code></p>
@@ -602,7 +599,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>0 if everything was successful, otherwise a memory allocation error</p>
 <dl class="c macro">
 <dt id="c.DECLARE_STRUCT_CLASS_MOCK_PREREQS">
-<code class="sig-name descname"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span></code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_PREREQS" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DECLARE_STRUCT_CLASS_MOCK_PREREQS</code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_PREREQS" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span> <span class="pre">(struct_name)</span></code></p>
@@ -620,7 +617,7 @@ allowing additional conditions and actions to be specified.</p>
 <p>See <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> for example usages.</p>
 <dl class="c macro">
 <dt id="c.DECLARE_STRUCT_CLASS_MOCK">
-<code class="sig-name descname"><span class="pre">DECLARE_STRUCT_CLASS_MOCK</span></code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DECLARE_STRUCT_CLASS_MOCK</code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DECLARE_STRUCT_CLASS_MOCK</span> <span class="pre">(name,</span> <span class="pre">struct_name,</span> <span class="pre">return_type,</span> <span class="pre">param_types...)</span></code></p>
@@ -640,7 +637,7 @@ allowing additional conditions and actions to be specified.</p>
 declarations.</p>
 <dl class="c macro">
 <dt id="c.DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN">
-<code class="sig-name descname"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN</span></code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN</code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_VOID_RETURN</span> <span class="pre">(name,</span> <span class="pre">struct_name,</span> <span class="pre">param_types...)</span></code></p>
@@ -658,7 +655,7 @@ declarations.</p>
 compatible declarations.</p>
 <dl class="c macro">
 <dt id="c.DECLARE_STRUCT_CLASS_MOCK_INIT">
-<code class="sig-name descname"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_INIT</span></code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_INIT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DECLARE_STRUCT_CLASS_MOCK_INIT</code><a class="headerlink" href="#c.DECLARE_STRUCT_CLASS_MOCK_INIT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DECLARE_STRUCT_CLASS_MOCK_INIT</span> <span class="pre">(struct_name)</span></code></p>
@@ -672,7 +669,7 @@ compatible declarations.</p>
 declarations.</p>
 <dl class="c macro">
 <dt id="c.CONSTRUCT_MOCK">
-<code class="sig-name descname"><span class="pre">CONSTRUCT_MOCK</span></code><a class="headerlink" href="#c.CONSTRUCT_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">CONSTRUCT_MOCK</code><a class="headerlink" href="#c.CONSTRUCT_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">CONSTRUCT_MOCK</span> <span class="pre">(struct_name,</span> <span class="pre">test)</span></code></p>
@@ -689,7 +686,7 @@ the name of the class for which the mock is defined and a test object.</p>
 <p>See <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> for example usage.</p>
 <dl class="c macro">
 <dt id="c.DEFINE_REDIRECT_MOCKABLE">
-<code class="sig-name descname"><span class="pre">DEFINE_REDIRECT_MOCKABLE</span></code><a class="headerlink" href="#c.DEFINE_REDIRECT_MOCKABLE" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_REDIRECT_MOCKABLE</code><a class="headerlink" href="#c.DEFINE_REDIRECT_MOCKABLE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_REDIRECT_MOCKABLE</span> <span class="pre">(name,</span> <span class="pre">return_type,</span> <span class="pre">param_types...)</span></code></p>
@@ -746,7 +743,7 @@ function to be mocked and refer to the original definition via
 <p><strong>Example</strong></p>
 <dl class="c macro">
 <dt id="c.DEFINE_STRUCT_CLASS_MOCK">
-<code class="sig-name descname"><span class="pre">DEFINE_STRUCT_CLASS_MOCK</span></code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_STRUCT_CLASS_MOCK</code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_STRUCT_CLASS_MOCK</span> <span class="pre">(name,</span> <span class="pre">struct_name,</span> <span class="pre">return_type,</span> <span class="pre">param_types...)</span></code></p>
@@ -765,7 +762,7 @@ function to be mocked and refer to the original definition via
 <p>See <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> for example usage.</p>
 <dl class="c macro">
 <dt id="c.DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN">
-<code class="sig-name descname"><span class="pre">DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN</span></code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN</code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_STRUCT_CLASS_MOCK_VOID_RETURN</span> <span class="pre">(name,</span> <span class="pre">struct_name,</span> <span class="pre">param_types...)</span></code></p>
@@ -783,7 +780,7 @@ function to be mocked and refer to the original definition via
 type.</p>
 <dl class="c macro">
 <dt id="c.DEFINE_STRUCT_CLASS_MOCK_INIT">
-<code class="sig-name descname"><span class="pre">DEFINE_STRUCT_CLASS_MOCK_INIT</span></code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK_INIT" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_STRUCT_CLASS_MOCK_INIT</code><a class="headerlink" href="#c.DEFINE_STRUCT_CLASS_MOCK_INIT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_STRUCT_CLASS_MOCK_INIT</span> <span class="pre">(struct_name,</span> <span class="pre">init_func)</span></code></p>
@@ -803,7 +800,7 @@ the parent struct.</p>
 <p>See <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> for example usage.</p>
 <dl class="c macro">
 <dt id="c.DEFINE_FUNCTION_MOCK">
-<code class="sig-name descname"><span class="pre">DEFINE_FUNCTION_MOCK</span></code><a class="headerlink" href="#c.DEFINE_FUNCTION_MOCK" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_FUNCTION_MOCK</code><a class="headerlink" href="#c.DEFINE_FUNCTION_MOCK" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_FUNCTION_MOCK</span> <span class="pre">(name,</span> <span class="pre">return_type,</span> <span class="pre">param_types...)</span></code></p>
@@ -821,7 +818,7 @@ the parent struct.</p>
 declared <code class="docutils literal notranslate"><span class="pre">__mockable</span></code> or <a class="reference internal" href="#c.DEFINE_REDIRECT_MOCKABLE" title="DEFINE_REDIRECT_MOCKABLE"><code class="xref c c-func docutils literal notranslate"><span class="pre">DEFINE_REDIRECT_MOCKABLE()</span></code></a></p>
 <dl class="c macro">
 <dt id="c.DEFINE_FUNCTION_MOCK_VOID_RETURN">
-<code class="sig-name descname"><span class="pre">DEFINE_FUNCTION_MOCK_VOID_RETURN</span></code><a class="headerlink" href="#c.DEFINE_FUNCTION_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">DEFINE_FUNCTION_MOCK_VOID_RETURN</code><a class="headerlink" href="#c.DEFINE_FUNCTION_MOCK_VOID_RETURN" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">DEFINE_FUNCTION_MOCK_VOID_RETURN</span> <span class="pre">(name,</span> <span class="pre">param_types...)</span></code></p>
@@ -837,7 +834,7 @@ declared <code class="docutils literal notranslate"><span class="pre">__mockable
 type.</p>
 <dl class="c macro">
 <dt id="c.__mockable">
-<code class="sig-name descname"><span class="pre">__mockable</span></code><a class="headerlink" href="#c.__mockable" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">__mockable</code><a class="headerlink" href="#c.__mockable" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">__mockable</span> <span class="pre">()</span></code></p>
@@ -852,7 +849,7 @@ type.</p>
 </div>
 <dl class="c macro">
 <dt id="c.__visible_for_testing">
-<code class="sig-name descname"><span class="pre">__visible_for_testing</span></code><a class="headerlink" href="#c.__visible_for_testing" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">__visible_for_testing</code><a class="headerlink" href="#c.__visible_for_testing" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">__visible_for_testing</span> <span class="pre">()</span></code></p>
@@ -866,7 +863,7 @@ variables that is static when compiled normally and visible when compiled for
 tests.</p>
 <dl class="c struct">
 <dt id="c.mock_struct_matcher_entry">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">mock_struct_matcher_entry</span></code><a class="headerlink" href="#c.mock_struct_matcher_entry" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct </em><code class="sig-name descname">mock_struct_matcher_entry</code><a class="headerlink" href="#c.mock_struct_matcher_entry" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>composed with other <a class="reference internal" href="#c.mock_struct_matcher_entry" title="mock_struct_matcher_entry"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_struct_matcher_entry</span></code></a> to make a <code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">struct_matcher</span></code></p>
 </dd></dl>
 
@@ -888,7 +885,7 @@ tests.</p>
 <p>This is used for struct_cmp() matchers.</p>
 <dl class="c macro">
 <dt id="c.INIT_MOCK_STRUCT_MATCHER_ENTRY">
-<code class="sig-name descname"><span class="pre">INIT_MOCK_STRUCT_MATCHER_ENTRY</span></code><a class="headerlink" href="#c.INIT_MOCK_STRUCT_MATCHER_ENTRY" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">INIT_MOCK_STRUCT_MATCHER_ENTRY</code><a class="headerlink" href="#c.INIT_MOCK_STRUCT_MATCHER_ENTRY" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">INIT_MOCK_STRUCT_MATCHER_ENTRY</span> <span class="pre">(entry,</span> <span class="pre">type,</span> <span class="pre">member,</span> <span class="pre">matcher)</span></code></p>
@@ -907,7 +904,7 @@ tests.</p>
 <p>Initializes <code class="docutils literal notranslate"><span class="pre">entry</span></code> to match <code class="docutils literal notranslate"><span class="pre">type-&gt;member</span></code> with <code class="docutils literal notranslate"><span class="pre">matcher</span></code>.</p>
 <dl class="c struct">
 <dt id="c.mock_param_capturer">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">mock_param_capturer</span></code><a class="headerlink" href="#c.mock_param_capturer" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct </em><code class="sig-name descname">mock_param_capturer</code><a class="headerlink" href="#c.mock_param_capturer" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>used to capture parameter when matching</p>
 </dd></dl>
 
@@ -938,7 +935,7 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 <p><strong>Example</strong></p>
 <dl class="c function">
 <dt id="c.mock_int_capturer_create">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer"><span class="pre">mock_param_capturer</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">mock_int_capturer_create</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher"><span class="pre">mock_param_matcher</span></a> <span class="pre">*</span><em><span class="pre">child_matcher</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_int_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_int_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_int_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>creates a int parameter capturer</p>
 </dd></dl>
 
@@ -953,7 +950,7 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 <p>The capturer will capture the value if the matcher is satisfied.</p>
 <dl class="c function">
 <dt id="c.mock_ptr_capturer_create">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer"><span class="pre">mock_param_capturer</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">mock_ptr_capturer_create</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher"><span class="pre">mock_param_matcher</span></a> <span class="pre">*</span><em><span class="pre">child_matcher</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_ptr_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
+<em class="property">struct</em> <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer">mock_param_capturer</a> *<code class="sig-name descname">mock_ptr_capturer_create</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="test.html#c.KUNIT_T" title="KUNIT_T">KUNIT_T</a> *<em>test</em>, <em class="property">struct</em> <a class="reference internal" href="#c.mock_param_matcher" title="mock_param_matcher">mock_param_matcher</a> *<em>child_matcher</em><span class="sig-paren">)</span><a class="headerlink" href="#c.mock_ptr_capturer_create" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>creates a generic pointer parameter capturer</p>
 </dd></dl>
 
@@ -968,7 +965,7 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 <p>The capturer will capture the value if the matcher is satisfied</p>
 <dl class="c macro">
 <dt id="c.capturer_to_matcher">
-<code class="sig-name descname"><span class="pre">capturer_to_matcher</span></code><a class="headerlink" href="#c.capturer_to_matcher" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">capturer_to_matcher</code><a class="headerlink" href="#c.capturer_to_matcher" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">capturer_to_matcher</span> <span class="pre">(capturer)</span></code></p>
@@ -982,7 +979,7 @@ ASSERT_PARAM_CAPTURED(test, capturer);</p>
 matcher would be expected. See the example for <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_param_capturer</span></code></a>.</p>
 <dl class="c macro">
 <dt id="c.ASSERT_PARAM_CAPTURED">
-<code class="sig-name descname"><span class="pre">ASSERT_PARAM_CAPTURED</span></code><a class="headerlink" href="#c.ASSERT_PARAM_CAPTURED" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">ASSERT_PARAM_CAPTURED</code><a class="headerlink" href="#c.ASSERT_PARAM_CAPTURED" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_PARAM_CAPTURED</span> <span class="pre">(test,</span> <span class="pre">capturer)</span></code></p>
@@ -997,7 +994,7 @@ matcher would be expected. See the example for <a class="reference internal" hre
 <p>See <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_param_capturer</span></code></a> for an example.</p>
 <dl class="c macro">
 <dt id="c.mock_capturer_get">
-<code class="sig-name descname"><span class="pre">mock_capturer_get</span></code><a class="headerlink" href="#c.mock_capturer_get" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">mock_capturer_get</code><a class="headerlink" href="#c.mock_capturer_get" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">mock_capturer_get</span> <span class="pre">(capturer,</span> <span class="pre">type)</span></code></p>
@@ -1012,7 +1009,7 @@ matcher would be expected. See the example for <a class="reference internal" hre
 <p>See <a class="reference internal" href="#c.mock_param_capturer" title="mock_param_capturer"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_param_capturer</span></code></a> for an example.</p>
 <dl class="c macro">
 <dt id="c.INVOKE_REAL">
-<code class="sig-name descname"><span class="pre">INVOKE_REAL</span></code><a class="headerlink" href="#c.INVOKE_REAL" title="Permalink to this definition">¶</a><br /></dt>
+<code class="sig-name descname">INVOKE_REAL</code><a class="headerlink" href="#c.INVOKE_REAL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">INVOKE_REAL</span> <span class="pre">(test,</span> <span class="pre">func_name)</span></code></p>

@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -63,7 +60,7 @@
             
             
               <div class="version">
-                5.12.0-rc7
+                5.13.0
               </div>
             
           
@@ -96,6 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
             
@@ -186,7 +184,12 @@
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-kunit-tool">What is kunit_tool?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-a-kunitconfig">What is a .kunitconfig?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#how-do-i-use-kunit-tool">How do I use kunit_tool?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#getting-started-with-kunit-tool">Getting Started with kunit_tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#configuring-building-and-running-tests">Configuring, Building, and Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#parsing-test-results">Parsing Test Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#filtering-tests">Filtering Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#running-tests-on-qemu">Running Tests on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#other-useful-options">Other Useful Options</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
@@ -211,7 +214,14 @@
 <li class="toctree-l2"><a class="reference internal" href="tips.html#allocating-memory">Allocating memory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#testing-static-functions">Testing static functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#injecting-test-only-code">Injecting test-only code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#accessing-the-current-test">Accessing the current test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#failing-the-current-test">Failing the current test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#customizing-error-messages">Customizing error messages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#running-tests-manually">Running tests manually</a></li>
 </ul>
 </li>
 </ul>
@@ -231,7 +241,7 @@ the kernel log in <a class="reference external" href="https://testanything.org/"
 <a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool</span></a>, which builds a <a class="reference external" href="http://user-mode-linux.sourceforge.net">User Mode Linux</a> kernel, runs it, and parses the test
 results. This provides a quick way of running KUnit tests during development,
 without requiring a virtual machine or separate hardware.</p>
-<p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
+<p>Get started now: Documentation/dev-tools/kunit/start.rst</p>
 </div>
 <div class="section" id="why-kunit">
 <h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
@@ -278,12 +288,12 @@ it takes to read their test log?</p>
 <div class="section" id="how-do-i-use-it">
 <h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</p></li>
-<li><p><a class="reference internal" href="tips.html"><span class="doc">Tips For Writing KUnit Tests</span></a> - for short examples of best practices</p></li>
-<li><p><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</p></li>
-<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</p></li>
-<li><p><a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> - for more information on the kunit_tool helper script</p></li>
-<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> - for answers to some common questions about KUnit</p></li>
+<li><p>Documentation/dev-tools/kunit/start.rst - for new users of KUnit</p></li>
+<li><p>Documentation/dev-tools/kunit/tips.rst - for short examples of best practices</p></li>
+<li><p>Documentation/dev-tools/kunit/usage.rst - for a more detailed explanation of KUnit features</p></li>
+<li><p>Documentation/dev-tools/kunit/api/index.rst - for the list of KUnit APIs used for testing</p></li>
+<li><p>Documentation/dev-tools/kunit/kunit-tool.rst - for more information on the kunit_tool helper script</p></li>
+<li><p>Documentation/dev-tools/kunit/faq.rst - for answers to some common questions about KUnit</p></li>
 </ul>
 </div>
 </div>

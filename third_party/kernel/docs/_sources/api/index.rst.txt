@@ -10,7 +10,7 @@ API Reference
 This section documents the KUnit kernel testing API. It is divided into the
 following sections:
 
-Documentation/dev-tools/kunit/api/test.rst
-
- - documents all of the standard testing API excluding mocking
-   or mocking related features.
+================================= ==============================================
+:doc:`test`                       documents all of the standard testing API
+                                  excluding mocking or mocking related features.
+================================= ==============================================

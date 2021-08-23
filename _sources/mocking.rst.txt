@@ -1,0 +1,619 @@
+====================================
+Fakes and Stubbing and Mocks, Oh My!
+====================================
+
+This page seeks to provide an overview on mocking and a related task:
+redirecting function calls to test-only code.  Note: many people use the term
+"mocking" to refer to the latter (and that's fine!), but we'll try and keep the
+concepts separate in this doc.
+
+KUnit currently lacks specific support for either of these, in part due to the
+fact there's enough trade-offs that it's hard to come up with a generic
+solution.
+
+Why do we need this?
+====================
+
+First, let's consider what the goal is. We want unit tests to be as
+lightweight and hermetic as possible, and only test the code we care about.
+
+A canonical example in userspace testing to consider is a database.
+We'd want to verify that our code behaves properly (inserts the right rows to
+the database, etc.), but we don't want to bring up a test database every time
+we run our tests.
+
+Not only will this make the test take longer to run, it also adds more
+opportunities for the test to break in uninteresting ways, e.g. if writes to
+the database fail due to transient network issues.
+
+If we can construct a "fake" database that implements the same interface, which
+is simply an in-memory hashtable or array, then we can have much faster and
+more reliable tests. Unit tests simply don't need the scability and features of
+a real database.
+
+Fakes versus mocks
+==================
+
+We'll be using terminology roughly as defined in
+https://martinfowler.com/bliki/TestDouble.html, namely:
+
+- a "test double" is the more generic term for any kind of test-only replacement.
+- a "mock" is a test double that specifically can make assertions about how its
+  called and can return different values based on its inputs.
+- a "fake" is a test double that mimics the semantics of the code it's replacing
+  but with less overhead and dependencies, e.g. a fake database might just use
+  a hash table, or a fake IO device which is just a ``char buffer[MAX_SIZE]``, or UML itself (in a sense).
+
+| Mocks generally are written with support from their testing framework, whereas fakes are typically written without them.
+| KUnit currently lacks any features to specifically facilitate mocks, so it's recommended to create and use fakes.
+
+Downsides of mocking
+--------------------
+
+Very briefly, using mocks in tests can make tests more fragile since they test
+"behavior" rather than "state."
+
+What do we mean by that?  Let's imagine we're testing some userspace program
+with gMock-like syntax (a C++ mocking framework):
+
+.. code-block:: c
+
+	void send_data(struct data_sink *sink)
+	{
+		/* do some fancy calculation to figure out what to write */
+		sink->write("hello, ");
+		sink->write("world");
+	}
+
+	void test_send_data(struct test *test)
+	{
+		struct data_sink *sink = make_mock_datasink();
+
+		EXPECT_CALL(data_sink, write("hello, "))
+			.WillOnce(Return(7));
+		EXPECT_CALL(data_sink, write("world"))
+			.WillOnce(Return(5));
+		send_data(sink);
+	}
+
+And now let's say we've realized we can make our code twice as fast with more
+buffering, effectively changing it to:
+
+.. code-block:: c
+
+	void send_data(struct data_sink *sink)
+	{
+		sink->write("hello, world");
+	}
+
+
+| Oops, now our mock-based tests are failing since we've changed how many times we call ``write()``!
+| Contrast this to a state-based approach where ``write()`` might just append to some ``char buffer[MAX_SIZE]``. In that case, we can validate ``send_data()`` worked by just using ``KUNIT_EXPECT_STREQ(test, buffer, "hello, world")`` and it would work for either implementation.
+
+A further downside is that the test author has to mimic the behavior
+themselves, i.e. the return values for each ``write()`` call. This means if
+the test author makes a mistake or tests just don't get updated after a
+refactor, the mock can behave in unrealistic fashion.
+
+This can and *will* eventually lead to bugs.
+
+
+Upsides of mocking
+------------------
+
+| This is not to say that one should never test "behaviour", i.e. use mocking.
+| E.g. imagine we *wanted* the example test to validate that we only call ``write()`` once since each call is super-expensive.
+| Or consider when there's no easy way to validate that the state has changed, e.g. if we want to validate that ``prefetchw()`` is called to pull a specific data structure into cache.
+
+
+| It's also easier easier to use a mock if we want to force a certain return value, e.g. if we want to make a specific ``write()`` call fail so we can test an error path.
+| With our ``data_sink`` example above, it's hard for an append into a ``char buffer[MAX_SIZE]`` to fail until we hit ``MAX_SIZE``, but for real code that might be writing to disk or sending data over the network, failure could happen for ~any call. And it's valuable to test that our code is robust against such failures.
+
+Function redirection
+====================
+
+| Regardless of what kind of test double you use, they're useless unless you can swap out the real code for them.
+| For lack of a better term, we'll refer to this as function redirection: how do I make calls to ``real_function()`` go to my ``fake_function()``?
+
+| In other test frameworks (Python's unittest, JUnit for Java, Googletest for C++, etc.), this is fairly easy.  This is because they rely on techniques like dynamic dispatch, which has language support.
+| We can and do re-implement dynamic dispatch in the kernel in C, but this adds runtime overhead which may or may not be acceptable in all contexts.
+
+The problem boils down to `adding another layer of indirection
+<https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering>`_
+and we have various options to choose from, which we'll describe below.
+
+For each of these, let's consider the following code:
+
+.. code-block:: c
+
+	static void func_under_test(void)
+	{
+		/* unsafe to call this function directly in a test! */
+		send_data_to_hardware("hello, world\n");
+	}
+
+Run time (ops structs, "class mocking")
+---------------------------------------
+
+This is the most straightforward approach and fundamentally boils down to doing
+this:
+
+.. code-block:: c
+
+	static void func_under_test(void (*send_data_func)(const char *str))
+	{
+		send_data_func("hello, world\n");
+	}
+
+
+Being a bit more sophisticated, we can introduce a struct to hold the
+functions:
+
+.. code-block:: c
+
+	struct send_ops {
+		void (*send)(const char *str);
+		/* maybe more functions here in real code */
+	};
+
+TODO(dlatypov@google.com): write about "class mocking", `RFC here
+<https://lore.kernel.org/linux-kselftest/20201012222050.999431-1-dlatypov@google.com/>`_
+
+Pros:
+~~~~~
+
+- Simplest implementation: "it's just code."
+- This is the only approach here where we can limit the scope of the
+  redirection.
+
+        - The subsequent approaches **globally** redirect all calls to
+          ``send_data_to_hardware()``, potentially in code not-under-test we
+          don’t want to mess with.
+- There are plenty of such structs throughout the kernel.
+
+        - And users don't need any special support from KUnit.
+
+Cons:
+~~~~~
+
+- ~Everyone knows about this convention but still want "mocking." It's not seen
+  as sufficient by itself.
+- Requires the most invasive code changes if the code isn't already using this
+  pattern.
+
+        - Introduces runtime overhead (an indirect call, another function
+          argument, etc.)
+- If ``func_under_test()`` is publicly exposed, but ``send_data_func()`` is not
+  (most likely the case), users need to workaround this.
+- The `RFC for "class mocking"
+  <https://lore.kernel.org/linux-kselftest/20201012222050.999431-1-dlatypov@google.com/>`_
+  requires a lot of boilerplate, even after providing macros to take care of
+  most of it.
+
+        - This is fundamentally a limitation of C (as opposed to C++ where
+          classes have language support). It’s unlikely we can improve much
+          here.
+
+Compile time
+------------
+
+This involves using compiler directive, macros, etc. to change the code when
+compiling KUnit tests, or for your specific test. E.g. a straightforward
+approach could be
+
+.. code-block:: c
+
+	void send_data_to_hardware(const char *str)
+	{
+	#ifdef CONFIG_MY_KUNIT_TEST /* or some other, more generic check */
+			test_send_data(str);
+			return;
+	#endif
+
+		/* real implementation */
+	}
+
+
+
+This pattern is generally useful and recommended `here
+<third_party/kernel/docs/tips.html#injecting-test-only-code>`__ for injecting
+other kinds of test-only code.
+
+.. note::
+        This example makes it so that ``send_data_to_hardware()`` no longer
+        works for the whole kernel, including other tests if they happen to
+        compiled along with ``CONFIG_MY_KUNIT``, even if it's set as
+        ``CONFIG_MY_KUNIT_TEST=m`` (!). See :ref:`hybrid-approaches` for a
+        discussion on how to mitigate that.
+
+Pros:
+~~~~~
+
+- Also easy to understand.
+- No runtime overhead, unlike the option above.
+
+Cons:
+~~~~~
+
+- Requires invasive changes to the function we're trying to stub as opposed to
+  the coder-under-test itself.
+
+        - So it's not suitable if you don't own ``send_data_to_hardware()``.
+
+- We don't want to pollute normal code by doing this at a large scale.
+
+        - So it probably should only be used sparingly in narrow contexts, e.g.
+          in static functions.
+
+
+Link time (__weak symbols)
+--------------------------
+
+We can avoid refactoring to the code-under-test and only have minimal changes
+to ``send_data_to_hardware()`` by pushing the indirection into the linker.
+
+More specifically, we can make use of "weak symbols", which would allow tests
+to define their own definitions and override the original
+``send_data_to_hardware()``, e.g.
+
+.. code-block:: c
+
+	void __weak send_data_to_hardware(const char *str)
+	{
+		/* real implementation */
+	}
+
+	/* In test file */
+	/* Since the real function is __weak, we can override it here. */
+	void send_data_to_hardware(const char *str)
+	{
+		/* fake implementation */
+	}
+
+We can minimize the risk of accidentally overriding functions by using a macro
+like
+
+.. code-block:: c
+
+	/* Now we can mark functions __weak only while building tests */
+	#ifdef CONFIG_KUNIT
+	#define __mockable __weak
+	#else
+	#define __mockable
+	#endif
+
+
+Pros:
+~~~~~
+
+- No runtime overhead.
+- No changes needed to the code-under-test, ``func_under_test()``.
+- And overall, very minimal changes needed to non-test code.
+
+Cons:
+~~~~~
+
+- Initial feedback when something similar was included in the initial KUnit RFC
+  is that this is adding more complexity.
+
+        - ``ftrace`` and friends exist and allow for patching binaries.
+        - Note that this is a much more stripped-down version of what the KUnit
+	  RFC called "function mocking," so it's not as big of a concern.
+
+- **Not possible to limit the scope of the redirection.** The real definition
+  is discarded by the linker.
+
+	- Can also only have one fake definition at any time.
+	- See :ref:`hybrid-approaches`.
+
+- Won't work with tests built as modules.
+
+- More complicated, harder to understand, and less explicit.
+	
+        - E.g. if you forgot to include the replacement definition in the
+          compilation unit, the code will happily call the original one without
+          any warning or indication.
+        - Your test might want the real function to be called, so building your
+          test together with someone else's might cause failures if they
+          redirected it.
+
+.. _hybrid-approaches:
+
+Hybrid approaches (limiting scope)
+----------------------------------
+
+Summarizing, the main issue with the two approaches above is that they have
+effects globally and for the full life of the kernel, not just during tests.
+
+How can we get around this? Why, of course, by adding another layer of
+indirection.  Using some cleverness, we can use runtime indirection while
+building tests, but not pay the cost for normal builds.
+
+Say we want to redirect/intercept calls to ``kmalloc()``. Too many callsites
+need to use it so that stubbing it out is unwise (and would break KUnit
+itself). So we can introduce a ``__weak`` wrapper around it like so:
+
+.. code-block:: c
+
+	#ifdef CONFIG_KUNIT
+	#define __mockable_wrapper __weak
+	#else /* avoid the performance overhead for real builds */
+	#define __mockable_wrapper __always_inline
+	#endif
+
+	void __mockable_wrapper kmalloc_wrapper(size_t n, gfp_t gfp)
+	{
+		return kmalloc(n, gfp);
+	}
+
+
+This adds more boilerplate, but lets us manage the scope of the code affected
+by the redirection. We can also limit the temporal scope of the redirection if
+our replacement is defined like:
+
+.. code-block:: c
+
+	/* In the test file. This is the definition that overrides the __weak version */
+	static void* (*kmalloc_ptr)(size_t n, gfp_t gfp) = kmalloc;
+	void* kmalloc_wrapper(size_t n, gfp_t gfp) {
+		return kmalloc_ptr(n, gfp);
+	}
+
+	/* elsewhere in test case: use a fake implementation and then revert back */
+	kmalloc_ptr = my_fake_kmalloc;
+	KUNIT_EXPECT_EQ(some_test_function(), 42);
+	kmalloc_ptr = kmalloc;
+
+Note that we can do the same thing using compile-time indirection
+
+.. code-block:: c
+
+	#ifdef CONFIG_MY_KUNIT_TEST /* or some other, more generic check */
+	static void* (*kmalloc_ptr)(size_t n, gfp_t gfp) = kmalloc;
+	#endif
+
+	void* kmalloc_wrapper(size_t n, gfp_t gfp) {
+	#ifdef CONFIG_MY_KUNIT_TEST
+		return kmalloc_ptr(n, gfp);
+	#endif
+		return kmalloc(n, gfp);
+	}
+
+	/* in test file, use the fake for one call */
+	kmalloc_ptr = my_fake_kmalloc;
+	KUNIT_EXPECT_EQ(some_test_function(), 42);
+	kmalloc_ptr = kmalloc;
+
+
+See :ref:`managing-state` for more details on cleanly handling state in test
+doubles. In particular, one could use "named resources" instead of global
+variables like ``kmalloc_ptr``. That approach would also be thread-safe, unlike
+this example.
+
+Pros:
+~~~~~
+
+- No runtime overhead outside of tests.
+
+	- For the link-time based approach ``__always_inline`` should eliminate
+	  the potential function call overhead.
+	- With the compile-time approach, the code is unchanged unless the
+	  relevant tests are being built.
+
+- Able to limit the scope of the redirection to code we care about.
+- Are also able to limit how long the redirection is in place.
+
+Cons:
+~~~~~
+
+- Code-under-test (``func_under_test()``) needs to be changed to use this new
+  wrapper, somewhat hurting legibility.
+
+- Requires a decent amount of boilerplate for every single function we might
+  want to stub.
+
+        - Probably best reserved for only a few key functions. We could have
+          shared implementations for some, e.g. ``kmalloc()``, if they're
+          flexible enough (e.g. allow assigning arbitrary function pointers
+          like in the second example).
+
+- Inherits issues of the other approach, e.g. ``__weak`` won't work with
+  modules, etc.
+
+Binary-level (ftrace et. al)
+----------------------------
+
+TODO(dlatypov@google.com): write me
+
+Pros:
+~~~~~
+
+- TODO
+
+Cons:
+~~~~~
+
+- TODO
+
+TODO(dlatypov@google.com): include section on worked example use cases.
+
+
+.. _managing-state:
+
+Storing and accessing state for fakes/mocks
+===========================================
+
+One of the challenges of implementing both mocks and fakes is how to track
+state. We can't pass in additional parameters since that'll change the function
+signature, so we need some way of stashing state somewhere.
+
+Below, we have two examples of how you can do so fairly cleanly.
+
+Using named resources
+---------------------
+
+We can use ``current->kunit_test`` with ``kunit_add_named_resource`` to store
+and retrieve test-specific data, e.g.
+
+.. code-block:: c
+
+  /* in some shared file, mock_write.h/c */
+
+  /* Store some data per-test and have a kunit_resource handle for it. */
+  struct mock_write_data {
+          int times_called;
+          bool should_return_error;
+  };
+  static struct kunit_resource mock_write_data_resource;
+
+  int mock_write_init(struct kunit *test, struct mock_write_data *data) {
+          data->times_called = 0;
+          data->should_return_error = false;
+
+          return kunit_add_named_resource(test, NULL, NULL, &mock_write_data_resource,
+                                          "mock_write_data", data);
+  };
+
+  int mock_write(const char *data)
+  {
+          struct kunit_resource *resource;
+          struct mock_write_data *mock;
+
+          if (!current->kunit_test)
+                  return -1;
+
+          resource = kunit_find_named_resource(current->kunit_test, "mock_write_data");
+          if (!resource) {
+                  KUNIT_FAIL(current->kunit_test, "mock_write called before mock_write_init()!");
+                  return -1;
+          }
+
+          mock = resource->data;
+          mock->times_called++;
+          return mock->should_return_error ? -1 : 0;
+  }
+
+
+  /* Then in the test file, can use the mock like so */
+
+  static void example_write_test(struct kunit *test)
+  {
+          struct mock_write_data mock;
+          mock_write_init(test, &mock);
+
+          mock.should_return_error = true;
+          KUNIT_EXPECT_LT(test, mock_write("hi"), 0);
+
+          mock.should_return_error = false;
+          KUNIT_EXPECT_EQ(test, mock_write("hi"), 0);
+
+          KUNIT_EXPECT_EQ(test, mock.times_called, 2);
+  }
+
+Storing state without KUnit
+---------------------------
+
+The approach above is tied to KUnit, but it's obviously possible to come up
+with ways to do it without that dependency.
+
+For example, if you're targeting an ops struct, we can employ some
+``container_of()`` shenanigans.
+
+To make the example a bit simpler, let's assume our ops struct passes a pointer
+to itself for each operation.
+
+.. code-block:: c
+
+	struct writer {
+		int (*write)(struct writer *writer, const char *data);
+	};
+
+	/* in mock_writer.h/c */
+	struct mock_writer {
+		struct writer ops;
+		int times_called;
+		bool should_return_error;
+	};
+
+	static int mock_write(struct writer *writer, const char *data)
+	{
+		struct mock_writer *mock = container_of(writer, struct mock_writer, ops);
+
+		mock->times_called++;
+		return mock->should_return_error ? -1 : 0;
+	}
+
+	void init_mock_writer(struct mock_writer *mock) {
+		mock->ops.write = mock_write;
+		mock->times_called = 0;
+		mock->should_return_error = false;
+	}
+
+
+	/* Then in the test file */
+
+	static void example_simple_test(struct kunit *test)
+	{
+		struct mock_writer mock;
+		struct writer *writer = &mock.ops;
+
+		init_mock_writer(&mock);
+
+		mock.should_return_error = true;
+		KUNIT_EXPECT_LT(test, writer->write(writer, "hi"), 0);
+
+		mock.should_return_error = false;
+		KUNIT_EXPECT_EQ(test, writer->write(writer, "hi"), 0);
+
+		KUNIT_EXPECT_EQ(test, mock.times_called, 2);
+	}
+
+
+If this seems unrealistic, that's because it is, but it's not too far from the
+truth. E.g. ``struct inode`` has a ``struct inode_operations *i_ops`` member
+and each operation takes a ``struct inode*`` as an argument (or a ``struct
+dentry`` which we can easily convert over via ``d_inode()``).
+
+So in that more realistic example, we'd have:
+
+.. code-block:: c
+
+	struct mock_inode {
+		struct inode real;
+
+		/* mock/fake state stuff */
+		int readlink_err;
+		int get_acl_err;
+	};
+
+	static struct posix_acl *mock_get_acl(struct inode *inode, int type)
+	{
+		struct mock_inode *mock = container_of(inode, struct mock_inode, real);
+
+		if (mock->get_acl_err)
+			return ERR_PTR(get_acl_err);
+
+		return posix_acl_alloc(3, GFP_KERNEL);
+	}
+
+	static int mock_readlink(struct dentry *dentry, char __user * buffer, int buflen)
+	{
+		/* get mock_inode indrectly */
+		struct inode *inode = d_inode(dentry);
+		struct mock_inode *mock = container_of(inode, struct mock_inode, real);
+
+		return mock->readlink_err;
+	}
+
+	struct inode_operations mock_inode_operations = {
+		.get_acl = mock_get_acl,
+		.readlink  = mock_readlink,
+		/* ... */
+	};
+
+	void mock_inode_init(struct mock_inode *mock)
+	{
+		/* ... */
+
+		mock->real.i_ops = &mock_inode_operations;
+	}

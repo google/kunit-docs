@@ -24,6 +24,9 @@
   
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                5.13.0
+                5.12.0-rc7
               </div>
             
           
@@ -109,7 +112,6 @@
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
             
@@ -193,7 +195,7 @@ Linux, and formats the test results.</p>
 </pre></div>
 </div>
 <p>For more information on this wrapper (also called kunit_tool) check out the
-Documentation/dev-tools/kunit/kunit-tool.rst page.</p>
+<a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> page.</p>
 <div class="section" id="creating-a-kunitconfig">
 <h3>Creating a .kunitconfig<a class="headerlink" href="#creating-a-kunitconfig" title="Permalink to this headline">¶</a></h3>
 <p>If you want to run a specific set of tests (rather than those listed in the
@@ -203,7 +205,7 @@ test targets as well. The <code class="docutils literal notranslate"><span class
 options required by the tests.</p>
 <p>A good starting point for a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> is the KUnit defconfig:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
-cp tools/testing/kunit/configs/default.config .kunitconfig
+cp arch/um/configs/kunit_defconfig .kunitconfig
 </pre></div>
 </div>
 <p>You can then add any other Kconfig options you wish, e.g.:</p>
@@ -372,10 +374,8 @@ CONFIG_MISC_EXAMPLE_TEST=y
 <div class="section" id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Check out the Documentation/dev-tools/kunit/tips.rst page for tips on
+<li><p>Check out the <a class="reference internal" href="tips.html"><span class="doc">Tips For Writing KUnit Tests</span></a> page for tips on
 writing idiomatic KUnit tests.</p></li>
-<li><p>Check out the <a class="reference internal" href="running_tips.html"><span class="doc">Tips For Running KUnit Tests</span></a> page for tips on
-how to make running KUnit tests easier.</p></li>
 <li><p>Optional: see the <a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> page for a more
 in-depth explanation of KUnit.</p></li>
 </ul>

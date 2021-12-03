@@ -406,8 +406,8 @@ Pros:
 Cons:
 ~~~~~
 
-- Code-under-test (``func_under_test()``) needs to be changed to use this new
-  wrapper, somewhat hurting legibility.
+- The code-under-test (``func_under_test()``) needs to be changed to use this
+  new wrapper, somewhat hurting legibility.
 
 - Requires a decent amount of boilerplate for every single function we might
   want to stub.

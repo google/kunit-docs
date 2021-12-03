@@ -1,0 +1,160 @@
+=============
+Release Notes
+=============
+
+This page briefly summarizes the KUnit changes in each Linux release.
+
+For more specific documentation on KUnit features, see the in-kernel
+documentation: https://kernel.org/doc/html/latest/dev-tools/kunit.
+
+5.5
+===
+
+- KUnit introduced, including all the basic functionality.
+- ``kunitconfig`` was renamed to ``.kunitconfig`` later in in 5.5 (`commit
+  <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=14ee5cfd4512ee3d1e0047d8751450dcc6544070>`__)
+
+5.6
+===
+
+- KUnit tests can be built as modules, `docs
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#running-tests-as-modules>`__
+
+5.7
+===
+
+- kunit.py switched to using ``.kunit/`` as the default build dir (and
+  ``.kunitconfig`` => ``.kunit/.kunitconfig``).
+- ``CONFIG_KUNIT_DEBUGFS`` to expose per-suite test results in
+  ``/sys/kernel/debug/kunit/<suite>/results``, `docs
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#retrieving-per-suite-results>`__
+
+5.8
+===
+
+- ``kunit.py`` now supports separate ``config/build/exec/parse`` commands in
+  addition to ``run``.
+
+  - You can use these if you don't want to let ``kunit.py run`` do everything
+    for you, e.g. if you want to run manually but parse the results using
+    ``kunit.py``.
+
+- ``CONFIG_KUNIT_ALL_TESTS`` introduced
+
+  - This is just a convention. New tests should use it like so:
+
+.. code-block:: none
+
+	config FOO_KUNIT_TEST
+		tristate "KUnit test for foo" if !KUNIT_ALL_TESTS
+		depends on KUNIT
+		default KUNIT_ALL_TESTS
+		help
+		  This builds unit tests for foo.
+
+
+See `the upstream documentation
+<https://www.kernel.org/doc/html/latest/dev-tools/kunit/style.html#test-kconfig-entries>`__
+for the authoritative source on how to write Kconfig entries.
+
+5.9
+===
+
+- Named resources: tests can store and retrieve data via string keys.
+
+  - This is a power feature intended to be a cleaner alternative to using
+    global variables in tests.
+  - See `test_kasan.c
+    <https://elixir.bootlin.com/linux/latest/source/lib/test_kasan.c>`__ for an
+    example that uses ``"kasan_data"``.
+
+5.10
+====
+
+- KASAN violations cause the current KUnit test case to be marked FAILED.
+
+  - Note: KASAN doesn't currently work on UML.
+
+5.11
+====
+
+- Parameterized testing: see the `docs
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.html#parameterized-testing>`__.
+
+5.12
+====
+
+- You can pass in a path to a kunitconfig file instead of using
+  ``.kunit/.kunitconfig``, e.g.
+
+.. code-block:: shell
+
+        $ ./tools/testing/kunit/kunit.py run --kunitconfig=fs/ext4/.kunitconfig
+
+- You can tell ``kunit.py`` to run a subset of built suites by passing in a
+  glob argument, e.g.
+
+.. code-block:: shell
+
+	# Only run "list" suites
+	$ ./tools/testing/kunit/kunit.py run '*list*'
+
+
+5.13
+====
+
+-  Can call ``kunit_fail_current_test()`` from anywhere to fail the current KUnit test (e.g. if an invariant is broken, a UBSAN violation is detected, etc.)
+
+- You can pass a directory ``--kunitconfig`` and it'll implicitly append
+  ``.kunitconfig``, e.g. ``kunit.py run --kunitconfig=lib/kunit``.
+
+5.14
+====
+
+- ``kunit.py`` can run tests on non-UML architectures (using QEMU), `docs
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.html#running-existing-kunit-tests-on-non-uml-architectures>`__
+- It's now possible to generate code coverage reports when using UML, `docs
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#generating-code-coverage-reports-under-uml>`__
+- Tests can call ``kunit_skip()`` to bail out and mark a test as "SKIPPED"
+  instead of "PASSED" or "FAILED"
+
+5.15
+====
+
+- UBSAN violations cause the current KUnit test case to be marked FAILED.
+- Can pass kernel commandline parameters from ``kunit.py`` via
+  ``--kernel_args``
+- KUnit prints a summary per suite of how many test cases passed/failed to
+  dmesg, e.g.
+
+.. code-block:: shell
+
+	# property-entry: pass:7 fail:0 skip:0 total:7
+
+5.16 (tentative)
+================
+
+- You can filter on test names now in addition to suite names, e.g.
+
+.. code-block:: shell
+
+	# Only run tests that contain "foo"
+	$ ./tools/testing/kunit/kunit.py run '*.*foo*'
+	# Only run tests in "mysuite" that contain "foo"
+	$ ./tools/testing/kunit/kunit.py run 'mysuite.*foo*'
+
+- You can ask ``kunit.py`` to run each suite/test by itself. This can be useful
+  to track down issues due to non-hermetic tests
+
+.. code-block:: shell
+
+	$ ./tools/testing/kunit/kunit.py run --run_isolated=suite
+	$ ./tools/testing/kunit/kunit.py run --run_isolated=test
+
+- ``kunit.py``'s parsing logic was largely rewrriten, so the output looks
+  slightly different
+
+  - Parsed output is also now mostly printed out in real time.
+
+- ``kunit.py`` with ``--raw_output`` will print output in real time.
+

@@ -8,9 +8,8 @@ is usually clear when used in context.
 
 With that said, KUnit, as a project, is made up of several repositories. As
 mentioned elsewhere, the actual KUnit unit testing code is in the upstream
-Linux kernel or is otherwise staged on Gerrit waiting to get into the Linux
-kernel.  All our other code is in Gerrit. For an introduction to Gerrit (with a
-high level overview of git), see
+Linux kernel. All our other code is in Gerrit. For an introduction to Gerrit
+(with a high level overview of git), see
 https://gerrit-review.googlesource.com/Documentation/intro-user.html. For
 detailed introduction to git, see https://try.github.io.
 

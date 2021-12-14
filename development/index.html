@@ -89,14 +89,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="start.html">Getting Started Developing KUnit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="design.html">KUnit Design</a></li>
 <li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start_internal.html">Getting Started Contributing to non-kernel KUnit repos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
 </ul>
 
@@ -177,11 +180,6 @@
 <li class="toctree-l2"><a class="reference internal" href="start.html#contributing-to-code-outside-of-the-linux-kernel">Contributing to code outside of the Linux kernel</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html#starting-from-scratch">Starting from Scratch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html#updating-existing-changes">Updating Existing Changes</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">KUnit Design</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="design.html#high-level-structure">High Level Structure</a></li>
 </ul>
@@ -192,6 +190,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_internal.html">Getting Started Contributing to non-kernel KUnit repos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start_internal.html#why-is-there-a-difference">Why is there a difference?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start_internal.html#sign-the-contributor-license-agreement">Sign the Contributor License Agreement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start_internal.html#submitting-changes">Submitting Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html#starting-from-scratch">Starting from Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html#updating-existing-changes">Updating Existing Changes</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <p>This set of pages provides information for developing KUnit itself. These pages
@@ -201,8 +210,6 @@ under the hood.</p>
 <p>Checkout:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="start.html"><span class="doc">Getting Started Developing KUnit</span></a> for getting developing for KUnit.</p></li>
-<li><p><a class="reference internal" href="gerrit-workflow.html"><span class="doc">Gerrit Workflow</span></a> to see how you might structure your workflow to work
-with git and Gerrit.</p></li>
 <li><p><a class="reference internal" href="design.html"><span class="doc">KUnit Design</span></a> to learn about how KUnit is organized and how it got here.</p></li>
 <li><p><a class="reference internal" href="useful-commands.html"><span class="doc">Useful Commands</span></a> for a collection of tips and tricks while working on
 KUnit.</p></li>

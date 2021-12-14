@@ -151,10 +151,41 @@ for the authoritative source on how to write Kconfig entries.
 	$ ./tools/testing/kunit/kunit.py run --run_isolated=suite
 	$ ./tools/testing/kunit/kunit.py run --run_isolated=test
 
-- ``kunit.py``'s parsing logic was largely rewrriten, so the output looks
+- ``kunit.py``'s parsing logic was largely rewritten, so the output looks
   slightly different
 
   - Parsed output is also now mostly printed out in real time.
 
 - ``kunit.py`` with ``--raw_output`` will print output in real time.
+
+5.17 (tentative)
+================
+
+- Print out parsed test results in real time.
+
+- Allow tweaking Kconfig options from command-line, e.g.
+
+.. code-block:: shell
+
+	$ ./tools/testing/kunit/kunit.py run --kconfig_add=MY_CONFIG=y
+
+- Reconfigure kunit kernel when the used ``kunitconfig`` has changed
+
+  - Before, if you removed an entry from ``.kunitconfig``, ``kunit.py`` would
+    not reconfigure, so your edit would have no effect.
+
+  - This now also works if you remove a ``--kconfig_add`` flag.
+
+- Print out parameters as sub-test cases (both in raw and parsed output), e.g.:
+
+.. code-block::
+
+	[12:37:14] =============== ext4_inode_test (1 subtest) ================
+	[12:37:14] ======= inode_test_xtimestamp_decoding (16 subtests) =======
+	[12:37:14] [PASSED] 1901-12-13 Lower bound of 32bit < 0 timestamp, no extra bits
+	...
+	[12:37:14] [PASSED] 2446-05-10 Upper bound of 32bit >=0 timestamp. All extra sec bits on
+	[12:37:14] ========= [PASSED] inode_test_xtimestamp_decoding ==========
+	[12:37:14] ================= [PASSED] ext4_inode_test =================
+	[12:37:14] ============================================================
 

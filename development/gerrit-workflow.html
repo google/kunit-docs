@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="KUnit Design" href="design.html" />
-    <link rel="prev" title="Getting Started Developing KUnit" href="start.html" /> 
+    <link rel="next" title="Upstream Version" href="../third_party/kernel/index.html" />
+    <link rel="prev" title="Getting Started Contributing to non-kernel KUnit repos" href="start_internal.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,6 +89,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="start.html">Getting Started Developing KUnit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html">KUnit Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start_internal.html">Getting Started Contributing to non-kernel KUnit repos</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Gerrit Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#starting-from-scratch">Starting from Scratch</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cloning-a-repo-for-the-first-time">Cloning a repo for the first time</a></li>
@@ -106,13 +110,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="design.html">KUnit Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
 </ul>
 
@@ -190,9 +193,8 @@ the project as a whole, which includes some other supporting code. The meaning
 is usually clear when used in context.</p>
 <p>With that said, KUnit, as a project, is made up of several repositories. As
 mentioned elsewhere, the actual KUnit unit testing code is in the upstream
-Linux kernel or is otherwise staged on Gerrit waiting to get into the Linux
-kernel.  All our other code is in Gerrit. For an introduction to Gerrit (with a
-high level overview of git), see
+Linux kernel. All our other code is in Gerrit. For an introduction to Gerrit
+(with a high level overview of git), see
 <a class="reference external" href="https://gerrit-review.googlesource.com/Documentation/intro-user.html">https://gerrit-review.googlesource.com/Documentation/intro-user.html</a>. For
 detailed introduction to git, see <a class="reference external" href="https://try.github.io">https://try.github.io</a>.</p>
 <div class="section" id="starting-from-scratch">
@@ -342,8 +344,8 @@ changed about the commit (including the commit hash).</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="design.html" class="btn btn-neutral float-right" title="KUnit Design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started Developing KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../third_party/kernel/index.html" class="btn btn-neutral float-right" title="Upstream Version" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="start_internal.html" class="btn btn-neutral float-left" title="Getting Started Contributing to non-kernel KUnit repos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

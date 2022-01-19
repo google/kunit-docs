@@ -131,8 +131,8 @@ for the authoritative source on how to write Kconfig entries.
 
 	# property-entry: pass:7 fail:0 skip:0 total:7
 
-5.16 (tentative)
-================
+5.16
+====
 
 - You can filter on test names now in addition to suite names, e.g.
 
@@ -157,6 +157,8 @@ for the authoritative source on how to write Kconfig entries.
   - Parsed output is also now mostly printed out in real time.
 
 - ``kunit.py`` with ``--raw_output`` will print output in real time.
+
+- In-kernel documentation has been significantly revamped.
 
 5.17 (tentative)
 ================

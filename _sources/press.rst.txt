@@ -15,6 +15,8 @@ Talks about KUnit
    <https://linux.conf.au/schedule/presentation/98/>`_
  - `KUnit Testing Stragegies — Linux Foundation Mentorship Series
    <https://linuxfoundation.org/webinars/kunit-testing-strategies/>`_
+ - `Kernel Testing with KUnit: Bridging the Gap — linux.conf.au 2022
+   <https://www.youtube.com/watch?v=Ffu08AL5WVI>`_
 
 Articles about KUnit
 ====================

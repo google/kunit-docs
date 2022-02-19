@@ -1,75 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Frequently Asked Questions &mdash; The Linux Kernel  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
   
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tips For Writing KUnit Tests" href="tips.html" />
     <link rel="prev" title="Test Style and Nomenclature" href="style.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> The Linux Kernel
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                5.12.0-rc7
+                5.17.0-rc4
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,145 +38,98 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-is-this-different-from-autotest-kselftest-and-so-on">How is this different from Autotest, kselftest, and so on?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#does-kunit-support-running-on-architectures-other-than-uml">Does KUnit support running on architectures other than UML?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">What is the difference between a unit test and these other kinds of tests?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kunit-isn-t-working-what-should-i-do">KUnit isn’t working, what should I do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests">What is the difference between a unit test and other kinds of tests?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kunit-is-not-working-what-should-i-do">KUnit is not working, what should I do?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">The Linux Kernel</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Frequently Asked Questions</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="frequently-asked-questions">
+             
+  <section id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="how-is-this-different-from-autotest-kselftest-etc">
-<h2>How is this different from Autotest, kselftest, etc?<a class="headerlink" href="#how-is-this-different-from-autotest-kselftest-etc" title="Permalink to this headline">¶</a></h2>
+<section id="how-is-this-different-from-autotest-kselftest-and-so-on">
+<h2>How is this different from Autotest, kselftest, and so on?<a class="headerlink" href="#how-is-this-different-from-autotest-kselftest-and-so-on" title="Permalink to this headline">¶</a></h2>
 <p>KUnit is a unit testing framework. Autotest, kselftest (and some others) are
 not.</p>
 <p>A <a class="reference external" href="https://martinfowler.com/bliki/UnitTest.html">unit test</a> is supposed to
-test a single unit of code in isolation, hence the name. A unit test should be
-the finest granularity of testing and as such should allow all possible code
-paths to be tested in the code under test; this is only possible if the code
-under test is very small and does not have any external dependencies outside of
+test a single unit of code in isolation and hence the name <em>unit test</em>. A unit
+test should be the finest granularity of testing and should allow all possible
+code paths to be tested in the code under test. This is only possible if the
+code under test is small and does not have any external dependencies outside of
 the test’s control like hardware.</p>
 <p>There are no testing frameworks currently available for the kernel that do not
-require installing the kernel on a test machine or in a VM and all require
-tests to be written in userspace and run on the kernel under test; this is true
-for Autotest, kselftest, and some others, disqualifying any of them from being
-considered unit testing frameworks.</p>
-</div>
-<div class="section" id="does-kunit-support-running-on-architectures-other-than-uml">
+require installing the kernel on a test machine or in a virtual machine. All
+testing frameworks require tests to be written in userspace and run on the
+kernel under test. This is true for Autotest, kselftest, and some others,
+disqualifying any of them from being considered unit testing frameworks.</p>
+</section>
+<section id="does-kunit-support-running-on-architectures-other-than-uml">
 <h2>Does KUnit support running on architectures other than UML?<a class="headerlink" href="#does-kunit-support-running-on-architectures-other-than-uml" title="Permalink to this headline">¶</a></h2>
-<p>Yes, well, mostly.</p>
-<p>For the most part, the KUnit core framework (what you use to write the tests)
-can compile to any architecture; it compiles like just another part of the
+<p>Yes, mostly.</p>
+<p>For the most part, the KUnit core framework (what we use to write the tests)
+can compile to any architecture. It compiles like just another part of the
 kernel and runs when the kernel boots, or when built as a module, when the
-module is loaded.  However, there is some infrastructure,
-like the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) that does not support
-other architectures.</p>
-<p>In short, this means that, yes, you can run KUnit on other architectures, but
-it might require more work than using KUnit on UML.</p>
-<p>For more information, see <a class="reference internal" href="usage.html#kunit-on-non-uml"><span class="std std-ref">KUnit on non-UML architectures</span></a>.</p>
-</div>
-<div class="section" id="what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">
-<h2>What is the difference between a unit test and these other kinds of tests?<a class="headerlink" href="#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests" title="Permalink to this headline">¶</a></h2>
+module is loaded.  However, there is infrastructure, like the KUnit Wrapper
+(<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) that does not support other architectures.</p>
+<p>In short, yes, you can run KUnit on other architectures, but it might require
+more work than using KUnit on UML.</p>
+<p>For more information, see <a class="reference internal" href="usage.html#kunit-on-non-uml"><span class="std std-ref">Exiting Early on Failed Expectations</span></a>.</p>
+</section>
+<section id="what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests">
+<h2>What is the difference between a unit test and other kinds of tests?<a class="headerlink" href="#what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests" title="Permalink to this headline">¶</a></h2>
 <p>Most existing tests for the Linux kernel would be categorized as an integration
 test, or an end-to-end test.</p>
 <ul class="simple">
-<li><p>A unit test is supposed to test a single unit of code in isolation, hence the
-name. A unit test should be the finest granularity of testing and as such
-should allow all possible code paths to be tested in the code under test; this
-is only possible if the code under test is very small and does not have any
-external dependencies outside of the test’s control like hardware.</p></li>
+<li><p>A unit test is supposed to test a single unit of code in isolation. A unit
+test should be the finest granularity of testing and, as such, allows all
+possible code paths to be tested in the code under test. This is only possible
+if the code under test is small and does not have any external dependencies
+outside of the test’s control like hardware.</p></li>
 <li><p>An integration test tests the interaction between a minimal set of components,
 usually just two or three. For example, someone might write an integration
 test to test the interaction between a driver and a piece of hardware, or to
 test the interaction between the userspace libraries the kernel provides and
-the kernel itself; however, one of these tests would probably not test the
+the kernel itself. However, one of these tests would probably not test the
 entire kernel along with hardware interactions and interactions with the
 userspace.</p></li>
 <li><p>An end-to-end test usually tests the entire system from the perspective of the
@@ -224,26 +138,26 @@ kernel by installing a production configuration of the kernel on production
 hardware with a production userspace and then trying to exercise some behavior
 that depends on interactions between the hardware, the kernel, and userspace.</p></li>
 </ul>
-</div>
-<div class="section" id="kunit-isn-t-working-what-should-i-do">
-<h2>KUnit isn’t working, what should I do?<a class="headerlink" href="#kunit-isn-t-working-what-should-i-do" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="kunit-is-not-working-what-should-i-do">
+<h2>KUnit is not working, what should I do?<a class="headerlink" href="#kunit-is-not-working-what-should-i-do" title="Permalink to this headline">¶</a></h2>
 <p>Unfortunately, there are a number of things which can break, but here are some
 things to try.</p>
 <ol class="arabic simple">
-<li><p>Try running <code class="docutils literal notranslate"><span class="pre">./tools/testing/kunit/kunit.py</span> <span class="pre">run</span></code> with the <code class="docutils literal notranslate"><span class="pre">--raw_output</span></code>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">./tools/testing/kunit/kunit.py</span> <span class="pre">run</span></code> with the <code class="docutils literal notranslate"><span class="pre">--raw_output</span></code>
 parameter. This might show details or error messages hidden by the kunit_tool
 parser.</p></li>
 <li><p>Instead of running <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code>, try running <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">config</span></code>,
 <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">build</span></code>, and <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">exec</span></code> independently. This can help track
 down where an issue is occurring. (If you think the parser is at fault, you
-can run it manually against stdin or a file with <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">parse</span></code>.)</p></li>
-<li><p>Running the UML kernel directly can often reveal issues or error messages
-kunit_tool ignores. This should be as simple as running <code class="docutils literal notranslate"><span class="pre">./vmlinux</span></code> after
-building the UML kernel (e.g., by using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">build</span></code>). Note that UML
-has some unusual requirements (such as the host having a tmpfs filesystem
-mounted), and has had issues in the past when built statically and the host
-has KASLR enabled. (On older host kernels, you may need to run <code class="docutils literal notranslate"><span class="pre">setarch</span>
-<span class="pre">`uname</span> <span class="pre">-m`</span> <span class="pre">-R</span> <span class="pre">./vmlinux</span></code> to disable KASLR.)</p></li>
+can run it manually against <code class="docutils literal notranslate"><span class="pre">stdin</span></code> or a file with <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">parse</span></code>.)</p></li>
+<li><p>Running the UML kernel directly can often reveal issues or error messages,
+<code class="docutils literal notranslate"><span class="pre">kunit_tool</span></code> ignores. This should be as simple as running <code class="docutils literal notranslate"><span class="pre">./vmlinux</span></code>
+after building the UML kernel (for example, by using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">build</span></code>).
+Note that UML has some unusual requirements (such as the host having a tmpfs
+filesystem mounted), and has had issues in the past when built statically and
+the host has KASLR enabled. (On older host kernels, you may need to run
+<code class="docutils literal notranslate"><span class="pre">setarch</span> <span class="pre">`uname</span> <span class="pre">-m`</span> <span class="pre">-R</span> <span class="pre">./vmlinux</span></code> to disable KASLR.)</p></li>
 <li><p>Make sure the kernel .config has <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT=y</span></code> and at least one test
 (e.g. <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_EXAMPLE_TEST=y</span></code>). kunit_tool will keep its .config
 around, so you can see what config was used after running <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code>.
@@ -259,59 +173,42 @@ seeing. When tests are built-in, they will execute when the kernel boots, and
 modules will automatically execute associated tests when loaded. Test results
 can be collected from <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;test</span> <span class="pre">suite&gt;/results</span></code>, and
 can be parsed with <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">parse</span></code>. For more details, see “KUnit on
-non-UML architectures” in <a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a>.</p></li>
+non-UML architectures” in Documentation/dev-tools/kunit/usage.rst.</p></li>
 </ol>
 <p>If none of the above tricks help, you are always welcome to email any issues to
 <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tips.html" class="btn btn-neutral float-right" title="Tips For Writing KUnit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="style.html" class="btn btn-neutral float-left" title="Test Style and Nomenclature" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tips.html" class="btn btn-neutral float-right" title="Tips For Writing KUnit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright The kernel development community.
-
-    </p>
+    <p>&#169; Copyright The kernel development community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

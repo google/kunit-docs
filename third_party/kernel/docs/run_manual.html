@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Tests without kunit_tool &mdash; The Linux Kernel  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Writing Tests" href="usage.html" />
+    <link rel="prev" title="Run Tests with kunit_tool" href="run_wrapper.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> The Linux Kernel
+          </a>
+              <div class="version">
+                5.17.0-rc4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run Tests without kunit_tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-kernel">Configure the Kernel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">The Linux Kernel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Run Tests without kunit_tool</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/run_manual.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="run-tests-without-kunit-tool">
+<h1>Run Tests without kunit_tool<a class="headerlink" href="#run-tests-without-kunit-tool" title="Permalink to this headline">¶</a></h1>
+<p>If we do not want to use kunit_tool (For example: we want to integrate
+with other systems, or run tests on real hardware), we can
+include KUnit in any kernel, read out results, and parse manually.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>KUnit is not designed for use in a production system. It is
+possible that tests may reduce the stability or security of
+the system.</p>
+</div>
+<section id="configure-the-kernel">
+<h2>Configure the Kernel<a class="headerlink" href="#configure-the-kernel" title="Permalink to this headline">¶</a></h2>
+<p>KUnit tests can run without kunit_tool. This can be useful, if:</p>
+<ul class="simple">
+<li><p>We have an existing kernel configuration to test.</p></li>
+<li><p>Need to run on real hardware (or using an emulator/VM kunit_tool
+does not support).</p></li>
+<li><p>Wish to integrate with some existing testing systems.</p></li>
+</ul>
+<p>KUnit is configured with the <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT</span></code> option, and individual
+tests can also be built by enabling their config options in our
+<code class="docutils literal notranslate"><span class="pre">.config</span></code>. KUnit tests usually (but don’t always) have config options
+ending in <code class="docutils literal notranslate"><span class="pre">_KUNIT_TEST</span></code>. Most tests can either be built as a module,
+or be built into the kernel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We can enable the <code class="docutils literal notranslate"><span class="pre">KUNIT_ALL_TESTS</span></code> config option to
+automatically enable all tests with satisfied dependencies. This is
+a good way of quickly testing everything applicable to the current
+config.</p>
+</div>
+<p>Once we have built our kernel (and/or modules), it is simple to run
+the tests. If the tests are built-in, they will run automatically on the
+kernel boot. The results will be written to the kernel log (<code class="docutils literal notranslate"><span class="pre">dmesg</span></code>)
+in TAP format.</p>
+<p>If the tests are built as modules, they will run when the module is
+loaded.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># modprobe example-test</span>
+</pre></div>
+</div>
+<p>The results will appear in TAP format in <code class="docutils literal notranslate"><span class="pre">dmesg</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_DEBUGFS</span></code> is enabled, KUnit test results will
+be accessible from the <code class="docutils literal notranslate"><span class="pre">debugfs</span></code> filesystem (if mounted).
+They will be in <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;test_suite&gt;/results</span></code>, in
+TAP format.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run_wrapper.html" class="btn btn-neutral float-left" title="Run Tests with kunit_tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Writing Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright The kernel development community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

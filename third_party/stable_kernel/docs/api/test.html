@@ -1,75 +1,33 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Test API &mdash; The Linux Kernel  documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
   
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Class and Function Mocking" href="class-and-function-mocking.html" />
     <link rel="prev" title="API Reference" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> The Linux Kernel
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 4.19.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,18 +35,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using KUnit</a></li>
@@ -101,80 +48,38 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">The Linux Kernel</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">API Reference</a> &raquo;</li>
-        
       <li>Test API</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/api/test.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="test-api">
+             
+  <section id="test-api">
 <h1>Test API<a class="headerlink" href="#test-api" title="Permalink to this headline">¶</a></h1>
 <p>This file documents all of the standard testing API excluding mocking or mocking
 related features.</p>
 <dl class="c struct">
-<dt id="c.KUNIT_RESOURCE_T">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">KUNIT_RESOURCE_T</span></code><a class="headerlink" href="#c.KUNIT_RESOURCE_T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.KUNIT_RESOURCE_T">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KUNIT_RESOURCE_T</span></span></span><a class="headerlink" href="#c.KUNIT_RESOURCE_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a <em>test managed resource</em></p>
 </dd></dl>
 
@@ -238,8 +143,8 @@ cleaned up at the end of a test case.</p>
 </div>
 <p><strong>Example</strong></p>
 <dl class="c struct">
-<dt id="c.KUNIT_CASE_T">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">KUNIT_CASE_T</span></code><a class="headerlink" href="#c.KUNIT_CASE_T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.KUNIT_CASE_T">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KUNIT_CASE_T</span></span></span><a class="headerlink" href="#c.KUNIT_CASE_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents an individual test case.</p>
 </dd></dl>
 
@@ -283,8 +188,8 @@ empty test case.</p>
 </div>
 <p><strong>Example</strong></p>
 <dl class="c macro">
-<dt id="c.TEST_CASE">
-<code class="sig-name descname"><span class="pre">TEST_CASE</span></code><a class="headerlink" href="#c.TEST_CASE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.TEST_CASE">
+<span class="sig-name descname"><span class="n"><span class="pre">TEST_CASE</span></span></span><a class="headerlink" href="#c.TEST_CASE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">TEST_CASE</span> <span class="pre">(test_name)</span></code></p>
@@ -301,8 +206,8 @@ empty test case.</p>
 <span class="pre">test_case</span></code> object from it. See the documentation for <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> for an
 example on how to use it.</p>
 <dl class="c struct">
-<dt id="c.KUNIT_SUITE_T">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">KUNIT_SUITE_T</span></code><a class="headerlink" href="#c.KUNIT_SUITE_T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.KUNIT_SUITE_T">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KUNIT_SUITE_T</span></span></span><a class="headerlink" href="#c.KUNIT_SUITE_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>describes a related collection of <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> s.</p>
 </dd></dl>
 
@@ -334,8 +239,8 @@ unit testing frameworks like JUnit or Googletest.</p>
 <p>Every <a class="reference internal" href="#c.KUNIT_CASE_T" title="KUNIT_CASE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_CASE_T</span></code></a> must be associated with a test_module for KUnit to
 run it.</p>
 <dl class="c struct">
-<dt id="c.KUNIT_T">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">KUNIT_T</span></code><a class="headerlink" href="#c.KUNIT_T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.KUNIT_T">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KUNIT_T</span></span></span><a class="headerlink" href="#c.KUNIT_T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>represents a running instance of a test.</p>
 </dd></dl>
 
@@ -357,8 +262,8 @@ running. Most of this data is private and should only be accessed indirectly
 via public functions; the one exception is <strong>priv</strong> which can be used by the
 test writer to store arbitrary data.</p>
 <dl class="c macro">
-<dt id="c.module_test">
-<code class="sig-name descname"><span class="pre">module_test</span></code><a class="headerlink" href="#c.module_test" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.module_test">
+<span class="sig-name descname"><span class="n"><span class="pre">module_test</span></span></span><a class="headerlink" href="#c.module_test" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">module_test</span> <span class="pre">(module)</span></code></p>
@@ -381,8 +286,8 @@ binary. There must be no gap between the section start and the first
 the test executor views the .test_modules section as an array of
 (test_module <a href="#id5"><span class="problematic" id="id6">*</span></a>) starting at __test_modules_start.</p>
 <dl class="c function">
-<dt id="c.test_alloc_resource">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="pre">KUNIT_RESOURCE_T</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">test_alloc_resource</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">int</span> <span class="pre">(</span><span class="pre">*</span><em><span class="pre">init</span></em><span class="pre">)</span><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="pre">KUNIT_RESOURCE_T</span></a><span class="pre">*</span>, <span class="pre">void</span><span class="pre">*</span><span class="sig-paren">)</span>, <span class="pre">void</span> <span class="pre">(</span><span class="pre">*</span><em><span class="pre">free</span></em><span class="pre">)</span><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="pre">KUNIT_RESOURCE_T</span></a><span class="pre">*</span><span class="sig-paren">)</span>, <span class="pre">void</span> <span class="pre">*</span><em><span class="pre">context</span></em>, <span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_alloc_resource">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="n"><span class="pre">KUNIT_RESOURCE_T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">test_alloc_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="n"><span class="pre">KUNIT_T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">init</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="n"><span class="pre">KUNIT_RESOURCE_T</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">free</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><span class="n"><span class="pre">KUNIT_RESOURCE_T</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">context</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.test_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -402,8 +307,8 @@ the test executor views the .test_modules section as an array of
 cleaned up at the end of a test case. See <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">KUNIT_RESOURCE_T</span></code></a> for an
 example.</p>
 <dl class="c function">
-<dt id="c.test_kmalloc">
-<span class="pre">void</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">test_kmalloc</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">size_t</span> <em><span class="pre">size</span></em>, <span class="pre">gfp_t</span> <em><span class="pre">gfp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_kmalloc">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">test_kmalloc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="n"><span class="pre">KUNIT_T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">gfp</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kmalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Just like kmalloc() except the allocation is <em>test managed</em>.</p>
 </dd></dl>
 
@@ -421,8 +326,8 @@ example.</p>
 and is automatically cleaned up after the test case concludes. See <a class="reference internal" href="#c.KUNIT_RESOURCE_T" title="KUNIT_RESOURCE_T"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span>
 <span class="pre">KUNIT_RESOURCE_T</span></code></a> for more information.</p>
 <dl class="c function">
-<dt id="c.test_kzalloc">
-<span class="pre">void</span> <span class="pre">*</span><code class="sig-name descname"><span class="pre">test_kzalloc</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em>, <span class="pre">size_t</span> <em><span class="pre">size</span></em>, <span class="pre">gfp_t</span> <em><span class="pre">gfp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_kzalloc">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">test_kzalloc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="n"><span class="pre">KUNIT_T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">size</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">gfp</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.test_kzalloc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Just like <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a>, but zeroes the allocation.</p>
 </dd></dl>
 
@@ -438,8 +343,8 @@ and is automatically cleaned up after the test case concludes. See <a class="ref
 <p><strong>Description</strong></p>
 <p>See kzalloc() and <a class="reference internal" href="#c.test_kmalloc" title="test_kmalloc"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_kmalloc()</span></code></a> for more information.</p>
 <dl class="c macro">
-<dt id="c.test_info">
-<code class="sig-name descname"><span class="pre">test_info</span></code><a class="headerlink" href="#c.test_info" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_info">
+<span class="sig-name descname"><span class="n"><span class="pre">test_info</span></span></span><a class="headerlink" href="#c.test_info" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">test_info</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -459,8 +364,8 @@ and is automatically cleaned up after the test case concludes. See <a class="ref
 <p>Prints an info level message associated with the test module being run. Takes
 a variable number of format parameters just like printk().</p>
 <dl class="c macro">
-<dt id="c.test_warn">
-<code class="sig-name descname"><span class="pre">test_warn</span></code><a class="headerlink" href="#c.test_warn" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_warn">
+<span class="sig-name descname"><span class="n"><span class="pre">test_warn</span></span></span><a class="headerlink" href="#c.test_warn" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">test_warn</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -479,8 +384,8 @@ a variable number of format parameters just like printk().</p>
 <p><strong>Description</strong></p>
 <p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.test_err">
-<code class="sig-name descname"><span class="pre">test_err</span></code><a class="headerlink" href="#c.test_err" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_err">
+<span class="sig-name descname"><span class="n"><span class="pre">test_err</span></span></span><a class="headerlink" href="#c.test_err" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">test_err</span> <span class="pre">(test,</span> <span class="pre">fmt,</span> <span class="pre">...)</span></code></p>
@@ -499,8 +404,8 @@ a variable number of format parameters just like printk().</p>
 <p><strong>Description</strong></p>
 <p>See <a class="reference internal" href="#c.test_info" title="test_info"><code class="xref c c-func docutils literal notranslate"><span class="pre">test_info()</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.SUCCEED">
-<code class="sig-name descname"><span class="pre">SUCCEED</span></code><a class="headerlink" href="#c.SUCCEED" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.SUCCEED">
+<span class="sig-name descname"><span class="n"><span class="pre">SUCCEED</span></span></span><a class="headerlink" href="#c.SUCCEED" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">SUCCEED</span> <span class="pre">(test)</span></code></p>
@@ -517,8 +422,8 @@ a variable number of format parameters just like printk().</p>
 words, it does nothing and only exists for code clarity. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a>
 for more information.</p>
 <dl class="c macro">
-<dt id="c.FAIL">
-<code class="sig-name descname"><span class="pre">FAIL</span></code><a class="headerlink" href="#c.FAIL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.FAIL">
+<span class="sig-name descname"><span class="n"><span class="pre">FAIL</span></span></span><a class="headerlink" href="#c.FAIL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">FAIL</span> <span class="pre">(test,</span> <span class="pre">message)</span></code></p>
@@ -538,8 +443,8 @@ words, it always results in a failed expectation, and consequently always
 causes the test case to fail when evaluated. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_TRUE">
-<code class="sig-name descname"><span class="pre">EXPECT_TRUE</span></code><a class="headerlink" href="#c.EXPECT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_TRUE">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_TRUE</span></span></span><a class="headerlink" href="#c.EXPECT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_TRUE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -560,8 +465,8 @@ when the specified condition is not met; however, it will not prevent the
 test case from continuing to run; this is otherwise known as an <em>expectation
 failure</em>.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_FALSE">
-<code class="sig-name descname"><span class="pre">EXPECT_FALSE</span></code><a class="headerlink" href="#c.EXPECT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_FALSE">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_FALSE</span></span></span><a class="headerlink" href="#c.EXPECT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_FALSE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -580,8 +485,8 @@ not evaluate to false.</p>
 <p>Sets an expectation that <strong>condition</strong> evaluates to false. See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for
 more information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_NOT_NULL">
-<code class="sig-name descname"><span class="pre">EXPECT_NOT_NULL</span></code><a class="headerlink" href="#c.EXPECT_NOT_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_NOT_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_NOT_NULL</span></span></span><a class="headerlink" href="#c.EXPECT_NOT_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_NOT_NULL</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -600,8 +505,8 @@ evaluates to NULL.</p>
 <p>Sets an expectation that <strong>expression</strong> does not evaluate to NULL. Similar to
 <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> but supposed to be used with pointer expressions.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_NULL">
-<code class="sig-name descname"><span class="pre">EXPECT_NULL</span></code><a class="headerlink" href="#c.EXPECT_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_NULL</span></span></span><a class="headerlink" href="#c.EXPECT_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_NULL</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -620,8 +525,8 @@ not evaluate to NULL.</p>
 <p>Sets an expectation that <strong>expression</strong> evaluates to NULL. Similar to
 <a class="reference internal" href="#c.EXPECT_FALSE" title="EXPECT_FALSE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_FALSE()</span></code></a> but supposed to be used with pointer expressions.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_SUCCESS">
-<code class="sig-name descname"><span class="pre">EXPECT_SUCCESS</span></code><a class="headerlink" href="#c.EXPECT_SUCCESS" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_SUCCESS">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_SUCCESS</span></span></span><a class="headerlink" href="#c.EXPECT_SUCCESS" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_SUCCESS</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -642,8 +547,8 @@ that error codes are represented as negative values and if expression
 evaluates to a negative value failure message will contain a mnemonic
 representation of the error code (for example, for -1 it will contain EPERM).</p>
 <dl class="c macro">
-<dt id="c.EXPECT_ERROR">
-<code class="sig-name descname"><span class="pre">EXPECT_ERROR</span></code><a class="headerlink" href="#c.EXPECT_ERROR" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_ERROR">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_ERROR</span></span></span><a class="headerlink" href="#c.EXPECT_ERROR" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_ERROR</span> <span class="pre">(test,</span> <span class="pre">expression,</span> <span class="pre">errno)</span></code></p>
@@ -664,8 +569,8 @@ test fails when this does not evaluate to <strong>errno</strong>.</p>
 <p>Sets an expectation that <strong>expression</strong> evaluates to <strong>errno</strong>, so as opposed to
 EXPECT_SUCCESS it verifies that <strong>expression</strong> evaluates to an error.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_EQ">
-<code class="sig-name descname"><span class="pre">EXPECT_EQ</span></code><a class="headerlink" href="#c.EXPECT_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_EQ">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_EQ</span></span></span><a class="headerlink" href="#c.EXPECT_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -686,8 +591,8 @@ EXPECT_SUCCESS it verifies that <strong>expression</strong> evaluates to an erro
 equal. This is semantically equivalent to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) ==
 (<strong>right</strong>)).  See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_NE">
-<code class="sig-name descname"><span class="pre">EXPECT_NE</span></code><a class="headerlink" href="#c.EXPECT_NE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_NE">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_NE</span></span></span><a class="headerlink" href="#c.EXPECT_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -708,8 +613,8 @@ equal. This is semantically equivalent to EXPECT_TRUE(<strong>test</strong>, (<s
 equal. This is semantically equivalent to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) !=
 (<strong>right</strong>)).  See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_LT">
-<code class="sig-name descname"><span class="pre">EXPECT_LT</span></code><a class="headerlink" href="#c.EXPECT_LT" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_LT">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_LT</span></span></span><a class="headerlink" href="#c.EXPECT_LT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_LT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -731,8 +636,8 @@ value that <strong>right</strong> evaluates to. This is semantically equivalent 
 EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt; (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_LE">
-<code class="sig-name descname"><span class="pre">EXPECT_LE</span></code><a class="headerlink" href="#c.EXPECT_LE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_LE">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_LE</span></span></span><a class="headerlink" href="#c.EXPECT_LE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_LE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -754,8 +659,8 @@ equal to the value that <strong>right</strong> evaluates to. Semantically this i
 to EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &lt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_GT">
-<code class="sig-name descname"><span class="pre">EXPECT_GT</span></code><a class="headerlink" href="#c.EXPECT_GT" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_GT">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_GT</span></span></span><a class="headerlink" href="#c.EXPECT_GT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_GT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -777,8 +682,8 @@ the value that <strong>right</strong> evaluates to. This is semantically equival
 EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt; (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_GE">
-<code class="sig-name descname"><span class="pre">EXPECT_GE</span></code><a class="headerlink" href="#c.EXPECT_GE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_GE">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_GE</span></span></span><a class="headerlink" href="#c.EXPECT_GE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_GE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -800,8 +705,8 @@ the value that <strong>right</strong> evaluates to. This is semantically equival
 EXPECT_TRUE(<strong>test</strong>, (<strong>left</strong>) &gt;= (<strong>right</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_STREQ">
-<code class="sig-name descname"><span class="pre">EXPECT_STREQ</span></code><a class="headerlink" href="#c.EXPECT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_STREQ">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_STREQ</span></span></span><a class="headerlink" href="#c.EXPECT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_STREQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -823,8 +728,8 @@ equal. This is semantically equivalent to
 EXPECT_TRUE(<strong>test</strong>, !strcmp((<strong>left</strong>), (<strong>right</strong>))). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.EXPECT_NOT_ERR_OR_NULL">
-<code class="sig-name descname"><span class="pre">EXPECT_NOT_ERR_OR_NULL</span></code><a class="headerlink" href="#c.EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.EXPECT_NOT_ERR_OR_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">EXPECT_NOT_ERR_OR_NULL</span></span></span><a class="headerlink" href="#c.EXPECT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">EXPECT_NOT_ERR_OR_NULL</span> <span class="pre">(test,</span> <span class="pre">ptr)</span></code></p>
@@ -844,8 +749,8 @@ not an errno stored in a pointer. This is semantically equivalent to
 EXPECT_TRUE(<strong>test</strong>, !IS_ERR_OR_NULL(<strong>ptr</strong>)). See <a class="reference internal" href="#c.EXPECT_TRUE" title="EXPECT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_TRUE()</span></code></a> for more
 information.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_TRUE">
-<code class="sig-name descname"><span class="pre">ASSERT_TRUE</span></code><a class="headerlink" href="#c.ASSERT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_TRUE">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_TRUE</span></span></span><a class="headerlink" href="#c.ASSERT_TRUE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_TRUE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -866,8 +771,8 @@ this does not evaluate to true.</p>
 expectation failure, it will prevent the test case from continuing to run;
 this is otherwise known as an <em>assertion failure</em>.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_FALSE">
-<code class="sig-name descname"><span class="pre">ASSERT_FALSE</span></code><a class="headerlink" href="#c.ASSERT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_FALSE">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_FALSE</span></span></span><a class="headerlink" href="#c.ASSERT_FALSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_FALSE</span> <span class="pre">(test,</span> <span class="pre">condition)</span></code></p>
@@ -886,8 +791,8 @@ this is otherwise known as an <em>assertion failure</em>.</p>
 is the same as <a class="reference internal" href="#c.EXPECT_FALSE" title="EXPECT_FALSE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_FALSE()</span></code></a>, except it causes an assertion failure (see
 <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_NOT_NULL">
-<code class="sig-name descname"><span class="pre">ASSERT_NOT_NULL</span></code><a class="headerlink" href="#c.ASSERT_NOT_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_NOT_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_NOT_NULL</span></span></span><a class="headerlink" href="#c.ASSERT_NOT_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_NOT_NULL</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -905,8 +810,8 @@ evaluates to NULL.</p>
 <p><strong>Description</strong></p>
 <p>Asserts that <strong>expression</strong> does not evaluate to NULL, see <a class="reference internal" href="#c.EXPECT_NOT_NULL" title="EXPECT_NOT_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_NOT_NULL()</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_NULL">
-<code class="sig-name descname"><span class="pre">ASSERT_NULL</span></code><a class="headerlink" href="#c.ASSERT_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_NULL</span></span></span><a class="headerlink" href="#c.ASSERT_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_NULL</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -924,8 +829,8 @@ not evaluate to NULL.</p>
 <p><strong>Description</strong></p>
 <p>Asserts that <strong>expression</strong> evaluates to NULL, see <a class="reference internal" href="#c.EXPECT_NULL" title="EXPECT_NULL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_NULL()</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_SUCCESS">
-<code class="sig-name descname"><span class="pre">ASSERT_SUCCESS</span></code><a class="headerlink" href="#c.ASSERT_SUCCESS" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_SUCCESS">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_SUCCESS</span></span></span><a class="headerlink" href="#c.ASSERT_SUCCESS" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_SUCCESS</span> <span class="pre">(test,</span> <span class="pre">expression)</span></code></p>
@@ -942,8 +847,8 @@ not evaluate to NULL.</p>
 <p><strong>Description</strong></p>
 <p>Asserts that <strong>expression</strong> evaluates to 0. It’s the same as EXPECT_SUCCESS.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_ERROR">
-<code class="sig-name descname"><span class="pre">ASSERT_ERROR</span></code><a class="headerlink" href="#c.ASSERT_ERROR" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_ERROR">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_ERROR</span></span></span><a class="headerlink" href="#c.ASSERT_ERROR" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_ERROR</span> <span class="pre">(test,</span> <span class="pre">expression,</span> <span class="pre">errno)</span></code></p>
@@ -963,8 +868,8 @@ test fails when this does not evaluate to <strong>errno</strong>.</p>
 <p><strong>Description</strong></p>
 <p>Asserts that <strong>expression</strong> evaluates to <strong>errno</strong>, similar to EXPECT_ERROR.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_EQ">
-<code class="sig-name descname"><span class="pre">ASSERT_EQ</span></code><a class="headerlink" href="#c.ASSERT_EQ" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_EQ">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_EQ</span></span></span><a class="headerlink" href="#c.ASSERT_EQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_EQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -985,8 +890,8 @@ test fails when this does not evaluate to <strong>errno</strong>.</p>
 equal. This is the same as <a class="reference internal" href="#c.EXPECT_EQ" title="EXPECT_EQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_EQ()</span></code></a>, except it causes an assertion failure
 (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_NE">
-<code class="sig-name descname"><span class="pre">ASSERT_NE</span></code><a class="headerlink" href="#c.ASSERT_NE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_NE">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_NE</span></span></span><a class="headerlink" href="#c.ASSERT_NE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_NE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1007,8 +912,8 @@ equal. This is the same as <a class="reference internal" href="#c.EXPECT_EQ" tit
 equal. This is the same as <a class="reference internal" href="#c.EXPECT_NE" title="EXPECT_NE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_NE()</span></code></a>, except it causes an assertion failure
 (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_LT">
-<code class="sig-name descname"><span class="pre">ASSERT_LT</span></code><a class="headerlink" href="#c.ASSERT_LT" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_LT">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_LT</span></span></span><a class="headerlink" href="#c.ASSERT_LT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_LT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1030,8 +935,8 @@ value that <strong>right</strong> evaluates to.  This is the same as <a class="r
 causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
 met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_LE">
-<code class="sig-name descname"><span class="pre">ASSERT_LE</span></code><a class="headerlink" href="#c.ASSERT_LE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_LE">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_LE</span></span></span><a class="headerlink" href="#c.ASSERT_LE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_LE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1053,8 +958,8 @@ equal to the value that <strong>right</strong> evaluates to.  This is the same a
 <a class="reference internal" href="#c.EXPECT_LE" title="EXPECT_LE"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_LE()</span></code></a>, except it causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when
 the assertion is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_GT">
-<code class="sig-name descname"><span class="pre">ASSERT_GT</span></code><a class="headerlink" href="#c.ASSERT_GT" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_GT">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_GT</span></span></span><a class="headerlink" href="#c.ASSERT_GT" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_GT</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1076,8 +981,8 @@ value that <strong>right</strong> evaluates to.  This is the same as <a class="r
 causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
 met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_GE">
-<code class="sig-name descname"><span class="pre">ASSERT_GE</span></code><a class="headerlink" href="#c.ASSERT_GE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_GE">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_GE</span></span></span><a class="headerlink" href="#c.ASSERT_GE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_GE</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1099,8 +1004,8 @@ value that <strong>right</strong> evaluates to.  This is the same as <a class="r
 causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not
 met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_STREQ">
-<code class="sig-name descname"><span class="pre">ASSERT_STREQ</span></code><a class="headerlink" href="#c.ASSERT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_STREQ">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_STREQ</span></span></span><a class="headerlink" href="#c.ASSERT_STREQ" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_STREQ</span> <span class="pre">(test,</span> <span class="pre">left,</span> <span class="pre">right)</span></code></p>
@@ -1121,8 +1026,8 @@ met.</p>
 equal.  This is the same as <a class="reference internal" href="#c.EXPECT_STREQ" title="EXPECT_STREQ"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_STREQ()</span></code></a>, except it causes an assertion
 failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_NOT_ERR_OR_NULL">
-<code class="sig-name descname"><span class="pre">ASSERT_NOT_ERR_OR_NULL</span></code><a class="headerlink" href="#c.ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_NOT_ERR_OR_NULL">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_NOT_ERR_OR_NULL</span></span></span><a class="headerlink" href="#c.ASSERT_NOT_ERR_OR_NULL" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_NOT_ERR_OR_NULL</span> <span class="pre">(test,</span> <span class="pre">ptr)</span></code></p>
@@ -1142,8 +1047,8 @@ an errno stored in a pointer.  This is the same as <a class="reference internal"
 except it causes an assertion failure (see <a class="reference internal" href="#c.ASSERT_TRUE" title="ASSERT_TRUE"><code class="xref c c-func docutils literal notranslate"><span class="pre">ASSERT_TRUE()</span></code></a>) when the assertion
 is not met.</p>
 <dl class="c macro">
-<dt id="c.ASSERT_SIGSEGV">
-<code class="sig-name descname"><span class="pre">ASSERT_SIGSEGV</span></code><a class="headerlink" href="#c.ASSERT_SIGSEGV" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.ASSERT_SIGSEGV">
+<span class="sig-name descname"><span class="n"><span class="pre">ASSERT_SIGSEGV</span></span></span><a class="headerlink" href="#c.ASSERT_SIGSEGV" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">ASSERT_SIGSEGV</span> <span class="pre">(test,</span> <span class="pre">expr)</span></code></p>
@@ -1169,8 +1074,8 @@ which will probably be massaged to make sense in the context of the kernel
 <p><strong>NOTE</strong></p>
 <p>no code after this assertion will ever be executed.</p>
 <dl class="c struct">
-<dt id="c.test_stream">
-<em class="property"><span class="pre">struct</span> </em><code class="sig-name descname"><span class="pre">test_stream</span></code><a class="headerlink" href="#c.test_stream" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_stream">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">test_stream</span></span></span><a class="headerlink" href="#c.test_stream" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>a std::stream style string builder.</p>
 </dd></dl>
 
@@ -1199,8 +1104,8 @@ which will probably be massaged to make sense in the context of the kernel
 <p>A std::stream style string builder. Allows messages to be built up and
 printed all at once.</p>
 <dl class="c function">
-<dt id="c.test_new_stream">
-<em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.test_stream" title="test_stream"><span class="pre">test_stream</span></a> <span class="pre">*</span><code class="sig-name descname"><span class="pre">test_new_stream</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">struct</span></em> <a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="pre">KUNIT_T</span></a> <span class="pre">*</span><em><span class="pre">test</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object c" id="c.test_new_stream">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.test_stream" title="test_stream"><span class="n"><span class="pre">test_stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">test_new_stream</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.KUNIT_T" title="KUNIT_T"><span class="n"><span class="pre">KUNIT_T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.test_new_stream" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>constructs a new <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
 </dd></dl>
 
@@ -1211,54 +1116,37 @@ printed all at once.</p>
 </dl>
 <p><strong>Description</strong></p>
 <p>Constructs a new test managed <a class="reference internal" href="#c.test_stream" title="test_stream"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">test_stream</span></code></a>.</p>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="class-and-function-mocking.html" class="btn btn-neutral float-right" title="Class and Function Mocking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="class-and-function-mocking.html" class="btn btn-neutral float-right" title="Class and Function Mocking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright The kernel development community.
-
-    </p>
+    <p>&#169; Copyright The kernel development community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,75 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Tests &mdash; The Linux Kernel  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
   
-  <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="kunit_tool How-To" href="kunit-tool.html" />
-    <link rel="prev" title="Getting Started" href="start.html" /> 
+    <link rel="prev" title="Run Tests without kunit_tool" href="run_manual.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> The Linux Kernel
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                5.12.0-rc7
+                5.17.0-rc4
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,52 +38,39 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using KUnit</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#organization-of-this-document">Organization of this document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#what-is-kunit">What is KUnit?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-is-unit-testing">What is Unit Testing?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#writing-tests">Writing Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#test-cases">Test Cases</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#expectations">Expectations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#assertions">Assertions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#test-suites">Test Suites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases">Test Cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#expectations">Expectations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assertions">Assertions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-suites">Test Suites</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-tests-for-other-architectures">Writing Tests For Other Architectures</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#isolating-behavior">Isolating Behavior</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#faking-classes">Faking Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#common-patterns">Common Patterns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#isolating-behavior">Isolating Behavior</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faking-classes">Faking Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#testing-against-multiple-inputs">Testing against multiple inputs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#parameterized-testing">Parameterized Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-against-multiple-inputs">Testing Against Multiple Inputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameterized-testing">Parameterized Testing</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#kunit-on-non-uml-architectures">KUnit on non-UML architectures</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#running-existing-kunit-tests-on-non-uml-architectures">Running existing KUnit tests on non-UML architectures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#writing-new-tests-for-other-architectures">Writing new tests for other architectures</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#kunit-debugfs-representation">KUnit debugfs representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exiting-early-on-failed-expectations">Exiting Early on Failed Expectations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#allocating-memory">Allocating Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-static-functions">Testing Static Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#injecting-test-only-code">Injecting Test-Only Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-the-current-test">Accessing The Current Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#failing-the-current-test">Failing The Current Test</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
@@ -130,114 +78,39 @@
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">The Linux Kernel</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Using KUnit</li>
-    
-    
+      <li>Writing Tests</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="using-kunit">
-<h1>Using KUnit<a class="headerlink" href="#using-kunit" title="Permalink to this headline">¶</a></h1>
-<p>The purpose of this document is to describe what KUnit is, how it works, how it
-is intended to be used, and all the concepts and terminology that are needed to
-understand it. This guide assumes a working knowledge of the Linux kernel and
-some basic knowledge of testing.</p>
-<p>For a high level introduction to KUnit, including setting up KUnit for your
-project, see <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a>.</p>
-<div class="section" id="organization-of-this-document">
-<h2>Organization of this document<a class="headerlink" href="#organization-of-this-document" title="Permalink to this headline">¶</a></h2>
-<p>This document is organized into two main sections: Testing and Common Patterns.
-The first covers what unit tests are and how to use KUnit to write them. The
-second covers common testing patterns, e.g. how to isolate code and make it
-possible to unit test code that was otherwise un-unit-testable.</p>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="what-is-kunit">
-<h3>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h3>
-<p>“K” is short for “kernel” so “KUnit” is the “(Linux) Kernel Unit Testing
-Framework.” KUnit is intended first and foremost for writing unit tests; it is
-general enough that it can be used to write integration tests; however, this is
-a secondary goal. KUnit has no ambition of being the only testing framework for
-the kernel; for example, it does not intend to be an end-to-end testing
-framework.</p>
-</div>
-<div class="section" id="what-is-unit-testing">
-<h3>What is Unit Testing?<a class="headerlink" href="#what-is-unit-testing" title="Permalink to this headline">¶</a></h3>
-<p>A <a class="reference external" href="https://martinfowler.com/bliki/UnitTest.html">unit test</a> is a test that
-tests code at the smallest possible scope, a <em>unit</em> of code. In the C
-programming language that’s a function.</p>
-<p>Unit tests should be written for all the publicly exposed functions in a
-compilation unit; so that is all the functions that are exported in either a
-<em>class</em> (defined below) or all functions which are <strong>not</strong> static.</p>
-</div>
-<div class="section" id="writing-tests">
-<h3>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="test-cases">
-<h4>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h4>
+             
+  <section id="writing-tests">
+<h1>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h1>
+<section id="test-cases">
+<h2>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h2>
 <p>The fundamental unit in KUnit is the test case. A test case is a function with
-the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*test)</span></code>. It calls a function to be tested
+the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*test)</span></code>. It calls the function under test
 and then sets <em>expectations</em> for what should happen. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
@@ -249,18 +122,18 @@ and then sets <em>expectations</em> for what should happen. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example <code class="docutils literal notranslate"><span class="pre">example_test_success</span></code> always passes because it does
-nothing; no expectations are set, so all expectations pass. On the other hand
-<code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL</span></code>, which is
-a special expectation that logs a message and causes the test case to fail.</p>
-</div>
-<div class="section" id="expectations">
-<h4>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h4>
-<p>An <em>expectation</em> is a way to specify that you expect a piece of code to do
-something in a test. An expectation is called like a function. A test is made
-by setting expectations about the behavior of a piece of code under test; when
-one or more of the expectations fail, the test case fails and information about
-the failure is logged. For example:</p>
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">example_test_success</span></code> always passes because it does
+nothing; no expectations are set, and therefore all expectations pass. On the
+other hand <code class="docutils literal notranslate"><span class="pre">example_test_failure</span></code> always fails because it calls <code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL</span></code>,
+which is a special expectation that logs a message and causes the test case to
+fail.</p>
+<section id="expectations">
+<h3>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h3>
+<p>An <em>expectation</em> specifies that we expect a piece of code to do something in a
+test. An expectation is called like a function. A test is made by setting
+expectations about the behavior of a piece of code under test. When one or more
+expectations fail, the test case fails and information about the failure is
+logged. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
@@ -268,26 +141,26 @@ the failure is logged. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> makes a number of assertions about the
-behavior of a function called <code class="docutils literal notranslate"><span class="pre">add</span></code>; the first parameter is always of type
-<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span></code>, which contains information about the current test context;
-the second parameter, in this case, is what the value is expected to be; the
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> makes a number of assertions about the
+behavior of a function called <code class="docutils literal notranslate"><span class="pre">add</span></code>. The first parameter is always of type
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*</span></code>, which contains information about the current test context.
+The second parameter, in this case, is what the value is expected to be. The
 last value is what the value actually is. If <code class="docutils literal notranslate"><span class="pre">add</span></code> passes all of these
 expectations, the test case, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> will pass; if any one of these
 expectations fails, the test case will fail.</p>
-<p>It is important to understand that a test case <em>fails</em> when any expectation is
-violated; however, the test will continue running, potentially trying other
-expectations until the test case ends or is otherwise terminated. This is as
-opposed to <em>assertions</em> which are discussed later.</p>
-<p>To learn about more expectations supported by KUnit, see <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<p>A test case <em>fails</em> when any expectation is violated; however, the test will
+continue to run, and try other expectations until the test case ends or is
+otherwise terminated. This is as opposed to <em>assertions</em> which are discussed
+later.</p>
+<p>To learn about more KUnit expectations, see Documentation/dev-tools/kunit/api/test.rst.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A single test case should be pretty short, pretty easy to understand,
-focused on a single behavior.</p>
+<p>A single test case should be short, easy to understand, and focused on a
+single behavior.</p>
 </div>
-<p>For example, if we wanted to properly test the add function above, we would
-create additional tests cases which would each test a different property that an
-add function should have like this:</p>
+<p>For example, if we want to rigorously test the <code class="docutils literal notranslate"><span class="pre">add</span></code> function above, create
+additional tests cases which would test each property that an <code class="docutils literal notranslate"><span class="pre">add</span></code> function
+should have as shown below:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
@@ -311,50 +184,40 @@ add function should have like this:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Notice how it is immediately obvious what all the properties that we are testing
-for are.</p>
-</div>
-<div class="section" id="assertions">
-<h4>Assertions<a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h4>
-<p>KUnit also has the concept of an <em>assertion</em>. An assertion is just like an
-expectation except the assertion immediately terminates the test case if it is
-not satisfied.</p>
-<p>For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">mock_test_do_expect_default_return</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+</section>
+<section id="assertions">
+<h3>Assertions<a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h3>
+<p>An assertion is like an expectation, except that the assertion immediately
+terminates the test case if the condition is not satisfied. For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">test_sort</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">mock_test_context</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="nc">mock</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">mock</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">param0</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">param1</span> <span class="o">=</span> <span class="mi">-5</span><span class="p">;</span>
-        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">two_param_types</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;int&quot;</span><span class="p">,</span> <span class="s">&quot;int&quot;</span><span class="p">};</span>
-        <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">two_params</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">&amp;</span><span class="n">param0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">param1</span><span class="p">};</span>
-        <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ret</span><span class="p">;</span>
-
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">mock</span><span class="o">-&gt;</span><span class="n">do_expect</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span>
-                              <span class="s">&quot;test_printk&quot;</span><span class="p">,</span> <span class="n">test_printk</span><span class="p">,</span>
-                              <span class="n">two_param_types</span><span class="p">,</span> <span class="n">two_params</span><span class="p">,</span>
-                              <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">two_params</span><span class="p">));</span>
-        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
-        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">-4</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">ret</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">kunit_kmalloc_array</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">TEST_LEN</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">TEST_LEN</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mi">725861</span><span class="p">)</span> <span class="o">%</span> <span class="mi">6599</span><span class="p">;</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">TEST_LEN</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span> <span class="n">cmpint</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">TEST_LEN</span><span class="mi">-1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="n">KUNIT_EXPECT_LE</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, the method under test should return a pointer to a value, so
-if the pointer returned by the method is null or an errno, we don’t want to
-bother continuing the test since the following expectation could crash the test
-case. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us to bail out of the test case if
-the appropriate conditions have not been satisfied to complete the test.</p>
-</div>
-<div class="section" id="test-suites">
-<h4>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h4>
-<p>Now obviously one unit test isn’t very helpful; the power comes from having
-many test cases covering all of a unit’s behaviors. Consequently it is common
-to have many <em>similar</em> tests; in order to reduce duplication in these closely
-related tests most unit testing frameworks - including KUnit - provide the
-concept of a <em>test suite</em>. A <em>test suite</em> is just a collection of test cases
-for a unit of code with a set up function that gets invoked before every test
-case and then a tear down function that gets invoked after every test case
-completes.</p>
-<p>Example:</p>
+<p>In this example, the method under test should return pointer to a value. If the
+pointer returns null or an errno, we want to stop the test since the following
+expectation could crash the test case. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us
+to bail out of the test case if the appropriate conditions are not satisfied to
+complete the test.</p>
+</section>
+<section id="test-suites">
+<h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
+<p>We need many test cases covering all the unit’s behaviors. It is common to have
+many similar tests. In order to reduce duplication in these closely related
+tests, most unit testing frameworks (including KUnit) provide the concept of a
+<em>test suite</em>. A test suite is a collection of test cases for a unit of code
+with a setup function that gets invoked before every test case and then a tear
+down function that gets invoked after every test case completes. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">struct</span> <span class="nc">kunit_case</span> <span class="n">example_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
         <span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span>
@@ -371,61 +234,78 @@ completes.</p>
 <span class="n">kunit_test_suite</span><span class="p">(</span><span class="n">example_test_suite</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>In the above example the test suite, <code class="docutils literal notranslate"><span class="pre">example_test_suite</span></code>, would run the test
-cases <code class="docutils literal notranslate"><span class="pre">example_test_foo</span></code>, <code class="docutils literal notranslate"><span class="pre">example_test_bar</span></code>, and <code class="docutils literal notranslate"><span class="pre">example_test_baz</span></code>;
-each would have <code class="docutils literal notranslate"><span class="pre">example_test_init</span></code> called immediately before it and would
-have <code class="docutils literal notranslate"><span class="pre">example_test_exit</span></code> called immediately after it.
+<p>In the above example, the test suite <code class="docutils literal notranslate"><span class="pre">example_test_suite</span></code> would run the test
+cases <code class="docutils literal notranslate"><span class="pre">example_test_foo</span></code>, <code class="docutils literal notranslate"><span class="pre">example_test_bar</span></code>, and <code class="docutils literal notranslate"><span class="pre">example_test_baz</span></code>. Each
+would have <code class="docutils literal notranslate"><span class="pre">example_test_init</span></code> called immediately before it and
+<code class="docutils literal notranslate"><span class="pre">example_test_exit</span></code> called immediately after it.
 <code class="docutils literal notranslate"><span class="pre">kunit_test_suite(example_test_suite)</span></code> registers the test suite with the
 KUnit test framework.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A test case will only be run if it is associated with a test suite.</p>
+<p>A test case will only run if it is associated with a test suite.</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">kunit_test_suite(...)</span></code> is a macro which tells the linker to put the specified
-test suite in a special linker section so that it can be run by KUnit either
-after late_init, or when the test module is loaded (depending on whether the
-test was built in or not).</p>
-<p>For more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">kunit_test_suite(...)</span></code> is a macro which tells the linker to put the
+specified test suite in a special linker section so that it can be run by KUnit
+either after <code class="docutils literal notranslate"><span class="pre">late_init</span></code>, or when the test module is loaded (if the test was
+built as a module).</p>
+<p>For more information, see Documentation/dev-tools/kunit/api/test.rst.</p>
+</section>
+</section>
+<section id="writing-tests-for-other-architectures">
+<h2>Writing Tests For Other Architectures<a class="headerlink" href="#writing-tests-for-other-architectures" title="Permalink to this headline">¶</a></h2>
+<p>It is better to write tests that run on UML to tests that only run under a
+particular architecture. It is better to write tests that run under QEMU or
+another easy to obtain (and monetarily free) software environment to a specific
+piece of hardware.</p>
+<p>Nevertheless, there are still valid reasons to write a test that is architecture
+or hardware specific. For example, we might want to test code that really
+belongs in <code class="docutils literal notranslate"><span class="pre">arch/some-arch/*</span></code>. Even so, try to write the test so that it does
+not depend on physical hardware. Some of our test cases may not need hardware,
+only few tests actually require the hardware to test it. When hardware is not
+available, instead of disabling tests, we can skip them.</p>
+<p>Now that we have narrowed down exactly what bits are hardware specific, the
+actual procedure for writing and running the tests is same as writing normal
+KUnit tests.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We may have to reset hardware state. If this is not possible, we may only
+be able to run one test case per invocation.</p>
 </div>
-</div>
-</div>
-<div class="section" id="common-patterns">
-<h2>Common Patterns<a class="headerlink" href="#common-patterns" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="isolating-behavior">
-<h3>Isolating Behavior<a class="headerlink" href="#isolating-behavior" title="Permalink to this headline">¶</a></h3>
-<p>The most important aspect of unit testing that other forms of testing do not
-provide is the ability to limit the amount of code under test to a single unit.
-In practice, this is only possible by being able to control what code gets run
-when the unit under test calls a function and this is usually accomplished
-through some sort of indirection where a function is exposed as part of an API
-such that the definition of that function can be changed without affecting the
-rest of the code base. In the kernel this primarily comes from two constructs,
-classes, structs that contain function pointers that are provided by the
-implementer, and architecture-specific functions which have definitions selected
-at compile time.</p>
-<div class="section" id="classes">
-<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+<section id="common-patterns">
+<h1>Common Patterns<a class="headerlink" href="#common-patterns" title="Permalink to this headline">¶</a></h1>
+<section id="isolating-behavior">
+<h2>Isolating Behavior<a class="headerlink" href="#isolating-behavior" title="Permalink to this headline">¶</a></h2>
+<p>Unit testing limits the amount of code under test to a single unit. It controls
+what code gets run when the unit under test calls a function. Where a function
+is exposed as part of an API such that the definition of that function can be
+changed without affecting the rest of the code base. In the kernel, this comes
+from two constructs: classes, which are structs that contain function pointers
+provided by the implementer, and architecture-specific functions, which have
+definitions selected at compile time.</p>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <p>Classes are not a construct that is built into the C programming language;
-however, it is an easily derived concept. Accordingly, pretty much every project
-that does not use a standardized object oriented library (like GNOME’s GObject)
-has their own slightly different way of doing object oriented programming; the
-Linux kernel is no exception.</p>
+however, it is an easily derived concept. Accordingly, in most cases, every
+project that does not use a standardized object oriented library (like GNOME’s
+GObject) has their own slightly different way of doing object oriented
+programming; the Linux kernel is no exception.</p>
 <p>The central concept in kernel object oriented programming is the class. In the
 kernel, a <em>class</em> is a struct that contains function pointers. This creates a
 contract between <em>implementers</em> and <em>users</em> since it forces them to use the
-same function signature without having to call the function directly. In order
-for it to truly be a class, the function pointers must specify that a pointer
-to the class, known as a <em>class handle</em>, be one of the parameters; this makes
-it possible for the member functions (also known as <em>methods</em>) to have access
-to member variables (more commonly known as <em>fields</em>) allowing the same
-implementation to have multiple <em>instances</em>.</p>
-<p>Typically a class can be <em>overridden</em> by <em>child classes</em> by embedding the
-<em>parent class</em> in the child class. Then when a method provided by the child
-class is called, the child implementation knows that the pointer passed to it is
-of a parent contained within the child; because of this, the child can compute
-the pointer to itself because the pointer to the parent is always a fixed offset
-from the pointer to the child; this offset is the offset of the parent contained
-in the child struct. For example:</p>
+same function signature without having to call the function directly. To be a
+class, the function pointers must specify that a pointer to the class, known as
+a <em>class handle</em>, be one of the parameters. Thus the member functions (also
+known as <em>methods</em>) have access to member variables (also known as <em>fields</em>)
+allowing the same implementation to have multiple <em>instances</em>.</p>
+<p>A class can be <em>overridden</em> by <em>child classes</em> by embedding the <em>parent class</em>
+in the child class. Then when the child class <em>method</em> is called, the child
+implementation knows that the pointer passed to it is of a parent contained
+within the child. Thus, the child can compute the pointer to itself because the
+pointer to the parent is always a fixed offset from the pointer to the child.
+This offset is the offset of the parent contained in the child struct. For
+example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">shape</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">area</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">);</span>
 <span class="p">};</span>
@@ -438,7 +318,7 @@ in the child struct. For example:</p>
 
 <span class="kt">int</span> <span class="nf">rectangle_area</span><span class="p">(</span><span class="k">struct</span> <span class="nc">shape</span> <span class="o">*</span><span class="n">this</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">rectangle</span> <span class="o">*</span><span class="n">self</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">shape</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="nc">rectangle</span> <span class="o">*</span><span class="n">self</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">rectangle</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
 
         <span class="k">return</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">*</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span>
 <span class="p">};</span>
@@ -451,28 +331,26 @@ in the child struct. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example (as in most kernel code) the operation of computing the pointer
-to the child from the pointer to the parent is done by <code class="docutils literal notranslate"><span class="pre">container_of</span></code>.</p>
-</div>
-<div class="section" id="faking-classes">
-<h4>Faking Classes<a class="headerlink" href="#faking-classes" title="Permalink to this headline">¶</a></h4>
+<p>In this example, computing the pointer to the child from the pointer to the
+parent is done by <code class="docutils literal notranslate"><span class="pre">container_of</span></code>.</p>
+</section>
+<section id="faking-classes">
+<h3>Faking Classes<a class="headerlink" href="#faking-classes" title="Permalink to this headline">¶</a></h3>
 <p>In order to unit test a piece of code that calls a method in a class, the
 behavior of the method must be controllable, otherwise the test ceases to be a
 unit test and becomes an integration test.</p>
-<p>A fake just provides an implementation of a piece of code that is different than
-what runs in a production instance, but behaves identically from the standpoint
-of the callers; this is usually done to replace a dependency that is hard to
-deal with, or is slow.</p>
-<p>A good example for this might be implementing a fake EEPROM that just stores the
-“contents” in an internal buffer. For example, let’s assume we have a class that
-represents an EEPROM:</p>
+<p>A fake class implements a piece of code that is different than what runs in a
+production instance, but behaves identical from the standpoint of the callers.
+This is done to replace a dependency that is hard to deal with, or is slow. For
+example, implementing a fake EEPROM that stores the “contents” in an
+internal buffer. Assume we have a class that represents an EEPROM:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">eeprom</span> <span class="p">{</span>
         <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">read</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
         <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">eeprom</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>And we want to test some code that buffers writes to the EEPROM:</p>
+<p>And we want to test code that buffers writes to the EEPROM:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">eeprom_buffer</span> <span class="p">{</span>
         <span class="kt">ssize_t</span> <span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">eeprom_buffer</span> <span class="o">*</span><span class="n">this</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
         <span class="kt">int</span> <span class="nf">flush</span><span class="p">(</span><span class="k">struct</span> <span class="nc">eeprom_buffer</span> <span class="o">*</span><span class="n">this</span><span class="p">);</span>
@@ -483,7 +361,7 @@ represents an EEPROM:</p>
 <span class="kt">void</span> <span class="nf">destroy_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span> <span class="nc">eeprom</span> <span class="o">*</span><span class="n">eeprom</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We can easily test this code by <em>faking out</em> the underlying EEPROM:</p>
+<p>We can test this code by <em>faking out</em> the underlying EEPROM:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">fake_eeprom</span> <span class="p">{</span>
         <span class="k">struct</span> <span class="nc">eeprom</span> <span class="n">parent</span><span class="p">;</span>
         <span class="kt">char</span> <span class="n">contents</span><span class="p">[</span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">];</span>
@@ -606,31 +484,30 @@ represents an EEPROM:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="testing-against-multiple-inputs">
-<h3>Testing against multiple inputs<a class="headerlink" href="#testing-against-multiple-inputs" title="Permalink to this headline">¶</a></h3>
-<p>Testing just a few inputs might not be enough to have confidence that the code
-works correctly, e.g. for a hash function.</p>
-<p>In such cases, it can be helpful to have a helper macro or function, e.g. this
-fictitious example for <code class="docutils literal notranslate"><span class="pre">sha1sum(1)</span></code></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Note: the cast is to satisfy overly strict type-checking. */</span>
-<span class="cp">#define TEST_SHA1(in, want) \</span>
+</section>
+</section>
+<section id="testing-against-multiple-inputs">
+<h2>Testing Against Multiple Inputs<a class="headerlink" href="#testing-against-multiple-inputs" title="Permalink to this headline">¶</a></h2>
+<p>Testing just a few inputs is not enough to ensure that the code works correctly,
+for example: testing a hash function.</p>
+<p>We can write a helper macro or function. The function is called for each input.
+For example, to test <code class="docutils literal notranslate"><span class="pre">sha1sum(1)</span></code>, we can write:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TEST_SHA1(in, want) \</span>
 <span class="cp">        sha1sum(in, out); \</span>
-<span class="cp">        KUNIT_EXPECT_STREQ_MSG(test, (char *)out, want, &quot;sha1sum(%s)&quot;, in);</span>
+<span class="cp">        KUNIT_EXPECT_STREQ_MSG(test, out, want, &quot;sha1sum(%s)&quot;, in);</span>
 
 <span class="kt">char</span> <span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
 <span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span>  <span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">);</span>
 <span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span> <span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Note the use of <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ_MSG</span></code> to give more context when it fails
-and make it easier to track down. (Yes, in this example, <code class="docutils literal notranslate"><span class="pre">want</span></code> is likely
-going to be unique enough on its own).</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">_MSG</span></code> variants are even more useful when the same expectation is called
-multiple times (in a loop or helper function) and thus the line number isn’t
-enough to identify what failed, like below.</p>
-<p>In some cases, it can be helpful to write a <em>table-driven test</em> instead, e.g.</p>
+<p>Note the use of the <code class="docutils literal notranslate"><span class="pre">_MSG</span></code> version of <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ</span></code> to print a more
+detailed error and make the assertions clearer within the helper macros.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">_MSG</span></code> variants are useful when the same expectation is called multiple
+times (in a loop or helper function) and thus the line number is not enough to
+identify what failed, as shown below.</p>
+<p>In complicated cases, we recommend using a <em>table-driven test</em> compared to the
+helper macro variation, for example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 <span class="kt">char</span> <span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
 
@@ -651,31 +528,31 @@ enough to identify what failed, like below.</p>
 <span class="p">};</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">cases</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">sha1sum</span><span class="p">(</span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
-        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">out</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span>
+        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span>
                               <span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span> <span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>There’s more boilerplate involved, but it can:</p>
+<p>There is more boilerplate code involved, but it can:</p>
 <ul class="simple">
-<li><p>be more readable when there are multiple inputs/outputs thanks to field names,</p>
+<li><p>be more readable when there are multiple inputs/outputs (due to field names).</p>
 <ul>
-<li><p>E.g. see <code class="docutils literal notranslate"><span class="pre">fs/ext4/inode-test.c</span></code> for an example of both.</p></li>
+<li><p>For example, see <code class="docutils literal notranslate"><span class="pre">fs/ext4/inode-test.c</span></code>.</p></li>
 </ul>
 </li>
-<li><p>reduce duplication if test cases can be shared across multiple tests.</p>
+<li><p>reduce duplication if test cases are shared across multiple tests.</p>
 <ul>
-<li><p>E.g. if we wanted to also test <code class="docutils literal notranslate"><span class="pre">sha256sum</span></code>, we could add a <code class="docutils literal notranslate"><span class="pre">sha256</span></code>
+<li><p>For example: if we want to test <code class="docutils literal notranslate"><span class="pre">sha256sum</span></code>, we could add a <code class="docutils literal notranslate"><span class="pre">sha256</span></code>
 field and reuse <code class="docutils literal notranslate"><span class="pre">cases</span></code>.</p></li>
 </ul>
 </li>
-<li><p>be converted to a “parameterized test”, see below.</p></li>
+<li><p>be converted to a “parameterized test”.</p></li>
 </ul>
-<div class="section" id="parameterized-testing">
-<h4>Parameterized Testing<a class="headerlink" href="#parameterized-testing" title="Permalink to this headline">¶</a></h4>
+<section id="parameterized-testing">
+<h3>Parameterized Testing<a class="headerlink" href="#parameterized-testing" title="Permalink to this headline">¶</a></h3>
 <p>The table-driven testing pattern is common enough that KUnit has special
 support for it.</p>
-<p>Reusing the same <code class="docutils literal notranslate"><span class="pre">cases</span></code> array from above, we can write the test as a
+<p>By reusing the same <code class="docutils literal notranslate"><span class="pre">cases</span></code> array from above, we can write the test as a
 “parameterized test” with the following.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// This is copy-pasted from above.</span>
 <span class="k">struct</span> <span class="nc">sha1_test_case</span> <span class="p">{</span>
@@ -710,7 +587,7 @@ support for it.</p>
         <span class="k">struct</span> <span class="nc">sha1_test_case</span> <span class="o">*</span><span class="n">test_param</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sha1_test_case</span> <span class="o">*</span><span class="p">)(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">param_value</span><span class="p">);</span>
 
         <span class="n">sha1sum</span><span class="p">(</span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
-        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">out</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span>
+        <span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span>
                               <span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span> <span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 
@@ -722,193 +599,178 @@ support for it.</p>
 <span class="p">};</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="kunit-on-non-uml-architectures">
-<span id="kunit-on-non-uml"></span><h2>KUnit on non-UML architectures<a class="headerlink" href="#kunit-on-non-uml-architectures" title="Permalink to this headline">¶</a></h2>
-<p>By default KUnit uses UML as a way to provide dependencies for code under test.
-Under most circumstances KUnit’s usage of UML should be treated as an
-implementation detail of how KUnit works under the hood. Nevertheless, there
-are instances where being able to run architecture-specific code or test
-against real hardware is desirable. For these reasons KUnit supports running on
-other architectures.</p>
-<div class="section" id="running-existing-kunit-tests-on-non-uml-architectures">
-<h3>Running existing KUnit tests on non-UML architectures<a class="headerlink" href="#running-existing-kunit-tests-on-non-uml-architectures" title="Permalink to this headline">¶</a></h3>
-<p>There are some special considerations when running existing KUnit tests on
-non-UML architectures:</p>
-<ul class="simple">
-<li><p>Hardware may not be deterministic, so a test that always passes or fails
-when run under UML may not always do so on real hardware.</p></li>
-<li><p>Hardware and VM environments may not be hermetic. KUnit tries its best to
-provide a hermetic environment to run tests; however, it cannot manage state
-that it doesn’t know about outside of the kernel. Consequently, tests that
-may be hermetic on UML may not be hermetic on other architectures.</p></li>
-<li><p>Some features and tooling may not be supported outside of UML.</p></li>
-<li><p>Hardware and VMs are slower than UML.</p></li>
-</ul>
-<p>None of these are reasons not to run your KUnit tests on real hardware; they are
-only things to be aware of when doing so.</p>
-<p>The biggest impediment will likely be that certain KUnit features and
-infrastructure may not support your target environment. For example, at this
-time the KUnit Wrapper (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) does not work outside
-of UML. Unfortunately, there is no way around this. Using UML (or even just a
-particular architecture) allows us to make a lot of assumptions that make it
-possible to do things which might otherwise be impossible.</p>
-<p>Nevertheless, all core KUnit framework features are fully supported on all
-architectures, and using them is straightforward: all you need to do is to take
-your kunitconfig, your Kconfig options for the tests you would like to run, and
-merge them into whatever config your are using for your platform. That’s it!</p>
-<p>For example, let’s say you have the following kunitconfig:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
-CONFIG_KUNIT_EXAMPLE_TEST=y
+</section>
+</section>
+<section id="exiting-early-on-failed-expectations">
+<span id="kunit-on-non-uml"></span><h2>Exiting Early on Failed Expectations<a class="headerlink" href="#exiting-early-on-failed-expectations" title="Permalink to this headline">¶</a></h2>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ</span></code> to mark the test as failed and continue
+execution.  In some cases, it is unsafe to continue. We can use the
+<code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT</span></code> variant to exit on failure.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_user_alloc_function</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="kt">void</span> <span class="o">*</span><span class="n">object</span> <span class="o">=</span> <span class="n">alloc_some_object_for_me</span><span class="p">();</span>
+
+        <span class="cm">/* Make sure we got a valid pointer back. */</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">object</span><span class="p">);</span>
+        <span class="n">do_something_with_object</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>If you wanted to run this test on an x86 VM, you might add the following config
-options to your <code class="docutils literal notranslate"><span class="pre">.config</span></code>:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
-CONFIG_KUNIT_EXAMPLE_TEST=y
-CONFIG_SERIAL_8250=y
-CONFIG_SERIAL_8250_CONSOLE=y
+</section>
+<section id="allocating-memory">
+<h2>Allocating Memory<a class="headerlink" href="#allocating-memory" title="Permalink to this headline">¶</a></h2>
+<p>Where you might use <code class="docutils literal notranslate"><span class="pre">kzalloc</span></code>, you can instead use <code class="docutils literal notranslate"><span class="pre">kunit_kzalloc</span></code> as KUnit
+will then ensure that the memory is freed once the test completes.</p>
+<p>This is useful because it lets us use the <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_EQ</span></code> macros to exit
+early from a test without having to worry about remembering to call <code class="docutils literal notranslate"><span class="pre">kfree</span></code>.
+For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_test_allocation</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+        <span class="cm">/* Ensure allocation succeeded. */</span>
+        <span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+
+        <span class="n">KUNIT_ASSERT_STREQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>All these new options do is enable support for a common serial console needed
-for logging.</p>
-<p>Next, you could build a kernel with these tests as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make <span class="nv">ARCH</span><span class="o">=</span>x86 olddefconfig
-make <span class="nv">ARCH</span><span class="o">=</span>x86
+</section>
+<section id="testing-static-functions">
+<h2>Testing Static Functions<a class="headerlink" href="#testing-static-functions" title="Permalink to this headline">¶</a></h2>
+<p>If we do not want to expose functions or variables for testing, one option is to
+conditionally <code class="docutils literal notranslate"><span class="pre">#include</span></code> the test file at the end of your .c file. For
+example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.c */</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">do_interesting_thing</span><span class="p">();</span>
+
+<span class="cp">#ifdef CONFIG_MY_KUNIT_TEST</span>
+<span class="cp">#include</span> <span class="cpf">&quot;my_kunit_test.c&quot;</span><span class="cp"></span>
+<span class="cp">#endif</span>
 </pre></div>
 </div>
-<p>Once you have built a kernel, you could run it on QEMU as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qemu-system-x86_64 -enable-kvm <span class="se">\</span>
-                   -m <span class="m">1024</span> <span class="se">\</span>
-                   -kernel arch/x86_64/boot/bzImage <span class="se">\</span>
-                   -append <span class="s1">&#39;console=ttyS0&#39;</span> <span class="se">\</span>
-                   --nographic
+</section>
+<section id="injecting-test-only-code">
+<h2>Injecting Test-Only Code<a class="headerlink" href="#injecting-test-only-code" title="Permalink to this headline">¶</a></h2>
+<p>Similar to as shown above, we can add test-specific logic. For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.h */</span>
+
+<span class="cp">#ifdef CONFIG_MY_KUNIT_TEST</span>
+<span class="cm">/* Defined in my_kunit_test.c */</span>
+<span class="kt">void</span> <span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="cp">#else</span>
+<span class="kt">void</span> <span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="cp">#endif</span>
 </pre></div>
 </div>
-<p>Interspersed in the kernel logs you might see the following:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TAP version 14
-        # Subtest: example
-        1..1
-        # example_simple_test: initializing
-        ok 1 - example_simple_test
-ok 1 - example
+<p>This test-only code can be made more useful by accessing the current <code class="docutils literal notranslate"><span class="pre">kunit_test</span></code>
+as shown in next section: <em>Accessing The Current Test</em>.</p>
+</section>
+<section id="accessing-the-current-test">
+<h2>Accessing The Current Test<a class="headerlink" href="#accessing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<p>In some cases, we need to call test-only code from outside the test file.
+For example, see example in section <em>Injecting Test-Only Code</em> or if
+we are providing a fake implementation of an ops struct. Using
+<code class="docutils literal notranslate"><span class="pre">kunit_test</span></code> field in <code class="docutils literal notranslate"><span class="pre">task_struct</span></code>, we can access it via
+<code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code>.</p>
+<p>The example below includes how to implement “mocking”:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;linux/sched.h&gt;</span><span class="c1"> /* for current */</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="nc">test_data</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">foo_result</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">want_foo_called_with</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">fake_foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="nc">test_data</span> <span class="o">*</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="p">,</span> <span class="n">arg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">example_simple_test</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="cm">/* Assume priv (private, a member used to pass test data from</span>
+<span class="cm">         * the init function) is allocated in the suite&#39;s .init */</span>
+        <span class="k">struct</span> <span class="nc">test_data</span> <span class="o">*</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+
+        <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+        <span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="cm">/* In a real test, we&#39;d probably pass a pointer to fake_foo somewhere</span>
+<span class="cm">         * like an ops struct, etc. instead of calling it directly. */</span>
+        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">fake_foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">42</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Congratulations, you just ran a KUnit test on the x86 architecture!</p>
-<p>In a similar manner, kunit and kunit tests can also be built as modules,
-so if you wanted to run tests in this way you might add the following config
-options to your <code class="docutils literal notranslate"><span class="pre">.config</span></code>:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=m
-CONFIG_KUNIT_EXAMPLE_TEST=m
+<p>In this example, we are using the <code class="docutils literal notranslate"><span class="pre">priv</span></code> member of <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code> as a way
+of passing data to the test from the init function. In general <code class="docutils literal notranslate"><span class="pre">priv</span></code> is
+pointer that can be used for any user data. This is preferred over static
+variables, as it avoids concurrency issues.</p>
+<p>Had we wanted something more flexible, we could have used a named <code class="docutils literal notranslate"><span class="pre">kunit_resource</span></code>.
+Each test can have multiple resources which have string names providing the same
+flexibility as a <code class="docutils literal notranslate"><span class="pre">priv</span></code> member, but also, for example, allowing helper
+functions to create resources without conflicting with each other. It is also
+possible to define a clean up function for each resource, making it easy to
+avoid resource leaks. For more information, see Documentation/dev-tools/kunit/api/test.rst.</p>
+</section>
+<section id="failing-the-current-test">
+<h2>Failing The Current Test<a class="headerlink" href="#failing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<p>If we want to fail the current test, we can use <code class="docutils literal notranslate"><span class="pre">kunit_fail_current_test(fmt,</span> <span class="pre">args...)</span></code>
+which is defined in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test-bug.h&gt;</span></code> and does not require pulling in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code>.
+For example, we have an option to enable some extra debug checks on some data
+structures as shown below:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;kunit/test-bug.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#ifdef CONFIG_EXTRA_DEBUG_CHECKS</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">validate_my_data</span><span class="p">(</span><span class="k">struct</span> <span class="nc">data</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                <span class="k">return</span><span class="p">;</span>
+
+        <span class="n">kunit_fail_current_test</span><span class="p">(</span><span class="s">&quot;data %p is invalid&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+
+        <span class="cm">/* Normal, non-KUnit, error reporting code here. */</span>
+<span class="p">}</span>
+<span class="cp">#else</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">my_debug_function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="cp">#endif</span>
 </pre></div>
 </div>
-<p>Once the kernel is built and installed, a simple</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe example-test
-</pre></div>
-</div>
-<p>…will run the tests.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that you should make sure your test depends on <code class="docutils literal notranslate"><span class="pre">KUNIT=y</span></code> in Kconfig
-if the test does not support module build.  Otherwise, it will trigger
-compile errors if <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT</span></code> is <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
-</div>
-</div>
-<div class="section" id="writing-new-tests-for-other-architectures">
-<h3>Writing new tests for other architectures<a class="headerlink" href="#writing-new-tests-for-other-architectures" title="Permalink to this headline">¶</a></h3>
-<p>The first thing you must do is ask yourself whether it is necessary to write a
-KUnit test for a specific architecture, and then whether it is necessary to
-write that test for a particular piece of hardware. In general, writing a test
-that depends on having access to a particular piece of hardware or software (not
-included in the Linux source repo) should be avoided at all costs.</p>
-<p>Even if you only ever plan on running your KUnit test on your hardware
-configuration, other people may want to run your tests and may not have access
-to your hardware. If you write your test to run on UML, then anyone can run your
-tests without knowing anything about your particular setup, and you can still
-run your tests on your hardware setup just by compiling for your architecture.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Always prefer tests that run on UML to tests that only run under a particular
-architecture, and always prefer tests that run under QEMU or another easy
-(and monetarily free) to obtain software environment to a specific piece of
-hardware.</p>
-</div>
-<p>Nevertheless, there are still valid reasons to write an architecture or hardware
-specific test: for example, you might want to test some code that really belongs
-in <code class="docutils literal notranslate"><span class="pre">arch/some-arch/*</span></code>. Even so, try your best to write the test so that it
-does not depend on physical hardware: if some of your test cases don’t need the
-hardware, only require the hardware for tests that actually need it.</p>
-<p>Now that you have narrowed down exactly what bits are hardware specific, the
-actual procedure for writing and running the tests is pretty much the same as
-writing normal KUnit tests. One special caveat is that you have to reset
-hardware state in between test cases; if this is not possible, you may only be
-able to run one test case per invocation.</p>
-</div>
-</div>
-<div class="section" id="kunit-debugfs-representation">
-<h2>KUnit debugfs representation<a class="headerlink" href="#kunit-debugfs-representation" title="Permalink to this headline">¶</a></h2>
-<p>When kunit test suites are initialized, they create an associated directory
-in <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;test-suite&gt;</span></code>.  The directory contains one file</p>
-<ul class="simple">
-<li><p>results: “cat results” displays results of each test case and the results
-of the entire suite for the last test run.</p></li>
-</ul>
-<p>The debugfs representation is primarily of use when kunit test suites are
-run in a native environment, either as modules or builtin.  Having a way
-to display results like this is valuable as otherwise results can be
-intermixed with other events in dmesg output.  The maximum size of each
-results file is KUNIT_LOG_SIZE bytes (defined in <code class="docutils literal notranslate"><span class="pre">include/kunit/test.h</span></code>).</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run_manual.html" class="btn btn-neutral float-left" title="Run Tests without kunit_tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="kunit-tool.html" class="btn btn-neutral float-right" title="kunit_tool How-To" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright The kernel development community.
-
-    </p>
+    <p>&#169; Copyright The kernel development community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

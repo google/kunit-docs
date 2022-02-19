@@ -112,7 +112,7 @@ for the authoritative source on how to write Kconfig entries.
 ====
 
 - ``kunit.py`` can run tests on non-UML architectures (using QEMU), `docs
-  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.html#running-existing-kunit-tests-on-non-uml-architectures>`__
+  <https://www.kernel.org/doc/html/latest/dev-tools/kunit/kunit-tool.html#running-tests-on-qemu>`__
 - It's now possible to generate code coverage reports when using UML, `docs
   <https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#generating-code-coverage-reports-under-uml>`__
 - Tests can call ``kunit_skip()`` to bail out and mark a test as "SKIPPED"

@@ -1,33 +1,75 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  <meta charset="utf-8" />
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Using KUnit &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api/index.html" />
     <link rel="prev" title="Getting Started" href="start.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="index.html" class="icon icon-home"> The Linux Kernel
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
                 4.19.0
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -35,7 +77,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using KUnit</a><ul>
@@ -81,31 +134,72 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">The Linux Kernel</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
       <li>Using KUnit</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
-  <section id="using-kunit">
+            
+  <div class="section" id="using-kunit">
 <h1>Using KUnit<a class="headerlink" href="#using-kunit" title="Permalink to this headline">¶</a></h1>
 <p>The purpose of this document is to describe what KUnit is, how it works, how it
 is intended to be used, and all the concepts and terminology that are needed to
@@ -113,16 +207,16 @@ understand it. This guide assumes a working knowledge of the Linux kernel and
 some basic knowledge of testing.</p>
 <p>For a high level introduction to KUnit, including setting up KUnit for your
 project, see <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a>.</p>
-<section id="organization-of-this-document">
+<div class="section" id="organization-of-this-document">
 <h2>Organization of this document<a class="headerlink" href="#organization-of-this-document" title="Permalink to this headline">¶</a></h2>
 <p>This document is organized into two main sections: Testing and Mocking. The
 first covers what a unit test is and how to use KUnit to write them. The second
 covers how to use KUnit to mock out dependencies and make it possible to unit
 test code that was otherwise un-unit-testable.</p>
-</section>
-<section id="testing">
+</div>
+<div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<section id="what-is-kunit">
+<div class="section" id="what-is-kunit">
 <h3>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h3>
 <p>“K” is short for “kernel” so “KUnit” is the “(Linux) Kernel Unit Testing
 Framework.” KUnit is intended first and foremost for writing unit tests; it is
@@ -130,8 +224,8 @@ general enough that it can be used to write integration tests; however, this is
 a secondary goal. KUnit has no ambition of being the only testing framework for
 the kernel; for example, it does not intend to be an end-to-end testing
 framework.</p>
-</section>
-<section id="what-is-unit-testing">
+</div>
+<div class="section" id="what-is-unit-testing">
 <h3>What is Unit Testing?<a class="headerlink" href="#what-is-unit-testing" title="Permalink to this headline">¶</a></h3>
 <p>A <em>unit test</em> is a test that tests code at the smallest possible scope, a
 <em>unit</em> of code. For the C programming language, defining a unit is easy: it is
@@ -141,10 +235,10 @@ they are hard to reason about.</p>
 <p>A unit test should test all the publicly exposed functions in a unit; so that is
 all the functions that are exported in either a <em>class</em> (defined below) or all
 functions which are <strong>not</strong> static.</p>
-</section>
-<section id="writing-tests">
+</div>
+<div class="section" id="writing-tests">
 <h3>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h3>
-<section id="test-cases">
+<div class="section" id="test-cases">
 <h4>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h4>
 <p>The fundamental unit in KUnit is the test case. A test case is a function with
 the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">test</span> <span class="pre">*test)</span></code>. It calls a function to be tested
@@ -166,8 +260,8 @@ special expectation that logs a message and causes the test case to fail.</p>
 <p>Preferably, a single test case will be pretty short, it should be pretty easy to
 understand, and it should really only try to test at most a handful of very
 closely relating things.</p>
-</section>
-<section id="expectations">
+</div>
+<div class="section" id="expectations">
 <h4>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h4>
 <p>An <em>expectation</em> is a way to make an assertion about what a piece of code should
 do in a test. An expectation is called like a function. A test is made by
@@ -192,8 +286,8 @@ value is what the value actually is. If <code class="docutils literal notranslat
 the test case, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> will pass; if any one of these expectations
 fail, the test case will fail.</p>
 <p>To learn about more expectations supported by KUnit, see <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
-</section>
-<section id="assertions">
+</div>
+<div class="section" id="assertions">
 <h4>Assertions<a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h4>
 <p>KUnit also has the concept of an <em>assertion</em>. An assertion is just like an
 expectation except the assertion immediately terminates the test case if it is
@@ -223,8 +317,8 @@ continuing the test since the following expectation could crash the test case
 if the pointer is null. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us to bail out of
 the test case if the appropriate conditions have not been satisfied to complete
 the test.</p>
-</section>
-<section id="modules-test-suites">
+</div>
+<div class="section" id="modules-test-suites">
 <h4>Modules / Test Suites<a class="headerlink" href="#modules-test-suites" title="Permalink to this headline">¶</a></h4>
 <p>Because test cases are supposed to test just a single function and then only
 test a set of closely related concepts about that function, multiple test cases
@@ -263,10 +357,10 @@ test framework.</p>
 <p>A test case will only be run if it is associated with a test suite.</p>
 </div>
 <p>For a more information on these types of things see the <a class="reference internal" href="api/test.html"><span class="doc">Test API</span></a>.</p>
-</section>
-</section>
-</section>
-<section id="mocking">
+</div>
+</div>
+</div>
+<div class="section" id="mocking">
 <h2>Mocking<a class="headerlink" href="#mocking" title="Permalink to this headline">¶</a></h2>
 <p>The most important aspect of unit testing that other forms of testing do not
 provide is the ability to limit the amount of code under test to a single unit.
@@ -278,7 +372,7 @@ rest of the code base. In the kernel this primarily comes from two constructs,
 classes, structs that contain function pointers that are provided by the
 implementer, and architecture specific functions which have definitions selected
 at compile time.</p>
-<section id="classes">
+<div class="section" id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <p>Classes are not a construct that is built into the C programming language;
 however, it is an easily derived concept. Accordingly, pretty much every project
@@ -328,7 +422,7 @@ in the child struct. For example:</p>
 </div>
 <p>In this example (as in most kernel code) the operation of computing the pointer
 to the child from the pointer to the parent is done by <code class="docutils literal notranslate"><span class="pre">container_of</span></code>.</p>
-<section id="mocking-classes">
+<div class="section" id="mocking-classes">
 <h4>Mocking Classes<a class="headerlink" href="#mocking-classes" title="Permalink to this headline">¶</a></h4>
 <p>In order to unit test a piece of code that calls a method in a class, the
 behavior of the method must be controllable, otherwise the test ceases to be a
@@ -432,9 +526,9 @@ parameter matcher. <code class="docutils literal notranslate"><span class="pre">
 specify additional behavior on the mock; it must always specify a return value
 using an <em>action</em>. Finally, it calls the function under test.</p>
 <p>For more information on class mocking see <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a>.</p>
-</section>
-</section>
-<section id="mocking-arbitrary-functions">
+</div>
+</div>
+<div class="section" id="mocking-arbitrary-functions">
 <h3>Mocking Arbitrary Functions<a class="headerlink" href="#mocking-arbitrary-functions" title="Permalink to this headline">¶</a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -466,7 +560,7 @@ When not compiling for testing, <code class="docutils literal notranslate"><span
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">__mockable</span></code> does not work on inlined functions.</p>
 </div>
-<section id="redirect-mockable">
+<div class="section" id="redirect-mockable">
 <h4>Redirect-mockable<a class="headerlink" href="#redirect-mockable" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes it is desirable to have a mock function that delegates to the original
 definition in some or all circumstances. This is possible by making the function
@@ -513,9 +607,9 @@ with the <code class="docutils literal notranslate"><span class="pre">INVOKE_REA
 </div>
 <p>For more information on function mocking see
 <a class="reference internal" href="api/class-and-function-mocking.html"><span class="doc">Class and Function Mocking</span></a>.</p>
-</section>
-</section>
-<section id="platform-mocking">
+</div>
+</div>
+<div class="section" id="platform-mocking">
 <h3>Platform Mocking<a class="headerlink" href="#platform-mocking" title="Permalink to this headline">¶</a></h3>
 <p>The Linux kernel generally forbids normal code from accessing architecture
 specific features. Instead, low level hardware features are usually abstracted
@@ -528,16 +622,16 @@ helpers for this as well.</p>
 <p>In order to use platform mocking, <code class="docutils literal notranslate"><span class="pre">CONFIG_PLATFORM_MOCK</span></code> must be enabled in
 your <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code>.</p>
 <p>For more information on platform mocking see <a class="reference internal" href="api/platform-mocking.html"><span class="doc">Platform Mocking</span></a>.</p>
-</section>
-</section>
-<section id="method-call-expectations">
+</div>
+</div>
+<div class="section" id="method-call-expectations">
 <h2>Method Call Expectations<a class="headerlink" href="#method-call-expectations" title="Permalink to this headline">¶</a></h2>
 <p>Once we have classes and methods mocked, we can place more advanced
 expectations. Previously, we could only place expectations on simple return
 values. With the <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> macro, which allows you to make
 assertions that a certain mocked function is called with specific arguments
 given some code to be run.</p>
-<section id="basic-usage">
+<div class="section" id="basic-usage">
 <h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
 <p>Imagine we had some kind of dependency like this:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">Printer</span> <span class="p">{</span>
@@ -587,8 +681,8 @@ test, we’d construct a <code class="docutils literal notranslate"><span class=
 once), and that it will be called with the argument <code class="docutils literal notranslate"><span class="pre">12</span></code>. Once we’ve placed
 expectations, we can call the function we want to test to see that it behaves
 as we expected.</p>
-</section>
-<section id="matchers">
+</div>
+<div class="section" id="matchers">
 <h3>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h3>
 <p>Above, we see <code class="docutils literal notranslate"><span class="pre">any</span></code> and <code class="docutils literal notranslate"><span class="pre">int_eq</span></code>, which are matchers. A matcher simply
 asserts that the argument passed to that function call fulfills some condition.
@@ -603,13 +697,13 @@ fulfilled. There are a variety of built-in matchers:
 Matchers may only be used within the function inside the
 <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a>.</p>
 </div>
-</section>
-<section id="additional-expect-call-properties">
+</div>
+<div class="section" id="additional-expect-call-properties">
 <h3>Additional <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> Properties<a class="headerlink" href="#additional-expect-call-properties" title="Permalink to this headline">¶</a></h3>
 <p>The return value of <a class="reference internal" href="api/class-and-function-mocking.html#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> is a
 <code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation()</span></code>. We can capture the value and add extra
 properties to it as defined by the <code class="xref c c-func docutils literal notranslate"><span class="pre">struct</span> <span class="pre">mock_expectation()</span></code> interface.</p>
-<section id="times-called">
+<div class="section" id="times-called">
 <h4>Times Called<a class="headerlink" href="#times-called" title="Permalink to this headline">¶</a></h4>
 <p>In the previous example, if we wanted assert that the method is never called,
 we could write:</p>
@@ -622,8 +716,8 @@ we could write:</p>
 </div>
 <p>Both those fields are set to 1 by default and can be changed to assert a range
 of times that the method or function is called.</p>
-</section>
-<section id="mocked-actions">
+</div>
+<div class="section" id="mocked-actions">
 <h4>Mocked Actions<a class="headerlink" href="#mocked-actions" title="Permalink to this headline">¶</a></h4>
 <p>Because <code class="docutils literal notranslate"><span class="pre">mock_printer</span></code> is a mock, it doesn’t actually perform any task. If
 the function had some side effect that <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Foo</span></code> requires to have been
@@ -635,10 +729,10 @@ values. Those can also be found in <a class="reference internal" href="api/class
 and assigning the appropriate function to <code class="docutils literal notranslate"><span class="pre">do_action</span></code>. Mocked actions have
 access to the parameters passed to the mocked function, as well as have the
 ability to change / set the return value.</p>
-</section>
-</section>
-</section>
-<section id="the-nice-the-strict-and-the-naggy">
+</div>
+</div>
+</div>
+<div class="section" id="the-nice-the-strict-and-the-naggy">
 <h2>The Nice, the Strict, and the Naggy<a class="headerlink" href="#the-nice-the-strict-and-the-naggy" title="Permalink to this headline">¶</a></h2>
 <p>KUnit has three different mock types that can be set on a mocked class: nice
 mocks, strict mocks, and naggy mocks. These are set via the corresponding macros
@@ -702,38 +796,55 @@ case:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nf">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span> <span class="o">*</span><span class="n">mock_example</span> <span class="o">=</span> <span class="n">NICE_MOCK</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">);</span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
+    <p>
+        &#169; Copyright The kernel development community.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

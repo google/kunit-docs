@@ -1,31 +1,70 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUnit Design &mdash; KUnit  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <meta charset="utf-8" />
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>KUnit Design &mdash; KUnit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    <script src="../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Useful Commands" href="useful-commands.html" />
-    <link rel="prev" title="Getting Started Developing KUnit" href="start.html" /> 
+    <link rel="prev" title="Gerrit Workflow" href="gerrit-workflow.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../index.html" class="icon icon-home"> KUnit
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -33,12 +72,24 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="start.html">Getting Started Developing KUnit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">KUnit Design</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#high-level-structure">High Level Structure</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#user-mode-linux">User Mode Linux</a></li>
@@ -50,8 +101,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="useful-commands.html">Useful Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prow.html">Prow Presubmit for KUnit Gerrit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start_internal.html">Getting Started Contributing to non-kernel KUnit repos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gerrit-workflow.html">Gerrit Workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
@@ -61,41 +110,83 @@
 <li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">KUnit</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="index.html">Development</a> &raquo;</li>
+        
       <li>KUnit Design</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="../_sources/development/design.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
-  <section id="kunit-design">
-<h1>KUnit Design<a class="headerlink" href="#kunit-design" title="Permalink to this headline"></a></h1>
-<section id="high-level-structure">
-<h2>High Level Structure<a class="headerlink" href="#high-level-structure" title="Permalink to this headline"></a></h2>
+            
+  <div class="section" id="kunit-design">
+<h1>KUnit Design<a class="headerlink" href="#kunit-design" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="high-level-structure">
+<h2>High Level Structure<a class="headerlink" href="#high-level-structure" title="Permalink to this headline">¶</a></h2>
 <p>KUnit in practice is divided into two components: the KUnit kernel (more often
 referred to as the KUnit kernel, or just the kernel), and the kunit_tool. Most
 of KUnit, including all the test cases, all of the test libraries, and even the
 test runner itself are all part of the Linux kernel.</p>
-<section id="user-mode-linux">
-<span id="uml"></span><h3>User Mode Linux<a class="headerlink" href="#user-mode-linux" title="Permalink to this headline"></a></h3>
+<div class="section" id="user-mode-linux">
+<span id="uml"></span><h3>User Mode Linux<a class="headerlink" href="#user-mode-linux" title="Permalink to this headline">¶</a></h3>
 <p>User Mode Linux, or UML, is a way to compile and run the Linux kernel as a
 normal program that can run in userspace without the help of a VM or any
 virtualization support.</p>
@@ -104,9 +195,9 @@ architecture specific elements, which would normally map to low level hardware
 features, to the POSIX interface allowing the Linux kernel to be compiled and
 run as a normal userspace program.</p>
 <p>For more information on UML, see: <a class="reference external" href="http://user-mode-linux.sourceforge.net/">http://user-mode-linux.sourceforge.net/</a></p>
-</section>
-<section id="kunit-kernel">
-<h3>KUnit Kernel<a class="headerlink" href="#kunit-kernel" title="Permalink to this headline"></a></h3>
+</div>
+<div class="section" id="kunit-kernel">
+<h3>KUnit Kernel<a class="headerlink" href="#kunit-kernel" title="Permalink to this headline">¶</a></h3>
 <p>Most of the complexity of KUnit lies in the Linux kernel itself. Within the
 KUnit kernel there are several parts:</p>
 <ul class="simple">
@@ -123,17 +214,17 @@ Test Case Runner to test cases to communicate with it.</p></li>
 </ul>
 <p>The Linux kernel itself is <strong>much</strong> more complicated than this, but a full
 overview is outside of the scope of this document.</p>
-<section id="test-runner">
-<span id="id1"></span><h4>Test Runner<a class="headerlink" href="#test-runner" title="Permalink to this headline"></a></h4>
+<div class="section" id="test-runner">
+<span id="id1"></span><h4>Test Runner<a class="headerlink" href="#test-runner" title="Permalink to this headline">¶</a></h4>
 <p>The test runner in KUnit is more or less the KUnit kernel itself. Each <a class="reference external" href="../third_party/kernel/docs/api/test.html#c.kunit_suite">kunit
 suite</a>, KUnit’s name
 for a test suite, registers its test case runner as an init call with the Linux
 initcall system with <a class="reference external" href="third_party/kernel/docs/api/test.html#c.kunit_test_suite"><code class="docutils literal notranslate"><span class="pre">kunit_test_suite(suite)</span></code></a>. When the kernel boots up, it runs
 through all the initcalls to initialize all its subsystems; the last initcalls
 it executes are the test case runners.</p>
-</section>
-<section id="test-case-runner">
-<span id="id2"></span><h4>Test Case Runner<a class="headerlink" href="#test-case-runner" title="Permalink to this headline"></a></h4>
+</div>
+<div class="section" id="test-case-runner">
+<span id="id2"></span><h4>Test Case Runner<a class="headerlink" href="#test-case-runner" title="Permalink to this headline">¶</a></h4>
 <p>Each test case runner is associated with a <a class="reference external" href="../third_party/kernel/docs/api/test.html#c.kunit_suite">kunit suite</a>. When the test case
 runner is invoked, it runs through each test case and for each test case, does
 the following:</p>
@@ -146,9 +237,9 @@ the following:</p>
 <li><p>Report test results.</p></li>
 </ul>
 <p>All this happens in <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3">lib/kunit/test.c</a>.</p>
-</section>
-<section id="test-library">
-<span id="id4"></span><h4>Test Library<a class="headerlink" href="#test-library" title="Permalink to this headline"></a></h4>
+</div>
+<div class="section" id="test-library">
+<span id="id4"></span><h4>Test Library<a class="headerlink" href="#test-library" title="Permalink to this headline">¶</a></h4>
 <p>Currently, the test runner provides the function <code class="docutils literal notranslate"><span class="pre">kunit_do_assertion</span></code> for the
 test case to communicate a failed assertion:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">kunit_do_assertion</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span>
@@ -166,10 +257,10 @@ test case to communicate a failed assertion:</p>
 </ul>
 <p>The function definition can be found here:
 <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152">https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&amp;id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152</a></p>
-</section>
-</section>
-<section id="kunit-tool">
-<h3>kunit_tool<a class="headerlink" href="#kunit-tool" title="Permalink to this headline"></a></h3>
+</div>
+</div>
+<div class="section" id="kunit-tool">
+<h3>kunit_tool<a class="headerlink" href="#kunit-tool" title="Permalink to this headline">¶</a></h3>
 <p>Currently the main purpose kunit_tool serves is just to make to process of
 building the kernel and running tests easier, but it also serves as a place
 where workarounds can be added in. For example, there are some bugs (for
@@ -178,39 +269,56 @@ settings) with the UML user interface that are much easier to work around
 outside of the kernel than fix in the kernel itself. One of the function it
 serves is to parse the kernel output and print out the summarized results in a
 nice, human readable format.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="start.html" class="btn btn-neutral float-left" title="Getting Started Developing KUnit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="useful-commands.html" class="btn btn-neutral float-right" title="Useful Commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gerrit-workflow.html" class="btn btn-neutral float-left" title="Gerrit Workflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019 Google LLC.</p>
-  </div>
+    <p>
+        &#169; Copyright 2019 Google LLC.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

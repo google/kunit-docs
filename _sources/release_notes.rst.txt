@@ -160,8 +160,8 @@ for the authoritative source on how to write Kconfig entries.
 
 - In-kernel documentation has been significantly revamped.
 
-5.17 (tentative)
-================
+5.17
+====
 
 - Print out parsed test results in real time.
 
@@ -191,3 +191,13 @@ for the authoritative source on how to write Kconfig entries.
 	[12:37:14] ================= [PASSED] ext4_inode_test =================
 	[12:37:14] ============================================================
 
+
+5.18 (tentative)
+================
+
+- Drastically decrease stack usage of ``KUNIT_EXPECT_`` macros.
+
+  - Before, we largely relied on the compiler to optimize away some internal
+    structs, but that didn't always work.
+
+  - Now on UML (x86_64), ``KUNIT_EXPECT_EQ()`` uses 32 bytes instead of 88.

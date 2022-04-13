@@ -1,32 +1,74 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  <meta charset="utf-8" />
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="start.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="#" class="icon icon-home"> The Linux Kernel
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
                 4.19.0
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -34,7 +76,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
@@ -42,31 +95,72 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">The Linux Kernel</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
       <li>KUnit - Unit Testing for the Linux Kernel</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
-  <section id="kunit-unit-testing-for-the-linux-kernel">
+            
+  <div class="section" id="kunit-unit-testing-for-the-linux-kernel">
 <h1>KUnit - Unit Testing for the Linux Kernel<a class="headerlink" href="#kunit-unit-testing-for-the-linux-kernel" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
@@ -99,7 +193,7 @@
 </li>
 </ul>
 </div>
-<section id="what-is-kunit">
+<div class="section" id="what-is-kunit">
 <h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h2>
 <p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.
 These tests are able to be run locally on a developer’s workstation without a VM
@@ -109,8 +203,8 @@ Googletest/Googlemock for C++; it provides many of the same features in a
 similar manner (mocking, spying, assertions, etc) in a way that makes sense
 with the Linux kernel’s flavor of C.</p>
 <p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
-</section>
-<section id="why-kunit">
+</div>
+<div class="section" id="why-kunit">
 <h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
 <p>Aside from KUnit there is no true unit testing framework for the Linux kernel.
 Autotest and kselftest are sometimes cited as unit testing frameworks; however,
@@ -152,45 +246,62 @@ fast, you run them all the time, everytime you make a change, and everytime
 someone sends you some code. Why trust that someone ran all their tests
 correctly on every change when you can just run them yourself in less time than
 it takes to read his / her test log?</p>
-</section>
-<section id="how-do-i-use-it">
+</div>
+<div class="section" id="how-do-i-use-it">
 <h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</p></li>
 <li><p><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</p></li>
 <li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="start.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
+    <p>
+        &#169; Copyright The kernel development community.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

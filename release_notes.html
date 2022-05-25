@@ -104,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#id11">5.15</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id12">5.16</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id13">5.17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tentative">5.18 (tentative)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">5.18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tentative">5.19 (tentative)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
@@ -368,14 +369,41 @@ not reconfigure, so your edit would have no effect.</p></li>
 </pre></div>
 </div>
 </div>
-<div class="section" id="tentative">
-<h2>5.18 (tentative)<a class="headerlink" href="#tentative" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>5.18<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Drastically decrease stack usage of <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_</span></code> macros.</p>
 <ul>
 <li><p>Before, we largely relied on the compiler to optimize away some internal
 structs, but that didn’t always work.</p></li>
 <li><p>Now on UML (x86_64), <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ()</span></code> uses 32 bytes instead of 88.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="tentative">
+<h2>5.19 (tentative)<a class="headerlink" href="#tentative" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add support for suite-level init/exit functions.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">suite_init</span></code>/<code class="docutils literal notranslate"><span class="pre">suite_exit</span></code> are like <code class="docutils literal notranslate"><span class="pre">init</span></code> and <code class="docutils literal notranslate"><span class="pre">exit</span></code> instead of once per test case.</p></li>
+</ul>
+</li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NULL()</span></code>/<code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_NOT_NULL()</span></code> macros.</p></li>
+<li><p>Split out KUnit resource API from <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code> into <code class="docutils literal notranslate"><span class="pre">&lt;kunit/resource.h&gt;</span></code>.</p>
+<ul>
+<li><p>Including <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code> will still automatically <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;kunit/resource.h&gt;</span></code> for now.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> no longer colorizes output when stdout is not a tty.</p></li>
+<li><p>Add a manually curated <code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/configs/all_tests_uml.config</span></code></p>
+<ul>
+<li><p>This attempts to enable as many tests as possible on UML.</p></li>
+</ul>
+</li>
+<li><p>Change quoting requirements for qemu_config files (<a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3f0a50f345f78183f6e9b39c2f45ca5dcaa511ca">commit</a>)</p>
+<ul>
+<li><p>E.g. instead of <code class="docutils literal notranslate"><span class="pre">['-m</span> <span class="pre">256']</span></code>, do <code class="docutils literal notranslate"><span class="pre">['-m',</span> <span class="pre">'256']</span></code></p></li>
 </ul>
 </li>
 </ul>

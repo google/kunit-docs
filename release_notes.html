@@ -91,20 +91,20 @@
 <li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">5.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">5.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">5.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">5.8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">5.9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">5.10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">5.11</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">5.12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">5.13</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">5.14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">5.15</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">5.16</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">5.17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">5.18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-5">5.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-6">5.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-7">5.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-8">5.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-9">5.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-10">5.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-11">5.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-12">5.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-13">5.13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-14">5.14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-15">5.15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-16">5.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-17">5.17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v5-18">5.18</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tentative">5.19 (tentative)</a></li>
 </ul>
 </li>
@@ -182,21 +182,21 @@
 <p>This page briefly summarizes the KUnit changes in each Linux release.</p>
 <p>For more specific documentation on KUnit features, see the in-kernel
 documentation: <a class="reference external" href="https://kernel.org/doc/html/latest/dev-tools/kunit">https://kernel.org/doc/html/latest/dev-tools/kunit</a>.</p>
-<div class="section" id="id1">
-<h2>5.5<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-5">
+<span id="id1"></span><h2>5.5<a class="headerlink" href="#v5-5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>KUnit introduced, including all the basic functionality.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> was renamed to <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> later in in 5.5 (<a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=14ee5cfd4512ee3d1e0047d8751450dcc6544070">commit</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>5.6<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-6">
+<span id="id2"></span><h2>5.6<a class="headerlink" href="#v5-6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>KUnit tests can be built as modules, <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#running-tests-as-modules">docs</a></p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>5.7<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-7">
+<span id="id3"></span><h2>5.7<a class="headerlink" href="#v5-7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>kunit.py switched to using <code class="docutils literal notranslate"><span class="pre">.kunit/</span></code> as the default build dir (and
 <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">.kunit/.kunitconfig</span></code>).</p></li>
@@ -204,8 +204,8 @@ documentation: <a class="reference external" href="https://kernel.org/doc/html/l
 <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;suite&gt;/results</span></code>, <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#retrieving-per-suite-results">docs</a></p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>5.8<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-8">
+<span id="id4"></span><h2>5.8<a class="headerlink" href="#v5-8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now supports separate <code class="docutils literal notranslate"><span class="pre">config/build/exec/parse</span></code> commands in
 addition to <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p>
@@ -232,8 +232,8 @@ for you, e.g. if you want to run manually but parse the results using
 <p>See <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/style.html#test-kconfig-entries">the upstream documentation</a>
 for the authoritative source on how to write Kconfig entries.</p>
 </div>
-<div class="section" id="id5">
-<h2>5.9<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-9">
+<span id="id5"></span><h2>5.9<a class="headerlink" href="#v5-9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Named resources: tests can store and retrieve data via string keys.</p>
 <ul>
@@ -245,8 +245,8 @@ example that uses <code class="docutils literal notranslate"><span class="pre">&
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h2>5.10<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-10">
+<span id="id6"></span><h2>5.10<a class="headerlink" href="#v5-10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>KASAN violations cause the current KUnit test case to be marked FAILED.</p>
 <ul>
@@ -255,14 +255,14 @@ example that uses <code class="docutils literal notranslate"><span class="pre">&
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h2>5.11<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-11">
+<span id="id7"></span><h2>5.11<a class="headerlink" href="#v5-11" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Parameterized testing: see the <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.html#parameterized-testing">docs</a>.</p></li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h2>5.12<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-12">
+<span id="id8"></span><h2>5.12<a class="headerlink" href="#v5-12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>You can pass in a path to a kunitconfig file instead of using
 <code class="docutils literal notranslate"><span class="pre">.kunit/.kunitconfig</span></code>, e.g.</p></li>
@@ -279,16 +279,16 @@ $ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;*list*&#39;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>5.13<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-13">
+<span id="id9"></span><h2>5.13<a class="headerlink" href="#v5-13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Can call <code class="docutils literal notranslate"><span class="pre">kunit_fail_current_test()</span></code> from anywhere to fail the current KUnit test (e.g. if an invariant is broken, a UBSAN violation is detected, etc.)</p></li>
 <li><p>You can pass a directory <code class="docutils literal notranslate"><span class="pre">--kunitconfig</span></code> and it’ll implicitly append
 <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span> <span class="pre">--kunitconfig=lib/kunit</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h2>5.14<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-14">
+<span id="id10"></span><h2>5.14<a class="headerlink" href="#v5-14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> can run tests on non-UML architectures (using QEMU), <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/kunit-tool.html#running-tests-on-qemu">docs</a></p></li>
 <li><p>It’s now possible to generate code coverage reports when using UML, <a class="reference external" href="https://www.kernel.org/doc/html/latest/dev-tools/kunit/running_tips.html#generating-code-coverage-reports-under-uml">docs</a></p></li>
@@ -296,8 +296,8 @@ $ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;*list*&#39;</span>
 instead of “PASSED” or “FAILED”</p></li>
 </ul>
 </div>
-<div class="section" id="id11">
-<h2>5.15<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-15">
+<span id="id11"></span><h2>5.15<a class="headerlink" href="#v5-15" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>UBSAN violations cause the current KUnit test case to be marked FAILED.</p></li>
 <li><p>Can pass kernel commandline parameters from <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> via
@@ -309,8 +309,8 @@ dmesg, e.g.</p></li>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h2>5.16<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-16">
+<span id="id12"></span><h2>5.16<a class="headerlink" href="#v5-16" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>You can filter on test names now in addition to suite names, e.g.</p></li>
 </ul>
@@ -339,8 +339,8 @@ slightly different</p>
 <li><p>In-kernel documentation has been significantly revamped.</p></li>
 </ul>
 </div>
-<div class="section" id="id13">
-<h2>5.17<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-17">
+<span id="id13"></span><h2>5.17<a class="headerlink" href="#v5-17" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Print out parsed test results in real time.</p></li>
 <li><p>Allow tweaking Kconfig options from command-line, e.g.</p></li>
@@ -369,8 +369,8 @@ not reconfigure, so your edit would have no effect.</p></li>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id14">
-<h2>5.18<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="v5-18">
+<span id="id14"></span><h2>5.18<a class="headerlink" href="#v5-18" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Drastically decrease stack usage of <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_</span></code> macros.</p>
 <ul>
@@ -382,7 +382,7 @@ structs, but that didn’t always work.</p></li>
 </ul>
 </div>
 <div class="section" id="tentative">
-<h2>5.19 (tentative)<a class="headerlink" href="#tentative" title="Permalink to this headline">¶</a></h2>
+<span id="v5-19"></span><h2>5.19 (tentative)<a class="headerlink" href="#tentative" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Add support for suite-level init/exit functions.</p>
 <ul>

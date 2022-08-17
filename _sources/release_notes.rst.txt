@@ -230,8 +230,8 @@ for the authoritative source on how to write Kconfig entries.
 
 .. _v5.19:
 
-5.19 (tentative)
-================
+5.19
+====
 
 - Add support for suite-level init/exit functions.
 
@@ -253,3 +253,28 @@ for the authoritative source on how to write Kconfig entries.
   <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3f0a50f345f78183f6e9b39c2f45ca5dcaa511ca>`__)
 
   - E.g. instead of ``['-m 256']``, do ``['-m', '256']``
+
+.. _v5.20:
+
+5.20 (tentative)
+================
+
+- Overhaul support for building tests as modules
+
+  - Before, it wouldn't work in modules that already had their own
+    ``module_init``/``module_exit``. Now this restriction is gone.
+
+- Add ``--qemu_args`` flag, e.g. use ``--qemu_args='-m 2048'`` to give tests more RAM.
+
+- Allow ``--kunitconfig`` to be repeated.
+
+  - This will just concatenante the contents together.
+  - One use case for this is appending the options for code coverage:
+
+.. code-block:: shell
+
+	$ ./tools/testing/kunit/kunit.py run --kunitconfig=my/dir --kunitconfig=tools/testing/kunit/configs/coverage_uml.config
+
+- Taint the kernel if any KUnit tests run.
+
+  - Added a new ``TAINT_TEST`` flag, shows up as ``'N'``.

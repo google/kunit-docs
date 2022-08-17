@@ -1,74 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>KUnit - Unit Testing for the Linux Kernel &mdash; The Linux Kernel  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>KUnit - Linux Kernel Unit Testing &mdash; The Linux Kernel  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="start.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="#" class="icon icon-home"> The Linux Kernel
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                5.12.0-rc7
+                5.19.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -76,121 +41,108 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">The Linux Kernel</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>KUnit - Unit Testing for the Linux Kernel</li>
-    
-    
+      <li>KUnit - Linux Kernel Unit Testing</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="kunit-unit-testing-for-the-linux-kernel">
-<h1>KUnit - Unit Testing for the Linux Kernel<a class="headerlink" href="#kunit-unit-testing-for-the-linux-kernel" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="kunit-linux-kernel-unit-testing">
+<h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="start.html#installing-dependencies">Installing dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-with-the-kunit-wrapper">Running tests with the KUnit Wrapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-without-the-kunit-wrapper">Running tests without the KUnit Wrapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="start.html#writing-your-first-test">Writing your first test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#installing-dependencies">Installing Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-with-kunit-tool">Running tests with kunit_tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#running-tests-without-the-kunit-wrapper">Running Tests without the KUnit Wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#writing-your-first-test">Writing Your First Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="start.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Using KUnit</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#organization-of-this-document">Organization of this document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#testing">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#kunit-on-non-uml-architectures">KUnit on non-UML architectures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#kunit-debugfs-representation">KUnit debugfs representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#in-kernel-testing-framework">In-Kernel Testing Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#kunit-tool-command-line-test-harness">kunit_tool (Command Line Test Harness)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#create-a-kunitconfig-file">Create a  <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#configure-build-and-run-tests">Configure, Build, and Run Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#parse-test-results">Parse Test Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#run-selected-test-suites">Run Selected Test Suites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#run-tests-on-qemu">Run Tests on qemu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_wrapper.html#command-line-arguments">Command-Line Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run_manual.html#configure-the-kernel">Configure the Kernel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#test-cases">Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#writing-tests-for-other-architectures">Writing Tests For Other Architectures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#isolating-behavior">Isolating Behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#testing-against-multiple-inputs">Testing Against Multiple Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#exiting-early-on-failed-expectations">Exiting Early on Failed Expectations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#allocating-memory">Allocating Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#testing-static-functions">Testing Static Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#injecting-test-only-code">Injecting Test-Only Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#accessing-the-current-test">Accessing The Current Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#failing-the-current-test">Failing The Current Test</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-kunit-tool">What is kunit_tool?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#what-is-a-kunitconfig">What is a .kunitconfig?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#how-do-i-use-kunit-tool">How do I use kunit_tool?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#getting-started-with-kunit-tool">Getting Started with kunit_tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#configuring-building-and-running-tests">Configuring, Building, and Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#parsing-test-results">Parsing Test Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#filtering-tests">Filtering Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#running-tests-on-qemu">Running Tests on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kunit-tool.html#other-useful-options">Other Useful Options</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/test.html">Test API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/resource.html">Resource API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a><ul>
@@ -200,10 +152,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-this-different-from-autotest-kselftest-etc">How is this different from Autotest, kselftest, etc?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-this-different-from-autotest-kselftest-and-so-on">How is this different from Autotest, kselftest, and so on?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#does-kunit-support-running-on-architectures-other-than-uml">Does KUnit support running on architectures other than UML?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-the-difference-between-a-unit-test-and-these-other-kinds-of-tests">What is the difference between a unit test and these other kinds of tests?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#kunit-isn-t-working-what-should-i-do">KUnit isn’t working, what should I do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests">What is the difference between a unit test and other kinds of tests?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#kunit-is-not-working-what-should-i-do">KUnit is not working, what should I do?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a><ul>
@@ -211,128 +163,137 @@
 <li class="toctree-l2"><a class="reference internal" href="tips.html#allocating-memory">Allocating memory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#testing-static-functions">Testing static functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#injecting-test-only-code">Injecting test-only code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#accessing-the-current-test">Accessing the current test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#failing-the-current-test">Failing the current test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tips.html#customizing-error-messages">Customizing error messages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#running-tests-manually">Running tests manually</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="what-is-kunit">
-<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline">¶</a></h2>
-<p>KUnit is a lightweight unit testing and mocking framework for the Linux kernel.</p>
-<p>KUnit is heavily inspired by JUnit, Python’s unittest.mock, and
-Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
-cases, grouping related test cases into test suites, providing common
-infrastructure for running tests, and much more.</p>
-<p>KUnit consists of a kernel component, which provides a set of macros for easily
-writing unit tests. Tests written against KUnit will run on kernel boot if
-built-in, or when loaded if built as a module. These tests write out results to
-the kernel log in <a class="reference external" href="https://testanything.org/">TAP</a> format.</p>
-<p>To make running these tests (and reading the results) easier, KUnit offers
-<a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool</span></a>, which builds a <a class="reference external" href="http://user-mode-linux.sourceforge.net">User Mode Linux</a> kernel, runs it, and parses the test
-results. This provides a quick way of running KUnit tests during development,
-without requiring a virtual machine or separate hardware.</p>
-<p>Get started now: <a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a></p>
-</div>
-<div class="section" id="why-kunit">
-<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline">¶</a></h2>
-<p>A unit test is supposed to test a single unit of code in isolation, hence the
-name. A unit test should be the finest granularity of testing and as such should
-allow all possible code paths to be tested in the code under test; this is only
-possible if the code under test is very small and does not have any external
-dependencies outside of the test’s control like hardware.</p>
-<p>KUnit provides a common framework for unit tests within the kernel.</p>
-<p>KUnit tests can be run on most architectures, and most tests are architecture
-independent. All built-in KUnit tests run on kernel startup.  Alternatively,
-KUnit and KUnit tests can be built as modules and tests will run when the test
-module is loaded.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>KUnit can also run tests without needing a virtual machine or actual
-hardware under User Mode Linux. User Mode Linux is a Linux architecture,
-like ARM or x86, which compiles the kernel as a Linux executable. KUnit
-can be used with UML either by building with <code class="docutils literal notranslate"><span class="pre">ARCH=um</span></code> (like any other
-architecture), or by using <a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool</span></a>.</p>
-</div>
-<p>KUnit is fast. Excluding build time, from invocation to completion KUnit can run
-several dozen tests in only 10 to 20 seconds; this might not sound like a big
-deal to some people, but having such fast and easy to run tests fundamentally
-changes the way you go about testing and even writing code in the first place.
-Linus himself said in his <a class="reference external" href="https://gist.github.com/lorn/1272686/revisions#diff-53c65572127855f1b003db4064a94573R874">git talk at Google</a>:</p>
-<blockquote>
-<div><p>“… a lot of people seem to think that performance is about doing the
-same thing, just doing it faster, and that is not true. That is not what
-performance is all about. If you can do something really fast, really
-well, people will start using it differently.”</p>
-</div></blockquote>
-<p>In this context Linus was talking about branching and merging,
-but this point also applies to testing. If your tests are slow, unreliable, are
-difficult to write, and require a special setup or special hardware to run,
-then you wait a lot longer to write tests, and you wait a lot longer to run
-tests; this means that tests are likely to break, unlikely to test a lot of
-things, and are unlikely to be rerun once they pass. If your tests are really
-fast, you run them all the time, every time you make a change, and every time
-someone sends you some code. Why trust that someone ran all their tests
-correctly on every change when you can just run them yourself in less time than
-it takes to read their test log?</p>
-</div>
-<div class="section" id="how-do-i-use-it">
-<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
+<p>This section details the kernel unit testing framework.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>KUnit (Kernel unit testing framework) provides a common framework for
+unit tests within the Linux kernel. Using KUnit, you can define groups
+of test cases called test suites. The tests either run on kernel boot
+if built-in, or load as a module. KUnit automatically flags and reports
+failed test cases in the kernel log. The test results appear in <a class="reference external" href="https://testanything.org/">TAP
+(Test Anything Protocol) format</a>. It is inspired by
+JUnit, Python’s unittest.mock, and GoogleTest/GoogleMock (C++ unit testing
+framework).</p>
+<p>KUnit tests are part of the kernel, written in the C (programming)
+language, and test parts of the Kernel implementation (example: a C
+language function). Excluding build time, from invocation to
+completion, KUnit can run around 100 tests in less than 10 seconds.
+KUnit can test any kernel component, for example: file system, system
+calls, memory management, device drivers and so on.</p>
+<p>KUnit follows the white-box testing approach. The test has access to
+internal system functionality. KUnit runs in kernel space and is not
+restricted to things exposed to user-space.</p>
+<p>In addition, KUnit has kunit_tool, a script (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>)
+that configures the Linux kernel, runs KUnit tests under QEMU or UML (<a class="reference external" href="http://user-mode-linux.sourceforge.net/">User Mode
+Linux</a>), parses the test results and
+displays them in a user friendly manner.</p>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="start.html"><span class="doc">Getting Started</span></a> - for new users of KUnit</p></li>
-<li><p><a class="reference internal" href="tips.html"><span class="doc">Tips For Writing KUnit Tests</span></a> - for short examples of best practices</p></li>
-<li><p><a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> - for a more detailed explanation of KUnit features</p></li>
-<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - for the list of KUnit APIs used for testing</p></li>
-<li><p><a class="reference internal" href="kunit-tool.html"><span class="doc">kunit_tool How-To</span></a> - for more information on the kunit_tool helper script</p></li>
-<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a> - for answers to some common questions about KUnit</p></li>
+<li><p>Provides a framework for writing unit tests.</p></li>
+<li><p>Runs tests on any kernel architecture.</p></li>
+<li><p>Runs a test in milliseconds.</p></li>
 </ul>
-</div>
-</div>
+</section>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Any Linux kernel compatible hardware.</p></li>
+<li><p>For Kernel under test, Linux kernel version 5.5 or greater.</p></li>
+</ul>
+</section>
+</section>
+<section id="unit-testing">
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this heading">¶</a></h2>
+<p>A unit test tests a single unit of code in isolation. A unit test is the finest
+granularity of testing and allows all possible code paths to be tested in the
+code under test. This is possible if the code under test is small and does not
+have any external dependencies outside of the test’s control like hardware.</p>
+<section id="write-unit-tests">
+<h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Permalink to this heading">¶</a></h3>
+<p>To write good unit tests, there is a simple but powerful pattern:
+Arrange-Act-Assert. This is a great way to structure test cases and
+defines an order of operations.</p>
+<ul class="simple">
+<li><p>Arrange inputs and targets: At the start of the test, arrange the data
+that allows a function to work. Example: initialize a statement or
+object.</p></li>
+<li><p>Act on the target behavior: Call your function/code under test.</p></li>
+<li><p>Assert expected outcome: Verify that the result (or resulting state) is as
+expected.</p></li>
+</ul>
+</section>
+<section id="unit-testing-advantages">
+<h3>Unit Testing Advantages<a class="headerlink" href="#unit-testing-advantages" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Increases testing speed and development in the long run.</p></li>
+<li><p>Detects bugs at initial stage and therefore decreases bug fix cost
+compared to acceptance testing.</p></li>
+<li><p>Improves code quality.</p></li>
+<li><p>Encourages writing testable code.</p></li>
+</ul>
+</section>
+</section>
+<section id="how-do-i-use-it">
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Documentation/dev-tools/kunit/start.rst - for KUnit new users.</p></li>
+<li><p>Documentation/dev-tools/kunit/architecture.rst - KUnit architecture.</p></li>
+<li><p>Documentation/dev-tools/kunit/run_wrapper.rst - run kunit_tool.</p></li>
+<li><p>Documentation/dev-tools/kunit/run_manual.rst - run tests without kunit_tool.</p></li>
+<li><p>Documentation/dev-tools/kunit/usage.rst - write tests.</p></li>
+<li><p>Documentation/dev-tools/kunit/tips.rst - best practices with
+examples.</p></li>
+<li><p>Documentation/dev-tools/kunit/api/index.rst - KUnit APIs
+used for testing.</p></li>
+<li><p>Documentation/dev-tools/kunit/kunit-tool.rst - kunit_tool helper
+script.</p></li>
+<li><p>Documentation/dev-tools/kunit/faq.rst - KUnit common questions and
+answers.</p></li>
+</ul>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="start.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright The kernel development community.
-
-    </p>
+    <p>&#169; Copyright The kernel development community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,70 +1,35 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Fakes and Stubbing and Mocks, Oh My! &mdash; KUnit  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Press" href="press.html" />
     <link rel="prev" title="Release Notes" href="release_notes.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> KUnit
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -72,19 +37,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
@@ -120,8 +74,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#binary-level-ftrace-et-al">Binary-level (ftrace et. al)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">Pros:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">Cons:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Pros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Cons:</a></li>
 </ul>
 </li>
 </ul>
@@ -136,73 +90,32 @@
 <li class="toctree-l1"><a class="reference internal" href="press.html">Press</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">KUnit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Fakes and Stubbing and Mocks, Oh My!</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/mocking.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="fakes-and-stubbing-and-mocks-oh-my">
-<h1>Fakes and Stubbing and Mocks, Oh My!<a class="headerlink" href="#fakes-and-stubbing-and-mocks-oh-my" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="fakes-and-stubbing-and-mocks-oh-my">
+<h1>Fakes and Stubbing and Mocks, Oh My!<a class="headerlink" href="#fakes-and-stubbing-and-mocks-oh-my" title="Permalink to this heading"></a></h1>
 <p>This page seeks to provide an overview on mocking and a related task:
 redirecting function calls to test-only code.  Note: many people use the term
 “mocking” to refer to the latter (and that’s fine!), but we’ll try and keep the
@@ -210,8 +123,8 @@ concepts separate in this doc.</p>
 <p>KUnit currently lacks specific support for either of these, in part due to the
 fact there’s enough trade-offs that it’s hard to come up with a generic
 solution.</p>
-<div class="section" id="why-do-we-need-this">
-<h2>Why do we need this?<a class="headerlink" href="#why-do-we-need-this" title="Permalink to this headline">¶</a></h2>
+<section id="why-do-we-need-this">
+<h2>Why do we need this?<a class="headerlink" href="#why-do-we-need-this" title="Permalink to this heading"></a></h2>
 <p>First, let’s consider what the goal is. We want unit tests to be as
 lightweight and hermetic as possible, and only test the code we care about.</p>
 <p>A canonical example in userspace testing to consider is a database.
@@ -225,9 +138,9 @@ the database fail due to transient network issues.</p>
 is simply an in-memory hashtable or array, then we can have much faster and
 more reliable tests. Unit tests simply don’t need the scability and features of
 a real database.</p>
-</div>
-<div class="section" id="fakes-versus-mocks">
-<h2>Fakes versus mocks<a class="headerlink" href="#fakes-versus-mocks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="fakes-versus-mocks">
+<h2>Fakes versus mocks<a class="headerlink" href="#fakes-versus-mocks" title="Permalink to this heading"></a></h2>
 <p>We’ll be using terminology roughly as defined in
 <a class="reference external" href="https://martinfowler.com/bliki/TestDouble.html">https://martinfowler.com/bliki/TestDouble.html</a>, namely:</p>
 <ul class="simple">
@@ -242,37 +155,37 @@ a hash table, or a fake IO device which is just a <code class="docutils literal 
 <div class="line">Mocks generally are written with support from their testing framework, whereas fakes are typically written without them.</div>
 <div class="line">KUnit currently lacks any features to specifically facilitate mocks, so it’s recommended to create and use fakes.</div>
 </div>
-<div class="section" id="downsides-of-mocking">
-<h3>Downsides of mocking<a class="headerlink" href="#downsides-of-mocking" title="Permalink to this headline">¶</a></h3>
+<section id="downsides-of-mocking">
+<h3>Downsides of mocking<a class="headerlink" href="#downsides-of-mocking" title="Permalink to this heading"></a></h3>
 <p>Very briefly, using mocks in tests can make tests more fragile since they test
 “behavior” rather than “state.”</p>
 <p>What do we mean by that?  Let’s imagine we’re testing some userspace program
 with gMock-like syntax (a C++ mocking framework):</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">send_data</span><span class="p">(</span><span class="k">struct</span> <span class="nc">data_sink</span> <span class="o">*</span><span class="n">sink</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* do some fancy calculation to figure out what to write */</span>
-        <span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, &quot;</span><span class="p">);</span>
-        <span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">send_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data_sink</span><span class="w"> </span><span class="o">*</span><span class="n">sink</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* do some fancy calculation to figure out what to write */</span><span class="w"></span>
+<span class="w">        </span><span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="nf">test_send_data</span><span class="p">(</span><span class="k">struct</span> <span class="nc">test</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">data_sink</span> <span class="o">*</span><span class="n">sink</span> <span class="o">=</span> <span class="n">make_mock_datasink</span><span class="p">();</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_send_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">data_sink</span><span class="w"> </span><span class="o">*</span><span class="n">sink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_mock_datasink</span><span class="p">();</span><span class="w"></span>
 
-        <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">data_sink</span><span class="p">,</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, &quot;</span><span class="p">))</span>
-                <span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">7</span><span class="p">));</span>
-        <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">data_sink</span><span class="p">,</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">))</span>
-                <span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
-        <span class="n">send_data</span><span class="p">(</span><span class="n">sink</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">data_sink</span><span class="p">,</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, &quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">7</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">data_sink</span><span class="p">,</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="n">send_data</span><span class="p">(</span><span class="n">sink</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>And now let’s say we’ve realized we can make our code twice as fast with more
 buffering, effectively changing it to:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">send_data</span><span class="p">(</span><span class="k">struct</span> <span class="nc">data_sink</span> <span class="o">*</span><span class="n">sink</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, world&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">send_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data_sink</span><span class="w"> </span><span class="o">*</span><span class="n">sink</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sink</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;hello, world&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -284,9 +197,9 @@ themselves, i.e. the return values for each <code class="docutils literal notran
 the test author makes a mistake or tests just don’t get updated after a
 refactor, the mock can behave in unrealistic fashion.</p>
 <p>This can and <em>will</em> eventually lead to bugs.</p>
-</div>
-<div class="section" id="upsides-of-mocking">
-<h3>Upsides of mocking<a class="headerlink" href="#upsides-of-mocking" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="upsides-of-mocking">
+<h3>Upsides of mocking<a class="headerlink" href="#upsides-of-mocking" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line">This is not to say that one should never test “behaviour”, i.e. use mocking.</div>
 <div class="line">E.g. imagine we <em>wanted</em> the example test to validate that we only call <code class="docutils literal notranslate"><span class="pre">write()</span></code> once since each call is super-expensive.</div>
@@ -296,10 +209,10 @@ refactor, the mock can behave in unrealistic fashion.</p>
 <div class="line">It’s also easier easier to use a mock if we want to force a certain return value, e.g. if we want to make a specific <code class="docutils literal notranslate"><span class="pre">write()</span></code> call fail so we can test an error path.</div>
 <div class="line">With our <code class="docutils literal notranslate"><span class="pre">data_sink</span></code> example above, it’s hard for an append into a <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">buffer[MAX_SIZE]</span></code> to fail until we hit <code class="docutils literal notranslate"><span class="pre">MAX_SIZE</span></code>, but for real code that might be writing to disk or sending data over the network, failure could happen for ~any call. And it’s valuable to test that our code is robust against such failures.</div>
 </div>
-</div>
-</div>
-<div class="section" id="function-redirection">
-<h2>Function redirection<a class="headerlink" href="#function-redirection" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="function-redirection">
+<h2>Function redirection<a class="headerlink" href="#function-redirection" title="Permalink to this heading"></a></h2>
 <div class="line-block">
 <div class="line">Regardless of what kind of test double you use, they’re useless unless you can swap out the real code for them.</div>
 <div class="line">For lack of a better term, we’ll refer to this as function redirection: how do I make calls to <code class="docutils literal notranslate"><span class="pre">real_function()</span></code> go to my <code class="docutils literal notranslate"><span class="pre">fake_function()</span></code>?</div>
@@ -311,34 +224,41 @@ refactor, the mock can behave in unrealistic fashion.</p>
 <p>The problem boils down to <a class="reference external" href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering">adding another layer of indirection</a>
 and we have various options to choose from, which we’ll describe below.</p>
 <p>For each of these, let’s consider the following code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">func_under_test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* unsafe to call this function directly in a test! */</span>
-        <span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">func_under_test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* unsafe to call this function directly in a test! */</span><span class="w"></span>
+<span class="w">        </span><span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="section" id="run-time-ops-structs-class-mocking">
-<h3>Run time (ops structs, “class mocking”)<a class="headerlink" href="#run-time-ops-structs-class-mocking" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This <a class="reference external" href="https://lore.kernel.org/linux-kselftest/20220318021314.3225240-1-davidgow&#64;google.com/">RFC patch series here</a>
+is the KUnit team’s attempt at implementing a solution here. Feedback
+there is welcome! The rest of this doc is mainly useful if you don’t
+want to wait on that or it doesn’t work for you use case.</p>
+</div>
+<section id="run-time-ops-structs-class-mocking">
+<h3>Run time (ops structs, “class mocking”)<a class="headerlink" href="#run-time-ops-structs-class-mocking" title="Permalink to this heading"></a></h3>
 <p>This is the most straightforward approach and fundamentally boils down to doing
 this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">func_under_test</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">send_data_func</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">))</span>
-<span class="p">{</span>
-        <span class="n">send_data_func</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">func_under_test</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">send_data_func</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">send_data_func</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Being a bit more sophisticated, we can introduce a struct to hold the
 functions:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">send_ops</span> <span class="p">{</span>
-        <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">send</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">);</span>
-        <span class="cm">/* maybe more functions here in real code */</span>
-<span class="p">};</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">send_ops</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">send</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* maybe more functions here in real code */</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>TODO(<a class="reference external" href="mailto:dlatypov&#37;&#52;&#48;google&#46;com">dlatypov<span>&#64;</span>google<span>&#46;</span>com</a>): write about “class mocking”, <a class="reference external" href="https://lore.kernel.org/linux-kselftest/20201012222050.999431-1-dlatypov&#64;google.com/">RFC here</a></p>
-<div class="section" id="pros">
-<h4>Pros:<a class="headerlink" href="#pros" title="Permalink to this headline">¶</a></h4>
+<section id="pros">
+<h4>Pros:<a class="headerlink" href="#pros" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>Simplest implementation: “it’s just code.”</p></li>
 <li><p>This is the only approach here where we can limit the scope of the
@@ -359,9 +279,9 @@ don’t want to mess with.</p></li>
 </div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="cons">
-<h4>Cons:<a class="headerlink" href="#cons" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="cons">
+<h4>Cons:<a class="headerlink" href="#cons" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>~Everyone knows about this convention but still want “mocking.” It’s not seen
 as sufficient by itself.</p></li>
@@ -388,22 +308,22 @@ here.</p></li>
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="compile-time">
-<h3>Compile time<a class="headerlink" href="#compile-time" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="compile-time">
+<h3>Compile time<a class="headerlink" href="#compile-time" title="Permalink to this heading"></a></h3>
 <p>This involves using compiler directive, macros, etc. to change the code when
 compiling KUnit tests, or for your specific test. E.g. a straightforward
 approach could be</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
-<span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
 <span class="cp">#ifdef CONFIG_MY_KUNIT_TEST </span><span class="cm">/* or some other, more generic check */</span><span class="cp"></span>
-                <span class="n">test_send_data</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-                <span class="k">return</span><span class="p">;</span>
+<span class="w">                </span><span class="n">test_send_data</span><span class="p">(</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#endif</span>
 
-        <span class="cm">/* real implementation */</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="cm">/* real implementation */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This pattern is generally useful and recommended <a class="reference external" href="third_party/kernel/docs/tips.html#injecting-test-only-code">here</a> for injecting
@@ -413,18 +333,51 @@ other kinds of test-only code.</p>
 <p>This example makes it so that <code class="docutils literal notranslate"><span class="pre">send_data_to_hardware()</span></code> no longer
 works for the whole kernel, including other tests if they happen to
 compiled along with <code class="docutils literal notranslate"><span class="pre">CONFIG_MY_KUNIT</span></code>, even if it’s set as
-<code class="docutils literal notranslate"><span class="pre">CONFIG_MY_KUNIT_TEST=m</span></code> (!). See <a class="reference internal" href="#hybrid-approaches"><span class="std std-ref">Hybrid approaches (limiting scope)</span></a> for a
+<code class="docutils literal notranslate"><span class="pre">CONFIG_MY_KUNIT_TEST=m</span></code> (!). See the code below or
+<a class="reference internal" href="#hybrid-approaches"><span class="std std-ref">Hybrid approaches (limiting scope)</span></a> for a
 discussion on how to mitigate that.</p>
 </div>
-<div class="section" id="id1">
-<h4>Pros:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>We’ve also sent out an <a class="reference external" href="https://lore.kernel.org/linux-kselftest/20220318021314.3225240-2-davidgow&#64;google.com/">RFC patch</a>
+to try and standardize this approach behind a nice shiny API.</p>
+<p>Unlike the example above, this API also ensures that the redirection only
+applies to the kthread that’s running the test and is undone when the test exits.</p>
+<p>Using the API from that patch, our example above becomes:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_STATIC_STUB_REDIRECT</span><span class="p">(</span><span class="n">send_data_to_hardware</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* real implementation */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cm">/* In test file */</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">times_called</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">fake_send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* fake implementation */</span><span class="w"></span>
+<span class="w">        </span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="cm">/* In the test case, redirect calls for the duration of the test */</span><span class="w"></span>
+<span class="n">kunit_activate_static_stub</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">send_data_to_hardware</span><span class="p">,</span><span class="w"> </span><span class="n">fake_send_data_to_hardware</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="cm">/* Can also deactivate the stub early, if wanted */</span><span class="w"></span>
+<span class="n">kunit_deactivate_static_stub</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">send_data_to_hardware</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello again&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<section id="id1">
+<h4>Pros:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Also easy to understand.</p></li>
 <li><p>No runtime overhead, unlike the option above.</p></li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h4>Cons:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id2">
+<h4>Cons:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>Requires invasive changes to the function we’re trying to stub as opposed to
 the coder-under-test itself.</p>
@@ -443,31 +396,31 @@ in static functions.</p></li>
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="link-time-weak-symbols">
-<h3>Link time (__weak symbols)<a class="headerlink" href="#link-time-weak-symbols" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="link-time-weak-symbols">
+<h3>Link time (__weak symbols)<a class="headerlink" href="#link-time-weak-symbols" title="Permalink to this heading"></a></h3>
 <p>We can avoid refactoring to the code-under-test and only have minimal changes
 to <code class="docutils literal notranslate"><span class="pre">send_data_to_hardware()</span></code> by pushing the indirection into the linker.</p>
 <p>More specifically, we can make use of “weak symbols”, which would allow tests
 to define their own definitions and override the original
 <code class="docutils literal notranslate"><span class="pre">send_data_to_hardware()</span></code>, e.g.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">__weak</span> <span class="n">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* real implementation */</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">__weak</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* real implementation */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="cm">/* In test file */</span>
-<span class="cm">/* Since the real function is __weak, we can override it here. */</span>
-<span class="kt">void</span> <span class="n">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* fake implementation */</span>
-<span class="p">}</span>
+<span class="cm">/* In test file */</span><span class="w"></span>
+<span class="cm">/* Since the real function is __weak, we can override it here. */</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* fake implementation */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We can minimize the risk of accidentally overriding functions by using a macro
 like</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Now we can mark functions __weak only while building tests */</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Now we can mark functions __weak only while building tests */</span><span class="w"></span>
 <span class="cp">#ifdef CONFIG_KUNIT</span>
 <span class="cp">#define __mockable __weak</span>
 <span class="cp">#else</span>
@@ -475,16 +428,16 @@ like</p>
 <span class="cp">#endif</span>
 </pre></div>
 </div>
-<div class="section" id="id3">
-<h4>Pros:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<section id="id3">
+<h4>Pros:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>No runtime overhead.</p></li>
 <li><p>No changes needed to the code-under-test, <code class="docutils literal notranslate"><span class="pre">func_under_test()</span></code>.</p></li>
 <li><p>And overall, very minimal changes needed to non-test code.</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h4>Cons:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id4">
+<h4>Cons:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>Initial feedback when something similar was included in the initial KUnit RFC
 is that this is adding more complexity.</p>
@@ -519,10 +472,10 @@ redirected it.</p></li>
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="hybrid-approaches-limiting-scope">
-<span id="hybrid-approaches"></span><h3>Hybrid approaches (limiting scope)<a class="headerlink" href="#hybrid-approaches-limiting-scope" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="hybrid-approaches-limiting-scope">
+<span id="hybrid-approaches"></span><h3>Hybrid approaches (limiting scope)<a class="headerlink" href="#hybrid-approaches-limiting-scope" title="Permalink to this heading"></a></h3>
 <p>Summarizing, the main issue with the two approaches above is that they have
 effects globally and for the full life of the kernel, not just during tests.</p>
 <p>How can we get around this? Why, of course, by adding another layer of
@@ -537,51 +490,51 @@ itself). So we can introduce a <code class="docutils literal notranslate"><span 
 <span class="cp">#define __mockable_wrapper __always_inline</span>
 <span class="cp">#endif</span>
 
-<span class="kt">void</span> <span class="n">__mockable_wrapper</span> <span class="n">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">return</span> <span class="nf">kmalloc</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">gfp</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">__mockable_wrapper</span><span class="w"> </span><span class="nf">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This adds more boilerplate, but lets us manage the scope of the code affected
 by the redirection. We can also limit the temporal scope of the redirection if
 our replacement is defined like:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In the test file. This is the definition that overrides the __weak version */</span>
-<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">kmalloc_ptr</span><span class="p">)(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">;</span>
-<span class="kt">void</span><span class="o">*</span> <span class="nf">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">kmalloc_ptr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">gfp</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In the test file. This is the definition that overrides the __weak version */</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">kmalloc_ptr</span><span class="p">)(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kmalloc_ptr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="cm">/* elsewhere in test case: use a fake implementation and then revert back */</span>
-<span class="n">kmalloc_ptr</span> <span class="o">=</span> <span class="n">my_fake_kmalloc</span><span class="p">;</span>
-<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">some_test_function</span><span class="p">(),</span> <span class="mi">42</span><span class="p">);</span>
-<span class="n">kmalloc_ptr</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">;</span>
+<span class="cm">/* elsewhere in test case: use a fake implementation and then revert back */</span><span class="w"></span>
+<span class="n">kmalloc_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_fake_kmalloc</span><span class="p">;</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">some_test_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"></span>
+<span class="n">kmalloc_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Note that we can do the same thing using compile-time indirection</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef CONFIG_MY_KUNIT_TEST </span><span class="cm">/* or some other, more generic check */</span><span class="cp"></span>
-<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">kmalloc_ptr</span><span class="p">)(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">kmalloc_ptr</span><span class="p">)(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">;</span><span class="w"></span>
 <span class="cp">#endif</span>
 
-<span class="kt">void</span><span class="o">*</span> <span class="nf">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">gfp_t</span> <span class="n">gfp</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">kmalloc_wrapper</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="cp">#ifdef CONFIG_MY_KUNIT_TEST</span>
-        <span class="k">return</span> <span class="n">kmalloc_ptr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">gfp</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kmalloc_ptr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp</span><span class="p">);</span><span class="w"></span>
 <span class="cp">#endif</span>
-        <span class="k">return</span> <span class="n">kmalloc</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">gfp</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">gfp</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="cm">/* in test file, use the fake for one call */</span>
-<span class="n">kmalloc_ptr</span> <span class="o">=</span> <span class="n">my_fake_kmalloc</span><span class="p">;</span>
-<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">some_test_function</span><span class="p">(),</span> <span class="mi">42</span><span class="p">);</span>
-<span class="n">kmalloc_ptr</span> <span class="o">=</span> <span class="n">kmalloc</span><span class="p">;</span>
+<span class="cm">/* in test file, use the fake for one call */</span><span class="w"></span>
+<span class="n">kmalloc_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_fake_kmalloc</span><span class="p">;</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">some_test_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"></span>
+<span class="n">kmalloc_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#managing-state"><span class="std std-ref">Storing and accessing state for fakes/mocks</span></a> for more details on cleanly handling state in test
 doubles. In particular, one could use “named resources” instead of global
 variables like <code class="docutils literal notranslate"><span class="pre">kmalloc_ptr</span></code>. That approach would also be thread-safe, unlike
 this example.</p>
-<div class="section" id="id5">
-<h4>Pros:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<section id="id5">
+<h4>Pros:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>No runtime overhead outside of tests.</p>
 <blockquote>
@@ -596,9 +549,9 @@ relevant tests are being built.</p></li>
 <li><p>Able to limit the scope of the redirection to code we care about.</p></li>
 <li><p>Are also able to limit how long the redirection is in place.</p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h4>Cons:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id6">
+<h4>Cons:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>The code-under-test (<code class="docutils literal notranslate"><span class="pre">func_under_test()</span></code>) needs to be changed to use this
 new wrapper, somewhat hurting legibility.</p></li>
@@ -616,142 +569,184 @@ like in the second example).</p></li>
 <li><p>Inherits issues of the other approach, e.g. <code class="docutils literal notranslate"><span class="pre">__weak</span></code> won’t work with
 modules, etc.</p></li>
 </ul>
+</section>
+</section>
+<section id="binary-level-ftrace-et-al">
+<h3>Binary-level (ftrace et. al)<a class="headerlink" href="#binary-level-ftrace-et-al" title="Permalink to this heading"></a></h3>
+<p>Similar to link-time approaches, we can avoid invasive changes by doing the
+indirection at runtime.</p>
+<p>Using ftrace and kernel livepatch, we can redirect calls to arbitrary functions
+(as long as they don’t get inlined!) and undo it when we’re done.</p>
+<p>This <a class="reference external" href="https://lore.kernel.org/linux-kselftest/20220318021314.3225240-3-davidgow&#64;google.com/">RFC patch</a>
+implements this approach, so see that for the exact specifics on how this
+works. We’ll be using the API from that RFC patch in the example below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Note: marks the function as noinline if stubs are enabled, otherwise does nothing */</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">KUNIT_STUBBABLE</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* real implementation */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cm">/* In test file */</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">times_called</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">fake_send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* fake implementation */</span><span class="w"></span>
+<span class="w">        </span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="cm">/* In the test case, redirect calls for the duration of the test */</span><span class="w"></span>
+<span class="n">kunit_activate_ftrace_stub</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">send_data_to_hardware</span><span class="p">,</span><span class="w"> </span><span class="n">fake_send_data_to_hardware</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+
+<span class="cm">/* Can also deactivate the stub early, if wanted */</span><span class="w"></span>
+<span class="n">kunit_deactivate_ftrace_stub</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">send_data_to_hardware</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;hello again&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
 </div>
-</div>
-<div class="section" id="binary-level-ftrace-et-al">
-<h3>Binary-level (ftrace et. al)<a class="headerlink" href="#binary-level-ftrace-et-al" title="Permalink to this headline">¶</a></h3>
-<p>TODO(<a class="reference external" href="mailto:dlatypov&#37;&#52;&#48;google&#46;com">dlatypov<span>&#64;</span>google<span>&#46;</span>com</a>): write me</p>
-<div class="section" id="id7">
-<h4>Pros:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<section id="id8">
+<h4>Pros:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
 <ul class="simple">
-<li><p>TODO</p></li>
+<li><p>This is the least invasive change to the code-under-test.</p>
+<ul>
+<li><p>You just have to ensure that the function isn’t inlined when compiling the
+kernel for testing, which you can do via <code class="docutils literal notranslate"><span class="pre">KUNIT_STUBBABLE</span></code>.</p></li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h4>Cons:<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+</li>
+<li><p>Unlike the link-time approach above, the redirection is <em>reversible</em> and is
+localized to the test.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h4>Cons:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
 <ul class="simple">
-<li><p>TODO</p></li>
+<li><p>Has a number of Kconfig dependencies that don’t work on all architectures
+(including UML).</p></li>
+<li><p>Relies on a level of “magic”, so fully understanding how it works is much
+harder than e.g. compile-time approaches.</p></li>
 </ul>
-<p>TODO(<a class="reference external" href="mailto:dlatypov&#37;&#52;&#48;google&#46;com">dlatypov<span>&#64;</span>google<span>&#46;</span>com</a>): include section on worked example use cases.</p>
-</div>
-</div>
-</div>
-<div class="section" id="storing-and-accessing-state-for-fakes-mocks">
-<span id="managing-state"></span><h2>Storing and accessing state for fakes/mocks<a class="headerlink" href="#storing-and-accessing-state-for-fakes-mocks" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="storing-and-accessing-state-for-fakes-mocks">
+<span id="managing-state"></span><h2>Storing and accessing state for fakes/mocks<a class="headerlink" href="#storing-and-accessing-state-for-fakes-mocks" title="Permalink to this heading"></a></h2>
 <p>One of the challenges of implementing both mocks and fakes is how to track
 state. We can’t pass in additional parameters since that’ll change the function
 signature, so we need some way of stashing state somewhere.</p>
 <p>Below, we have two examples of how you can do so fairly cleanly.</p>
-<div class="section" id="using-named-resources">
-<h3>Using named resources<a class="headerlink" href="#using-named-resources" title="Permalink to this headline">¶</a></h3>
+<section id="using-named-resources">
+<h3>Using named resources<a class="headerlink" href="#using-named-resources" title="Permalink to this heading"></a></h3>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code> with <code class="docutils literal notranslate"><span class="pre">kunit_add_named_resource</span></code> to store
 and retrieve test-specific data, e.g.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* in some shared file, mock_write.h/c */</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* in some shared file, mock_write.h/c */</span><span class="w"></span>
 
-<span class="cm">/* Store some data per-test and have a kunit_resource handle for it. */</span>
-<span class="k">struct</span> <span class="nc">mock_write_data</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">times_called</span><span class="p">;</span>
-        <span class="kt">bool</span> <span class="n">should_return_error</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="k">static</span> <span class="k">struct</span> <span class="nc">kunit_resource</span> <span class="n">mock_write_data_resource</span><span class="p">;</span>
+<span class="cm">/* Store some data per-test and have a kunit_resource handle for it. */</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_write_data</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">times_called</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">should_return_error</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_resource</span><span class="w"> </span><span class="n">mock_write_data_resource</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">mock_write_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">mock_write_data</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">data</span><span class="o">-&gt;</span><span class="n">times_called</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">data</span><span class="o">-&gt;</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">mock_write_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_write_data</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">kunit_add_named_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mock_write_data_resource</span><span class="p">,</span>
-                                        <span class="s">&quot;mock_write_data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kunit_add_named_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mock_write_data_resource</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="s">&quot;mock_write_data&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">mock_write</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">kunit_resource</span> <span class="o">*</span><span class="n">resource</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="nc">mock_write_data</span> <span class="o">*</span><span class="n">mock</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">mock_write</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_resource</span><span class="w"> </span><span class="o">*</span><span class="n">resource</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_write_data</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="p">;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">)</span>
-                <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
 
-        <span class="n">resource</span> <span class="o">=</span> <span class="n">kunit_find_named_resource</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">,</span> <span class="s">&quot;mock_write_data&quot;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">resource</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">,</span> <span class="s">&quot;mock_write called before mock_write_init()!&quot;</span><span class="p">);</span>
-                <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-        <span class="p">}</span>
+<span class="w">        </span><span class="n">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_find_named_resource</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mock_write_data&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">resource</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mock_write called before mock_write_init()!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
 
-        <span class="n">mock</span> <span class="o">=</span> <span class="n">resource</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span> <span class="o">?</span> <span class="mi">-1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
-<span class="cm">/* Then in the test file, can use the mock like so */</span>
+<span class="cm">/* Then in the test file, can use the mock like so */</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">example_write_test</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">mock_write_data</span> <span class="n">mock</span><span class="p">;</span>
-        <span class="n">mock_write_init</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mock</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">example_write_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_write_data</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock_write_init</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mock</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="n">KUNIT_EXPECT_LT</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">mock_write</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_LT</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">mock_write</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">mock_write</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">mock_write</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">mock</span><span class="p">.</span><span class="n">times_called</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="p">.</span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="storing-state-without-kunit">
-<h3>Storing state without KUnit<a class="headerlink" href="#storing-state-without-kunit" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="storing-state-without-kunit">
+<h3>Storing state without KUnit<a class="headerlink" href="#storing-state-without-kunit" title="Permalink to this heading"></a></h3>
 <p>The approach above is tied to KUnit, but it’s obviously possible to come up
 with ways to do it without that dependency.</p>
 <p>For example, if you’re targeting an ops struct, we can employ some
 <code class="docutils literal notranslate"><span class="pre">container_of()</span></code> shenanigans.</p>
 <p>To make the example a bit simpler, let’s assume our ops struct passes a pointer
 to itself for each operation.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">writer</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">writer</span> <span class="o">*</span><span class="n">writer</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">writer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">writer</span><span class="w"> </span><span class="o">*</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="cm">/* in mock_writer.h/c */</span>
-<span class="k">struct</span> <span class="nc">mock_writer</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">writer</span> <span class="n">ops</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">times_called</span><span class="p">;</span>
-        <span class="kt">bool</span> <span class="n">should_return_error</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="cm">/* in mock_writer.h/c */</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_writer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">writer</span><span class="w"> </span><span class="n">ops</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">times_called</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">should_return_error</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">mock_write</span><span class="p">(</span><span class="k">struct</span> <span class="nc">writer</span> <span class="o">*</span><span class="n">writer</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">mock_writer</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">mock_writer</span><span class="p">,</span> <span class="n">ops</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">mock_write</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">writer</span><span class="w"> </span><span class="o">*</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_writer</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_writer</span><span class="p">,</span><span class="w"> </span><span class="n">ops</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span> <span class="o">?</span> <span class="mi">-1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">init_mock_writer</span><span class="p">(</span><span class="k">struct</span> <span class="nc">mock_writer</span> <span class="o">*</span><span class="n">mock</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">ops</span><span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">mock_write</span><span class="p">;</span>
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">init_mock_writer</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_writer</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">ops</span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_write</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">times_called</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
-<span class="cm">/* Then in the test file */</span>
+<span class="cm">/* Then in the test file */</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">example_simple_test</span><span class="p">(</span><span class="k">struct</span> <span class="nc">kunit</span> <span class="o">*</span><span class="n">test</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">mock_writer</span> <span class="n">mock</span><span class="p">;</span>
-        <span class="k">struct</span> <span class="nc">writer</span> <span class="o">*</span><span class="n">writer</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mock</span><span class="p">.</span><span class="n">ops</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">example_simple_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_writer</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">writer</span><span class="w"> </span><span class="o">*</span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mock</span><span class="p">.</span><span class="n">ops</span><span class="p">;</span><span class="w"></span>
 
-        <span class="n">init_mock_writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mock</span><span class="p">);</span>
+<span class="w">        </span><span class="n">init_mock_writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mock</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="n">KUNIT_EXPECT_LT</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">writer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_LT</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">writer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hi&quot;</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">writer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">mock</span><span class="p">.</span><span class="n">should_return_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">writer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hi&quot;</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 
-        <span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">mock</span><span class="p">.</span><span class="n">times_called</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="p">.</span><span class="n">times_called</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If this seems unrealistic, that’s because it is, but it’s not too far from the
@@ -759,97 +754,80 @@ truth. E.g. <code class="docutils literal notranslate"><span class="pre">struct<
 and each operation takes a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">inode*</span></code> as an argument (or a <code class="docutils literal notranslate"><span class="pre">struct</span>
 <span class="pre">dentry</span></code> which we can easily convert over via <code class="docutils literal notranslate"><span class="pre">d_inode()</span></code>).</p>
 <p>So in that more realistic example, we’d have:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mock_inode</span> <span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">inode</span> <span class="n">real</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">inode</span><span class="w"> </span><span class="n">real</span><span class="p">;</span><span class="w"></span>
 
-        <span class="cm">/* mock/fake state stuff */</span>
-        <span class="kt">int</span> <span class="n">readlink_err</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">get_acl_err</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="w">        </span><span class="cm">/* mock/fake state stuff */</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">readlink_err</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">get_acl_err</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">static</span> <span class="k">struct</span> <span class="nc">posix_acl</span> <span class="o">*</span><span class="n">mock_get_acl</span><span class="p">(</span><span class="k">struct</span> <span class="nc">inode</span> <span class="o">*</span><span class="n">inode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="k">struct</span> <span class="nc">mock_inode</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">inode</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">mock_inode</span><span class="p">,</span> <span class="n">real</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">posix_acl</span><span class="w"> </span><span class="o">*</span><span class="n">mock_get_acl</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">inode</span><span class="w"> </span><span class="o">*</span><span class="n">inode</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">inode</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="p">,</span><span class="w"> </span><span class="n">real</span><span class="p">);</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">get_acl_err</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">ERR_PTR</span><span class="p">(</span><span class="n">get_acl_err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">get_acl_err</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ERR_PTR</span><span class="p">(</span><span class="n">get_acl_err</span><span class="p">);</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="nf">posix_acl_alloc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">posix_acl_alloc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">mock_readlink</span><span class="p">(</span><span class="k">struct</span> <span class="nc">dentry</span> <span class="o">*</span><span class="n">dentry</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">buffer</span><span class="p">,</span> <span class="kt">int</span> <span class="n">buflen</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* get mock_inode indrectly */</span>
-        <span class="k">struct</span> <span class="nc">inode</span> <span class="o">*</span><span class="n">inode</span> <span class="o">=</span> <span class="n">d_inode</span><span class="p">(</span><span class="n">dentry</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="nc">mock_inode</span> <span class="o">*</span><span class="n">mock</span> <span class="o">=</span> <span class="n">container_of</span><span class="p">(</span><span class="n">inode</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">mock_inode</span><span class="p">,</span> <span class="n">real</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">mock_readlink</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">dentry</span><span class="w"> </span><span class="o">*</span><span class="n">dentry</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">buflen</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* get mock_inode indrectly */</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">inode</span><span class="w"> </span><span class="o">*</span><span class="n">inode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d_inode</span><span class="p">(</span><span class="n">dentry</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">inode</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="p">,</span><span class="w"> </span><span class="n">real</span><span class="p">);</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">mock</span><span class="o">-&gt;</span><span class="n">readlink_err</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">readlink_err</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">inode_operations</span> <span class="n">mock_inode_operations</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">get_acl</span> <span class="o">=</span> <span class="n">mock_get_acl</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">readlink</span>  <span class="o">=</span> <span class="n">mock_readlink</span><span class="p">,</span>
-        <span class="cm">/* ... */</span>
-<span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">inode_operations</span><span class="w"> </span><span class="n">mock_inode_operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">get_acl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_acl</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">readlink</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">mock_readlink</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* ... */</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="nf">mock_inode_init</span><span class="p">(</span><span class="k">struct</span> <span class="nc">mock_inode</span> <span class="o">*</span><span class="n">mock</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="cm">/* ... */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">mock_inode_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_inode</span><span class="w"> </span><span class="o">*</span><span class="n">mock</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* ... */</span><span class="w"></span>
 
-        <span class="n">mock</span><span class="o">-&gt;</span><span class="n">real</span><span class="p">.</span><span class="n">i_ops</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mock_inode_operations</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">mock</span><span class="o">-&gt;</span><span class="n">real</span><span class="p">.</span><span class="n">i_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mock_inode_operations</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="press.html" class="btn btn-neutral float-right" title="Press" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="release_notes.html" class="btn btn-neutral float-left" title="Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="press.html" class="btn btn-neutral float-right" title="Press" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2019 Google LLC.
-
-    </p>
+    <p>&#169; Copyright 2019 Google LLC.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -132,6 +132,14 @@ For each of these, let's consider the following code:
 		send_data_to_hardware("hello, world\n");
 	}
 
+.. note::
+
+        This `RFC patch series here
+        <https://lore.kernel.org/linux-kselftest/20220318021314.3225240-1-davidgow@google.com/>`_
+	is the KUnit team's attempt at implementing a solution here. Feedback
+	there is welcome! The rest of this doc is mainly useful if you don't
+	want to wait on that or it doesn't work for you use case.
+
 Run time (ops structs, "class mocking")
 ---------------------------------------
 
@@ -223,8 +231,46 @@ other kinds of test-only code.
         This example makes it so that ``send_data_to_hardware()`` no longer
         works for the whole kernel, including other tests if they happen to
         compiled along with ``CONFIG_MY_KUNIT``, even if it's set as
-        ``CONFIG_MY_KUNIT_TEST=m`` (!). See :ref:`hybrid-approaches` for a
-        discussion on how to mitigate that.
+	``CONFIG_MY_KUNIT_TEST=m`` (!). See the code below or
+	:ref:`hybrid-approaches` for a
+	discussion on how to mitigate that.
+
+We've also sent out an `RFC patch
+<https://lore.kernel.org/linux-kselftest/20220318021314.3225240-2-davidgow@google.com/>`_
+to try and standardize this approach behind a nice shiny API.
+
+Unlike the example above, this API also ensures that the redirection only
+applies to the kthread that's running the test and is undone when the test exits.
+
+Using the API from that patch, our example above becomes:
+
+.. code-block:: c
+
+	void send_data_to_hardware(const char *str)
+	{
+		KUNIT_STATIC_STUB_REDIRECT(send_data_to_hardware, str);
+		/* real implementation */
+	}
+
+	/* In test file */
+	int times_called = 0;
+	void fake_send_data_to_hardware(const char *str)
+	{
+		/* fake implementation */
+		times_called++;
+	}
+	...
+	/* In the test case, redirect calls for the duration of the test */
+	kunit_activate_static_stub(test, send_data_to_hardware, fake_send_data_to_hardware);
+
+	send_data_to_hardware("hello");
+	KUNIT_EXPECT_EQ(test, times_called, 1);
+
+	/* Can also deactivate the stub early, if wanted */
+	kunit_deactivate_static_stub(test, send_data_to_hardware);
+
+	send_data_to_hardware("hello again");
+	KUNIT_EXPECT_EQ(test, times_called, 1);
 
 Pros:
 ~~~~~
@@ -423,20 +469,65 @@ Cons:
 Binary-level (ftrace et. al)
 ----------------------------
 
-TODO(dlatypov@google.com): write me
+Similar to link-time approaches, we can avoid invasive changes by doing the
+indirection at runtime.
+
+Using ftrace and kernel livepatch, we can redirect calls to arbitrary functions
+(as long as they don't get inlined!) and undo it when we're done.
+
+This `RFC patch
+<https://lore.kernel.org/linux-kselftest/20220318021314.3225240-3-davidgow@google.com/>`_
+implements this approach, so see that for the exact specifics on how this
+works. We'll be using the API from that RFC patch in the example below.
+
+.. code-block:: c
+
+	/* Note: marks the function as noinline if stubs are enabled, otherwise does nothing */
+	void KUNIT_STUBBABLE send_data_to_hardware(const char *str)
+	{
+		/* real implementation */
+	}
+
+	/* In test file */
+	int times_called = 0;
+	void fake_send_data_to_hardware(const char *str)
+	{
+		/* fake implementation */
+		times_called++;
+	}
+	...
+	/* In the test case, redirect calls for the duration of the test */
+	kunit_activate_ftrace_stub(test, send_data_to_hardware, fake_send_data_to_hardware);
+
+	send_data_to_hardware("hello");
+	KUNIT_EXPECT_EQ(test, times_called, 1);
+
+	/* Can also deactivate the stub early, if wanted */
+	kunit_deactivate_ftrace_stub(test, send_data_to_hardware);
+
+	send_data_to_hardware("hello again");
+	KUNIT_EXPECT_EQ(test, times_called, 1);
+
 
 Pros:
 ~~~~~
 
-- TODO
+- This is the least invasive change to the code-under-test.
+
+  - You just have to ensure that the function isn't inlined when compiling the
+    kernel for testing, which you can do via ``KUNIT_STUBBABLE``.
+
+- Unlike the link-time approach above, the redirection is *reversible* and is
+  localized to the test.
 
 Cons:
 ~~~~~
 
-- TODO
+- Has a number of Kconfig dependencies that don't work on all architectures
+  (including UML).
 
-TODO(dlatypov@google.com): include section on worked example use cases.
-
+- Relies on a level of "magic", so fully understanding how it works is much
+  harder than e.g. compile-time approaches.
 
 .. _managing-state:
 

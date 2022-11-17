@@ -7,14 +7,10 @@
   <title>Fakes and Stubbing and Mocks, Oh My! &mdash; KUnit  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -115,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="fakes-and-stubbing-and-mocks-oh-my">
-<h1>Fakes and Stubbing and Mocks, Oh My!<a class="headerlink" href="#fakes-and-stubbing-and-mocks-oh-my" title="Permalink to this heading"></a></h1>
+<h1>Fakes and Stubbing and Mocks, Oh My!<a class="headerlink" href="#fakes-and-stubbing-and-mocks-oh-my" title="Permalink to this headline"></a></h1>
 <p>This page seeks to provide an overview on mocking and a related task:
 redirecting function calls to test-only code.  Note: many people use the term
 “mocking” to refer to the latter (and that’s fine!), but we’ll try and keep the
@@ -124,7 +120,7 @@ concepts separate in this doc.</p>
 fact there’s enough trade-offs that it’s hard to come up with a generic
 solution.</p>
 <section id="why-do-we-need-this">
-<h2>Why do we need this?<a class="headerlink" href="#why-do-we-need-this" title="Permalink to this heading"></a></h2>
+<h2>Why do we need this?<a class="headerlink" href="#why-do-we-need-this" title="Permalink to this headline"></a></h2>
 <p>First, let’s consider what the goal is. We want unit tests to be as
 lightweight and hermetic as possible, and only test the code we care about.</p>
 <p>A canonical example in userspace testing to consider is a database.
@@ -140,7 +136,7 @@ more reliable tests. Unit tests simply don’t need the scability and features o
 a real database.</p>
 </section>
 <section id="fakes-versus-mocks">
-<h2>Fakes versus mocks<a class="headerlink" href="#fakes-versus-mocks" title="Permalink to this heading"></a></h2>
+<h2>Fakes versus mocks<a class="headerlink" href="#fakes-versus-mocks" title="Permalink to this headline"></a></h2>
 <p>We’ll be using terminology roughly as defined in
 <a class="reference external" href="https://martinfowler.com/bliki/TestDouble.html">https://martinfowler.com/bliki/TestDouble.html</a>, namely:</p>
 <ul class="simple">
@@ -156,7 +152,7 @@ a hash table, or a fake IO device which is just a <code class="docutils literal 
 <div class="line">KUnit currently lacks any features to specifically facilitate mocks, so it’s recommended to create and use fakes.</div>
 </div>
 <section id="downsides-of-mocking">
-<h3>Downsides of mocking<a class="headerlink" href="#downsides-of-mocking" title="Permalink to this heading"></a></h3>
+<h3>Downsides of mocking<a class="headerlink" href="#downsides-of-mocking" title="Permalink to this headline"></a></h3>
 <p>Very briefly, using mocks in tests can make tests more fragile since they test
 “behavior” rather than “state.”</p>
 <p>What do we mean by that?  Let’s imagine we’re testing some userspace program
@@ -199,7 +195,7 @@ refactor, the mock can behave in unrealistic fashion.</p>
 <p>This can and <em>will</em> eventually lead to bugs.</p>
 </section>
 <section id="upsides-of-mocking">
-<h3>Upsides of mocking<a class="headerlink" href="#upsides-of-mocking" title="Permalink to this heading"></a></h3>
+<h3>Upsides of mocking<a class="headerlink" href="#upsides-of-mocking" title="Permalink to this headline"></a></h3>
 <div class="line-block">
 <div class="line">This is not to say that one should never test “behaviour”, i.e. use mocking.</div>
 <div class="line">E.g. imagine we <em>wanted</em> the example test to validate that we only call <code class="docutils literal notranslate"><span class="pre">write()</span></code> once since each call is super-expensive.</div>
@@ -212,7 +208,7 @@ refactor, the mock can behave in unrealistic fashion.</p>
 </section>
 </section>
 <section id="function-redirection">
-<h2>Function redirection<a class="headerlink" href="#function-redirection" title="Permalink to this heading"></a></h2>
+<h2>Function redirection<a class="headerlink" href="#function-redirection" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">Regardless of what kind of test double you use, they’re useless unless you can swap out the real code for them.</div>
 <div class="line">For lack of a better term, we’ll refer to this as function redirection: how do I make calls to <code class="docutils literal notranslate"><span class="pre">real_function()</span></code> go to my <code class="docutils literal notranslate"><span class="pre">fake_function()</span></code>?</div>
@@ -239,7 +235,7 @@ there is welcome! The rest of this doc is mainly useful if you don’t
 want to wait on that or it doesn’t work for you use case.</p>
 </div>
 <section id="run-time-ops-structs-class-mocking">
-<h3>Run time (ops structs, “class mocking”)<a class="headerlink" href="#run-time-ops-structs-class-mocking" title="Permalink to this heading"></a></h3>
+<h3>Run time (ops structs, “class mocking”)<a class="headerlink" href="#run-time-ops-structs-class-mocking" title="Permalink to this headline"></a></h3>
 <p>This is the most straightforward approach and fundamentally boils down to doing
 this:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">func_under_test</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">send_data_func</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">))</span><span class="w"></span>
@@ -258,7 +254,7 @@ functions:</p>
 </div>
 <p>TODO(<a class="reference external" href="mailto:dlatypov&#37;&#52;&#48;google&#46;com">dlatypov<span>&#64;</span>google<span>&#46;</span>com</a>): write about “class mocking”, <a class="reference external" href="https://lore.kernel.org/linux-kselftest/20201012222050.999431-1-dlatypov&#64;google.com/">RFC here</a></p>
 <section id="pros">
-<h4>Pros:<a class="headerlink" href="#pros" title="Permalink to this heading"></a></h4>
+<h4>Pros:<a class="headerlink" href="#pros" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>Simplest implementation: “it’s just code.”</p></li>
 <li><p>This is the only approach here where we can limit the scope of the
@@ -281,7 +277,7 @@ don’t want to mess with.</p></li>
 </ul>
 </section>
 <section id="cons">
-<h4>Cons:<a class="headerlink" href="#cons" title="Permalink to this heading"></a></h4>
+<h4>Cons:<a class="headerlink" href="#cons" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>~Everyone knows about this convention but still want “mocking.” It’s not seen
 as sufficient by itself.</p></li>
@@ -311,7 +307,7 @@ here.</p></li>
 </section>
 </section>
 <section id="compile-time">
-<h3>Compile time<a class="headerlink" href="#compile-time" title="Permalink to this heading"></a></h3>
+<h3>Compile time<a class="headerlink" href="#compile-time" title="Permalink to this headline"></a></h3>
 <p>This involves using compiler directive, macros, etc. to change the code when
 compiling KUnit tests, or for your specific test. E.g. a straightforward
 approach could be</p>
@@ -370,14 +366,14 @@ applies to the kthread that’s running the test and is undone when the test exi
 </pre></div>
 </div>
 <section id="id1">
-<h4>Pros:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h4>Pros:<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
 <ul class="simple">
 <li><p>Also easy to understand.</p></li>
 <li><p>No runtime overhead, unlike the option above.</p></li>
 </ul>
 </section>
 <section id="id2">
-<h4>Cons:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<h4>Cons:<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>Requires invasive changes to the function we’re trying to stub as opposed to
 the coder-under-test itself.</p>
@@ -399,7 +395,7 @@ in static functions.</p></li>
 </section>
 </section>
 <section id="link-time-weak-symbols">
-<h3>Link time (__weak symbols)<a class="headerlink" href="#link-time-weak-symbols" title="Permalink to this heading"></a></h3>
+<h3>Link time (__weak symbols)<a class="headerlink" href="#link-time-weak-symbols" title="Permalink to this headline"></a></h3>
 <p>We can avoid refactoring to the code-under-test and only have minimal changes
 to <code class="docutils literal notranslate"><span class="pre">send_data_to_hardware()</span></code> by pushing the indirection into the linker.</p>
 <p>More specifically, we can make use of “weak symbols”, which would allow tests
@@ -429,7 +425,7 @@ like</p>
 </pre></div>
 </div>
 <section id="id3">
-<h4>Pros:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<h4>Pros:<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
 <ul class="simple">
 <li><p>No runtime overhead.</p></li>
 <li><p>No changes needed to the code-under-test, <code class="docutils literal notranslate"><span class="pre">func_under_test()</span></code>.</p></li>
@@ -437,7 +433,7 @@ like</p>
 </ul>
 </section>
 <section id="id4">
-<h4>Cons:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<h4>Cons:<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>Initial feedback when something similar was included in the initial KUnit RFC
 is that this is adding more complexity.</p>
@@ -475,7 +471,7 @@ redirected it.</p></li>
 </section>
 </section>
 <section id="hybrid-approaches-limiting-scope">
-<span id="hybrid-approaches"></span><h3>Hybrid approaches (limiting scope)<a class="headerlink" href="#hybrid-approaches-limiting-scope" title="Permalink to this heading"></a></h3>
+<span id="hybrid-approaches"></span><h3>Hybrid approaches (limiting scope)<a class="headerlink" href="#hybrid-approaches-limiting-scope" title="Permalink to this headline"></a></h3>
 <p>Summarizing, the main issue with the two approaches above is that they have
 effects globally and for the full life of the kernel, not just during tests.</p>
 <p>How can we get around this? Why, of course, by adding another layer of
@@ -534,7 +530,7 @@ doubles. In particular, one could use “named resources” instead of global
 variables like <code class="docutils literal notranslate"><span class="pre">kmalloc_ptr</span></code>. That approach would also be thread-safe, unlike
 this example.</p>
 <section id="id5">
-<h4>Pros:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<h4>Pros:<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>No runtime overhead outside of tests.</p>
 <blockquote>
@@ -551,7 +547,7 @@ relevant tests are being built.</p></li>
 </ul>
 </section>
 <section id="id6">
-<h4>Cons:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h4>
+<h4>Cons:<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
 <ul>
 <li><p>The code-under-test (<code class="docutils literal notranslate"><span class="pre">func_under_test()</span></code>) needs to be changed to use this
 new wrapper, somewhat hurting legibility.</p></li>
@@ -572,7 +568,7 @@ modules, etc.</p></li>
 </section>
 </section>
 <section id="binary-level-ftrace-et-al">
-<h3>Binary-level (ftrace et. al)<a class="headerlink" href="#binary-level-ftrace-et-al" title="Permalink to this heading"></a></h3>
+<h3>Binary-level (ftrace et. al)<a class="headerlink" href="#binary-level-ftrace-et-al" title="Permalink to this headline"></a></h3>
 <p>Similar to link-time approaches, we can avoid invasive changes by doing the
 indirection at runtime.</p>
 <p>Using ftrace and kernel livepatch, we can redirect calls to arbitrary functions
@@ -608,7 +604,7 @@ works. We’ll be using the API from that RFC patch in the example below.</p>
 </pre></div>
 </div>
 <section id="id8">
-<h4>Pros:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<h4>Pros:<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
 <ul class="simple">
 <li><p>This is the least invasive change to the code-under-test.</p>
 <ul>
@@ -621,7 +617,7 @@ localized to the test.</p></li>
 </ul>
 </section>
 <section id="id9">
-<h4>Cons:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<h4>Cons:<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
 <ul class="simple">
 <li><p>Has a number of Kconfig dependencies that don’t work on all architectures
 (including UML).</p></li>
@@ -632,13 +628,13 @@ harder than e.g. compile-time approaches.</p></li>
 </section>
 </section>
 <section id="storing-and-accessing-state-for-fakes-mocks">
-<span id="managing-state"></span><h2>Storing and accessing state for fakes/mocks<a class="headerlink" href="#storing-and-accessing-state-for-fakes-mocks" title="Permalink to this heading"></a></h2>
+<span id="managing-state"></span><h2>Storing and accessing state for fakes/mocks<a class="headerlink" href="#storing-and-accessing-state-for-fakes-mocks" title="Permalink to this headline"></a></h2>
 <p>One of the challenges of implementing both mocks and fakes is how to track
 state. We can’t pass in additional parameters since that’ll change the function
 signature, so we need some way of stashing state somewhere.</p>
 <p>Below, we have two examples of how you can do so fairly cleanly.</p>
 <section id="using-named-resources">
-<h3>Using named resources<a class="headerlink" href="#using-named-resources" title="Permalink to this heading"></a></h3>
+<h3>Using named resources<a class="headerlink" href="#using-named-resources" title="Permalink to this headline"></a></h3>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code> with <code class="docutils literal notranslate"><span class="pre">kunit_add_named_resource</span></code> to store
 and retrieve test-specific data, e.g.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* in some shared file, mock_write.h/c */</span><span class="w"></span>
@@ -697,7 +693,7 @@ and retrieve test-specific data, e.g.</p>
 </div>
 </section>
 <section id="storing-state-without-kunit">
-<h3>Storing state without KUnit<a class="headerlink" href="#storing-state-without-kunit" title="Permalink to this heading"></a></h3>
+<h3>Storing state without KUnit<a class="headerlink" href="#storing-state-without-kunit" title="Permalink to this headline"></a></h3>
 <p>The approach above is tied to KUnit, but it’s obviously possible to come up
 with ways to do it without that dependency.</p>
 <p>For example, if you’re targeting an ops struct, we can employ some

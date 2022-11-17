@@ -17,6 +17,14 @@ Talks about KUnit
    <https://linuxfoundation.org/webinars/kunit-testing-strategies/>`_
  - `Kernel Testing with KUnit: Bridging the Gap — linux.conf.au 2022
    <https://www.youtube.com/watch?v=Ffu08AL5WVI>`_
+ - `How to introduce KUnit to Physical Device Drivers - Linux Plumbers Conference 2022
+   <https://www.youtube.com/watch?v=vfJnPbAt6gI>`_
+ - `KUnit Function Redirection and More - Linux Plumbers Conference 2022
+   <https://www.youtube.com/watch?v=0Nm06EdXWsE>`_
+ - `KUnit sorcery and the uncanny nature of FPU in the DRM - X.Org Developer’s Conference 2022
+   <https://www.youtube.com/watch?v=nbRbM-Ld-44>`_
+ - `Uncovering DRM’s KUnit test coverage - X.Org Developer’s Conference 2022
+   <https://www.youtube.com/watch?v=HvKf4bBz74o>`_
 
 Articles about KUnit
 ====================

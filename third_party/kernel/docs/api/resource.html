@@ -9,14 +9,10 @@
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_rtd_colors.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -33,7 +29,7 @@
             <a href="../index.html" class="icon icon-home"> The Linux Kernel
           </a>
               <div class="version">
-                5.19.0
+                6.1.0-rc5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -47,11 +43,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../architecture.html">KUnit Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../run_wrapper.html">Running tests with kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../run_manual.html">Run Tests without kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Writing Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html#common-patterns">Common Patterns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="test.html">Test API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Resource API</a></li>
@@ -89,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="resource-api">
-<h1>Resource API<a class="headerlink" href="#resource-api" title="Permalink to this heading">¶</a></h1>
+<h1>Resource API<a class="headerlink" href="#resource-api" title="Permalink to this headline">¶</a></h1>
 <p>This file documents the KUnit resource API.</p>
 <p>Most users won’t need to use this API directly, power users can use it to store
 state on a per-test basis, register custom cleanup actions, and more.</p>
@@ -310,24 +305,6 @@ example.</p>
 <p>KUnit needs to allocate memory for a kunit_resource object. You must
 specify an <strong>internal_gfp</strong> that is compatible with the use context of your
 resource.</p>
-<dl class="c function">
-<dt class="sig sig-object c" id="c.kunit_resource_instance_match">
-<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource_instance_match</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_instance_match" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Match a resource with the same instance.</p>
-</dd></dl>
-
-<p><strong>Parameters</strong></p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>Test case to which the resource belongs.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span> <span class="pre">*res</span></code></dt><dd><p>The resource.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*match_data</span></code></dt><dd><p>The resource pointer to match against.</p>
-</dd>
-</dl>
-<p><strong>Description</strong></p>
-<p>An instance of kunit_resource_match_t that matches a resource whose
-allocation matches <strong>match_data</strong>.</p>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_resource_name_match">
 <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource_name_match</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_name_match" title="Permalink to this definition">¶</a><br /></dt>

@@ -9,14 +9,10 @@
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -33,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> The Linux Kernel
           </a>
               <div class="version">
-                5.19.0
+                6.1.0-rc5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,11 +43,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Running tests with kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Test Style and Nomenclature</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subsystems-suites-and-tests">Subsystems, Suites, and Tests</a><ul>
@@ -94,7 +89,7 @@
            <div itemprop="articleBody">
              
   <section id="test-style-and-nomenclature">
-<h1>Test Style and Nomenclature<a class="headerlink" href="#test-style-and-nomenclature" title="Permalink to this heading">¶</a></h1>
+<h1>Test Style and Nomenclature<a class="headerlink" href="#test-style-and-nomenclature" title="Permalink to this headline">¶</a></h1>
 <p>To make finding, writing, and using KUnit tests as simple as possible, it is
 strongly encouraged that they are named and written according to the guidelines
 below. While it is possible to write KUnit tests which do not follow these rules,
@@ -108,13 +103,13 @@ example, non-deterministically producing false positives or negatives, or
 taking a long time to run.</p></li>
 </ol>
 <section id="subsystems-suites-and-tests">
-<h2>Subsystems, Suites, and Tests<a class="headerlink" href="#subsystems-suites-and-tests" title="Permalink to this heading">¶</a></h2>
+<h2>Subsystems, Suites, and Tests<a class="headerlink" href="#subsystems-suites-and-tests" title="Permalink to this headline">¶</a></h2>
 <p>To make tests easy to find, they are grouped into suites and subsystems. A test
 suite is a group of tests which test a related area of the kernel. A subsystem
 is a set of test suites which test different parts of a kernel subsystem
 or a driver.</p>
 <section id="subsystems">
-<h3>Subsystems<a class="headerlink" href="#subsystems" title="Permalink to this heading">¶</a></h3>
+<h3>Subsystems<a class="headerlink" href="#subsystems" title="Permalink to this headline">¶</a></h3>
 <p>Every test suite must belong to a subsystem. A subsystem is a collection of one
 or more KUnit test suites which test the same driver or part of the kernel. A
 test subsystem should match a single kernel module. If the code being tested
@@ -161,7 +156,7 @@ in the future.</p>
 </div>
 </section>
 <section id="suites">
-<h3>Suites<a class="headerlink" href="#suites" title="Permalink to this heading">¶</a></h3>
+<h3>Suites<a class="headerlink" href="#suites" title="Permalink to this headline">¶</a></h3>
 <p>KUnit tests are grouped into test suites, which cover a specific area of
 functionality being tested. Test suites can have shared initialization and
 shutdown code which is run for all tests in the suite. Not all subsystems need
@@ -203,7 +198,7 @@ similar.</p>
 </dl>
 </section>
 <section id="test-cases">
-<h3>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this heading">¶</a></h3>
+<h3>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h3>
 <p>Individual tests consist of a single function which tests a constrained
 codepath, property, or function. In the test output, an individual test’s
 results will show up as subtests of the suite’s results.</p>
@@ -232,7 +227,7 @@ test name, separated by a colon (i.e. <code class="docutils literal notranslate"
 </section>
 </section>
 <section id="test-kconfig-entries">
-<h2>Test Kconfig Entries<a class="headerlink" href="#test-kconfig-entries" title="Permalink to this heading">¶</a></h2>
+<h2>Test Kconfig Entries<a class="headerlink" href="#test-kconfig-entries" title="Permalink to this headline">¶</a></h2>
 <p>Every test suite should be tied to a Kconfig entry.</p>
 <p>This Kconfig entry must:</p>
 <ul class="simple">
@@ -263,7 +258,7 @@ be built as a module), Kconfig entries for tests should be tristate.</p>
 </div>
 </section>
 <section id="test-file-and-module-names">
-<h2>Test File and Module Names<a class="headerlink" href="#test-file-and-module-names" title="Permalink to this heading">¶</a></h2>
+<h2>Test File and Module Names<a class="headerlink" href="#test-file-and-module-names" title="Permalink to this headline">¶</a></h2>
 <p>KUnit tests can often be compiled as a module. These modules should be named
 after the test suite, followed by <code class="docutils literal notranslate"><span class="pre">_test</span></code>. If this is likely to conflict with
 non-KUnit tests, the suffix <code class="docutils literal notranslate"><span class="pre">_kunit</span></code> can also be used.</p>

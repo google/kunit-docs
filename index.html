@@ -7,14 +7,10 @@
   <title>KUnit &mdash; KUnit  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -73,7 +69,7 @@
            <div itemprop="articleBody">
              
   <section id="kunit">
-<h1>KUnit<a class="headerlink" href="#kunit" title="Permalink to this heading"></a></h1>
+<h1>KUnit<a class="headerlink" href="#kunit" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -120,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v5-17">5.17</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v5-18">5.18</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v5-19">5.19</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#tentative">5.20 (tentative)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#tentative">6.0 (tentative)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a><ul>
@@ -138,7 +134,7 @@
 </ul>
 </div>
 <section id="what-is-kunit">
-<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this heading"></a></h2>
+<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this headline"></a></h2>
 <p>KUnit is a lightweight unit testing framework for the Linux kernel.
 These tests are able to be run locally on a developer’s workstation without a
 VM or special hardware.</p>
@@ -149,11 +145,11 @@ infrastructure for running tests, and more.</p>
 <p>Get started now: <a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a></p>
 </section>
 <section id="who-is-it-for">
-<h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Permalink to this heading"></a></h2>
+<h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Permalink to this headline"></a></h2>
 <p>If you work on the Linux kernel, then KUnit is for you.</p>
 </section>
 <section id="why-unit-test-the-kernel">
-<h2>Why unit test the kernel?<a class="headerlink" href="#why-unit-test-the-kernel" title="Permalink to this heading"></a></h2>
+<h2>Why unit test the kernel?<a class="headerlink" href="#why-unit-test-the-kernel" title="Permalink to this headline"></a></h2>
 <p>The first question is, “why write unit tests in the first place?”</p>
 <p>A unit test is a test focused on testing a small “unit” of code. This is
 usually on the level of a few functions at most. Unit tests try to avoid
@@ -161,7 +157,7 @@ external dependencies like hardware and/or stub them out where possible.</p>
 <p>This ideally makes unit tests more stable, faster, and easier to debug when
 they fail.</p>
 <section id="in-kernel-testing">
-<h3>In-kernel testing<a class="headerlink" href="#in-kernel-testing" title="Permalink to this heading"></a></h3>
+<h3>In-kernel testing<a class="headerlink" href="#in-kernel-testing" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In our case, “unit test” implies in-kernel test code. It’s not really possible
@@ -181,7 +177,7 @@ userspace processes to come up.</p>
 </section>
 </section>
 <section id="why-kunit">
-<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this heading"></a></h2>
+<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this headline"></a></h2>
 <p>KUnit provides a library to help making writing tests easy: including making
 assertions, setting up and cleaning up test resources, and more.
 It also provides a <a class="reference external" href="third_party/kernel/docs/kunit-tool.html">python script</a>
@@ -190,7 +186,7 @@ to make building and running tests easy.</p>
 <code class="docutils literal notranslate"><span class="pre">tools/testing/selftests/kselftest_module.h</span></code>. But this requires more
 boilerplate scattered across several files and potentially several directories.</p>
 <section id="uml">
-<h3>UML<a class="headerlink" href="#uml" title="Permalink to this heading"></a></h3>
+<h3>UML<a class="headerlink" href="#uml" title="Permalink to this headline"></a></h3>
 <p>KUnit is able to run tests without needing a
 virtual machine or actual hardware with User Mode Linux. User Mode Linux is a
 Linux architecture, like ARM or x86; however, unlike other architectures it
@@ -203,7 +199,7 @@ but you can use KUnit manually on different architectures, if wanted. See <a cla
 </section>
 </section>
 <section id="how-do-i-use-it">
-<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading"></a></h2>
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a> - for new users of KUnit</p></li>
 <li><p>For upstream KUnit:
@@ -212,14 +208,14 @@ but you can use KUnit manually on different architectures, if wanted. See <a cla
 </ul>
 </section>
 <section id="where-do-i-get-it">
-<h2>Where do I get it?<a class="headerlink" href="#where-do-i-get-it" title="Permalink to this heading"></a></h2>
+<h2>Where do I get it?<a class="headerlink" href="#where-do-i-get-it" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Upstream: <a class="reference external" href="https://www.kernel.org/">https://www.kernel.org/</a> (version 5.5 or later)</p></li>
 <li><p>Deprecated version: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></p></li>
 </ul>
 </section>
 <section id="connect-with-us">
-<h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Permalink to this heading"></a></h2>
+<h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Mailing List: <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a></p></li>
 <li><p>Google Groups (web interface for above): <a class="reference external" href="https://groups.google.com/forum/#!forum/kunit-dev">https://groups.google.com/forum/#!forum/kunit-dev</a></p></li>
@@ -228,7 +224,7 @@ but you can use KUnit manually on different architectures, if wanted. See <a cla
 </ul>
 </section>
 <section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h2>
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline"></a></h2>
 <p>If you want to contribute to KUnit in the Linux kernel (which is just the same
 as contributing to the Linux kernel, please see <a class="reference external" href="https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development">the Linux kernel’s guide on
 contributing</a>.</p>

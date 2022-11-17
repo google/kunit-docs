@@ -9,19 +9,15 @@
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Run Tests with kunit_tool" href="run_wrapper.html" />
+    <link rel="next" title="Running tests with kunit_tool" href="run_wrapper.html" />
     <link rel="prev" title="Getting Started" href="start.html" /> 
 </head>
 
@@ -33,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> The Linux Kernel
           </a>
               <div class="version">
-                5.19.0
+                6.1.0-rc5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -59,11 +55,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#kunit-tool-command-line-test-harness">kunit_tool (Command Line Test Harness)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Run Tests with kunit_tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Running tests with kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
@@ -96,14 +91,14 @@
            <div itemprop="articleBody">
              
   <section id="kunit-architecture">
-<h1>KUnit Architecture<a class="headerlink" href="#kunit-architecture" title="Permalink to this heading">¶</a></h1>
+<h1>KUnit Architecture<a class="headerlink" href="#kunit-architecture" title="Permalink to this headline">¶</a></h1>
 <p>The KUnit architecture can be divided into two parts:</p>
 <ul class="simple">
-<li><p>Kernel testing library</p></li>
-<li><p>kunit_tool (Command line test harness)</p></li>
+<li><p><a class="reference internal" href="#in-kernel-testing-framework">In-Kernel Testing Framework</a></p></li>
+<li><p><a class="reference internal" href="#kunit-tool-command-line-test-harness">kunit_tool (Command Line Test Harness)</a></p></li>
 </ul>
 <section id="in-kernel-testing-framework">
-<h2>In-Kernel Testing Framework<a class="headerlink" href="#in-kernel-testing-framework" title="Permalink to this heading">¶</a></h2>
+<h2>In-Kernel Testing Framework<a class="headerlink" href="#in-kernel-testing-framework" title="Permalink to this headline">¶</a></h2>
 <p>The kernel testing library supports KUnit tests written in C using
 KUnit. KUnit tests are kernel code. KUnit does several things:</p>
 <ul class="simple">
@@ -112,7 +107,7 @@ KUnit. KUnit tests are kernel code. KUnit does several things:</p>
 <li><p>Provides test utilities</p></li>
 </ul>
 <section id="test-cases">
-<h3>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this heading">¶</a></h3>
+<h3>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this headline">¶</a></h3>
 <p>The fundamental unit in KUnit is the test case. The KUnit test cases are
 grouped into KUnit suites. A KUnit test case is a function with type
 signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*test)</span></code>.
@@ -130,7 +125,7 @@ retrieved in the parameterized tests.</p></li>
 </ul>
 </section>
 <section id="test-suites">
-<h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this heading">¶</a></h3>
+<h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
 <p>A KUnit suite includes a collection of test cases. The KUnit suites
 are represented by the <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_suite</span></code>. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_case</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -157,7 +152,7 @@ The <code class="docutils literal notranslate"><span class="pre">kunit_test_suit
 with the KUnit test framework.</p>
 </section>
 <section id="executor">
-<h3>Executor<a class="headerlink" href="#executor" title="Permalink to this heading">¶</a></h3>
+<h3>Executor<a class="headerlink" href="#executor" title="Permalink to this headline">¶</a></h3>
 <p>The KUnit executor can list and run built-in KUnit tests on boot.
 The Test suites are stored in a linker section
 called <code class="docutils literal notranslate"><span class="pre">.kunit_test_suites</span></code>. For code, see:
@@ -183,7 +178,7 @@ context. For code, see:
 <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/kunit/try-catch.c?h=v5.15#n58">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/kunit/try-catch.c?h=v5.15#n58</a></p>
 </section>
 <section id="assertion-macros">
-<h3>Assertion Macros<a class="headerlink" href="#assertion-macros" title="Permalink to this heading">¶</a></h3>
+<h3>Assertion Macros<a class="headerlink" href="#assertion-macros" title="Permalink to this headline">¶</a></h3>
 <p>KUnit tests verify state using expectations/assertions.
 All expectations/assertions are formatted as:
 <code class="docutils literal notranslate"><span class="pre">KUNIT_{EXPECT|ASSERT}_&lt;op&gt;[_MSG](kunit,</span> <span class="pre">property[,</span> <span class="pre">message])</span></code></p>
@@ -219,7 +214,7 @@ contain an “err” value).</p></li>
 </ul>
 </section>
 <section id="test-result-reporting">
-<h3>Test Result Reporting<a class="headerlink" href="#test-result-reporting" title="Permalink to this heading">¶</a></h3>
+<h3>Test Result Reporting<a class="headerlink" href="#test-result-reporting" title="Permalink to this headline">¶</a></h3>
 <p>KUnit prints test results in KTAP format. KTAP is based on TAP14, see:
 <a class="reference external" href="https://github.com/isaacs/testanything.github.io/blob/tap14/tap-version-14-specification.md">https://github.com/isaacs/testanything.github.io/blob/tap14/tap-version-14-specification.md</a>.
 KTAP (yet to be standardized format) works with KUnit and Kselftest.
@@ -227,7 +222,7 @@ The KUnit executor prints KTAP results to dmesg, and debugfs
 (if configured).</p>
 </section>
 <section id="parameterized-tests">
-<h3>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Permalink to this heading">¶</a></h3>
+<h3>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Permalink to this headline">¶</a></h3>
 <p>Each KUnit parameterized test is associated with a collection of
 parameters. The test is invoked multiple times, once for each parameter
 value and the parameter is stored in the <code class="docutils literal notranslate"><span class="pre">param_value</span></code> field.
@@ -239,7 +234,7 @@ arrays.</p>
 </section>
 </section>
 <section id="kunit-tool-command-line-test-harness">
-<h2>kunit_tool (Command Line Test Harness)<a class="headerlink" href="#kunit-tool-command-line-test-harness" title="Permalink to this heading">¶</a></h2>
+<h2>kunit_tool (Command Line Test Harness)<a class="headerlink" href="#kunit-tool-command-line-test-harness" title="Permalink to this headline">¶</a></h2>
 <p>kunit_tool is a Python script <code class="docutils literal notranslate"><span class="pre">(tools/testing/kunit/kunit.py)</span></code>
 that can be used to configure, build, exec, parse and run (runs other
 commands in order) test results. You can either run KUnit tests using
@@ -284,7 +279,7 @@ diagnostic output will be included.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="start.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="run_wrapper.html" class="btn btn-neutral float-right" title="Run Tests with kunit_tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="run_wrapper.html" class="btn btn-neutral float-right" title="Running tests with kunit_tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

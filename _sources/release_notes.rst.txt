@@ -254,10 +254,10 @@ for the authoritative source on how to write Kconfig entries.
 
   - E.g. instead of ``['-m 256']``, do ``['-m', '256']``
 
-.. _v5.20:
+.. _v6.0:
 
-5.20 (tentative)
-================
+6.0 (tentative)
+===============
 
 - Overhaul support for building tests as modules
 
@@ -277,4 +277,8 @@ for the authoritative source on how to write Kconfig entries.
 
 - Taint the kernel if any KUnit tests run.
 
-  - Added a new ``TAINT_TEST`` flag, shows up as ``'N'``.
+  - Add a new ``TAINT_TEST`` flag, shows up as ``'N'``.
+
+- Add support for KASAN to run on 64-bit UML.
+
+- By default, enable PCI support under UML.

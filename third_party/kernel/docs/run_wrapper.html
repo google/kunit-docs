@@ -4,19 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Run Tests with kunit_tool &mdash; The Linux Kernel  documentation</title>
+  <title>Running tests with kunit_tool &mdash; The Linux Kernel  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -33,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> The Linux Kernel
           </a>
               <div class="version">
-                5.19.0
+                6.1.0-rc5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,19 +43,18 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Run Tests with kunit_tool</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#create-a-kunitconfig-file">Create a  <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> File</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configure-build-and-run-tests">Configure, Build, and Run Tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#parse-test-results">Parse Test Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-selected-test-suites">Run Selected Test Suites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-tests-on-qemu">Run Tests on qemu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running tests with kunit_tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-kunitconfig-file">Creating a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-building-and-running-tests">Configuring, building, and running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parsing-test-results">Parsing test results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering-tests">Filtering tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests-on-qemu">Running tests on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-command-line-arguments">Running command-line arguments</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kunit-tool.html">kunit_tool How-To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
@@ -81,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Run Tests with kunit_tool</li>
+      <li>Running tests with kunit_tool</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/run_wrapper.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="run-tests-with-kunit-tool">
-<h1>Run Tests with kunit_tool<a class="headerlink" href="#run-tests-with-kunit-tool" title="Permalink to this heading">¶</a></h1>
+  <section id="running-tests-with-kunit-tool">
+<h1>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this headline">¶</a></h1>
 <p>We can either run KUnit tests using kunit_tool or can run tests
 manually, and then use kunit_tool to parse the results. To run tests
 manually, see: Documentation/dev-tools/kunit/run_manual.rst.
@@ -104,13 +99,13 @@ tests, and formats the test results.</p>
 </pre></div>
 </div>
 <p>We should see the following:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Generating .config...
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Configuring KUnit Kernel ...
 Building KUnit kernel...
 Starting KUnit kernel...
 </pre></div>
 </div>
 <p>We may want to use the following options:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout=30 --jobs=`nproc --all
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout=30 --jobs=`nproc --all`
 </pre></div>
 </div>
 <ul class="simple">
@@ -135,8 +130,8 @@ provided to test a particular subsystem), pass it as an option:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help
 </pre></div>
 </div>
-<section id="create-a-kunitconfig-file">
-<h2>Create a  <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> File<a class="headerlink" href="#create-a-kunitconfig-file" title="Permalink to this heading">¶</a></h2>
+<section id="creating-a-kunitconfig-file">
+<h2>Creating a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file<a class="headerlink" href="#creating-a-kunitconfig-file" title="Permalink to this headline">¶</a></h2>
 <p>If we want to run a specific set of tests (rather than those listed
 in the KUnit <code class="docutils literal notranslate"><span class="pre">defconfig</span></code>), we can provide Kconfig options in the
 <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file. For default .kunitconfig, see:
@@ -171,8 +166,8 @@ The build dir needs to be set for <code class="docutils literal notranslate"><sp
 work, therefore  by default use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">O=.kunit</span> <span class="pre">menuconfig</span></code>.</p>
 </div>
 </section>
-<section id="configure-build-and-run-tests">
-<h2>Configure, Build, and Run Tests<a class="headerlink" href="#configure-build-and-run-tests" title="Permalink to this heading">¶</a></h2>
+<section id="configuring-building-and-running-tests">
+<h2>Configuring, building, and running tests<a class="headerlink" href="#configuring-building-and-running-tests" title="Permalink to this headline">¶</a></h2>
 <p>If we want to make manual changes to the KUnit build process, we
 can run part of the KUnit build process independently.
 When running kunit_tool, from a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, we can generate a
@@ -191,11 +186,11 @@ argument:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py exec
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> command discussed in section: <strong>Run Tests with kunit_tool</strong>,
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> command discussed in section: <strong>Running tests with kunit_tool</strong>,
 is equivalent to running the above three commands in sequence.</p>
 </section>
-<section id="parse-test-results">
-<h2>Parse Test Results<a class="headerlink" href="#parse-test-results" title="Permalink to this heading">¶</a></h2>
+<section id="parsing-test-results">
+<h2>Parsing test results<a class="headerlink" href="#parsing-test-results" title="Permalink to this headline">¶</a></h2>
 <p>KUnit tests output displays results in TAP (Test Anything Protocol)
 format. When running tests, kunit_tool parses this output and prints
 a summary. To see the raw test results in TAP format, we can pass the
@@ -214,8 +209,8 @@ dmesg <span class="p">|</span> ./tools/testing/kunit/kunit.py parse
 </pre></div>
 </div>
 </section>
-<section id="run-selected-test-suites">
-<h2>Run Selected Test Suites<a class="headerlink" href="#run-selected-test-suites" title="Permalink to this heading">¶</a></h2>
+<section id="filtering-tests">
+<h2>Filtering tests<a class="headerlink" href="#filtering-tests" title="Permalink to this headline">¶</a></h2>
 <p>By passing a bash style glob filter to the <code class="docutils literal notranslate"><span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">run</span></code>
 commands, we can run a subset of the tests built into a kernel . For
 example: if we only want to run KUnit resource tests, use:</p>
@@ -224,8 +219,8 @@ example: if we only want to run KUnit resource tests, use:</p>
 </div>
 <p>This uses the standard glob format with wildcard characters.</p>
 </section>
-<section id="run-tests-on-qemu">
-<h2>Run Tests on qemu<a class="headerlink" href="#run-tests-on-qemu" title="Permalink to this heading">¶</a></h2>
+<section id="running-tests-on-qemu">
+<span id="kunit-on-qemu"></span><h2>Running tests on QEMU<a class="headerlink" href="#running-tests-on-qemu" title="Permalink to this headline">¶</a></h2>
 <p>kunit_tool supports running tests on  qemu as well as
 via UML. To run tests on qemu, by default it requires two flags:</p>
 <ul class="simple">
@@ -250,6 +245,17 @@ website to a directory in our home directory called toolchains.</p></li>
 </ul>
 </li>
 </ul>
+<p>This means that for most architectures, running under qemu is as simple as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --arch<span class="o">=</span>x86_64
+</pre></div>
+</div>
+<p>When cross-compiling, we’ll likely need to specify a different toolchain, for
+example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run <span class="se">\</span>
+        --arch<span class="o">=</span>s390 <span class="se">\</span>
+        --cross_compile<span class="o">=</span>s390x-linux-gnu-
+</pre></div>
+</div>
 <p>If we want to run KUnit tests on an architecture not supported by
 the <code class="docutils literal notranslate"><span class="pre">--arch</span></code> flag, or want to run KUnit tests on qemu using a
 non-default configuration; then we can write our own``QemuConfig``.
@@ -269,13 +275,11 @@ as</p>
         --qemu_config<span class="o">=</span>./tools/testing/kunit/qemu_configs/x86_64.py
 </pre></div>
 </div>
-<p>To run existing KUnit tests on non-UML architectures, see:
-Documentation/dev-tools/kunit/non_uml.rst.</p>
 </section>
-<section id="command-line-arguments">
-<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this heading">¶</a></h2>
+<section id="running-command-line-arguments">
+<h2>Running command-line arguments<a class="headerlink" href="#running-command-line-arguments" title="Permalink to this headline">¶</a></h2>
 <p>kunit_tool has a number of other command-line arguments which can
-be useful for our test environment. Below the most commonly used
+be useful for our test environment. Below are the most commonly used
 command line arguments:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">--help</span></code>: Lists all available options. To list common options,
@@ -292,17 +296,70 @@ the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</s
 <li><p><code class="docutils literal notranslate"><span class="pre">--make_options</span></code>: Specifies additional options to pass to make, when
 compiling a kernel (using <code class="docutils literal notranslate"><span class="pre">build</span></code> or <code class="docutils literal notranslate"><span class="pre">run</span></code> commands). For example:
 to enable compiler warnings, we can pass <code class="docutils literal notranslate"><span class="pre">--make_options</span> <span class="pre">W=1</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--alltests</span></code>: Builds a UML kernel with all config options enabled
-using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">allyesconfig</span></code>. This allows us to run as many tests as
-possible.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">--alltests</span></code>: Enable a predefined set of options in order to build
+as many tests as possible.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is slow and prone to breakage as new options are
-added or modified. Instead, enable all tests
-which have satisfied dependencies by adding
-<code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_ALL_TESTS=y</span></code> to your <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>.</p>
+<p>The list of enabled options can be found in
+<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/configs/all_tests.config</span></code>.</p>
+<p>If you only want to enable all tests with otherwise satisfied
+dependencies, instead add <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_ALL_TESTS=y</span></code> to your
+<code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>.</p>
 </div>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--kunitconfig</span></code>: Specifies the path or the directory of the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>
+file. For example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/kunit/.kunitconfig</span></code> can be the path of the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/kunit</span></code> can be the directory in which the file is located.</p></li>
+</ul>
+<p>This file is used to build and run with a predefined set of tests
+and their dependencies. For example, to run tests for a given subsystem.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--kconfig_add</span></code>: Specifies additional configuration options to be
+appended to the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --kconfig_add CONFIG_KASAN=y
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--arch</span></code>: Runs tests on the specified architecture. The architecture
+argument is same as the Kbuild ARCH environment variable.
+For example, i386, x86_64, arm, um, etc. Non-UML architectures run on qemu.
+Default is <cite>um</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--cross_compile</span></code>: Specifies the Kbuild toolchain. It passes the
+same argument as passed to the <code class="docutils literal notranslate"><span class="pre">CROSS_COMPILE</span></code> variable used by
+Kbuild. This will be the prefix for the toolchain
+binaries such as GCC. For example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sparc64-linux-gnu-</span></code> if we have the sparc toolchain installed on
+our system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$HOME/toolchains/microblaze/gcc-9.2.0-nolibc/microblaze-linux/bin/microblaze-linux</span></code>
+if we have downloaded the microblaze toolchain from the 0-day
+website to a specified path in our home directory called toolchains.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--qemu_config</span></code>: Specifies the path to a file containing a
+custom qemu architecture definition. This should be a python file
+containing a <cite>QemuArchParams</cite> object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--qemu_args</span></code>: Specifies additional qemu arguments, for example, <code class="docutils literal notranslate"><span class="pre">-smp</span> <span class="pre">8</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--jobs</span></code>: Specifies the number of jobs (commands) to run simultaneously.
+By default, this is set to the number of cores on your system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--timeout</span></code>: Specifies the maximum number of seconds allowed for all tests to run.
+This does not include the time taken to build the tests.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--kernel_args</span></code>: Specifies additional kernel command-line arguments. May be repeated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--run_isolated</span></code>: If set, boots the kernel for each individual suite/test.
+This is useful for debugging a non-hermetic test, one that
+might pass/fail based on what ran before it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--raw_output</span></code>: If set, generates unformatted output from kernel. Possible options are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>: To view the full kernel output, use <code class="docutils literal notranslate"><span class="pre">--raw_output=all</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit</span></code>: This is the default option and filters to KUnit output. Use <code class="docutils literal notranslate"><span class="pre">--raw_output</span></code> or <code class="docutils literal notranslate"><span class="pre">--raw_output=kunit</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--json</span></code>: If set, stores the test results in a JSON format and prints to <cite>stdout</cite> or
+saves to a file if a filename is specified.</p></li>
 </ul>
 </section>
 </section>

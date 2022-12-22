@@ -224,7 +224,7 @@ approach could be
 
 
 This pattern is generally useful and recommended `here
-<third_party/kernel/docs/tips.html#injecting-test-only-code>`__ for injecting
+<third_party/kernel/docs/usage.html#injecting-test-only-code>`__ for injecting
 other kinds of test-only code.
 
 .. note::
@@ -355,7 +355,7 @@ Cons:
 - Won't work with tests built as modules.
 
 - More complicated, harder to understand, and less explicit.
-	
+
         - E.g. if you forgot to include the replacement definition in the
           compilation unit, the code will happily call the original one without
           any warning or indication.

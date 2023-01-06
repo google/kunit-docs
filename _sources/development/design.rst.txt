@@ -6,7 +6,7 @@ High Level Structure
 ====================
 
 KUnit in practice is divided into two components: the KUnit kernel (more often
-referred to as the KUnit kernel, or just the kernel), and the kunit_tool. Most
+referred to as the KUnit kernel, or just the kernel), and kunit.py. Most
 of KUnit, including all the test cases, all of the test libraries, and even the
 test runner itself are all part of the Linux kernel.
 
@@ -108,10 +108,10 @@ It takes a
 The function definition can be found here:
 https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git/tree/lib/kunit/test.c?h=test&id=741a98d022362c90609ac9dcd8ad56314d8e68b3#n152
 
-kunit_tool
-----------
+kunit.py
+--------
 
-Currently the main purpose kunit_tool serves is just to make to process of
+Currently the main purpose kunit.py serves is just to make to process of
 building the kernel and running tests easier, but it also serves as a place
 where workarounds can be added in. For example, there are some bugs (for
 example, if the UML kernel crashes, it will corrupt the user's terminal

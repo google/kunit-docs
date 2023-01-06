@@ -5,8 +5,8 @@ Useful Commands
 Building and Running KUnit Manually
 ===================================
 
-Sometimes for debugging kunit_tool or the interaction between the KUnit kernel
-and kunit_tool it is useful to build and run the tests manually:
+Sometimes for debugging kunit.py or the interaction between the KUnit kernel
+and kunit.py, it is useful to build and run the tests manually:
 
 .. code-block:: bash
 

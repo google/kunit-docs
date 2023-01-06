@@ -86,8 +86,8 @@
 <h1>Useful Commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline"></a></h1>
 <section id="building-and-running-kunit-manually">
 <h2>Building and Running KUnit Manually<a class="headerlink" href="#building-and-running-kunit-manually" title="Permalink to this headline"></a></h2>
-<p>Sometimes for debugging kunit_tool or the interaction between the KUnit kernel
-and kunit_tool it is useful to build and run the tests manually:</p>
+<p>Sometimes for debugging kunit.py or the interaction between the KUnit kernel
+and kunit.py, it is useful to build and run the tests manually:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp kunitconfig .config
 make <span class="nv">ARCH</span><span class="o">=</span>um -j <span class="m">12</span>
 ./linux <span class="nv">mem</span><span class="o">=</span>1G <span class="nv">log_buf_len</span><span class="o">=</span>2M

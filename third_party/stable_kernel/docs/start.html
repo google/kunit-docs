@@ -10,7 +10,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,7 +32,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -66,8 +68,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Getting Started</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/start.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,14 +80,14 @@
            <div itemprop="articleBody">
              
   <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
 <section id="installing-dependencies">
-<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this heading">¶</a></h2>
 <p>KUnit has the same dependencies as the Linux kernel. As long as you can build
 the kernel, you can run KUnit.</p>
 </section>
 <section id="kunit-wrapper">
-<h2>KUnit Wrapper<a class="headerlink" href="#kunit-wrapper" title="Permalink to this headline">¶</a></h2>
+<h2>KUnit Wrapper<a class="headerlink" href="#kunit-wrapper" title="Permalink to this heading">¶</a></h2>
 <p>Included with KUnit is a simple Python wrapper that helps format the output to
 easily use and read KUnit output. It handles building and running the kernel, as
 well as formatting the output.</p>
@@ -95,7 +97,7 @@ well as formatting the output.</p>
 </div>
 </section>
 <section id="creating-a-kunitconfig">
-<h2>Creating a kunitconfig<a class="headerlink" href="#creating-a-kunitconfig" title="Permalink to this headline">¶</a></h2>
+<h2>Creating a kunitconfig<a class="headerlink" href="#creating-a-kunitconfig" title="Permalink to this heading">¶</a></h2>
 <p>The Python script is a thin wrapper around Kbuild as such, it needs to be
 configured with a <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file. This file essentially contains the
 regular Kernel config, with the specific test targets as well.</p>
@@ -106,7 +108,7 @@ ln -s <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>/kunitconfig kunitconfig
 </div>
 <p>You may want to add kunitconfig to your local gitignore.</p>
 <section id="verifying-kunit-works">
-<h3>Verifying KUnit Works<a class="headerlink" href="#verifying-kunit-works" title="Permalink to this headline">¶</a></h3>
+<h3>Verifying KUnit Works<a class="headerlink" href="#verifying-kunit-works" title="Permalink to this heading">¶</a></h3>
 <p>To make sure that everything is set up correctly, simply invoke the Python
 wrapper from your kernel repo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
@@ -131,7 +133,7 @@ Starting KUnit Kernel ...
 </section>
 </section>
 <section id="writing-your-first-test">
-<h2>Writing your first test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this headline">¶</a></h2>
+<h2>Writing your first test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this heading">¶</a></h2>
 <p>In your kernel repo let’s add some code that we can test. Create a file
 <code class="docutils literal notranslate"><span class="pre">drivers/misc/example.h</span></code> with the contents:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -277,7 +279,7 @@ kunit misc-example: one or more tests failed
 <p>Congrats! You just wrote your first KUnit test!</p>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Check out the <a class="reference internal" href="usage.html"><span class="doc">Using KUnit</span></a> page for a more
 in-depth explanation of KUnit.</p></li>

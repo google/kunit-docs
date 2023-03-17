@@ -13,7 +13,7 @@ documentation: https://kernel.org/doc/html/latest/dev-tools/kunit.
 ===
 
 - KUnit introduced, including all the basic functionality.
-- ``kunitconfig`` was renamed to ``.kunitconfig`` later in in 5.5 (`commit
+- ``kunitconfig`` was renamed to ``.kunitconfig`` later in 5.5 (`commit
   <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=14ee5cfd4512ee3d1e0047d8751450dcc6544070>`__)
 
 .. _v5.6:
@@ -256,8 +256,8 @@ for the authoritative source on how to write Kconfig entries.
 
 .. _v6.0:
 
-6.0 (tentative)
-===============
+6.0
+===
 
 - Overhaul support for building tests as modules
 
@@ -282,3 +282,93 @@ for the authoritative source on how to write Kconfig entries.
 - Add support for KASAN to run on 64-bit UML.
 
 - By default, enable PCI support under UML.
+
+.. _v6.1:
+
+6.1
+===
+
+- ``kunit.py run --alltests`` now works.
+
+  - Renamed ``all_tests_uml.config`` (added in :ref:`v5.19`) to ``all_tests.config``.
+
+  - Changed the ``--alltests`` flag to use this manually curated file instead of
+    trying to get ``allyesconfig`` to work.
+
+  - Removed Virtio and PCI UML specific options from ``all_tests_uml.config``.
+
+- ``Documentation/`` updates and fixes.
+
+- Further reduction in the stack consumption of ``KUNIT_EXPECT_`` macros.
+
+  - For context, see :ref:`v5.18`.
+
+  - On UML, now ``KUNIT_FAIL()`` uses 0 bytes (was 8), and ``KUNIT_EXPECT_EQ()``
+    uses 24 (was 32).
+
+- In edge cases, ``kunit_kfree()`` matches ``kfree()``:
+
+  -  ``kunit_kfree(NULL)`` is a no-op.
+
+  -  ``kunit_kfree(invalid_ptr)`` will no longer crash, but it will now fail the test.
+
+- Introduce new ``kunit.enable`` kernel command-line argument.
+
+  - This is a niche feature. If you don't want to run tests, prefer setting
+    ``CONFIG_KUNIT=n``.
+
+  - However, if you need to compile KUnit, you can use this to forcibly prevent
+    tests from running.
+
+  - You can set the default value of the option via ``CONFIG_KUNIT_DEFAULT_ENABLED``.
+
+.. _v6.2:
+6.2
+===
+
+- Added new ``KUNIT_EXPECT_MEMEQ(test, a, b, size)`` macro for comparing memory blocks.
+
+  - This is an alternative to ``KUNIT_EXPECT_EQ(test, memcmp(a, b, size), 0)``.
+
+  - On failure, KUnit will print out the bytes and highlight where the regions differ.
+
+- Failure logs are available in decimal and hexadecimal output.
+
+- Use a static key to check if tests are currently running.
+
+  - This reduces the performance overhead of `kunit_get_current_test()` and
+    `kunit_fail_current_test()` when no test is running.
+
+  - For more details, see `kunit: Provide a static key to check if KUnit is actively running tests <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=908d0c177bbc7c34ab9129c6f2bcd87487115632>`__.
+
+- Make KUnit output and the kunit.py parser compliant with KTAP version 1 specification.
+
+  - In KUnit output, subtests are now indicated using "KTAP version 1" headers.
+
+- Added two macros, `VISIBLE_IF_KUNIT` and `EXPORT_SYMBOL_IF_KUNIT`, that let
+  tests to conditionally expose  static symbols.
+
+  - For an example of how to use these macros, see `apparmor: test: make static symbols visible during kunit testing <https://git.kernel.org/pub/scm/ linux/kernel/git/torvalds/linux.git/commit/?id=b11e51dd70947107fa4076c6286dce301671afc1>`__.
+
+- Made the following KUnit documentation changes:
+
+  - Updated the "architecture.rst" page for style and grammatical issues.
+
+  - Made "usage.rst" a superset of "tips.rst" and removed "tips.rst" page.
+
+  - Reworded assertion description.
+
+  - Fix "How Do I Use This" / "Next Steps" section.
+
+  - Updated the requirements for test result description in KTAP specification.
+
+.. _v6.3:
+
+6.3 (tentative)
+===============
+
+- Added "hooks" to call into KUnit when it's built as a module.
+
+- Introduced a "static_stub" feature to add redirection support for KUnit tests.
+  Any function that wants to be intercepted adds a call to a macro which checks
+  if a test has redirected calls to it, and then calls the corresponding replacement.

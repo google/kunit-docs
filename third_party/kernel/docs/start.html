@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -85,8 +87,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Getting Started</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/start.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,17 +99,17 @@
            <div itemprop="articleBody">
              
   <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
 <p>This page contains an overview of the kunit_tool and KUnit framework,
 teaching how to run existing tests and then how to write a simple test case,
 and covers common problems users face when using KUnit for the first time.</p>
 <section id="installing-dependencies">
-<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this heading">¶</a></h2>
 <p>KUnit has the same dependencies as the Linux kernel. As long as you can
 build the kernel, you can run KUnit.</p>
 </section>
 <section id="running-tests-with-kunit-tool">
-<h2>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this headline">¶</a></h2>
+<h2>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this heading">¶</a></h2>
 <p>kunit_tool is a Python script, which configures and builds a kernel, runs
 tests, and formats the test results. From the kernel repository, you
 can run kunit_tool:</p>
@@ -144,7 +146,7 @@ the <code class="docutils literal notranslate"><span class="pre">Building</span>
 <p>For detailed information on this wrapper, see:
 Documentation/dev-tools/kunit/run_wrapper.rst.</p>
 <section id="selecting-which-tests-to-run">
-<h3>Selecting which tests to run<a class="headerlink" href="#selecting-which-tests-to-run" title="Permalink to this headline">¶</a></h3>
+<h3>Selecting which tests to run<a class="headerlink" href="#selecting-which-tests-to-run" title="Permalink to this heading">¶</a></h3>
 <p>By default, kunit_tool runs all tests reachable with minimal configuration,
 that is, using default values for most of the kconfig options.  However,
 you can select which tests to run by:</p>
@@ -153,7 +155,7 @@ you can select which tests to run by:</p>
 <li><p><a class="reference internal" href="#filtering-tests-by-name">Filtering tests by name</a> to select specifically which compiled tests to run.</p></li>
 </ul>
 <section id="customizing-kconfig">
-<h4>Customizing Kconfig<a class="headerlink" href="#customizing-kconfig" title="Permalink to this headline">¶</a></h4>
+<h4>Customizing Kconfig<a class="headerlink" href="#customizing-kconfig" title="Permalink to this heading">¶</a></h4>
 <p>A good starting point for the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> is the KUnit default config.
 If you didn’t run <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> yet, you can generate it by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
@@ -206,7 +208,7 @@ cp .kunit/defconfig .kunit/.kunitconfig
 </div>
 </section>
 <section id="filtering-tests-by-name">
-<h4>Filtering tests by name<a class="headerlink" href="#filtering-tests-by-name" title="Permalink to this headline">¶</a></h4>
+<h4>Filtering tests by name<a class="headerlink" href="#filtering-tests-by-name" title="Permalink to this heading">¶</a></h4>
 <p>If you want to be more specific than Kconfig can provide, it is also possible
 to select which tests to execute at boot-time by passing a glob filter
 (read instructions regarding the pattern in the manpage <em class="manpage">glob(7)</em>).
@@ -239,7 +241,7 @@ any test suite:</p>
 </section>
 </section>
 <section id="running-tests-without-the-kunit-wrapper">
-<h2>Running Tests without the KUnit Wrapper<a class="headerlink" href="#running-tests-without-the-kunit-wrapper" title="Permalink to this headline">¶</a></h2>
+<h2>Running Tests without the KUnit Wrapper<a class="headerlink" href="#running-tests-without-the-kunit-wrapper" title="Permalink to this heading">¶</a></h2>
 <p>If you do not want to use the KUnit Wrapper (for example: you want code
 under test to integrate with other systems, or use a different/
 unsupported architecture or configuration), KUnit can be included in
@@ -252,7 +254,7 @@ Enabling KUnit disables Kernel Address-Space Layout Randomization
 suitable for production.</p>
 </div>
 <section id="configuring-the-kernel">
-<h3>Configuring the Kernel<a class="headerlink" href="#configuring-the-kernel" title="Permalink to this headline">¶</a></h3>
+<h3>Configuring the Kernel<a class="headerlink" href="#configuring-the-kernel" title="Permalink to this heading">¶</a></h3>
 <p>To enable KUnit itself, you need to enable the <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT</span></code> Kconfig
 option (under Kernel Hacking/Kernel Testing and Coverage in
 <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>). From there, you can enable any KUnit tests. They
@@ -261,7 +263,7 @@ usually have config options ending in <code class="docutils literal notranslate"
 will run when the module is loaded.</p>
 </section>
 <section id="running-tests-without-kunit-wrapper">
-<h3>Running Tests (without KUnit Wrapper)<a class="headerlink" href="#running-tests-without-kunit-wrapper" title="Permalink to this headline">¶</a></h3>
+<h3>Running Tests (without KUnit Wrapper)<a class="headerlink" href="#running-tests-without-kunit-wrapper" title="Permalink to this heading">¶</a></h3>
 <p>Build and run your kernel. In the kernel log, the test output is printed
 out in the TAP format. This will only happen by default if KUnit/tests
 are built-in. Otherwise the module will need to be loaded.</p>
@@ -272,7 +274,7 @@ are built-in. Otherwise the module will need to be loaded.</p>
 </section>
 </section>
 <section id="writing-your-first-test">
-<h2>Writing Your First Test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this headline">¶</a></h2>
+<h2>Writing Your First Test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this heading">¶</a></h2>
 <p>In your kernel repository, let’s add some code that we can test.</p>
 <ol class="arabic simple">
 <li><p>Create a file <code class="docutils literal notranslate"><span class="pre">drivers/misc/example.h</span></code>, which includes:</p></li>
@@ -382,7 +384,7 @@ CONFIG_MISC_EXAMPLE_TEST=y
 <p>Congrats! You just wrote your first KUnit test.</p>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Documentation/dev-tools/kunit/architecture.rst - KUnit architecture.</p></li>
 <li><p>Documentation/dev-tools/kunit/run_wrapper.rst - run kunit_tool.</p></li>

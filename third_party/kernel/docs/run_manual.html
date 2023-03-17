@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -70,8 +72,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Run Tests without kunit_tool</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Run Tests without kunit_tool</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/run_manual.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="run-tests-without-kunit-tool">
-<h1>Run Tests without kunit_tool<a class="headerlink" href="#run-tests-without-kunit-tool" title="Permalink to this headline">¶</a></h1>
+<h1>Run Tests without kunit_tool<a class="headerlink" href="#run-tests-without-kunit-tool" title="Permalink to this heading">¶</a></h1>
 <p>If we do not want to use kunit_tool (For example: we want to integrate
 with other systems, or run tests on real hardware), we can
 include KUnit in any kernel, read out results, and parse manually.</p>
@@ -93,7 +95,7 @@ possible that tests may reduce the stability or security of
 the system.</p>
 </div>
 <section id="configure-the-kernel">
-<h2>Configure the Kernel<a class="headerlink" href="#configure-the-kernel" title="Permalink to this headline">¶</a></h2>
+<h2>Configure the Kernel<a class="headerlink" href="#configure-the-kernel" title="Permalink to this heading">¶</a></h2>
 <p>KUnit tests can run without kunit_tool. This can be useful, if:</p>
 <ul class="simple">
 <li><p>We have an existing kernel configuration to test.</p></li>

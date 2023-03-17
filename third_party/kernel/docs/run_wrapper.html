@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -75,8 +77,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Running tests with kunit_tool</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Running tests with kunit_tool</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/run_wrapper.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -87,7 +89,7 @@
            <div itemprop="articleBody">
              
   <section id="running-tests-with-kunit-tool">
-<h1>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this headline">¶</a></h1>
+<h1>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this heading">¶</a></h1>
 <p>We can either run KUnit tests using kunit_tool or can run tests
 manually, and then use kunit_tool to parse the results. To run tests
 manually, see: Documentation/dev-tools/kunit/run_manual.rst.
@@ -131,7 +133,7 @@ provided to test a particular subsystem), pass it as an option:</p>
 </pre></div>
 </div>
 <section id="creating-a-kunitconfig-file">
-<h2>Creating a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file<a class="headerlink" href="#creating-a-kunitconfig-file" title="Permalink to this headline">¶</a></h2>
+<h2>Creating a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file<a class="headerlink" href="#creating-a-kunitconfig-file" title="Permalink to this heading">¶</a></h2>
 <p>If we want to run a specific set of tests (rather than those listed
 in the KUnit <code class="docutils literal notranslate"><span class="pre">defconfig</span></code>), we can provide Kconfig options in the
 <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> file. For default .kunitconfig, see:
@@ -167,7 +169,7 @@ work, therefore  by default use <code class="docutils literal notranslate"><span
 </div>
 </section>
 <section id="configuring-building-and-running-tests">
-<h2>Configuring, building, and running tests<a class="headerlink" href="#configuring-building-and-running-tests" title="Permalink to this headline">¶</a></h2>
+<h2>Configuring, building, and running tests<a class="headerlink" href="#configuring-building-and-running-tests" title="Permalink to this heading">¶</a></h2>
 <p>If we want to make manual changes to the KUnit build process, we
 can run part of the KUnit build process independently.
 When running kunit_tool, from a <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, we can generate a
@@ -190,7 +192,7 @@ argument:</p>
 is equivalent to running the above three commands in sequence.</p>
 </section>
 <section id="parsing-test-results">
-<h2>Parsing test results<a class="headerlink" href="#parsing-test-results" title="Permalink to this headline">¶</a></h2>
+<h2>Parsing test results<a class="headerlink" href="#parsing-test-results" title="Permalink to this heading">¶</a></h2>
 <p>KUnit tests output displays results in TAP (Test Anything Protocol)
 format. When running tests, kunit_tool parses this output and prints
 a summary. To see the raw test results in TAP format, we can pass the
@@ -210,7 +212,7 @@ dmesg <span class="p">|</span> ./tools/testing/kunit/kunit.py parse
 </div>
 </section>
 <section id="filtering-tests">
-<h2>Filtering tests<a class="headerlink" href="#filtering-tests" title="Permalink to this headline">¶</a></h2>
+<h2>Filtering tests<a class="headerlink" href="#filtering-tests" title="Permalink to this heading">¶</a></h2>
 <p>By passing a bash style glob filter to the <code class="docutils literal notranslate"><span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">run</span></code>
 commands, we can run a subset of the tests built into a kernel . For
 example: if we only want to run KUnit resource tests, use:</p>
@@ -220,7 +222,7 @@ example: if we only want to run KUnit resource tests, use:</p>
 <p>This uses the standard glob format with wildcard characters.</p>
 </section>
 <section id="running-tests-on-qemu">
-<span id="kunit-on-qemu"></span><h2>Running tests on QEMU<a class="headerlink" href="#running-tests-on-qemu" title="Permalink to this headline">¶</a></h2>
+<span id="kunit-on-qemu"></span><h2>Running tests on QEMU<a class="headerlink" href="#running-tests-on-qemu" title="Permalink to this heading">¶</a></h2>
 <p>kunit_tool supports running tests on  qemu as well as
 via UML. To run tests on qemu, by default it requires two flags:</p>
 <ul class="simple">
@@ -277,7 +279,7 @@ as</p>
 </div>
 </section>
 <section id="running-command-line-arguments">
-<h2>Running command-line arguments<a class="headerlink" href="#running-command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<h2>Running command-line arguments<a class="headerlink" href="#running-command-line-arguments" title="Permalink to this heading">¶</a></h2>
 <p>kunit_tool has a number of other command-line arguments which can
 be useful for our test environment. Below are the most commonly used
 command line arguments:</p>

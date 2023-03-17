@@ -11,7 +11,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -66,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Development</a> &raquo;</li>
-      <li>Prow Presubmit for KUnit Gerrit</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Development</a></li>
+      <li class="breadcrumb-item active">Prow Presubmit for KUnit Gerrit</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/development/prow.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,7 +81,7 @@
            <div itemprop="articleBody">
              
   <section id="prow-presubmit-for-kunit-gerrit">
-<h1>Prow Presubmit for KUnit Gerrit<a class="headerlink" href="#prow-presubmit-for-kunit-gerrit" title="Permalink to this headline"></a></h1>
+<h1>Prow Presubmit for KUnit Gerrit<a class="headerlink" href="#prow-presubmit-for-kunit-gerrit" title="Permalink to this heading"></a></h1>
 <p>We, KUnit, use <a class="reference external" href="https://github.com/kubernetes/test-infra/tree/master/prow">Prow</a>, a Kubernetes
 based CI/CD system, for our Presubmit system.</p>
 <p>Prow has built in support for Gerrit and GitHub integration. The only thing

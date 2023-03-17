@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -73,8 +75,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Frequently Asked Questions</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Frequently Asked Questions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,9 +87,9 @@
            <div itemprop="articleBody">
              
   <section id="frequently-asked-questions">
-<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">¶</a></h1>
 <section id="how-is-this-different-from-autotest-kselftest-and-so-on">
-<h2>How is this different from Autotest, kselftest, and so on?<a class="headerlink" href="#how-is-this-different-from-autotest-kselftest-and-so-on" title="Permalink to this headline">¶</a></h2>
+<h2>How is this different from Autotest, kselftest, and so on?<a class="headerlink" href="#how-is-this-different-from-autotest-kselftest-and-so-on" title="Permalink to this heading">¶</a></h2>
 <p>KUnit is a unit testing framework. Autotest, kselftest (and some others) are
 not.</p>
 <p>A <a class="reference external" href="https://martinfowler.com/bliki/UnitTest.html">unit test</a> is supposed to
@@ -103,7 +105,7 @@ kernel under test. This is true for Autotest, kselftest, and some others,
 disqualifying any of them from being considered unit testing frameworks.</p>
 </section>
 <section id="does-kunit-support-running-on-architectures-other-than-uml">
-<h2>Does KUnit support running on architectures other than UML?<a class="headerlink" href="#does-kunit-support-running-on-architectures-other-than-uml" title="Permalink to this headline">¶</a></h2>
+<h2>Does KUnit support running on architectures other than UML?<a class="headerlink" href="#does-kunit-support-running-on-architectures-other-than-uml" title="Permalink to this heading">¶</a></h2>
 <p>Yes, mostly.</p>
 <p>For the most part, the KUnit core framework (what we use to write the tests)
 can compile to any architecture. It compiles like just another part of the
@@ -116,7 +118,7 @@ more work than using KUnit on UML.</p>
 <p>For more information, see <a class="reference internal" href="usage.html#kunit-on-non-uml"><span class="std std-ref">Writing Tests For Other Architectures</span></a>.</p>
 </section>
 <section id="what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests">
-<span id="kinds-of-tests"></span><h2>What is the difference between a unit test and other kinds of tests?<a class="headerlink" href="#what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests" title="Permalink to this headline">¶</a></h2>
+<span id="kinds-of-tests"></span><h2>What is the difference between a unit test and other kinds of tests?<a class="headerlink" href="#what-is-the-difference-between-a-unit-test-and-other-kinds-of-tests" title="Permalink to this heading">¶</a></h2>
 <p>Most existing tests for the Linux kernel would be categorized as an integration
 test, or an end-to-end test.</p>
 <ul class="simple">
@@ -140,7 +142,7 @@ that depends on interactions between the hardware, the kernel, and userspace.</p
 </ul>
 </section>
 <section id="kunit-is-not-working-what-should-i-do">
-<h2>KUnit is not working, what should I do?<a class="headerlink" href="#kunit-is-not-working-what-should-i-do" title="Permalink to this headline">¶</a></h2>
+<h2>KUnit is not working, what should I do?<a class="headerlink" href="#kunit-is-not-working-what-should-i-do" title="Permalink to this heading">¶</a></h2>
 <p>Unfortunately, there are a number of things which can break, but here are some
 things to try.</p>
 <ol class="arabic simple">

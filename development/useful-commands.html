@@ -11,7 +11,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -70,9 +72,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Development</a> &raquo;</li>
-      <li>Useful Commands</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Development</a></li>
+      <li class="breadcrumb-item active">Useful Commands</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/development/useful-commands.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -83,9 +85,9 @@
            <div itemprop="articleBody">
              
   <section id="useful-commands">
-<h1>Useful Commands<a class="headerlink" href="#useful-commands" title="Permalink to this headline"></a></h1>
+<h1>Useful Commands<a class="headerlink" href="#useful-commands" title="Permalink to this heading"></a></h1>
 <section id="building-and-running-kunit-manually">
-<h2>Building and Running KUnit Manually<a class="headerlink" href="#building-and-running-kunit-manually" title="Permalink to this headline"></a></h2>
+<h2>Building and Running KUnit Manually<a class="headerlink" href="#building-and-running-kunit-manually" title="Permalink to this heading"></a></h2>
 <p>Sometimes for debugging kunit.py or the interaction between the KUnit kernel
 and kunit.py, it is useful to build and run the tests manually:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp kunitconfig .config
@@ -95,7 +97,7 @@ make <span class="nv">ARCH</span><span class="o">=</span>um -j <span class="m">1
 </div>
 </section>
 <section id="cleaning-the-kernel">
-<h2>Cleaning the Kernel<a class="headerlink" href="#cleaning-the-kernel" title="Permalink to this headline"></a></h2>
+<h2>Cleaning the Kernel<a class="headerlink" href="#cleaning-the-kernel" title="Permalink to this heading"></a></h2>
 <p>As typical, cleaning object files can be accomplished with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make clean
 </pre></div>

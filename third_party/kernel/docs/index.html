@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +34,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -66,8 +68,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>KUnit - Linux Kernel Unit Testing</li>
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">KUnit - Linux Kernel Unit Testing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,7 +80,7 @@
            <div itemprop="articleBody">
              
   <section id="kunit-linux-kernel-unit-testing">
-<h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Permalink to this headline">¶</a></h1>
+<h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -161,7 +163,7 @@
 </div>
 <p>This section details the kernel unit testing framework.</p>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>KUnit (Kernel unit testing framework) provides a common framework for
 unit tests within the Linux kernel. Using KUnit, you can define groups
 of test cases called test suites. The tests either run on kernel boot
@@ -185,7 +187,7 @@ that configures the Linux kernel, runs KUnit tests under QEMU or UML
 parses the test results and
 displays them in a user friendly manner.</p>
 <section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provides a framework for writing unit tests.</p></li>
 <li><p>Runs tests on any kernel architecture.</p></li>
@@ -193,7 +195,7 @@ displays them in a user friendly manner.</p>
 </ul>
 </section>
 <section id="prerequisites">
-<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Any Linux kernel compatible hardware.</p></li>
 <li><p>For Kernel under test, Linux kernel version 5.5 or greater.</p></li>
@@ -201,13 +203,13 @@ displays them in a user friendly manner.</p>
 </section>
 </section>
 <section id="unit-testing">
-<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this heading">¶</a></h2>
 <p>A unit test tests a single unit of code in isolation. A unit test is the finest
 granularity of testing and allows all possible code paths to be tested in the
 code under test. This is possible if the code under test is small and does not
 have any external dependencies outside of the test’s control like hardware.</p>
 <section id="write-unit-tests">
-<h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Permalink to this headline">¶</a></h3>
+<h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Permalink to this heading">¶</a></h3>
 <p>To write good unit tests, there is a simple but powerful pattern:
 Arrange-Act-Assert. This is a great way to structure test cases and
 defines an order of operations.</p>
@@ -221,7 +223,7 @@ expected.</p></li>
 </ul>
 </section>
 <section id="unit-testing-advantages">
-<h3>Unit Testing Advantages<a class="headerlink" href="#unit-testing-advantages" title="Permalink to this headline">¶</a></h3>
+<h3>Unit Testing Advantages<a class="headerlink" href="#unit-testing-advantages" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Increases testing speed and development in the long run.</p></li>
 <li><p>Detects bugs at initial stage and therefore decreases bug fix cost
@@ -233,7 +235,7 @@ compared to acceptance testing.</p></li>
 </section>
 </section>
 <section id="how-do-i-use-it">
-<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h2>
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Documentation/dev-tools/kunit/start.rst - for KUnit new users.</p></li>
 <li><p>Documentation/dev-tools/kunit/architecture.rst - KUnit architecture.</p></li>

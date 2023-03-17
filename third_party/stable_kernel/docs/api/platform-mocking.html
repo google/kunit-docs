@@ -10,7 +10,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,7 +32,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -66,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">API Reference</a> &raquo;</li>
-      <li>Platform Mocking</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Platform Mocking</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/platform-mocking.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,17 +81,17 @@
            <div itemprop="articleBody">
              
   <section id="platform-mocking">
-<h1>Platform Mocking<a class="headerlink" href="#platform-mocking" title="Permalink to this headline">¶</a></h1>
+<h1>Platform Mocking<a class="headerlink" href="#platform-mocking" title="Permalink to this heading">¶</a></h1>
 <p>This file documents <em>platform mocking</em>, mocking libraries that mock out platform
 specific features and aid in writing mocks for platform drivers and other low
 level kernel code.</p>
 <section id="enable-platform-mocking">
-<h2>Enable Platform Mocking<a class="headerlink" href="#enable-platform-mocking" title="Permalink to this headline">¶</a></h2>
+<h2>Enable Platform Mocking<a class="headerlink" href="#enable-platform-mocking" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">CONFIG_PLATFORM_MOCK</span></code> needs to be added to the .config (or kunitconfig) to
 enable platform mocking.</p>
 </section>
 <section id="mocked-io-functions">
-<h2>Mocked IO Functions<a class="headerlink" href="#mocked-io-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Mocked IO Functions<a class="headerlink" href="#mocked-io-functions" title="Permalink to this heading">¶</a></h2>
 <p>The following functions have been mocked for convenience.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u8</span><span class="w"> </span><span class="nf">readb</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__iomem</span><span class="w"> </span><span class="o">*</span><span class="p">);</span><span class="w"></span>
 <span class="n">u16</span><span class="w"> </span><span class="nf">readw</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__iomem</span><span class="w"> </span><span class="o">*</span><span class="p">);</span><span class="w"></span>
@@ -107,7 +109,7 @@ enable platform mocking.</p>
 </div>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading">¶</a></h2>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.of_fake_node">
 <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device_node</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">of_fake_node</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.of_fake_node" title="test"><span class="n"><span class="pre">test</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.of_fake_node" title="Permalink to this definition">¶</a><br /></dt>

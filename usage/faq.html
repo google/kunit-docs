@@ -11,7 +11,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -69,9 +71,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Using KUnit</a> &raquo;</li>
-      <li>Frequently Asked Questions</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Using KUnit</a></li>
+      <li class="breadcrumb-item active">Frequently Asked Questions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/usage/faq.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,9 +84,9 @@
            <div itemprop="articleBody">
              
   <section id="frequently-asked-questions">
-<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline"></a></h1>
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading"></a></h1>
 <section id="im-seeing-error-root-kconfig-is-not-contained-in-validated-config">
-<h2>I’m seeing ‘Error:root:Kconfig is not contained in validated .config!’<a class="headerlink" href="#im-seeing-error-root-kconfig-is-not-contained-in-validated-config" title="Permalink to this headline"></a></h2>
+<h2>I’m seeing ‘Error:root:Kconfig is not contained in validated .config!’<a class="headerlink" href="#im-seeing-error-root-kconfig-is-not-contained-in-validated-config" title="Permalink to this heading"></a></h2>
 <p>This means that there are some missing or wrong entries in your <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code>
 file. Make sure you’ve spelt all of your config entries correctly, and that
 you’ve included all of their dependencies.</p>
@@ -98,7 +100,7 @@ See <a class="reference external" href="https://bugzilla.kernel.org/show_bug.cgi
 </div>
 </section>
 <section id="im-seeing-a-lot-of-makes-integer-from-pointer-without-a-cast-errors-in-kunit-assertion">
-<h2>I’m seeing a lot of ‘makes integer from pointer without a cast’ errors in KUNIT_ASSERTION<a class="headerlink" href="#im-seeing-a-lot-of-makes-integer-from-pointer-without-a-cast-errors-in-kunit-assertion" title="Permalink to this headline"></a></h2>
+<h2>I’m seeing a lot of ‘makes integer from pointer without a cast’ errors in KUNIT_ASSERTION<a class="headerlink" href="#im-seeing-a-lot-of-makes-integer-from-pointer-without-a-cast-errors-in-kunit-assertion" title="Permalink to this heading"></a></h2>
 <p>If you wish to compare pointers, you’ll need to use the _PTR variants of the
 <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT</span></code> macros. For example, you need to use
 <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_PTR_EQ(test,</span> <span class="pre">ptr1,</span> <span class="pre">ptr2)</span></code> instead of

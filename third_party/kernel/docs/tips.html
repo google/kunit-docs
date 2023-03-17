@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,8 +81,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Tips For Writing KUnit Tests</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tips For Writing KUnit Tests</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tips.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,9 +93,9 @@
            <div itemprop="articleBody">
              
   <section id="tips-for-writing-kunit-tests">
-<h1>Tips For Writing KUnit Tests<a class="headerlink" href="#tips-for-writing-kunit-tests" title="Permalink to this headline">¶</a></h1>
+<h1>Tips For Writing KUnit Tests<a class="headerlink" href="#tips-for-writing-kunit-tests" title="Permalink to this heading">¶</a></h1>
 <section id="exiting-early-on-failed-expectations">
-<h2>Exiting early on failed expectations<a class="headerlink" href="#exiting-early-on-failed-expectations" title="Permalink to this headline">¶</a></h2>
+<h2>Exiting early on failed expectations<a class="headerlink" href="#exiting-early-on-failed-expectations" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ</span></code> and friends will mark the test as failed and continue
 execution.  In some cases, it’s unsafe to continue and you can use the
 <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT</span></code> variant to exit on failure.</p>
@@ -109,7 +111,7 @@ execution.  In some cases, it’s unsafe to continue and you can use the
 </div>
 </section>
 <section id="allocating-memory">
-<h2>Allocating memory<a class="headerlink" href="#allocating-memory" title="Permalink to this headline">¶</a></h2>
+<h2>Allocating memory<a class="headerlink" href="#allocating-memory" title="Permalink to this heading">¶</a></h2>
 <p>Where you would use <code class="docutils literal notranslate"><span class="pre">kzalloc</span></code>, you should prefer <code class="docutils literal notranslate"><span class="pre">kunit_kzalloc</span></code> instead.
 KUnit will ensure the memory is freed once the test completes.</p>
 <p>This is particularly useful since it lets you use the <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_EQ</span></code>
@@ -128,7 +130,7 @@ call <code class="docutils literal notranslate"><span class="pre">kfree</span></
 </div>
 </section>
 <section id="testing-static-functions">
-<h2>Testing static functions<a class="headerlink" href="#testing-static-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Testing static functions<a class="headerlink" href="#testing-static-functions" title="Permalink to this heading">¶</a></h2>
 <p>If you don’t want to expose functions or variables just for testing, one option
 is to conditionally <code class="docutils literal notranslate"><span class="pre">#include</span></code> the test file at the end of your .c file, e.g.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.c */</span><span class="w"></span>
@@ -142,7 +144,7 @@ is to conditionally <code class="docutils literal notranslate"><span class="pre"
 </div>
 </section>
 <section id="injecting-test-only-code">
-<h2>Injecting test-only code<a class="headerlink" href="#injecting-test-only-code" title="Permalink to this headline">¶</a></h2>
+<h2>Injecting test-only code<a class="headerlink" href="#injecting-test-only-code" title="Permalink to this heading">¶</a></h2>
 <p>Similarly to the above, it can be useful to add test-specific logic.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.h */</span><span class="w"></span>
 
@@ -158,7 +160,7 @@ is to conditionally <code class="docutils literal notranslate"><span class="pre"
 test, see below.</p>
 </section>
 <section id="accessing-the-current-test">
-<h2>Accessing the current test<a class="headerlink" href="#accessing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<h2>Accessing the current test<a class="headerlink" href="#accessing-the-current-test" title="Permalink to this heading">¶</a></h2>
 <p>In some cases, you need to call test-only code from outside the test file, e.g.
 like in the example above or if you’re providing a fake implementation of an
 ops struct.
@@ -200,7 +202,7 @@ something more flexible you could use a named <code class="docutils literal notr
 Documentation/dev-tools/kunit/api/test.rst.</p>
 </section>
 <section id="failing-the-current-test">
-<h2>Failing the current test<a class="headerlink" href="#failing-the-current-test" title="Permalink to this headline">¶</a></h2>
+<h2>Failing the current test<a class="headerlink" href="#failing-the-current-test" title="Permalink to this heading">¶</a></h2>
 <p>But sometimes, you might just want to fail the current test. In that case, we
 have <code class="docutils literal notranslate"><span class="pre">kunit_fail_current_test(fmt,</span> <span class="pre">args...)</span></code> which is defined in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test-bug.h&gt;</span></code> and
 doesn’t require pulling in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code>.</p>
@@ -224,7 +226,7 @@ doesn’t require pulling in <code class="docutils literal notranslate"><span cl
 </div>
 </section>
 <section id="customizing-error-messages">
-<h2>Customizing error messages<a class="headerlink" href="#customizing-error-messages" title="Permalink to this headline">¶</a></h2>
+<h2>Customizing error messages<a class="headerlink" href="#customizing-error-messages" title="Permalink to this heading">¶</a></h2>
 <p>Each of the <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT</span></code> and <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT</span></code> macros have a <code class="docutils literal notranslate"><span class="pre">_MSG</span></code> variant.
 These take a format string and arguments to provide additional context to the automatically generated error messages.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="n">some_str</span><span class="p">[</span><span class="mi">41</span><span class="p">];</span><span class="w"></span>
@@ -247,7 +249,7 @@ These take a format string and arguments to provide additional context to the au
 </pre></div>
 </div>
 <section id="next-steps">
-<h3>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
+<h3>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Optional: see the Documentation/dev-tools/kunit/usage.rst page for a more
 in-depth explanation of KUnit.</p></li>

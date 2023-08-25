@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Test API &mdash; The Linux Kernel  documentation</title>
@@ -25,7 +25,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            The Linux Kernel
           </a>
               <div class="version">
                 4.19.0
@@ -103,44 +107,44 @@ related features.</p>
 <p><strong>Description</strong></p>
 <p>Represents a <em>test managed resource</em>, a resource which will automatically be
 cleaned up at the end of a test case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">        </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="o">-&gt;</span><span class="n">gfp</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_kmalloc_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">;</span>
+<span class="w">        </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="o">-&gt;</span><span class="n">gfp</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">kfree</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_kmalloc_free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">kfree</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">test_kmalloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="n">params</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">test_kmalloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_kmalloc_params</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_RESOURCE_T</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">gfp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfp</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">        </span><span class="n">params</span><span class="p">.</span><span class="n">gfp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfp</span><span class="p">;</span>
 
 <span class="w">        </span><span class="c1">// TODO(felixguo@google.com): The &amp; gets interpreted via</span>
 <span class="w">        </span><span class="c1">// Kerneldoc but we don&#39;t want that.</span>
-<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_alloc_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test_kmalloc_init</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">test_kmalloc_free</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">else</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_alloc_resource</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test_kmalloc_init</span><span class="p">,</span>
+<span class="w">                </span><span class="n">test_kmalloc_free</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">allocation</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Example</strong></p>
@@ -173,19 +177,19 @@ followed by the module’s exit function.</p>
 <p>A test case should be static and should only be created with the <a class="reference internal" href="#c.TEST_CASE" title="TEST_CASE"><code class="xref c c-func docutils literal notranslate"><span class="pre">TEST_CASE()</span></code></a>
 macro; additionally, every array of test cases should be terminated with an
 empty test case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">));</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_CASE_T</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">{},</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_CASE_T</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">add_test_basic</span><span class="p">),</span>
+<span class="w">        </span><span class="p">{},</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p><strong>Example</strong></p>

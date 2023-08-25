@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using KUnit &mdash; KUnit  documentation</title>
@@ -26,7 +26,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> KUnit
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            KUnit
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -105,13 +109,13 @@ where to get them.</p>
 <p>To run KUnit tests, you’ll need to provide a ‘kunitconfig’ file, which contains
 the list of test modules to build, and their dependencies.</p>
 <p>Once you have the <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file, just run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>You may want to run KUnit with flags like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --timeout<span class="o">=</span><span class="m">30</span> --jobs<span class="o">=</span><span class="m">24</span> --defconfig
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--timeout<span class="o">=</span><span class="m">30</span><span class="w"> </span>--jobs<span class="o">=</span><span class="m">24</span><span class="w"> </span>--defconfig
 </pre></div>
 </div>
 <ul class="simple">
@@ -120,7 +124,7 @@ the list of test modules to build, and their dependencies.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">--defconfig</span></code> uses an default kunitconfig in the kernel source.</p></li>
 </ul>
 <p>For more information on these and other flags, try running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--help
 </pre></div>
 </div>
 </div>
@@ -132,7 +136,7 @@ print the results (nicely formatted) to the screen.</p>
 similarly <code class="docutils literal notranslate"><span class="pre">/bin/sh:</span> <span class="pre">bison:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, you are most likely missing
 the flex and bison packages. On a system using the apt package manager you
 can install them with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install flex bison
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>flex<span class="w"> </span>bison
 </pre></div>
 </div>
 <p>For more information on building the kernel, see

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Release Notes &mdash; KUnit  documentation</title>
@@ -26,7 +26,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> KUnit
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            KUnit
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -60,8 +64,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#v5-19">5.19</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-0">6.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-1">6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id18">6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tentative">6.3 (tentative)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-2">6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-3">6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-4">6.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-5">6.5</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
@@ -182,7 +188,7 @@ example that uses <code class="docutils literal notranslate"><span class="pre">&
 <li><p>You can pass in a path to a kunitconfig file instead of using
 <code class="docutils literal notranslate"><span class="pre">.kunit/.kunitconfig</span></code>, e.g.</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kunitconfig<span class="o">=</span>fs/ext4/.kunitconfig
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kunitconfig<span class="o">=</span>fs/ext4/.kunitconfig
 </pre></div>
 </div>
 <ul class="simple">
@@ -190,7 +196,7 @@ example that uses <code class="docutils literal notranslate"><span class="pre">&
 glob argument, e.g.</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only run &quot;list&quot; suites</span>
-$ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;*list*&#39;</span>
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s1">&#39;*list*&#39;</span>
 </pre></div>
 </div>
 </section>
@@ -230,17 +236,17 @@ dmesg, e.g.</p></li>
 <li><p>You can filter on test names now in addition to suite names, e.g.</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only run tests that contain &quot;foo&quot;</span>
-$ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;*.*foo*&#39;</span>
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s1">&#39;*.*foo*&#39;</span>
 <span class="c1"># Only run tests in &quot;mysuite&quot; that contain &quot;foo&quot;</span>
-$ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;mysuite.*foo*&#39;</span>
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s1">&#39;mysuite.*foo*&#39;</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>You can ask <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> to run each suite/test by itself. This can be useful
 to track down issues due to non-hermetic tests</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --run_isolated<span class="o">=</span>suite
-$ ./tools/testing/kunit/kunit.py run --run_isolated<span class="o">=</span><span class="nb">test</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--run_isolated<span class="o">=</span>suite
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--run_isolated<span class="o">=</span><span class="nb">test</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -260,7 +266,7 @@ slightly different</p>
 <li><p>Print out parsed test results in real time.</p></li>
 <li><p>Allow tweaking Kconfig options from command-line, e.g.</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kconfig_add<span class="o">=</span><span class="nv">MY_CONFIG</span><span class="o">=</span>y
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kconfig_add<span class="o">=</span><span class="nv">MY_CONFIG</span><span class="o">=</span>y
 </pre></div>
 </div>
 <ul class="simple">
@@ -340,7 +346,7 @@ structs, but that didn’t always work.</p></li>
 </ul>
 </li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kunitconfig<span class="o">=</span>my/dir --kunitconfig<span class="o">=</span>tools/testing/kunit/configs/coverage_uml.config
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kunitconfig<span class="o">=</span>my/dir<span class="w"> </span>--kunitconfig<span class="o">=</span>tools/testing/kunit/configs/coverage_uml.config
 </pre></div>
 </div>
 <ul class="simple">
@@ -389,8 +395,8 @@ tests from running.</p></li>
 </li>
 </ul>
 </section>
-<section id="id18">
-<h2>6.2<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h2>
+<section id="v6-2">
+<span id="id18"></span><h2>6.2<a class="headerlink" href="#v6-2" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Added new <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_MEMEQ(test,</span> <span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">size)</span></code> macro for comparing memory blocks.</p>
 <ul>
@@ -428,13 +434,48 @@ tests to conditionally expose  static symbols.</p>
 </li>
 </ul>
 </section>
-<section id="tentative">
-<span id="v6-3"></span><h2>6.3 (tentative)<a class="headerlink" href="#tentative" title="Permalink to this heading"></a></h2>
+<section id="v6-3">
+<span id="id19"></span><h2>6.3<a class="headerlink" href="#v6-3" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Added “hooks” to call into KUnit when it’s built as a module.</p></li>
+<li><p>Added “hooks” to call into KUnit when it’s built as a module.</p>
+<ul>
+<li><p>These allow some KUnit features to be used in built-in code, or in other
+modules, without introducing a hard dependency on KUnit.</p></li>
+</ul>
+</li>
 <li><p>Introduced a “static_stub” feature to add redirection support for KUnit tests.
 Any function that wants to be intercepted adds a call to a macro which checks
 if a test has redirected calls to it, and then calls the corresponding replacement.</p></li>
+</ul>
+</section>
+<section id="v6-4">
+<span id="id20"></span><h2>6.4<a class="headerlink" href="#v6-4" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>kunit.py now supports building / running tests via QEMU on the m68k and SuperH (sh)
+architectures.</p></li>
+<li><p>Several fixes to debugfs log support, particularly with parameterized tests.</p></li>
+<li><p>The default log size has been increased to 2048 bytes.</p></li>
+</ul>
+</section>
+<section id="v6-5">
+<span id="id21"></span><h2>6.5<a class="headerlink" href="#v6-5" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Added a new ‘deferred actions’ API, based on the devm_/devres APIs, to call a function
+automatically on test exit. This should simplify resource management an cleanup.</p>
+<ul>
+<li><p>See: <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/usage.html#registering-cleanup-actions">https://docs.kernel.org/dev-tools/kunit/usage.html#registering-cleanup-actions</a></p></li>
+</ul>
+</li>
+<li><p>Test cleanup is now always run from a KUnit-managed test thread.</p>
+<ul>
+<li><p>Previously, if a test aborted early, its cleanup (deferred actions,
+resources, and test / suite exit functions) would be run from the main
+KUnit executor thread.</p></li>
+<li><p>This could cause problems if an assertion or crash occurred during cleanup.</p></li>
+<li><p>Now, if the original test thred exits, a new cleanup thread is spawned.</p></li>
+</ul>
+</li>
+<li><p>Improved documentation and examples for test / suite init()/exit() functions.</p></li>
 </ul>
 </section>
 </section>

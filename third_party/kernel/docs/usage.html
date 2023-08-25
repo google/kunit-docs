@@ -1,47 +1,65 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Writing Tests &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Writing Tests &#8212; The Linux Kernel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api/index.html" />
-    <link rel="prev" title="Run Tests without kunit_tool" href="run_manual.html" /> 
-</head>
+    <link rel="prev" title="Run Tests without kunit_tool" href="run_manual.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> The Linux Kernel
-          </a>
-              <div class="version">
-                6.1.0-rc5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">The Linux Kernel</a></h1>
+
+
+
+<p class="blurb">6.5.0-rc7</p>
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<script>document.getElementById('searchbox').style.display = "block"</script><!-- SPDX-License-Identifier: GPL-2.0 -->
+
+<p>
+<h3 class="kernel-toc-contents">Contents</h3>
+<input type="checkbox" class="kernel-toc-toggle" id = "kernel-toc-toggle" checked>
+<label class="kernel-toc-title" for="kernel-toc-toggle"></label>
+
+<div class="kerneltoc" id="kerneltoc">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
@@ -51,6 +69,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#test-cases">Test Cases</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#expectations">Expectations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#assertions">Assertions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-error-messages">Customizing error messages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#test-suites">Test Suites</a></li>
 </ul>
 </li>
@@ -67,8 +88,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#parameterized-testing">Parameterized Testing</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#exiting-early-on-failed-expectations">Exiting Early on Failed Expectations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#allocating-memory">Allocating Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registering-cleanup-actions">Registering Cleanup Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing-static-functions">Testing Static Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#injecting-test-only-code">Injecting Test-Only Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#accessing-the-current-test">Accessing The Current Test</a></li>
@@ -78,34 +99,31 @@
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
+</div>
+
+<script type="text/javascript"> <!--
+  var sbar = document.getElementsByClassName("sphinxsidebar")[0];
+  let currents = document.getElementsByClassName("current")
+  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  --> </script>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/usage.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">The Linux Kernel</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Writing Tests</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="writing-tests">
 <h1>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this heading">¶</a></h1>
 <section id="test-cases">
@@ -113,14 +131,14 @@
 <p>The fundamental unit in KUnit is the test case. A test case is a function with
 the signature <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(struct</span> <span class="pre">kunit</span> <span class="pre">*test)</span></code>. It calls the function under test
 and then sets <em>expectations</em> for what should happen. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">example_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">example_test_failure</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This test never passes.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example, <code class="docutils literal notranslate"><span class="pre">example_test_success</span></code> always passes because it does
@@ -135,11 +153,11 @@ test. An expectation is called like a function. A test is made by setting
 expectations about the behavior of a piece of code under test. When one or more
 expectations fail, the test case fails and information about the failure is
 logged. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example, <code class="docutils literal notranslate"><span class="pre">add_test_basic</span></code> makes a number of assertions about the
@@ -162,27 +180,27 @@ single behavior.</p>
 <p>For example, if we want to rigorously test the <code class="docutils literal notranslate"><span class="pre">add</span></code> function above, create
 additional tests cases which would test each property that an <code class="docutils literal notranslate"><span class="pre">add</span></code> function
 should have as shown below:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">add_test_basic</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_negative</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_negative</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_max</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_max</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MAX</span><span class="p">));</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_overflow</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">add_test_overflow</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -190,51 +208,93 @@ should have as shown below:</p>
 <h3>Assertions<a class="headerlink" href="#assertions" title="Permalink to this heading">¶</a></h3>
 <p>An assertion is like an expectation, except that the assertion immediately
 terminates the test case if the condition is not satisfied. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_sort</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kmalloc_array</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">725861</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">6599</span><span class="p">;</span><span class="w"></span>
-<span class="w">                </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">cmpint</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="n">KUNIT_EXPECT_LE</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_sort</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kmalloc_array</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">725861</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">6599</span><span class="p">;</span>
+<span class="w">                </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">cmpint</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TEST_LEN</span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                </span><span class="n">KUNIT_EXPECT_LE</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, the method under test should return pointer to a value. If the
-pointer returns null or an errno, we want to stop the test since the following
-expectation could crash the test case. <cite>ASSERT_NOT_ERR_OR_NULL(…)</cite> allows us
-to bail out of the test case if the appropriate conditions are not satisfied to
-complete the test.</p>
+<p>In this example, we need to be able to allocate an array to test the <code class="docutils literal notranslate"><span class="pre">sort()</span></code>
+function. So we use <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_NOT_ERR_OR_NULL()</span></code> to abort the test if
+there's an allocation error.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In other test frameworks, <code class="docutils literal notranslate"><span class="pre">ASSERT</span></code> macros are often implemented by calling
+<code class="docutils literal notranslate"><span class="pre">return</span></code> so they only work from the test function. In KUnit, we stop the
+current kthread on failure, so you can call them from anywhere.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Warning: There is an exception to the above rule. You shouldn't use assertions
+in the suite's exit() function, or in the free function for a resource. These
+run when a test is shutting down, and an assertion here prevents further
+cleanup code from running, potentially leading to a memory leak.</p>
+</div>
 </section>
+</section>
+<section id="customizing-error-messages">
+<h2>Customizing error messages<a class="headerlink" href="#customizing-error-messages" title="Permalink to this heading">¶</a></h2>
+<p>Each of the <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT</span></code> and <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT</span></code> macros have a <code class="docutils literal notranslate"><span class="pre">_MSG</span></code>
+variant.  These take a format string and arguments to provide additional
+context to the automatically generated error messages.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="n">some_str</span><span class="p">[</span><span class="mi">41</span><span class="p">];</span>
+<span class="n">generate_sha1_hex_string</span><span class="p">(</span><span class="n">some_str</span><span class="p">);</span>
+
+<span class="cm">/* Before. Not easy to tell why the test failed. */</span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">some_str</span><span class="p">),</span><span class="w"> </span><span class="mi">40</span><span class="p">);</span>
+
+<span class="cm">/* After. Now we see the offending string. */</span>
+<span class="n">KUNIT_EXPECT_EQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">some_str</span><span class="p">),</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;some_str=&#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">some_str</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Alternatively, one can take full control over the error message by using
+<code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL()</span></code>, e.g.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Before */</span>
+<span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">some_setup_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="cm">/* After: full control over the failure message. */</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">some_setup_function</span><span class="p">())</span>
+<span class="w">        </span><span class="n">KUNIT_FAIL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to setup thing for testing&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
 <section id="test-suites">
 <h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this heading">¶</a></h3>
-<p>We need many test cases covering all the unit’s behaviors. It is common to have
+<p>We need many test cases covering all the unit's behaviors. It is common to have
 many similar tests. In order to reduce duplication in these closely related
 tests, most unit testing frameworks (including KUnit) provide the concept of a
 <em>test suite</em>. A test suite is a collection of test cases for a unit of code
 with optional setup and teardown functions that run before/after the whole
-suite and/or every test case. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_case</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_baz</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">{}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+suite and/or every test case.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A test case will only run if it is associated with a test suite.</p>
+</div>
+<p>For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_case</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_foo</span><span class="p">),</span>
+<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_bar</span><span class="p">),</span>
+<span class="w">        </span><span class="n">KUNIT_CASE</span><span class="p">(</span><span class="n">example_test_baz</span><span class="p">),</span>
+<span class="w">        </span><span class="p">{}</span>
+<span class="p">};</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_suite</span><span class="w"> </span><span class="n">example_test_suite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_init</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_exit</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">suite_init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_suite_init</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">suite_exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_suite_exit</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">test_cases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="n">kunit_test_suite</span><span class="p">(</span><span class="n">example_test_suite</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_suite</span><span class="w"> </span><span class="n">example_test_suite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;example&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_init</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_exit</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">suite_init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_suite_init</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">suite_exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_suite_exit</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">test_cases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_test_cases</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="n">kunit_test_suite</span><span class="p">(</span><span class="n">example_test_suite</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In the above example, the test suite <code class="docutils literal notranslate"><span class="pre">example_test_suite</span></code> would first run
@@ -246,7 +306,10 @@ after everything else. <code class="docutils literal notranslate"><span class="p
 test suite with the KUnit test framework.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A test case will only run if it is associated with a test suite.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">exit</span></code> and <code class="docutils literal notranslate"><span class="pre">suite_exit</span></code> functions will run even if <code class="docutils literal notranslate"><span class="pre">init</span></code> or
+<code class="docutils literal notranslate"><span class="pre">suite_init</span></code> fail. Make sure that they can handle any inconsistent
+state which may result from <code class="docutils literal notranslate"><span class="pre">init</span></code> or <code class="docutils literal notranslate"><span class="pre">suite_init</span></code> encountering errors
+or exiting early.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">kunit_test_suite(...)</span></code> is a macro which tells the linker to put the
 specified test suite in a special linker section so that it can be run by KUnit
@@ -292,7 +355,7 @@ definitions selected at compile time.</p>
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
 <p>Classes are not a construct that is built into the C programming language;
 however, it is an easily derived concept. Accordingly, in most cases, every
-project that does not use a standardized object oriented library (like GNOME’s
+project that does not use a standardized object oriented library (like GNOME's
 GObject) has their own slightly different way of doing object oriented
 programming; the Linux kernel is no exception.</p>
 <p>The central concept in kernel object oriented programming is the class. In the
@@ -310,29 +373,29 @@ within the child. Thus, the child can compute the pointer to itself because the
 pointer to the parent is always a fixed offset from the pointer to the child.
 This offset is the offset of the parent contained in the child struct. For
 example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">area</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">area</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">rectangle_area</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">rectangle_area</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">shape</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">rectangle_new</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle_area</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rectangle_new</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">rectangle</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle_area</span><span class="p">;</span>
+<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">;</span>
+<span class="w">        </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In this example, computing the pointer to the child from the pointer to the
@@ -346,146 +409,146 @@ unit test and becomes an integration test.</p>
 <p>A fake class implements a piece of code that is different than what runs in a
 production instance, but behaves identical from the standpoint of the callers.
 This is done to replace a dependency that is hard to deal with, or is slow. For
-example, implementing a fake EEPROM that stores the “contents” in an
+example, implementing a fake EEPROM that stores the &quot;contents&quot; in an
 internal buffer. Assume we have a class that represents an EEPROM:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">read</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">read</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>And we want to test code that buffers writes to the EEPROM:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">flush_count</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Flushes when buffer exceeds flush_count. */</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">ssize_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">write</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">flush_count</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Flushes when buffer exceeds flush_count. */</span>
+<span class="p">};</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom</span><span class="p">);</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">destroy_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom</span><span class="p">);</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">destroy_eeprom_buffer</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>We can test this code by <em>faking out</em> the underlying EEPROM:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">contents</span><span class="p">[</span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">];</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">contents</span><span class="p">[</span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">];</span>
+<span class="p">};</span>
 
-<span class="kt">ssize_t</span><span class="w"> </span><span class="nf">fake_eeprom_read</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span><span class="w"></span>
+<span class="kt">ssize_t</span><span class="w"> </span><span class="nf">fake_eeprom_read</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span>
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">ssize_t</span><span class="w"> </span><span class="nf">fake_eeprom_write</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span><span class="w"></span>
+<span class="kt">ssize_t</span><span class="w"> </span><span class="nf">fake_eeprom_write</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">container_of</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span>
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">fake_eeprom_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_eeprom_read</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_eeprom_write</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">fake_eeprom_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">this</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_eeprom_read</span><span class="p">;</span>
+<span class="w">        </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_eeprom_write</span><span class="p">;</span>
+<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">FAKE_EEPROM_CONTENTS_SIZE</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We can now use it to test <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">eeprom_buffer</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_does_not_write_until_flush</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">};</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE_MAX</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE_MAX</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_flushes_after_flush_count_met</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_flushes_after_flush_count_met</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">};</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_flushes_increments_of_flush_count</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">,</span><span class="w"> </span><span class="mh">0xff</span><span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_flushes_increments_of_flush_count</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer</span><span class="w"> </span><span class="o">*</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">fake_eeprom</span><span class="w"> </span><span class="o">*</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xff</span><span class="p">,</span><span class="w"> </span><span class="mh">0xff</span><span class="p">};</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">flush_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="cm">/* Should have only flushed the first two bytes. */</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">eeprom_buffer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">eeprom_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span>
+<span class="w">        </span><span class="cm">/* Should have only flushed the first two bytes. */</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">eeprom_buffer_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">fake_eeprom_init</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
+<span class="w">        </span><span class="n">fake_eeprom_init</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_eeprom_buffer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">fake_eeprom</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eeprom_buffer_test_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">eeprom_buffer_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">destroy_eeprom_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">destroy_eeprom_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">eeprom_buffer</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -500,9 +563,9 @@ For example, to test <code class="docutils literal notranslate"><span class="pre
 <span class="cp">        sha1sum(in, out); \</span>
 <span class="cp">        KUNIT_EXPECT_STREQ_MSG(test, out, want, &quot;sha1sum(%s)&quot;, in);</span>
 
-<span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span><span class="w"></span>
-<span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
+<span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">);</span>
+<span class="n">TEST_SHA1</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Note the use of the <code class="docutils literal notranslate"><span class="pre">_MSG</span></code> version of <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_STREQ</span></code> to print a more
@@ -512,29 +575,29 @@ times (in a loop or helper function) and thus the line number is not enough to
 identify what failed, as shown below.</p>
 <p>In complicated cases, we recommend using a <em>table-driven test</em> compared to the
 helper macro variation, for example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sha1</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sha1</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="n">cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">cases</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">sha1sum</span><span class="p">(</span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span><span class="w"></span>
-<span class="w">                              </span><span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="n">cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="p">};</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">cases</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sha1sum</span><span class="p">(</span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sha1</span><span class="p">,</span>
+<span class="w">                              </span><span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">str</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>There is more boilerplate code involved, but it can:</p>
@@ -550,76 +613,60 @@ helper macro variation, for example:</p>
 field and reuse <code class="docutils literal notranslate"><span class="pre">cases</span></code>.</p></li>
 </ul>
 </li>
-<li><p>be converted to a “parameterized test”.</p></li>
+<li><p>be converted to a &quot;parameterized test&quot;.</p></li>
 </ul>
 <section id="parameterized-testing">
 <h3>Parameterized Testing<a class="headerlink" href="#parameterized-testing" title="Permalink to this heading">¶</a></h3>
 <p>The table-driven testing pattern is common enough that KUnit has special
 support for it.</p>
 <p>By reusing the same <code class="docutils literal notranslate"><span class="pre">cases</span></code> array from above, we can write the test as a
-“parameterized test” with the following.</p>
+&quot;parameterized test&quot; with the following.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// This is copy-pasted from above.</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sha1</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="n">cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sha1</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="n">cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2aae6c35c94fcfb415dbe95f408b9ce91ee846ed&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world!&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">sha1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;430ce34d020724ed75a196dfc2ad67c77772d169&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="p">};</span>
 
 <span class="c1">// Need a helper function to generate a name for each test case.</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">case_to_desc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">desc</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">case_to_desc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+<span class="p">}</span>
 <span class="c1">// Creates `sha1_gen_params()` to iterate over `cases`.</span>
-<span class="n">KUNIT_ARRAY_PARAM</span><span class="p">(</span><span class="n">sha1</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">,</span><span class="w"> </span><span class="n">case_to_desc</span><span class="p">);</span><span class="w"></span>
+<span class="n">KUNIT_ARRAY_PARAM</span><span class="p">(</span><span class="n">sha1</span><span class="p">,</span><span class="w"> </span><span class="n">cases</span><span class="p">,</span><span class="w"> </span><span class="n">case_to_desc</span><span class="p">);</span>
 
 <span class="c1">// Looks no different from a normal test.</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sha1_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sha1_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
 <span class="w">        </span><span class="c1">// This function can just contain the body of the for-loop.</span>
 <span class="w">        </span><span class="c1">// The former `cases[i]` is accessible under test-&gt;param_value.</span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="n">test_param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">param_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">out</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="n">test_param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sha1_test_case</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">param_value</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">sha1sum</span><span class="p">(</span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span><span class="w"></span>
-<span class="w">                              </span><span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">sha1sum</span><span class="p">(</span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_STREQ_MSG</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">sha1</span><span class="p">,</span>
+<span class="w">                              </span><span class="s">&quot;sha1sum(%s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">test_param</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+<span class="p">}</span>
 
 <span class="c1">// Instead of KUNIT_CASE, we use KUNIT_CASE_PARAM and pass in the</span>
 <span class="c1">// function declared by KUNIT_ARRAY_PARAM.</span>
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_case</span><span class="w"> </span><span class="n">sha1_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_CASE_PARAM</span><span class="p">(</span><span class="n">sha1_test</span><span class="p">,</span><span class="w"> </span><span class="n">sha1_gen_params</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">{}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit_case</span><span class="w"> </span><span class="n">sha1_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">KUNIT_CASE_PARAM</span><span class="p">(</span><span class="n">sha1_test</span><span class="p">,</span><span class="w"> </span><span class="n">sha1_gen_params</span><span class="p">),</span>
+<span class="w">        </span><span class="p">{}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 </section>
-</section>
-<section id="exiting-early-on-failed-expectations">
-<h2>Exiting Early on Failed Expectations<a class="headerlink" href="#exiting-early-on-failed-expectations" title="Permalink to this heading">¶</a></h2>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_EQ</span></code> to mark the test as failed and continue
-execution.  In some cases, it is unsafe to continue. We can use the
-<code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT</span></code> variant to exit on failure.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">example_test_user_alloc_function</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc_some_object_for_me</span><span class="p">();</span><span class="w"></span>
-
-<span class="w">        </span><span class="cm">/* Make sure we got a valid pointer back. */</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">do_something_with_object</span><span class="p">(</span><span class="n">object</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-</div>
 </section>
 <section id="allocating-memory">
 <h2>Allocating Memory<a class="headerlink" href="#allocating-memory" title="Permalink to this heading">¶</a></h2>
@@ -628,28 +675,70 @@ will then ensure that the memory is freed once the test completes.</p>
 <p>This is useful because it lets us use the <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_EQ</span></code> macros to exit
 early from a test without having to worry about remembering to call <code class="docutils literal notranslate"><span class="pre">kfree</span></code>.
 For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">example_test_allocation</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="cm">/* Ensure allocation succeeded. */</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">example_test_allocation</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">        </span><span class="cm">/* Ensure allocation succeeded. */</span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_NOT_ERR_OR_NULL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">KUNIT_ASSERT_STREQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_ASSERT_STREQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="registering-cleanup-actions">
+<h2>Registering Cleanup Actions<a class="headerlink" href="#registering-cleanup-actions" title="Permalink to this heading">¶</a></h2>
+<p>If you need to perform some cleanup beyond simple use of <code class="docutils literal notranslate"><span class="pre">kunit_kzalloc</span></code>,
+you can register a custom &quot;deferred action&quot;, which is a cleanup function
+run when the test exits (whether cleanly, or via a failed assertion).</p>
+<p>Actions are simple functions with no return value, and a single <code class="docutils literal notranslate"><span class="pre">void*</span></code>
+context argument, and fulfill the same role as &quot;cleanup&quot; functions in Python
+and Go tests, &quot;defer&quot; statements in languages which support them, and
+(in some cases) destructors in RAII languages.</p>
+<p>These are very useful for unregistering things from global lists, closing
+files or other resources, or freeing resources.</p>
+<p>For example:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">cleanup_device</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ctx</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">device_unregister</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">example_device_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_device</span><span class="w"> </span><span class="n">dev</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">device_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">kunit_add_action</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cleanup_device</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dev</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that, for functions like device_unregister which only accept a single
+pointer-sized argument, it's possible to directly cast that function to
+a <code class="docutils literal notranslate"><span class="pre">kunit_action_t</span></code> rather than writing a wrapper function, for example:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">kunit_add_action</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">kunit_action_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">device_unregister</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dev</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">kunit_add_action</span></code> can fail if, for example, the system is out of memory.
+You can use <code class="docutils literal notranslate"><span class="pre">kunit_add_action_or_reset</span></code> instead which runs the action
+immediately if it cannot be deferred.</p>
+<p>If you need more control over when the cleanup function is called, you
+can trigger it early using <code class="docutils literal notranslate"><span class="pre">kunit_release_action</span></code>, or cancel it entirely
+with <code class="docutils literal notranslate"><span class="pre">kunit_remove_action</span></code>.</p>
 </section>
 <section id="testing-static-functions">
 <h2>Testing Static Functions<a class="headerlink" href="#testing-static-functions" title="Permalink to this heading">¶</a></h2>
 <p>If we do not want to expose functions or variables for testing, one option is to
 conditionally <code class="docutils literal notranslate"><span class="pre">#include</span></code> the test file at the end of your .c file. For
 example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.c */</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.c */</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">do_interesting_thing</span><span class="p">();</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">do_interesting_thing</span><span class="p">();</span>
 
 <span class="cp">#ifdef CONFIG_MY_KUNIT_TEST</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_kunit_test.c&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_kunit_test.c&quot;</span>
 <span class="cp">#endif</span>
 </pre></div>
 </div>
@@ -657,13 +746,13 @@ example:</p>
 <section id="injecting-test-only-code">
 <h2>Injecting Test-Only Code<a class="headerlink" href="#injecting-test-only-code" title="Permalink to this heading">¶</a></h2>
 <p>Similar to as shown above, we can add test-specific logic. For example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.h */</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* In my_file.h */</span>
 
 <span class="cp">#ifdef CONFIG_MY_KUNIT_TEST</span>
-<span class="cm">/* Defined in my_kunit_test.c */</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<span class="cm">/* Defined in my_kunit_test.c */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 <span class="cp">#else</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_only_hook</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 <span class="cp">#endif</span>
 </pre></div>
 </div>
@@ -672,41 +761,45 @@ as shown in next section: <em>Accessing The Current Test</em>.</p>
 </section>
 <section id="accessing-the-current-test">
 <h2>Accessing The Current Test<a class="headerlink" href="#accessing-the-current-test" title="Permalink to this heading">¶</a></h2>
-<p>In some cases, we need to call test-only code from outside the test file.
-For example, see example in section <em>Injecting Test-Only Code</em> or if
-we are providing a fake implementation of an ops struct. Using
-<code class="docutils literal notranslate"><span class="pre">kunit_test</span></code> field in <code class="docutils literal notranslate"><span class="pre">task_struct</span></code>, we can access it via
-<code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code>.</p>
-<p>The example below includes how to implement “mocking”:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/sched.h&gt;</span><span class="c1"> /* for current */</span><span class="cp"></span>
+<p>In some cases, we need to call test-only code from outside the test file.  This
+is helpful, for example, when providing a fake implementation of a function, or
+to fail any current test from within an error handler.
+We can do this via the <code class="docutils literal notranslate"><span class="pre">kunit_test</span></code> field in <code class="docutils literal notranslate"><span class="pre">task_struct</span></code>, which we can
+access using the <code class="docutils literal notranslate"><span class="pre">kunit_get_current_test()</span></code> function in <code class="docutils literal notranslate"><span class="pre">kunit/test-bug.h</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">kunit_get_current_test()</span></code> is safe to call even if KUnit is not enabled. If
+KUnit is not enabled, or if no test is running in the current task, it will
+return <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. This compiles down to either a no-op or a static key check,
+so will have a negligible performance impact when no test is running.</p>
+<p>The example below uses this to implement a &quot;mock&quot; implementation of a function, <code class="docutils literal notranslate"><span class="pre">foo</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;kunit/test-bug.h&gt;</span><span class="c1"> /* for kunit_get_current_test */</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">foo_result</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">want_foo_called_with</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">foo_result</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">want_foo_called_with</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fake_foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="o">-&gt;</span><span class="n">kunit_test</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="o">*</span><span class="n">test_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fake_foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kunit_get_current_test</span><span class="p">();</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="o">*</span><span class="n">test_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">example_simple_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">example_simple_test</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kunit</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
 <span class="w">        </span><span class="cm">/* Assume priv (private, a member used to pass test data from</span>
-<span class="cm">         * the init function) is allocated in the suite&#39;s .init */</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="o">*</span><span class="n">test_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
+<span class="cm">         * the init function) is allocated in the suite&#39;s .init */</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_data</span><span class="w"> </span><span class="o">*</span><span class="n">test_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">foo_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">        </span><span class="n">test_data</span><span class="o">-&gt;</span><span class="n">want_foo_called_with</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
 <span class="w">        </span><span class="cm">/* In a real test, we&#39;d probably pass a pointer to fake_foo somewhere</span>
-<span class="cm">         * like an ops struct, etc. instead of calling it directly. */</span><span class="w"></span>
-<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="cm">         * like an ops struct, etc. instead of calling it directly. */</span>
+<span class="w">        </span><span class="n">KUNIT_EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">fake_foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In this example, we are using the <code class="docutils literal notranslate"><span class="pre">priv</span></code> member of <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code> as a way
@@ -718,7 +811,7 @@ Each test can have multiple resources which have string names providing the same
 flexibility as a <code class="docutils literal notranslate"><span class="pre">priv</span></code> member, but also, for example, allowing helper
 functions to create resources without conflicting with each other. It is also
 possible to define a clean up function for each resource, making it easy to
-avoid resource leaks. For more information, see Documentation/dev-tools/kunit/api/test.rst.</p>
+avoid resource leaks. For more information, see Documentation/dev-tools/kunit/api/resource.rst.</p>
 </section>
 <section id="failing-the-current-test">
 <h2>Failing The Current Test<a class="headerlink" href="#failing-the-current-test" title="Permalink to this heading">¶</a></h2>
@@ -726,55 +819,51 @@ avoid resource leaks. For more information, see Documentation/dev-tools/kunit/ap
 which is defined in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test-bug.h&gt;</span></code> and does not require pulling in <code class="docutils literal notranslate"><span class="pre">&lt;kunit/test.h&gt;</span></code>.
 For example, we have an option to enable some extra debug checks on some data
 structures as shown below:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;kunit/test-bug.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;kunit/test-bug.h&gt;</span>
 
 <span class="cp">#ifdef CONFIG_EXTRA_DEBUG_CHECKS</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">validate_my_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">validate_my_data</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">data</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">kunit_fail_current_test</span><span class="p">(</span><span class="s">&quot;data %p is invalid&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">kunit_fail_current_test</span><span class="p">(</span><span class="s">&quot;data %p is invalid&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
 
-<span class="w">        </span><span class="cm">/* Normal, non-KUnit, error reporting code here. */</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* Normal, non-KUnit, error reporting code here. */</span>
+<span class="p">}</span>
 <span class="cp">#else</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">my_debug_function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">my_debug_function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 <span class="cp">#endif</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">kunit_fail_current_test()</span></code> is safe to call even if KUnit is not enabled. If
+KUnit is not enabled, or if no test is running in the current task, it will do
+nothing. This compiles down to either a no-op or a static key check, so will
+have a negligible performance impact when no test is running.</p>
 </section>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="run_manual.html" class="btn btn-neutral float-left" title="Run Tests without kunit_tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &copy;The kernel development community.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

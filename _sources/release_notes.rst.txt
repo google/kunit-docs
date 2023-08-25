@@ -364,11 +364,48 @@ for the authoritative source on how to write Kconfig entries.
 
 .. _v6.3:
 
-6.3 (tentative)
-===============
+6.3
+===
 
 - Added "hooks" to call into KUnit when it's built as a module.
+
+  - These allow some KUnit features to be used in built-in code, or in other
+    modules, without introducing a hard dependency on KUnit.
 
 - Introduced a "static_stub" feature to add redirection support for KUnit tests.
   Any function that wants to be intercepted adds a call to a macro which checks
   if a test has redirected calls to it, and then calls the corresponding replacement.
+
+.. _v6.4:
+
+6.4
+===
+
+- kunit.py now supports building / running tests via QEMU on the m68k and SuperH (sh)
+  architectures.
+
+- Several fixes to debugfs log support, particularly with parameterized tests.
+
+- The default log size has been increased to 2048 bytes.
+
+.. _v6.5:
+
+6.5
+===
+
+- Added a new 'deferred actions' API, based on the devm\_/devres APIs, to call a function
+  automatically on test exit. This should simplify resource management an cleanup.
+
+  - See: https://docs.kernel.org/dev-tools/kunit/usage.html#registering-cleanup-actions
+
+- Test cleanup is now always run from a KUnit-managed test thread.
+
+  - Previously, if a test aborted early, its cleanup (deferred actions,
+    resources, and test / suite exit functions) would be run from the main
+    KUnit executor thread.
+
+  - This could cause problems if an assertion or crash occurred during cleanup.
+
+  - Now, if the original test thred exits, a new cleanup thread is spawned.
+
+- Improved documentation and examples for test / suite init()/exit() functions.

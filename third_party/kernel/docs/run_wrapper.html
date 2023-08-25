@@ -1,47 +1,65 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Running tests with kunit_tool &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Running tests with kunit_tool &#8212; The Linux Kernel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Run Tests without kunit_tool" href="run_manual.html" />
-    <link rel="prev" title="KUnit Architecture" href="architecture.html" /> 
-</head>
+    <link rel="prev" title="KUnit Architecture" href="architecture.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> The Linux Kernel
-          </a>
-              <div class="version">
-                6.1.0-rc5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">The Linux Kernel</a></h1>
+
+
+
+<p class="blurb">6.5.0-rc7</p>
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<script>document.getElementById('searchbox').style.display = "block"</script><!-- SPDX-License-Identifier: GPL-2.0 -->
+
+<p>
+<h3 class="kernel-toc-contents">Contents</h3>
+<input type="checkbox" class="kernel-toc-toggle" id = "kernel-toc-toggle" checked>
+<label class="kernel-toc-title" for="kernel-toc-toggle"></label>
+
+<div class="kerneltoc" id="kerneltoc">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
@@ -60,34 +78,31 @@
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
+</div>
+
+<script type="text/javascript"> <!--
+  var sbar = document.getElementsByClassName("sphinxsidebar")[0];
+  let currents = document.getElementsByClassName("current")
+  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  --> </script>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/run_wrapper.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">The Linux Kernel</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Running tests with kunit_tool</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/run_wrapper.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="running-tests-with-kunit-tool">
 <h1>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this heading">¶</a></h1>
 <p>We can either run KUnit tests using kunit_tool or can run tests
@@ -205,9 +220,9 @@ print the human-readable summary with the <code class="docutils literal notransl
 kunit_tool. This accepts a filename for an argument, or will read from
 standard input.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reading from a file</span>
-./tools/testing/kunit/kunit.py parse /var/log/dmesg
+./tools/testing/kunit/kunit.py<span class="w"> </span>parse<span class="w"> </span>/var/log/dmesg
 <span class="c1"># Reading from stdin</span>
-dmesg <span class="p">|</span> ./tools/testing/kunit/kunit.py parse
+dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>parse
 </pre></div>
 </div>
 </section>
@@ -248,14 +263,14 @@ website to a directory in our home directory called toolchains.</p></li>
 </li>
 </ul>
 <p>This means that for most architectures, running under qemu is as simple as:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run --arch<span class="o">=</span>x86_64
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--arch<span class="o">=</span>x86_64
 </pre></div>
 </div>
-<p>When cross-compiling, we’ll likely need to specify a different toolchain, for
+<p>When cross-compiling, we'll likely need to specify a different toolchain, for
 example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run <span class="se">\</span>
-        --arch<span class="o">=</span>s390 <span class="se">\</span>
-        --cross_compile<span class="o">=</span>s390x-linux-gnu-
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--arch<span class="o">=</span>s390<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--cross_compile<span class="o">=</span>s390x-linux-gnu-
 </pre></div>
 </div>
 <p>If we want to run KUnit tests on an architecture not supported by
@@ -271,10 +286,10 @@ using the <code class="docutils literal notranslate"><span class="pre">--qemu_co
 <code class="docutils literal notranslate"><span class="pre">--arch</span></code> flag. For example: using
 <code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/qemu_configs/x86_64.py</span></code>, the invocation appear
 as</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run <span class="se">\</span>
-        --timeout<span class="o">=</span><span class="m">60</span> <span class="se">\</span>
-        --jobs<span class="o">=</span><span class="m">12</span> <span class="se">\</span>
-        --qemu_config<span class="o">=</span>./tools/testing/kunit/qemu_configs/x86_64.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--timeout<span class="o">=</span><span class="m">60</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--jobs<span class="o">=</span><span class="m">12</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--qemu_config<span class="o">=</span>./tools/testing/kunit/qemu_configs/x86_64.py
 </pre></div>
 </div>
 </section>
@@ -367,34 +382,26 @@ saves to a file if a filename is specified.</p></li>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="architecture.html" class="btn btn-neutral float-left" title="KUnit Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="run_manual.html" class="btn btn-neutral float-right" title="Run Tests without kunit_tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &copy;The kernel development community.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/run_wrapper.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

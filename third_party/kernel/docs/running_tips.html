@@ -1,46 +1,64 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tips For Running KUnit Tests &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Tips For Running KUnit Tests &#8212; The Linux Kernel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Tips For Writing KUnit Tests" href="tips.html" /> 
-</head>
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> The Linux Kernel
-          </a>
-              <div class="version">
-                6.1.0-rc5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">The Linux Kernel</a></h1>
+
+
+
+<p class="blurb">6.5.0-rc7</p>
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<script>document.getElementById('searchbox').style.display = "block"</script><!-- SPDX-License-Identifier: GPL-2.0 -->
+
+<p>
+<h3 class="kernel-toc-contents">Contents</h3>
+<input type="checkbox" class="kernel-toc-toggle" id = "kernel-toc-toggle" checked>
+<label class="kernel-toc-title" for="kernel-toc-toggle"></label>
+
+<div class="kerneltoc" id="kerneltoc">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
@@ -51,9 +69,8 @@
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tips For Running KUnit Tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (&quot;kunit tool&quot;)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-from-any-directory">Running from any directory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-a-subset-of-tests">Running a subset of tests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#defining-a-set-of-tests">Defining a set of tests</a></li>
@@ -73,45 +90,43 @@
 </li>
 </ul>
 
+</div>
+
+<script type="text/javascript"> <!--
+  var sbar = document.getElementsByClassName("sphinxsidebar")[0];
+  let currents = document.getElementsByClassName("current")
+  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  --> </script>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/running_tips.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">The Linux Kernel</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Tips For Running KUnit Tests</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/running_tips.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="tips-for-running-kunit-tests">
 <h1>Tips For Running KUnit Tests<a class="headerlink" href="#tips-for-running-kunit-tests" title="Permalink to this heading">¶</a></h1>
 <section id="using-kunit-py-run-kunit-tool">
-<h2>Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)<a class="headerlink" href="#using-kunit-py-run-kunit-tool" title="Permalink to this heading">¶</a></h2>
+<h2>Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (&quot;kunit tool&quot;)<a class="headerlink" href="#using-kunit-py-run-kunit-tool" title="Permalink to this heading">¶</a></h2>
 <section id="running-from-any-directory">
 <h3>Running from any directory<a class="headerlink" href="#running-from-any-directory" title="Permalink to this heading">¶</a></h3>
 <p>It can be handy to create a bash function like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> run_kunit<span class="o">()</span> <span class="o">{</span>
-  <span class="o">(</span> <span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>git rev-parse --show-toplevel<span class="k">)</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> ./tools/testing/kunit/kunit.py run <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> <span class="o">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>run_kunit<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="o">(</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>--show-toplevel<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Early versions of <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> (before 5.6) didn’t work unless run from
+<p>Early versions of <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> (before 5.6) didn't work unless run from
 the kernel root, hence the use of a subshell and <code class="docutils literal notranslate"><span class="pre">cd</span></code>.</p>
 </div>
 </section>
@@ -120,18 +135,18 @@ the kernel root, hence the use of a subshell and <code class="docutils literal n
 <p><code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> accepts an optional glob argument to filter tests. The format
 is <code class="docutils literal notranslate"><span class="pre">&quot;&lt;suite_glob&gt;[.test_glob]&quot;</span></code>.</p>
 <p>Say that we wanted to run the sysctl tests, we could do so via:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> -e <span class="s1">&#39;CONFIG_KUNIT=y\nCONFIG_KUNIT_ALL_TESTS=y&#39;</span> &gt; .kunit/.kunitconfig
-$ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;sysctl*&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;CONFIG_KUNIT=y\nCONFIG_KUNIT_ALL_TESTS=y&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>.kunit/.kunitconfig
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s1">&#39;sysctl*&#39;</span>
 </pre></div>
 </div>
-<p>We can filter down to just the “write” tests via:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> -e <span class="s1">&#39;CONFIG_KUNIT=y\nCONFIG_KUNIT_ALL_TESTS=y&#39;</span> &gt; .kunit/.kunitconfig
-$ ./tools/testing/kunit/kunit.py run <span class="s1">&#39;sysctl*.*write*&#39;</span>
+<p>We can filter down to just the &quot;write&quot; tests via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;CONFIG_KUNIT=y\nCONFIG_KUNIT_ALL_TESTS=y&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>.kunit/.kunitconfig
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span><span class="s1">&#39;sysctl*.*write*&#39;</span>
 </pre></div>
 </div>
-<p>We’re paying the cost of building more tests than we need this way, but it’s
+<p>We're paying the cost of building more tests than we need this way, but it's
 easier than fiddling with <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> files or commenting out
-<code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>’s.</p>
+<code class="docutils literal notranslate"><span class="pre">kunit_suite</span></code>'s.</p>
 <p>However, if we wanted to define a set of tests in a less ad hoc way, the next
 tip is useful.</p>
 </section>
@@ -142,25 +157,25 @@ tip is useful.</p>
 regular basis (especially if they have other dependencies), you can create a
 specific <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> for them.</p>
 <p>E.g. kunit has one for its tests:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kunitconfig<span class="o">=</span>lib/kunit/.kunitconfig
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kunitconfig<span class="o">=</span>lib/kunit/.kunitconfig
 </pre></div>
 </div>
-<p>Alternatively, if you’re following the convention of naming your
+<p>Alternatively, if you're following the convention of naming your
 file <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, you can just pass in the dir, e.g.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kunitconfig<span class="o">=</span>lib/kunit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kunitconfig<span class="o">=</span>lib/kunit
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This is a relatively new feature (5.12+) so we don’t have any
+<p>This is a relatively new feature (5.12+) so we don't have any
 conventions yet about on what files should be checked in versus just
-kept around locally. It’s up to you and your maintainer to decide if a
+kept around locally. It's up to you and your maintainer to decide if a
 config is useful enough to submit (and therefore have to maintain).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Having <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> fragments in a parent and child directory is
-iffy. There’s discussion about adding an “import” statement in these
+iffy. There's discussion about adding an &quot;import&quot; statement in these
 files to make it possible to have a top-level config run tests from all
 child directories. But that would mean <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> files are no
 longer just simple .config fragments.</p>
@@ -172,7 +187,7 @@ options, so handling that would be tricky.</p>
 <section id="setting-kernel-commandline-parameters">
 <h3>Setting kernel commandline parameters<a class="headerlink" href="#setting-kernel-commandline-parameters" title="Permalink to this heading">¶</a></h3>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">--kernel_args</span></code> to pass arbitrary kernel arguments, e.g.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --kernel_args<span class="o">=</span><span class="nv">param</span><span class="o">=</span><span class="m">42</span> --kernel_args<span class="o">=</span><span class="nv">param2</span><span class="o">=</span><span class="nb">false</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kernel_args<span class="o">=</span><span class="nv">param</span><span class="o">=</span><span class="m">42</span><span class="w"> </span>--kernel_args<span class="o">=</span><span class="nv">param2</span><span class="o">=</span><span class="nb">false</span>
 </pre></div>
 </div>
 </section>
@@ -181,10 +196,10 @@ options, so handling that would be tricky.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>TODO(<a class="reference external" href="mailto:brendanhiggins&#37;&#52;&#48;google&#46;com">brendanhiggins<span>&#64;</span>google<span>&#46;</span>com</a>): There are various issues with UML and
-versions of gcc 7 and up. You’re likely to run into missing <code class="docutils literal notranslate"><span class="pre">.gcda</span></code>
+versions of gcc 7 and up. You're likely to run into missing <code class="docutils literal notranslate"><span class="pre">.gcda</span></code>
 files or compile errors.</p>
 </div>
-<p>This is different from the “normal” way of getting coverage information that is
+<p>This is different from the &quot;normal&quot; way of getting coverage information that is
 documented in Documentation/dev-tools/gcov.rst.</p>
 <p>Instead of enabling <code class="docutils literal notranslate"><span class="pre">CONFIG_GCOV_KERNEL=y</span></code>, we can set these options:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_DEBUG_KERNEL=y
@@ -195,18 +210,18 @@ CONFIG_GCOV=y
 </div>
 <p>Putting it together into a copy-pastable sequence of commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append coverage options to the current config</span>
-$ ./tools/testing/kunit/kunit.py run --kunitconfig<span class="o">=</span>.kunit/ --kunitconfig<span class="o">=</span>tools/testing/kunit/configs/coverage_uml.config
+$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--kunitconfig<span class="o">=</span>.kunit/<span class="w"> </span>--kunitconfig<span class="o">=</span>tools/testing/kunit/configs/coverage_uml.config
 <span class="c1"># Extract the coverage information from the build dir (.kunit/)</span>
-$ lcov -t <span class="s2">&quot;my_kunit_tests&quot;</span> -o coverage.info -c -d .kunit/
+$<span class="w"> </span>lcov<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;my_kunit_tests&quot;</span><span class="w"> </span>-o<span class="w"> </span>coverage.info<span class="w"> </span>-c<span class="w"> </span>-d<span class="w"> </span>.kunit/
 
 <span class="c1"># From here on, it&#39;s the same process as with CONFIG_GCOV_KERNEL=y</span>
 <span class="c1"># E.g. can generate an HTML report in a tmp dir like so:</span>
-$ genhtml -o /tmp/coverage_html coverage.info
+$<span class="w"> </span>genhtml<span class="w"> </span>-o<span class="w"> </span>/tmp/coverage_html<span class="w"> </span>coverage.info
 </pre></div>
 </div>
-<p>If your installed version of gcc doesn’t work, you can tweak the steps:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py run --make_options<span class="o">=</span><span class="nv">CC</span><span class="o">=</span>/usr/bin/gcc-6
-$ lcov -t <span class="s2">&quot;my_kunit_tests&quot;</span> -o coverage.info -c -d .kunit/ --gcov-tool<span class="o">=</span>/usr/bin/gcov-6
+<p>If your installed version of gcc doesn't work, you can tweak the steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>run<span class="w"> </span>--make_options<span class="o">=</span><span class="nv">CC</span><span class="o">=</span>/usr/bin/gcc-6
+$<span class="w"> </span>lcov<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;my_kunit_tests&quot;</span><span class="w"> </span>-o<span class="w"> </span>coverage.info<span class="w"> </span>-c<span class="w"> </span>-d<span class="w"> </span>.kunit/<span class="w"> </span>--gcov-tool<span class="o">=</span>/usr/bin/gcov-6
 </pre></div>
 </div>
 </section>
@@ -214,7 +229,7 @@ $ lcov -t <span class="s2">&quot;my_kunit_tests&quot;</span> -o coverage.info -c
 <section id="running-tests-manually">
 <h2>Running tests manually<a class="headerlink" href="#running-tests-manually" title="Permalink to this heading">¶</a></h2>
 <p>Running tests without using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> is also an important use case.
-Currently it’s your only option if you want to test on architectures other than
+Currently it's your only option if you want to test on architectures other than
 UML.</p>
 <p>As running the tests under UML is fairly straightforward (configure and compile
 the kernel, run the <code class="docutils literal notranslate"><span class="pre">./linux</span></code> binary), this section will focus on testing
@@ -229,7 +244,7 @@ results to dmesg in TAP format. So you just need to add your tests to your
 CONFIG_KUNIT_EXAMPLE_TEST=y
 </pre></div>
 </div>
-<p>Then we’d see output like this in dmesg signaling the test ran and passed:</p>
+<p>Then we'd see output like this in dmesg signaling the test ran and passed:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TAP version 14
 1..1
     # Subtest: example
@@ -243,7 +258,7 @@ ok 1 - example
 <section id="running-tests-as-modules">
 <h3>Running tests as modules<a class="headerlink" href="#running-tests-as-modules" title="Permalink to this heading">¶</a></h3>
 <p>Depending on the tests, you can build them as loadable modules.</p>
-<p>For example, we’d change the config options from before to</p>
+<p>For example, we'd change the config options from before to</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
 CONFIG_KUNIT_EXAMPLE_TEST=m
 </pre></div>
@@ -262,8 +277,8 @@ failed (as of 5.13). But <code class="docutils literal notranslate"><span class=
 <p class="admonition-title">Note</p>
 <p>You can set <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT=m</span></code> as well, however, some features will not
 work and thus some tests might break. Ideally tests would specify they
-depend on <code class="docutils literal notranslate"><span class="pre">KUNIT=y</span></code> in their <code class="docutils literal notranslate"><span class="pre">Kconfig</span></code>’s, but this is an edge case
-most test authors won’t think about.
+depend on <code class="docutils literal notranslate"><span class="pre">KUNIT=y</span></code> in their <code class="docutils literal notranslate"><span class="pre">Kconfig</span></code>'s, but this is an edge case
+most test authors won't think about.
 As of 5.13, the only difference is that <code class="docutils literal notranslate"><span class="pre">current-&gt;kunit_test</span></code> will
 not exist.</p>
 </div>
@@ -272,13 +287,13 @@ not exist.</p>
 <h3>Pretty-printing results<a class="headerlink" href="#pretty-printing-results" title="Permalink to this heading">¶</a></h3>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">parse</span></code> to parse dmesg for test output and print out
 results in the same familiar format that <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> does.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./tools/testing/kunit/kunit.py parse /var/log/dmesg
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./tools/testing/kunit/kunit.py<span class="w"> </span>parse<span class="w"> </span>/var/log/dmesg
 </pre></div>
 </div>
 </section>
 <section id="retrieving-per-suite-results">
 <h3>Retrieving per suite results<a class="headerlink" href="#retrieving-per-suite-results" title="Permalink to this heading">¶</a></h3>
-<p>Regardless of how you’re running your tests, you can enable
+<p>Regardless of how you're running your tests, you can enable
 <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_DEBUGFS</span></code> to expose per-suite TAP-formatted results:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CONFIG_KUNIT=y
 CONFIG_KUNIT_EXAMPLE_TEST=m
@@ -288,14 +303,14 @@ CONFIG_KUNIT_DEBUGFS=y
 <p>The results for each suite will be exposed under
 <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/kunit/&lt;suite&gt;/results</span></code>.
 So using our example config:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ modprobe kunit-example-test &gt; /dev/null
-$ cat /sys/kernel/debug/kunit/example/results
-... &lt;TAP output&gt; ...
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>modprobe<span class="w"> </span>kunit-example-test<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+$<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/kunit/example/results
+...<span class="w"> </span>&lt;TAP<span class="w"> </span>output&gt;<span class="w"> </span>...
 
 <span class="c1"># After removing the module, the corresponding files will go away</span>
-$ modprobe -r kunit-example-test
-$ cat /sys/kernel/debug/kunit/example/results
-/sys/kernel/debug/kunit/example/results: No such file or directory
+$<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>kunit-example-test
+$<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/kunit/example/results
+/sys/kernel/debug/kunit/example/results:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
 </pre></div>
 </div>
 </section>
@@ -306,8 +321,8 @@ $ cat /sys/kernel/debug/kunit/example/results
 your tests as modules. That way you can isolate the coverage from tests from
 other code executed during boot, e.g.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset coverage counters before running the test.</span>
-$ <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/kernel/debug/gcov/reset
-$ modprobe kunit-example-test
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/debug/gcov/reset
+$<span class="w"> </span>modprobe<span class="w"> </span>kunit-example-test
 </pre></div>
 </div>
 </section>
@@ -315,33 +330,26 @@ $ modprobe kunit-example-test
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tips.html" class="btn btn-neutral float-left" title="Tips For Writing KUnit Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &copy;The kernel development community.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/running_tips.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

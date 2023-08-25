@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Getting Started &mdash; The Linux Kernel  documentation</title>
@@ -25,7 +25,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> The Linux Kernel
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            The Linux Kernel
           </a>
               <div class="version">
                 4.19.0
@@ -92,7 +96,7 @@ the kernel, you can run KUnit.</p>
 easily use and read KUnit output. It handles building and running the kernel, as
 well as formatting the output.</p>
 <p>The wrapper can be run with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run
 </pre></div>
 </div>
 </section>
@@ -101,9 +105,9 @@ well as formatting the output.</p>
 <p>The Python script is a thin wrapper around Kbuild as such, it needs to be
 configured with a <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file. This file essentially contains the
 regular Kernel config, with the specific test targets as well.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone -b kunit/alpha/master https://kunit.googlesource.com/kunitconfig <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>
-<span class="nb">cd</span> <span class="nv">$PATH_TO_LINUX_REPO</span>
-ln -s <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>/kunitconfig kunitconfig
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>kunit/alpha/master<span class="w"> </span>https://kunit.googlesource.com/kunitconfig<span class="w"> </span><span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$PATH_TO_LINUX_REPO</span>
+ln<span class="w"> </span>-s<span class="w"> </span><span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>/kunitconfig<span class="w"> </span>kunitconfig
 </pre></div>
 </div>
 <p>You may want to add kunitconfig to your local gitignore.</p>
@@ -111,7 +115,7 @@ ln -s <span class="nv">$PATH_TO_KUNITCONFIG_REPO</span>/kunitconfig kunitconfig
 <h3>Verifying KUnit Works<a class="headerlink" href="#verifying-kunit-works" title="Permalink to this heading">¶</a></h3>
 <p>To make sure that everything is set up correctly, simply invoke the Python
 wrapper from your kernel repo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run
 </pre></div>
 </div>
 <div class="admonition note">
@@ -119,9 +123,9 @@ wrapper from your kernel repo:</p>
 <p>You may want to run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">mrproper</span></code> first.</p>
 </div>
 <p>If everything worked correctly, you should see the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Generating .config ...
-Building KUnit Kernel ...
-Starting KUnit Kernel ...
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Generating<span class="w"> </span>.config<span class="w"> </span>...
+Building<span class="w"> </span>KUnit<span class="w"> </span>Kernel<span class="w"> </span>...
+Starting<span class="w"> </span>KUnit<span class="w"> </span>Kernel<span class="w"> </span>...
 </pre></div>
 </div>
 <p>followed by a list of tests that are run. All of them should be passing.</p>
@@ -136,124 +140,124 @@ Starting KUnit Kernel ...
 <h2>Writing your first test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this heading">¶</a></h2>
 <p>In your kernel repo let’s add some code that we can test. Create a file
 <code class="docutils literal notranslate"><span class="pre">drivers/misc/example.h</span></code> with the contents:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">misc_example_foo</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">misc_example_foo</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_bar</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="p">);</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_bar</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>create a file <code class="docutils literal notranslate"><span class="pre">drivers/misc/example.c</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/errno.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/errno.h&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;example.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;example.h&quot;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_bar</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">example</span><span class="o">-&gt;</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EIO</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">else</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_bar</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">example</span><span class="o">-&gt;</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EIO</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Now add the following lines to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Kconfig</span></code>:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="k">config</span><span class="w"> </span>MISC_EXAMPLE<span class="w"></span>
-<span class="w">        </span><span class="nb">bool</span><span class="w"> </span><span class="s2">&quot;My example&quot;</span><span class="w"></span>
+<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="k">config</span><span class="w"> </span>MISC_EXAMPLE
+<span class="w">        </span><span class="nb">bool</span><span class="w"> </span><span class="s2">&quot;My example&quot;</span>
 </pre></div>
 </div>
 <p>and the following lines to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Makefile</span></code>:</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">obj-$(CONFIG_MISC_EXAMPLE)</span> <span class="o">+=</span> example.o
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">obj-$(CONFIG_MISC_EXAMPLE)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>example.o
 </pre></div>
 </div>
 <p>Now we are ready to write the test. The test will be in
 <code class="docutils literal notranslate"><span class="pre">drivers/misc/example-test.c</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;test/test.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;test/mock.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;example.h&quot;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;test/test.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;test/mock.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;example.h&quot;</span>
 
-<span class="cm">/* Define the mock. */</span><span class="w"></span>
+<span class="cm">/* Define the mock. */</span>
 
-<span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">misc_example</span><span class="p">);</span><span class="w"></span>
+<span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">misc_example</span><span class="p">);</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">),</span><span class="w"> </span><span class="n">CLASS</span><span class="p">(</span><span class="n">misc_example</span><span class="p">),</span><span class="w"></span>
-<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="w"></span>
-<span class="w">                         </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">));</span><span class="w"></span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">),</span><span class="w"> </span><span class="n">CLASS</span><span class="p">(</span><span class="n">misc_example</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">));</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">example</span><span class="o">-&gt;</span><span class="n">misc_example_foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_foo</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">example</span><span class="o">-&gt;</span><span class="n">misc_example_foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_foo</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">misc_example</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_init</span><span class="p">);</span><span class="w"></span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">misc_example</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_init</span><span class="p">);</span>
 
-<span class="cm">/* Define the test cases. */</span><span class="w"></span>
+<span class="cm">/* Define the test cases. */</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_bar_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_bar_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span><span class="w"></span>
-<span class="w">                                              </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span><span class="w"></span>
-<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
+<span class="w">                                              </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span>
+<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_bar_test_failure</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_bar_test_failure</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">misc_example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span><span class="w"></span>
-<span class="w">                                              </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span><span class="w"></span>
-<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">misc_example_foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
+<span class="w">                                              </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span>
+<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">,</span><span class="w"> </span><span class="n">misc_example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">));</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">misc_example_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">misc_example</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_test_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">misc_example_test_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_case</span><span class="w"> </span><span class="n">misc_example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_bar_test_success</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_bar_test_failure</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">{},</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_case</span><span class="w"> </span><span class="n">misc_example_test_cases</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_bar_test_success</span><span class="p">),</span>
+<span class="w">        </span><span class="n">TEST_CASE</span><span class="p">(</span><span class="n">misc_example_bar_test_failure</span><span class="p">),</span>
+<span class="w">        </span><span class="p">{},</span>
+<span class="p">};</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_module</span><span class="w"> </span><span class="n">misc_example_test_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;misc-example&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_init</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_exit</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">test_cases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_cases</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="n">module_test</span><span class="p">(</span><span class="n">misc_example_test_module</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_module</span><span class="w"> </span><span class="n">misc_example_test_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;misc-example&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_init</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">exit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_exit</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">test_cases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">misc_example_test_cases</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="n">module_test</span><span class="p">(</span><span class="n">misc_example_test_module</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Now add the following to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Kconfig</span></code>:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="k">config</span><span class="w"> </span>MISC_EXAMPLE_TEST<span class="w"></span>
-<span class="w">        </span><span class="nb">bool</span><span class="w"> </span><span class="s2">&quot;Test for my example&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="k">depends on</span><span class="w"> </span>MISC_EXAMPLE<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>TEST<span class="w"></span>
+<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="k">config</span><span class="w"> </span>MISC_EXAMPLE_TEST
+<span class="w">        </span><span class="nb">bool</span><span class="w"> </span><span class="s2">&quot;Test for my example&quot;</span>
+<span class="w">        </span><span class="k">depends on</span><span class="w"> </span>MISC_EXAMPLE<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>TEST
 </pre></div>
 </div>
 <p>and the following to <code class="docutils literal notranslate"><span class="pre">drivers/misc/Makefile</span></code>:</p>
-<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">obj-$(CONFIG_MISC_EXAMPLE_TEST)</span> <span class="o">+=</span> example-test.o
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">obj-$(CONFIG_MISC_EXAMPLE_TEST)</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>example-test.o
 </pre></div>
 </div>
 <p>Now add it to your <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code>:</p>
@@ -262,7 +266,7 @@ CONFIG_MISC_EXAMPLE_TEST=y
 </pre></div>
 </div>
 <p>Now you can run the test:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py<span class="w"> </span>run
 </pre></div>
 </div>
 <p>You should see the following failure:</p>

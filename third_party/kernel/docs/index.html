@@ -1,46 +1,64 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUnit - Linux Kernel Unit Testing &mdash; The Linux Kernel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-      <link rel="stylesheet" href="_static/theme_rtd_colors.css" type="text/css" />
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>KUnit - Linux Kernel Unit Testing &#8212; The Linux Kernel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started" href="start.html" /> 
-</head>
+    <link rel="next" title="Getting Started" href="start.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> The Linux Kernel
-          </a>
-              <div class="version">
-                6.1.0-rc5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">The Linux Kernel</a></h1>
+
+
+
+<p class="blurb">6.5.0-rc7</p>
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<script>document.getElementById('searchbox').style.display = "block"</script><!-- SPDX-License-Identifier: GPL-2.0 -->
+
+<p>
+<h3 class="kernel-toc-contents">Contents</h3>
+<input type="checkbox" class="kernel-toc-toggle" id = "kernel-toc-toggle" checked>
+<label class="kernel-toc-title" for="kernel-toc-toggle"></label>
+
+<div class="kerneltoc" id="kerneltoc">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a></li>
@@ -51,34 +69,31 @@
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a></li>
 </ul>
 
+</div>
+
+<script type="text/javascript"> <!--
+  var sbar = document.getElementsByClassName("sphinxsidebar")[0];
+  let currents = document.getElementsByClassName("current")
+  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  --> </script>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">The Linux Kernel</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">KUnit - Linux Kernel Unit Testing</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="kunit-linux-kernel-unit-testing">
 <h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
@@ -94,7 +109,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">KUnit Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#in-kernel-testing-framework">In-Kernel Testing Framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#kunit-tool-command-line-test-harness">kunit_tool (Command Line Test Harness)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#kunit-tool-command-line-test-harness">kunit_tool (Command-line Test Harness)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="run_wrapper.html">Running tests with kunit_tool</a><ul>
@@ -112,25 +127,22 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#test-cases">Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#customizing-error-messages">Customizing error messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#writing-tests-for-other-architectures">Writing Tests For Other Architectures</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#common-patterns">Common Patterns</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#isolating-behavior">Isolating Behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#testing-against-multiple-inputs">Testing Against Multiple Inputs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#exiting-early-on-failed-expectations">Exiting Early on Failed Expectations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#allocating-memory">Allocating Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#registering-cleanup-actions">Registering Cleanup Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#testing-static-functions">Testing Static Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#injecting-test-only-code">Injecting Test-Only Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#accessing-the-current-test">Accessing The Current Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#failing-the-current-test">Failing The Current Test</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/test.html">Test API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/resource.html">Resource API</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="style.html">Test Style and Nomenclature</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="style.html#subsystems-suites-and-tests">Subsystems, Suites, and Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="style.html#test-kconfig-entries">Test Kconfig Entries</a></li>
@@ -144,18 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="faq.html#kunit-is-not-working-what-should-i-do">KUnit is not working, what should I do?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips For Writing KUnit Tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#exiting-early-on-failed-expectations">Exiting early on failed expectations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#allocating-memory">Allocating memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#testing-static-functions">Testing static functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#injecting-test-only-code">Injecting test-only code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#accessing-the-current-test">Accessing the current test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#failing-the-current-test">Failing the current test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#customizing-error-messages">Customizing error messages</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (&quot;kunit tool&quot;)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_tips.html#running-tests-manually">Running tests manually</a></li>
 </ul>
 </li>
@@ -207,7 +209,7 @@ displays them in a user friendly manner.</p>
 <p>A unit test tests a single unit of code in isolation. A unit test is the finest
 granularity of testing and allows all possible code paths to be tested in the
 code under test. This is possible if the code under test is small and does not
-have any external dependencies outside of the test’s control like hardware.</p>
+have any external dependencies outside of the test's control like hardware.</p>
 <section id="write-unit-tests">
 <h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Permalink to this heading">¶</a></h3>
 <p>To write good unit tests, there is a simple but powerful pattern:
@@ -236,50 +238,36 @@ compared to acceptance testing.</p></li>
 </section>
 <section id="how-do-i-use-it">
 <h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Documentation/dev-tools/kunit/start.rst - for KUnit new users.</p></li>
-<li><p>Documentation/dev-tools/kunit/architecture.rst - KUnit architecture.</p></li>
-<li><p>Documentation/dev-tools/kunit/run_wrapper.rst - run kunit_tool.</p></li>
-<li><p>Documentation/dev-tools/kunit/run_manual.rst - run tests without kunit_tool.</p></li>
-<li><p>Documentation/dev-tools/kunit/usage.rst - write tests.</p></li>
-<li><p>Documentation/dev-tools/kunit/tips.rst - best practices with
-examples.</p></li>
-<li><p>Documentation/dev-tools/kunit/api/index.rst - KUnit APIs
-used for testing.</p></li>
-<li><p>Documentation/dev-tools/kunit/faq.rst - KUnit common questions and
-answers.</p></li>
-</ul>
+<p>You can find a step-by-step guide to writing and running KUnit tests in
+Documentation/dev-tools/kunit/start.rst</p>
+<p>Alternatively, feel free to look through the rest of the KUnit documentation,
+or to experiment with tools/testing/kunit/kunit.py and the example test under
+lib/kunit/kunit-example-test.c</p>
+<p>Happy testing!</p>
 </section>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="start.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright The kernel development community.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &copy;The kernel development community.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

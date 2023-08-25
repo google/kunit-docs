@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerrit Workflow &mdash; KUnit  documentation</title>
@@ -26,7 +26,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> KUnit
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            KUnit
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -114,14 +118,14 @@ detailed introduction to git, see <a class="reference external" href="https://tr
 <h3>Cloning a repo for the first time<a class="headerlink" href="#cloning-a-repo-for-the-first-time" title="Permalink to this heading"></a></h3>
 <p>If you have not done so yet, clone the repository you want to make changes to.
 For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://kunit.googlesource.com/prow-presubmit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://kunit.googlesource.com/prow-presubmit
 </pre></div>
 </div>
 </section>
 <section id="checkout-the-desired-branch">
 <h3>Checkout the desired branch<a class="headerlink" href="#checkout-the-desired-branch" title="Permalink to this heading"></a></h3>
 <p>Checkout the branch on which you want to make changes to. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git checkout master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>master
 </pre></div>
 </div>
 </section>
@@ -130,7 +134,7 @@ For example:</p>
 <p>If you have not done so in a while, you will need to update your repo and
 branches. Your remote references can be updated with the <code class="docutils literal notranslate"><span class="pre">fetch</span></code> command. For
 example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch origin
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>origin
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">origin</span></code> it the name of the KUnit remote, by default <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the
@@ -141,7 +145,7 @@ you may need to rebase it on the remote branch you are trying to get your
 changes into (in this case, you would already have changes underway. See
 <a class="reference internal" href="#updating-changes"><span class="std std-ref">Updating Existing Changes</span></a> for more information.); here we assume that is not the case.
 Update your branch with the <cite>pull</cite> command. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git pull origin -ff
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>-ff
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">-ff</span></code> forces git not to merge upstream changes into your branch. This is
@@ -152,9 +156,9 @@ This command will fail if you have local changes.</p>
 <h3>Making a change<a class="headerlink" href="#making-a-change" title="Permalink to this heading"></a></h3>
 <p>Once you have made a change, that you are happy with and would like to send up
 for review you first need to <code class="docutils literal notranslate"><span class="pre">commit</span></code> the change. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git add path/to/a/file/you/modified
-git add path/to/a/different/file/you/changed
-git commit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>path/to/a/file/you/modified
+git<span class="w"> </span>add<span class="w"> </span>path/to/a/different/file/you/changed
+git<span class="w"> </span>commit
 </pre></div>
 </div>
 <p>A git commit should be a logical, bite-size change that is easy for your
@@ -179,7 +183,7 @@ more information.</p></li>
 This is done by pushing them to Gerrit with the <code class="docutils literal notranslate"><span class="pre">push</span></code> command. For example,
 let’s say you want your changes to be submitted on <code class="docutils literal notranslate"><span class="pre">master</span></code>
 branch, and <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the prow-presubmit repo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push -u origin HEAD:refs/for/master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>HEAD:refs/for/master
 </pre></div>
 </div>
 <p>If pushing succeeds, Gerrit will respond by printing out the link where you can find the review.</p>
@@ -197,7 +201,7 @@ modified versions of those changes). Let’s say there is a change at
 this change and its dependencies by clicking on the download button; it will
 provide you several options, the first option provides a git command that you
 can copy to your command line and run, such as:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch <span class="s2">&quot;https://kunit.googlesource.com/prow-presubmit&quot;</span> refs/changes/69/2569/1 <span class="o">&amp;&amp;</span> git checkout FETCH_HEAD
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span><span class="s2">&quot;https://kunit.googlesource.com/prow-presubmit&quot;</span><span class="w"> </span>refs/changes/69/2569/1<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>FETCH_HEAD
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -211,7 +215,7 @@ can copy to your command line and run, such as:</p>
 update them, as the branch you are looking to submit to may have progressed;
 this can be accomplished by rebasing against the branch you want to submit to.
 For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git rebase master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>rebase<span class="w"> </span>master
 </pre></div>
 </div>
 <p>Now you need to modify the commits to address reviewer’s comments, or maybe you
@@ -220,7 +224,7 @@ Modifying commits may be accomplished with interactive rebase. Interactive
 rebase is a very powerful git command and is discussed in some detail here:
 <a class="reference external" href="https://dev.to/blakedeboer/beginners-guide-to-interactive-rebasing-1ob">https://dev.to/blakedeboer/beginners-guide-to-interactive-rebasing-1ob</a>.</p>
 <p>You might start an interactive rebase with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git rebase -i master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>master
 </pre></div>
 </div>
 <div class="admonition note">
@@ -236,7 +240,7 @@ your modified commits to the same branch that you would have as if you were
 pushing for the first time.</p>
 <p>For example, let’s say you want to submit your changes to <code class="docutils literal notranslate"><span class="pre">master</span></code>; you would
 then</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git push -u origin HEAD:refs/for/master
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>HEAD:refs/for/master
 </pre></div>
 </div>
 <p>You may wonder how Gerrit knows to replace the old commits at this location

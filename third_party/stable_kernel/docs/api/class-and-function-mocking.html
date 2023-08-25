@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Class and Function Mocking &mdash; The Linux Kernel  documentation</title>
@@ -25,7 +25,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> The Linux Kernel
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            The Linux Kernel
           </a>
               <div class="version">
                 4.19.0
@@ -106,12 +110,12 @@ depend on function or platform mocking.</p>
 <p>When generating a mock stub with <a class="reference internal" href="#c.DEFINE_STRUCT_CLASS_MOCK" title="DEFINE_STRUCT_CLASS_MOCK"><code class="xref c c-func docutils literal notranslate"><span class="pre">DEFINE_STRUCT_CLASS_MOCK()</span></code></a>, which
 takes a method name, struct name, return type, and method parameters, the
 arguments should be passed in with the readability macros.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">METHOD</span><span class="p">(</span><span class="n">add</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">CLASS</span><span class="p">(</span><span class="n">Foo</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
-<span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span>
+<span class="w">        </span><span class="n">METHOD</span><span class="p">(</span><span class="n">add</span><span class="p">),</span>
+<span class="w">        </span><span class="n">CLASS</span><span class="p">(</span><span class="n">Foo</span><span class="p">),</span>
+<span class="w">        </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
+<span class="w">        </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 <p>For a more detailed example of this, take a look at the example in
@@ -123,7 +127,7 @@ arguments should be passed in with the readability macros.</p>
 <p>These are the matchers that can be used when matching arguments in
 <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a> (more can be defined manually).</p>
 <p>For example, there’s a matcher that matches any arguments:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">any</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">any</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>There are matchers for integers based on the binary condition:</p>
@@ -135,12 +139,12 @@ arguments should be passed in with the readability macros.</p>
 <li><p>gt: greater than</p></li>
 <li><p>ge: greater than or equal to</p></li>
 </ul>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_eq</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_ne</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_lt</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_le</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_gt</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_ge</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_eq</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_ne</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_lt</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_le</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_gt</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_matcher</span><span class="w"> </span><span class="o">*</span><span class="n">int_ge</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>For a detailed list, please see
@@ -150,8 +154,8 @@ arguments should be passed in with the readability macros.</p>
 <h2>Mock Returns<a class="headerlink" href="#mock-returns" title="Permalink to this heading">¶</a></h2>
 <p>These functions can be used to specify a value to be returned (<code class="docutils literal notranslate"><span class="pre">ret</span></code>) when a
 mocked function is intercepted via <a class="reference internal" href="#c.EXPECT_CALL" title="EXPECT_CALL"><code class="xref c c-func docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code></a>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_action</span><span class="w"> </span><span class="o">*</span><span class="n">int_return</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_action</span><span class="w"> </span><span class="o">*</span><span class="n">u32_return</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_action</span><span class="w"> </span><span class="o">*</span><span class="n">int_return</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_action</span><span class="w"> </span><span class="o">*</span><span class="n">u32_return</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -310,41 +314,41 @@ matchers.</p>
 <p><strong>Example</strong></p>
 <p><strong>Description</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Class to mock.</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">foo</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">foo</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<span class="p">};</span>
 
 <span class="c1">// Define the mock.</span>
-<span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">example</span><span class="p">);</span><span class="w"></span>
+<span class="n">DECLARE_STRUCT_CLASS_MOCK_PREREQS</span><span class="p">(</span><span class="n">example</span><span class="p">);</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">foo</span><span class="p">),</span><span class="w"> </span><span class="n">CLASS</span><span class="p">(</span><span class="n">example</span><span class="p">),</span><span class="w"></span>
-<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="w"></span>
-<span class="w">                         </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">));</span><span class="w"></span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK</span><span class="p">(</span><span class="n">METHOD</span><span class="p">(</span><span class="n">foo</span><span class="p">),</span><span class="w"> </span><span class="n">CLASS</span><span class="p">(</span><span class="n">example</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">));</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">example_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">example_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">example</span><span class="o">-&gt;</span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">example_init</span><span class="p">);</span><span class="w"></span>
+<span class="n">DEFINE_STRUCT_CLASS_MOCK_INIT</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">example_init</span><span class="p">);</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo_example_test_success</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">mock_example</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">example</span><span class="w"> </span><span class="o">*</span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_get_trgt</span><span class="p">(</span><span class="n">mock_example</span><span class="p">);</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">mock_example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONSTRUCT_MOCK</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span><span class="w"></span>
-<span class="w">                             </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span><span class="w"></span>
-<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="n">mock_get_ctrl</span><span class="p">(</span><span class="n">mock_example</span><span class="p">),</span>
+<span class="w">                             </span><span class="n">int_eq</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span>
+<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">example_bar</span><span class="p">(</span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Return</strong></p>
@@ -453,7 +457,7 @@ allowing additional conditions and actions to be specified.</p>
 </dl>
 <p><strong>Example</strong></p>
 <p><strong>Description</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ActionOnMatch</span><span class="p">(</span><span class="n">EXPECT_CALL</span><span class="p">(...),</span><span class="w"> </span><span class="n">INVOKE_REAL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ActionOnMatch</span><span class="p">(</span><span class="n">EXPECT_CALL</span><span class="p">(...),</span><span class="w"> </span><span class="n">INVOKE_REAL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="p">...));</span>
 </pre></div>
 </div>
 <p><strong>Return</strong></p>
@@ -473,7 +477,7 @@ allowing additional conditions and actions to be specified.</p>
 </dl>
 <p><strong>Example</strong></p>
 <p><strong>Description</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span><span class="p">(</span><span class="n">EXPECT_CALL</span><span class="p">(...),</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span><span class="p">(</span><span class="n">EXPECT_CALL</span><span class="p">(...),</span><span class="w"> </span><span class="n">int_return</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
 </pre></div>
 </div>
 <p><strong>Return</strong></p>
@@ -498,11 +502,11 @@ allowing additional conditions and actions to be specified.</p>
 </dl>
 <p><strong>Example</strong></p>
 <p><strong>Description</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(...);</span>
 
-<span class="n">InSequence</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w"></span>
+<span class="n">InSequence</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>Return</strong></p>
@@ -613,41 +617,41 @@ the name of the class for which the mock is defined and a test object.</p>
 <p>Used to define a function which is <em>redirect-mockable</em>, which allows the
 function to be mocked and refer to the original definition via
 <a class="reference internal" href="#c.INVOKE_REAL" title="INVOKE_REAL"><code class="xref c c-func docutils literal notranslate"><span class="pre">INVOKE_REAL()</span></code></a>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_REDIRECT_MOCKABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="w"> </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="p">));</span><span class="w"></span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">REAL_ID</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="n">adapter</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">DEFINE_REDIRECT_MOCKABLE</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">RETURNS</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="w"> </span><span class="n">PARAMS</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="p">));</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">REAL_ID</span><span class="p">(</span><span class="n">i2c_add_adapter</span><span class="p">)(</span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="n">adapter</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_capturer</span><span class="w"> </span><span class="o">*</span><span class="n">adap_capturer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">aspeed_i2c_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">aspeed_i2c_test_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">KUNIT_T</span><span class="w"> </span><span class="o">*</span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_param_capturer</span><span class="w"> </span><span class="o">*</span><span class="n">adap_capturer</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mock_expectation</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">aspeed_i2c_test</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ctx</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_kzalloc</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ctx</span><span class="p">),</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ctx</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+<span class="w">        </span><span class="n">test</span><span class="o">-&gt;</span><span class="n">priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="w"></span>
-<span class="w">                        </span><span class="n">i2c_add_adapter</span><span class="p">(</span><span class="n">capturer_to_matcher</span><span class="p">(</span><span class="w"></span>
-<span class="w">                                        </span><span class="n">adap_capturer</span><span class="p">)));</span><span class="w"></span>
-<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INVOKE_REAL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">i2c_add_adapter</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">of_fake_probe_platform_by_name</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                             </span><span class="s">&quot;aspeed-i2c-bus&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                             </span><span class="s">&quot;test-i2c-bus&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">i2c_add_adapter</span><span class="p">(</span><span class="n">capturer_to_matcher</span><span class="p">(</span>
+<span class="w">                                        </span><span class="n">adap_capturer</span><span class="p">)));</span>
+<span class="w">        </span><span class="n">handle</span><span class="o">-&gt;</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INVOKE_REAL</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">i2c_add_adapter</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">of_fake_probe_platform_by_name</span><span class="p">(</span><span class="n">test</span><span class="p">,</span>
+<span class="w">                                             </span><span class="s">&quot;aspeed-i2c-bus&quot;</span><span class="p">,</span>
+<span class="w">                                             </span><span class="s">&quot;test-i2c-bus&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
 
-<span class="w">        </span><span class="n">ASSERT_PARAM_CAPTURED</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">adap_capturer</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">adap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_capturer_get</span><span class="p">(</span><span class="n">adap_capturer</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                      </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">ASSERT_PARAM_CAPTURED</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">adap_capturer</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">adap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock_capturer_get</span><span class="p">(</span><span class="n">adap_capturer</span><span class="p">,</span>
+<span class="w">                                      </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_adapter</span><span class="w"> </span><span class="o">*</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Example</strong></p>
@@ -754,7 +758,7 @@ type.</p>
 <p><strong>Parameters</strong></p>
 <p><strong>Example</strong></p>
 <p><strong>Description</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">__mockable</span><span class="w"> </span><span class="nf">example</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">__mockable</span><span class="w"> </span><span class="nf">example</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <dl class="c macro">

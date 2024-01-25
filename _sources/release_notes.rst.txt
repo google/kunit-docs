@@ -409,3 +409,32 @@ for the authoritative source on how to write Kconfig entries.
   - Now, if the original test thred exits, a new cleanup thread is spawned.
 
 - Improved documentation and examples for test / suite init()/exit() functions.
+
+.. _v6.6:
+
+6.6
+===
+
+- Tests and suites can now have 'attributes', which can be filtered upon.
+
+  - 'speed' denotes the expected runtime of a test: tests which are expected to
+    take > 1 second to execute can be marked slow with ``KUNIT_CASE_SLOW()``.
+
+  - 'module' lists the name of the module containing the test.
+
+  - See: https://docs.kernel.org/dev-tools/kunit/running_tips.html#test-attributes-and-filtering
+
+- Rust 'doctests' are now automatically converted into and run as KUnit tests.
+
+- Additional architectural features are supported in the arm64 QEMU target.
+
+.. _v6.7:
+
+6.7
+===
+
+- Test logs are no longer limited to 2KiB in debugfs. The log will now grow as required.
+
+- KUnit will now warn if a test takes longer than 2 seconds to run, but is not marked as slow.
+
+

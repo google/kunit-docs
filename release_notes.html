@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Release Notes &mdash; KUnit  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
@@ -68,6 +70,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#v6-3">6.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-4">6.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-5">6.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-6">6.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-7">6.7</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
@@ -476,6 +480,28 @@ KUnit executor thread.</p></li>
 </ul>
 </li>
 <li><p>Improved documentation and examples for test / suite init()/exit() functions.</p></li>
+</ul>
+</section>
+<section id="v6-6">
+<span id="id22"></span><h2>6.6<a class="headerlink" href="#v6-6" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Tests and suites can now have ‘attributes’, which can be filtered upon.</p>
+<ul>
+<li><p>‘speed’ denotes the expected runtime of a test: tests which are expected to
+take &gt; 1 second to execute can be marked slow with <code class="docutils literal notranslate"><span class="pre">KUNIT_CASE_SLOW()</span></code>.</p></li>
+<li><p>‘module’ lists the name of the module containing the test.</p></li>
+<li><p>See: <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/running_tips.html#test-attributes-and-filtering">https://docs.kernel.org/dev-tools/kunit/running_tips.html#test-attributes-and-filtering</a></p></li>
+</ul>
+</li>
+<li><p>Rust ‘doctests’ are now automatically converted into and run as KUnit tests.</p></li>
+<li><p>Additional architectural features are supported in the arm64 QEMU target.</p></li>
+</ul>
+</section>
+<section id="v6-7">
+<span id="id23"></span><h2>6.7<a class="headerlink" href="#v6-7" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Test logs are no longer limited to 2KiB in debugfs. The log will now grow as required.</p></li>
+<li><p>KUnit will now warn if a test takes longer than 2 seconds to run, but is not marked as slow.</p></li>
 </ul>
 </section>
 </section>

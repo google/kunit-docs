@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Resource API &#8212; The Linux Kernel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a152c8ac" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Function Redirection API" href="functionredirection.html" />
@@ -30,11 +26,14 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="../index.html">The Linux Kernel</a></h1>
 
 
 
-<p class="blurb">6.5.0-rc7</p>
+<p class="blurb">6.11.0-rc4</p>
 
 
 
@@ -78,7 +77,9 @@
 <script type="text/javascript"> <!--
   var sbar = document.getElementsByClassName("sphinxsidebar")[0];
   let currents = document.getElementsByClassName("current")
-  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  if (currents.length) {
+    sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  }
   --> </script>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -95,14 +96,18 @@
 
           <div class="body" role="main">
             
-  <section id="resource-api">
-<h1>Resource API<a class="headerlink" href="#resource-api" title="Permalink to this heading">¶</a></h1>
+  <!-- SPDX-License-Identifier: GPL-2.0 -->
+<!-- Copyright © 2023, Oracle and/or its affiliates. -->
+
+
+<section id="resource-api">
+<h1>Resource API<a class="headerlink" href="#resource-api" title="Link to this heading">¶</a></h1>
 <p>This file documents the KUnit resource API.</p>
-<p>Most users won't need to use this API directly, power users can use it to store
+<p>Most users won’t need to use this API directly, power users can use it to store
 state on a per-test basis, register custom cleanup actions, and more.</p>
 <dl class="c struct">
 <dt class="sig sig-object c" id="c.kunit_resource">
-<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource</span></span></span><a class="headerlink" href="#c.kunit_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource</span></span></span><a class="headerlink" href="#c.kunit_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>represents a <em>test managed resource</em></p>
 </dd></dl>
 
@@ -127,7 +132,7 @@ state on a per-test basis, register custom cleanup actions, and more.</p>
 </div>
 <p><strong>Description</strong></p>
 <p>Represents a <em>test managed resource</em>, a resource which will automatically be
-cleaned up at the end of a test case. This cleanup is performed by the 'free'
+cleaned up at the end of a test case. This cleanup is performed by the ‘free’
 function. The <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> itself is freed automatically with
 kfree() if it was allocated by KUnit (e.g., by <a class="reference internal" href="#c.kunit_alloc_resource" title="kunit_alloc_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_alloc_resource()</span></code></a>), but
 must be freed by the user otherwise.</p>
@@ -176,7 +181,7 @@ unique within the test instance.</p>
 <p><strong>Example</strong></p>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_get_resource">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_get_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_get_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_get_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_get_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Hold resource for use. Should not need to be used by most users as we automatically get resources retrieved by kunit_find_resource*().</p>
 </dd></dl>
 
@@ -189,7 +194,7 @@ unique within the test instance.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_put_resource">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_put_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_put_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_put_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_put_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>When caller is done with retrieved resource, <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> should be called to drop reference count. The resource list maintains a reference count on resources, so if no users are utilizing a resource and it is removed from the resource list, it will be freed via the associated free function (if any). Only needs to be used if we alloc_and_get() or find() resource.</p>
 </dd></dl>
 
@@ -202,7 +207,7 @@ unique within the test instance.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.__kunit_add_resource">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__kunit_add_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.__kunit_add_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__kunit_add_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.__kunit_add_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Internal helper to add a resource.</p>
 </dd></dl>
 
@@ -227,7 +232,7 @@ If an init function is supplied, <strong>data</strong> is passed to it instead.<
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_add_resource">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Add a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -250,7 +255,7 @@ If an init function is supplied, <strong>data</strong> is passed to it instead.<
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_add_named_resource">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_named_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_named_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_named_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_named_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Add a named <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -273,7 +278,7 @@ If an init function is supplied, <strong>data</strong> is passed to it instead.<
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_alloc_and_get_resource">
-<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_alloc_and_get_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">internal_gfp</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">context</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_and_get_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_alloc_and_get_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">internal_gfp</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">context</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_and_get_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Allocates and returns a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -296,9 +301,9 @@ If an init function is supplied, <strong>data</strong> is passed to it instead.<
 cleaned up at the end of a test case. See <a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-type docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> for an
 example.</p>
 <p>This is effectively identical to kunit_alloc_resource, but returns the
-<a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> pointer, not just the 'data' pointer. It therefore
-also increments the resource's refcount, so <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> should be
-called when you've finished with it.</p>
+<a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit_resource</span></code></a> pointer, not just the ‘data’ pointer. It therefore
+also increments the resource’s refcount, so <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> should be
+called when you’ve finished with it.</p>
 <p><strong>Note</strong></p>
 <p>KUnit needs to allocate memory for a kunit_resource object. You must
 specify an <strong>internal_gfp</strong> that is compatible with the use context of your
@@ -306,7 +311,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_alloc_resource">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_alloc_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">internal_gfp</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">context</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_alloc_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_init_t</span></span><span class="w"> </span><span class="n"><span class="pre">init</span></span>, <span class="n"><span class="pre">kunit_resource_free_t</span></span><span class="w"> </span><span class="n"><span class="pre">free</span></span>, <span class="n"><span class="pre">gfp_t</span></span><span class="w"> </span><span class="n"><span class="pre">internal_gfp</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">context</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_alloc_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Allocates a <em>test managed resource</em>.</p>
 </dd></dl>
 
@@ -335,7 +340,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_resource_name_match">
-<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource_name_match</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_name_match" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_resource_name_match</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_resource_name_match" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Match a resource with the same name.</p>
 </dd></dl>
 
@@ -352,7 +357,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_find_resource">
-<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_find_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_match_t</span></span><span class="w"> </span><span class="n"><span class="pre">match</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_find_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_match_t</span></span><span class="w"> </span><span class="n"><span class="pre">match</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Find a resource using match function/data.</p>
 </dd></dl>
 
@@ -369,7 +374,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_find_named_resource">
-<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_find_named_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_named_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_find_named_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_find_named_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Find a resource using match name.</p>
 </dd></dl>
 
@@ -384,7 +389,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_destroy_resource">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_destroy_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_match_t</span></span><span class="w"> </span><span class="n"><span class="pre">match</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_destroy_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_destroy_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_resource_match_t</span></span><span class="w"> </span><span class="n"><span class="pre">match</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">match_data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_destroy_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Find a kunit_resource and destroy it.</p>
 </dd></dl>
 
@@ -403,7 +408,7 @@ resource.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_remove_resource">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_remove_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_resource" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_remove_resource</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#c.kunit_resource" title="kunit_resource"><span class="n"><span class="pre">kunit_resource</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">res</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_resource" title="Link to this definition">¶</a><br /></dt>
 <dd><p>remove resource from resource list associated with test.</p>
 </dd></dl>
 
@@ -420,9 +425,35 @@ resource.</p>
 the caller has a reference to it via alloc_and_get() or find();
 in this case a final call to <a class="reference internal" href="#c.kunit_put_resource" title="kunit_put_resource"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_put_resource()</span></code></a> is required.</p>
 </div>
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.KUNIT_DEFINE_ACTION_WRAPPER">
+<span class="sig-name descname"><span class="n"><span class="pre">KUNIT_DEFINE_ACTION_WRAPPER</span></span></span><a class="headerlink" href="#c.KUNIT_DEFINE_ACTION_WRAPPER" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">KUNIT_DEFINE_ACTION_WRAPPER</span> <span class="pre">(wrapper,</span> <span class="pre">orig,</span> <span class="pre">arg_type)</span></code></p>
+<blockquote>
+<div><p>Wrap a function for use as a deferred action.</p>
+</div></blockquote>
+<div class="kernelindent docutils container">
+<p><strong>Parameters</strong></p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">wrapper</span></code></dt><dd><p>The name of the new wrapper function define.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">orig</span></code></dt><dd><p>The original function to wrap.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">arg_type</span></code></dt><dd><p>The type of the argument accepted by <strong>orig</strong>.</p>
+</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Defines a wrapper for a function which accepts a single, pointer-sized
+argument. This wrapper can then be passed to <a class="reference internal" href="#c.kunit_add_action" title="kunit_add_action"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_add_action()</span></code></a> and
+similar. This should be used in preference to casting a function
+directly to kunit_action_t, as casting function pointers will break
+control flow integrity (CFI), leading to crashes.</p>
+</div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_add_action">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_action" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_action" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Call a function when the test ends.</p>
 </dd></dl>
 
@@ -452,7 +483,7 @@ assertion.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_add_action_or_reset">
-<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_action_or_reset</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_action_or_reset" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_add_action_or_reset</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_add_action_or_reset" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Call a function when the test ends.</p>
 </dd></dl>
 
@@ -484,7 +515,7 @@ then action(ctx) will be called immediately, and an error will be returned.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_remove_action">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_remove_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_action" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_remove_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_remove_action" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Cancel a matching deferred action.</p>
 </dd></dl>
 
@@ -507,7 +538,7 @@ recent one will be cancelled.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_release_action">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_release_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_release_action" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_release_action</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="n"><span class="pre">kunit_action_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">action</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_release_action" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Run a matching action call immediately.</p>
 </dd></dl>
 
@@ -533,6 +564,99 @@ func(ctx);
 kunit_remove_action(test, func, ctx);</p>
 <p>See also: devm_release_action() for the devres equivalent.</p>
 </div>
+<section id="managed-devices">
+<h2>Managed Devices<a class="headerlink" href="#managed-devices" title="Link to this heading">¶</a></h2>
+<p>Functions for using KUnit-managed struct device and struct device_driver.
+Include <code class="docutils literal notranslate"><span class="pre">kunit/device.h</span></code> to use these.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.kunit_driver_create">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device_driver</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_driver_create</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_driver_create" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Create a struct device_driver attached to the kunit_bus</p>
+</dd></dl>
+
+<div class="kernelindent docutils container">
+<p><strong>Parameters</strong></p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*name</span></code></dt><dd><p>The name to give the created driver.</p>
+</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Creates a struct device_driver attached to the kunit_bus, with the name <strong>name</strong>.
+This driver will automatically be cleaned up on test exit.</p>
+<p><strong>Return</strong></p>
+<p>a stub struct device_driver, managed by KUnit, with the name <strong>name</strong>.</p>
+</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.kunit_device_register">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_device_register</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_device_register" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Create a struct device for use in KUnit tests</p>
+</dd></dl>
+
+<div class="kernelindent docutils container">
+<p><strong>Parameters</strong></p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*name</span></code></dt><dd><p>The name to give the created device.</p>
+</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Creates a struct kunit_device (which is a struct device) with the given name,
+and a corresponding driver. The device and driver will be cleaned up on test
+exit, or when kunit_device_unregister is called. See also
+kunit_device_register_with_driver, if you wish to provide your own
+struct device_driver.</p>
+<p><strong>Return</strong></p>
+<p>a pointer to a struct device which will be cleaned up when the test
+exits, or an error pointer if the device could not be allocated or registered.</p>
+</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.kunit_device_register_with_driver">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">kunit_device_register_with_driver</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device_driver</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">drv</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_device_register_with_driver" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Create a struct device for use in KUnit tests</p>
+</dd></dl>
+
+<div class="kernelindent docutils container">
+<p><strong>Parameters</strong></p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>The test context object.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*name</span></code></dt><dd><p>The name to give the created device.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">struct</span> <span class="pre">device_driver</span> <span class="pre">*drv</span></code></dt><dd><p>The struct device_driver to associate with the device.</p>
+</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Creates a struct kunit_device (which is a struct device) with the given
+name, and driver. The device will be cleaned up on test exit, or when
+kunit_device_unregister is called. See also kunit_device_register, if you
+wish KUnit to create and manage a driver for you.</p>
+<p><strong>Return</strong></p>
+<p>a pointer to a struct device which will be cleaned up when the test
+exits, or an error pointer if the device could not be allocated or registered.</p>
+</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.kunit_device_unregister">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_device_unregister</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dev</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_device_unregister" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Unregister a KUnit-managed device</p>
+</dd></dl>
+
+<div class="kernelindent docutils container">
+<p><strong>Parameters</strong></p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>The test context object which created the device</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">device</span> <span class="pre">*dev</span></code></dt><dd><p>The device.</p>
+</dd>
+</dl>
+<p><strong>Description</strong></p>
+<p>Unregisters and destroys a struct device which was created with
+kunit_device_register or kunit_device_register_with_driver. If KUnit created
+a driver, cleans it up as well.</p>
+</div>
+</section>
 </section>
 
 
@@ -546,7 +670,7 @@ kunit_remove_action(test, func, ctx);</p>
       &copy;The kernel development community.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

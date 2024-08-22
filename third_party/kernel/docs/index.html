@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>KUnit - Linux Kernel Unit Testing &#8212; The Linux Kernel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=a152c8ac" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="start.html" />
@@ -29,11 +25,14 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/logo.svg" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="#">The Linux Kernel</a></h1>
 
 
 
-<p class="blurb">6.5.0-rc7</p>
+<p class="blurb">6.11.0-rc4</p>
 
 
 
@@ -77,7 +76,9 @@
 <script type="text/javascript"> <!--
   var sbar = document.getElementsByClassName("sphinxsidebar")[0];
   let currents = document.getElementsByClassName("current")
-  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  if (currents.length) {
+    sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  }
   --> </script>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -94,8 +95,12 @@
 
           <div class="body" role="main">
             
-  <section id="kunit-linux-kernel-unit-testing">
-<h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Permalink to this heading">¶</a></h1>
+  <!-- SPDX-License-Identifier: GPL-2.0 -->
+<!-- Copyright © 2023, Oracle and/or its affiliates. -->
+
+
+<section id="kunit-linux-kernel-unit-testing">
+<h1>KUnit - Linux Kernel Unit Testing<a class="headerlink" href="#kunit-linux-kernel-unit-testing" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -123,6 +128,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="run_manual.html">Run Tests without kunit_tool</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="run_manual.html#configure-the-kernel">Configure the Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_manual.html#debugfs">debugfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_manual.html#retrieve-test-results">Retrieve Test Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_manual.html#run-tests-after-kernel-has-booted">Run Tests After Kernel Has Booted</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Writing Tests</a><ul>
@@ -140,6 +148,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usage.html#injecting-test-only-code">Injecting Test-Only Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#accessing-the-current-test">Accessing The Current Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#failing-the-current-test">Failing The Current Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#managing-fake-devices-and-drivers">Managing Fake Devices and Drivers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
@@ -157,15 +166,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="running_tips.html">Tips For Running KUnit Tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (&quot;kunit tool&quot;)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#using-kunit-py-run-kunit-tool">Using <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> (“kunit tool”)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_tips.html#running-tests-manually">Running tests manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_tips.html#test-attributes-and-filtering">Test Attributes and Filtering</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <p>This section details the kernel unit testing framework.</p>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
 <p>KUnit (Kernel unit testing framework) provides a common framework for
 unit tests within the Linux kernel. Using KUnit, you can define groups
 of test cases called test suites. The tests either run on kernel boot
@@ -189,7 +199,7 @@ that configures the Linux kernel, runs KUnit tests under QEMU or UML
 parses the test results and
 displays them in a user friendly manner.</p>
 <section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h3>
+<h3>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Provides a framework for writing unit tests.</p></li>
 <li><p>Runs tests on any kernel architecture.</p></li>
@@ -197,7 +207,7 @@ displays them in a user friendly manner.</p>
 </ul>
 </section>
 <section id="prerequisites">
-<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Any Linux kernel compatible hardware.</p></li>
 <li><p>For Kernel under test, Linux kernel version 5.5 or greater.</p></li>
@@ -205,13 +215,13 @@ displays them in a user friendly manner.</p>
 </section>
 </section>
 <section id="unit-testing">
-<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this heading">¶</a></h2>
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Link to this heading">¶</a></h2>
 <p>A unit test tests a single unit of code in isolation. A unit test is the finest
 granularity of testing and allows all possible code paths to be tested in the
 code under test. This is possible if the code under test is small and does not
-have any external dependencies outside of the test's control like hardware.</p>
+have any external dependencies outside of the test’s control like hardware.</p>
 <section id="write-unit-tests">
-<h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Permalink to this heading">¶</a></h3>
+<h3>Write Unit Tests<a class="headerlink" href="#write-unit-tests" title="Link to this heading">¶</a></h3>
 <p>To write good unit tests, there is a simple but powerful pattern:
 Arrange-Act-Assert. This is a great way to structure test cases and
 defines an order of operations.</p>
@@ -225,7 +235,7 @@ expected.</p></li>
 </ul>
 </section>
 <section id="unit-testing-advantages">
-<h3>Unit Testing Advantages<a class="headerlink" href="#unit-testing-advantages" title="Permalink to this heading">¶</a></h3>
+<h3>Unit Testing Advantages<a class="headerlink" href="#unit-testing-advantages" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Increases testing speed and development in the long run.</p></li>
 <li><p>Detects bugs at initial stage and therefore decreases bug fix cost
@@ -237,7 +247,7 @@ compared to acceptance testing.</p></li>
 </section>
 </section>
 <section id="how-do-i-use-it">
-<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading">¶</a></h2>
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Link to this heading">¶</a></h2>
 <p>You can find a step-by-step guide to writing and running KUnit tests in
 Documentation/dev-tools/kunit/start.rst</p>
 <p>Alternatively, feel free to look through the rest of the KUnit documentation,
@@ -258,7 +268,7 @@ lib/kunit/kunit-example-test.c</p>
       &copy;The kernel development community.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

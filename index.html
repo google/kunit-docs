@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KUnit &mdash; KUnit  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=86f27845" />
 
   
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=8dae8fb0"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,7 +45,6 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Using KUnit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="press.html">Press</a></li>
@@ -77,7 +75,7 @@
            <div itemprop="articleBody">
              
   <section id="kunit">
-<h1>KUnit<a class="headerlink" href="#kunit" title="Permalink to this heading"></a></h1>
+<h1>KUnit<a class="headerlink" href="#kunit" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -101,11 +99,6 @@
 <li class="toctree-l1"><a class="reference internal" href="third_party/kernel/index.html">Upstream Version</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="third_party/kernel/index.html#where-to-get-the-code">Where to get the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="third_party/kernel/index.html#getting-started-guide">Getting Started Guide</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="third_party/stable_kernel/index.html#where-to-get-the-code">Where to get the code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third_party/stable_kernel/index.html#getting-started-guide">Getting Started Guide</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
@@ -132,6 +125,9 @@
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-5">6.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-6">6.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-7">6.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-8">6.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-9">6.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#v6-10">6.10</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a><ul>
@@ -149,7 +145,7 @@
 </ul>
 </div>
 <section id="what-is-kunit">
-<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Permalink to this heading"></a></h2>
+<h2>What is KUnit?<a class="headerlink" href="#what-is-kunit" title="Link to this heading"></a></h2>
 <p>KUnit is a lightweight unit testing framework for the Linux kernel.
 These tests are able to be run locally on a developer’s workstation without a
 VM or special hardware.</p>
@@ -157,14 +153,14 @@ VM or special hardware.</p>
 Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
 cases, grouping related test cases into test suites, providing common
 infrastructure for running tests, and more.</p>
-<p>Get started now: <a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a></p>
+<p>Check out the <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/start.html">Getting Started</a> guide.</p>
 </section>
 <section id="who-is-it-for">
-<h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Permalink to this heading"></a></h2>
+<h2>Who is it for?<a class="headerlink" href="#who-is-it-for" title="Link to this heading"></a></h2>
 <p>If you work on the Linux kernel, then KUnit is for you.</p>
 </section>
 <section id="why-unit-test-the-kernel">
-<h2>Why unit test the kernel?<a class="headerlink" href="#why-unit-test-the-kernel" title="Permalink to this heading"></a></h2>
+<h2>Why unit test the kernel?<a class="headerlink" href="#why-unit-test-the-kernel" title="Link to this heading"></a></h2>
 <p>The first question is, “why write unit tests in the first place?”</p>
 <p>A unit test is a test focused on testing a small “unit” of code. This is
 usually on the level of a few functions at most. Unit tests try to avoid
@@ -172,7 +168,7 @@ external dependencies like hardware and/or stub them out where possible.</p>
 <p>This ideally makes unit tests more stable, faster, and easier to debug when
 they fail.</p>
 <section id="in-kernel-testing">
-<h3>In-kernel testing<a class="headerlink" href="#in-kernel-testing" title="Permalink to this heading"></a></h3>
+<h3>In-kernel testing<a class="headerlink" href="#in-kernel-testing" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In our case, “unit test” implies in-kernel test code. It’s not really possible
@@ -192,16 +188,24 @@ userspace processes to come up.</p>
 </section>
 </section>
 <section id="why-kunit">
-<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Permalink to this heading"></a></h2>
+<h2>Why KUnit?<a class="headerlink" href="#why-kunit" title="Link to this heading"></a></h2>
 <p>KUnit provides a library to help making writing tests easy: including making
 assertions, setting up and cleaning up test resources, and more.
-It also provides a <a class="reference external" href="third_party/kernel/docs/kunit-tool.html">python script</a>
+It also provides a <a class="reference external" href="https://docs.kernel.org/dev-tools/testing/run_wrapper.html">python script</a>
 to make building and running tests easy.</p>
 <p>kselftest has a way of writing unit tests as kernel modules via the helpers in
 <code class="docutils literal notranslate"><span class="pre">tools/testing/selftests/kselftest_module.h</span></code>. But this requires more
 boilerplate scattered across several files and potentially several directories.</p>
-<section id="uml">
-<h3>UML<a class="headerlink" href="#uml" title="Permalink to this heading"></a></h3>
+<p>Check out the <a class="reference external" href="https://docs.kernel.org/dev-tools/testing-overview.html">Kernel Testing Guide</a>
+for an overview of when to use KUnit.</p>
+<section id="kunit-py-and-uml">
+<h3>kunit.py and UML<a class="headerlink" href="#kunit-py-and-uml" title="Link to this heading"></a></h3>
+<p>KUnit provides a simple python script, <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> which can automate configuring,
+building, and running kernels with KUnit tests. It also parses test results in
+<a class="reference external" href="https://docs.kernel.org/dev-tools/ktap.html">KTAP</a> format, providing a nice
+summary.</p>
+<p>To get started, run:
+<code class="docutils literal notranslate"><span class="pre">./tools/testing/kunit/kunit.py</span> <span class="pre">run</span></code></p>
 <p>KUnit is able to run tests without needing a
 virtual machine or actual hardware with User Mode Linux. User Mode Linux is a
 Linux architecture, like ARM or x86; however, unlike other architectures it
@@ -209,37 +213,45 @@ compiles to a standalone program that can be run like any other program
 directly inside of a host operating system; to be clear, it does not require
 any virtualization support; it is just a regular program. User Mode Linux is
 fast: on my desktop it boots to init process in under a second.</p>
-<p>The provided tooling (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) mainly works with UML,
-but you can use KUnit manually on different architectures, if wanted. See <a class="reference external" href="third_party/kernel/docs/start.html">here</a> for more details.</p>
+<p>The provided tooling (<code class="docutils literal notranslate"><span class="pre">tools/testing/kunit/kunit.py</span></code>) uses UML by default,
+but also integrates with QEMU to support other architectures.</p>
 </section>
 </section>
 <section id="how-do-i-use-it">
-<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this heading"></a></h2>
+<h2>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="usage/index.html"><span class="doc">Using KUnit</span></a> - for new users of KUnit</p></li>
-<li><p>For upstream KUnit:
-- <a class="reference external" href="third_party/kernel/docs/usage.html">Usage</a> - for a more detailed explanation of KUnit features
-- <a class="reference external" href="third_party/kernel/docs/api">API</a> - for the list of KUnit APIs used for testing</p></li>
+<li><p><a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/start.html">Getting Started</a> - for new users of KUnit</p></li>
+<li><p><a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/start.html">Documentation Index</a> - for an index of all KUnit docs
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/run_wrapper.html">Running tests with kunit.py</a> - how to use the KUnit tooling
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/run_manual.html">Running tests without kunit.py</a> - how to run tests manually or in other environment
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/usage.html">Writing Tests</a> - detailed tips for writing KUnit tests
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/usage.html#common-patterns">Common Patterns</a> - useful techniques for testing more complex code
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/style.html">Style Guide and Nomenclature</a> - what to name your tests, files, and modules
+- <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/api/index.html">API Reference</a> - a reference of all KUnit APIs</p></li>
+<li><p><a class="reference external" href="https://docs.kernel.org/dev-tools/testing-overview.html">Kernel Testing Guide</a> - when to use KUnit</p></li>
+<li><p><a class="reference external" href="https://docs.kernel.org/rust/testing.html">Testing Rust Code</a> - how to test code written in Rust</p></li>
 </ul>
+<p>All of these can also be found in the <code class="docutils literal notranslate"><span class="pre">Documentation/</span></code> directory in the kernel source tree.</p>
 </section>
 <section id="where-do-i-get-it">
-<h2>Where do I get it?<a class="headerlink" href="#where-do-i-get-it" title="Permalink to this heading"></a></h2>
+<h2>Where do I get it?<a class="headerlink" href="#where-do-i-get-it" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Upstream: <a class="reference external" href="https://www.kernel.org/">https://www.kernel.org/</a> (version 5.5 or later)</p></li>
-<li><p>Deprecated version: <a class="reference external" href="https://kunit.googlesource.com/linux/+/kunit/alpha/master">https://kunit.googlesource.com/linux/+/kunit/alpha/master</a></p></li>
+<li><p>KUnit can be found in the <code class="docutils literal notranslate"><span class="pre">lib/kunit</span></code> directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> lives in the <code class="docutils literal notranslate"><span class="pre">tools/testing/kunit</span></code> directory.</p></li>
 </ul>
 </section>
 <section id="connect-with-us">
-<h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Permalink to this heading"></a></h2>
+<h2>Connect with us<a class="headerlink" href="#connect-with-us" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Mailing List: <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a></p></li>
+<li><p>Mailing Lists: <a class="reference external" href="mailto:kunit-dev&#37;&#52;&#48;googlegroups&#46;com">kunit-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a></p></li>
 <li><p>Google Groups (web interface for above): <a class="reference external" href="https://groups.google.com/forum/#!forum/kunit-dev">https://groups.google.com/forum/#!forum/kunit-dev</a></p></li>
 <li><p>IRC: #kunit on oftc.net</p></li>
 <li><p>Riot: <a class="reference external" href="https://riot.im/app/#/room/#_oftc_#kunit:matrix.org">#kunit:matrix.org</a></p></li>
 </ul>
 </section>
 <section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h2>
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
 <p>If you want to contribute to KUnit in the Linux kernel (which is just the same
 as contributing to the Linux kernel, please see <a class="reference external" href="https://www.kernel.org/doc/html/latest/#introduction-to-kernel-development">the Linux kernel’s guide on
 contributing</a>.</p>

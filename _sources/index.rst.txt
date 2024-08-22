@@ -14,7 +14,6 @@ KUnit
    usage/index
    development/index
    third_party/kernel/index.rst
-   third_party/stable_kernel/index.rst
    release_notes
    mocking
    press
@@ -31,7 +30,7 @@ Googletest/Googlemock for C++. KUnit provides facilities for defining unit test
 cases, grouping related test cases into test suites, providing common
 infrastructure for running tests, and more.
 
-Get started now: :doc:`usage/index`
+Check out the `Getting Started <https://docs.kernel.org/dev-tools/kunit/start.html>`__ guide.
 
 Who is it for?
 ==============
@@ -75,15 +74,26 @@ Why KUnit?
 
 KUnit provides a library to help making writing tests easy: including making
 assertions, setting up and cleaning up test resources, and more.
-It also provides a `python script <third_party/kernel/docs/kunit-tool.html>`__
+It also provides a `python script <https://docs.kernel.org/dev-tools/testing/run_wrapper.html>`__
 to make building and running tests easy.
 
 kselftest has a way of writing unit tests as kernel modules via the helpers in
 ``tools/testing/selftests/kselftest_module.h``. But this requires more
 boilerplate scattered across several files and potentially several directories.
 
-UML
----
+Check out the `Kernel Testing Guide <https://docs.kernel.org/dev-tools/testing-overview.html>`__
+for an overview of when to use KUnit.
+
+kunit.py and UML
+----------------
+
+KUnit provides a simple python script, ``kunit.py`` which can automate configuring,
+building, and running kernels with KUnit tests. It also parses test results in
+`KTAP <https://docs.kernel.org/dev-tools/ktap.html>`__ format, providing a nice
+summary.
+
+To get started, run:
+``./tools/testing/kunit/kunit.py run``
 
 KUnit is able to run tests without needing a
 virtual machine or actual hardware with User Mode Linux. User Mode Linux is a
@@ -93,28 +103,36 @@ directly inside of a host operating system; to be clear, it does not require
 any virtualization support; it is just a regular program. User Mode Linux is
 fast: on my desktop it boots to init process in under a second.
 
-The provided tooling (``tools/testing/kunit/kunit.py``) mainly works with UML,
-but you can use KUnit manually on different architectures, if wanted. See `here
-<third_party/kernel/docs/start.html>`__ for more details.
+The provided tooling (``tools/testing/kunit/kunit.py``) uses UML by default,
+but also integrates with QEMU to support other architectures.
 
 How do I use it?
 ================
 
-- :doc:`usage/index` - for new users of KUnit
-- For upstream KUnit:
-  - `Usage <third_party/kernel/docs/usage.html>`__ - for a more detailed explanation of KUnit features
-  - `API <third_party/kernel/docs/api>`__ - for the list of KUnit APIs used for testing
+- `Getting Started <https://docs.kernel.org/dev-tools/kunit/start.html>`__ - for new users of KUnit
+- `Documentation Index <https://docs.kernel.org/dev-tools/kunit/start.html>`__ - for an index of all KUnit docs
+  - `Running tests with kunit.py <https://docs.kernel.org/dev-tools/kunit/run_wrapper.html>`__ - how to use the KUnit tooling
+  - `Running tests without kunit.py <https://docs.kernel.org/dev-tools/kunit/run_manual.html>`__ - how to run tests manually or in other environment
+  - `Writing Tests <https://docs.kernel.org/dev-tools/kunit/usage.html>`__ - detailed tips for writing KUnit tests
+  - `Common Patterns <https://docs.kernel.org/dev-tools/kunit/usage.html#common-patterns>`__ - useful techniques for testing more complex code
+  - `Style Guide and Nomenclature <https://docs.kernel.org/dev-tools/kunit/style.html>`__ - what to name your tests, files, and modules
+  - `API Reference <https://docs.kernel.org/dev-tools/kunit/api/index.html>`__ - a reference of all KUnit APIs
+- `Kernel Testing Guide <https://docs.kernel.org/dev-tools/testing-overview.html>`__ - when to use KUnit
+- `Testing Rust Code <https://docs.kernel.org/rust/testing.html>`__ - how to test code written in Rust
+
+All of these can also be found in the ``Documentation/`` directory in the kernel source tree.
 
 Where do I get it?
 ==================
 
 - Upstream: https://www.kernel.org/ (version 5.5 or later)
-- Deprecated version: https://kunit.googlesource.com/linux/+/kunit/alpha/master
+- KUnit can be found in the ``lib/kunit`` directory.
+- ``kunit.py`` lives in the ``tools/testing/kunit`` directory.
 
 Connect with us
 ===============
 
-- Mailing List: kunit-dev@googlegroups.com
+- Mailing Lists: kunit-dev@googlegroups.com
 - Google Groups (web interface for above): https://groups.google.com/forum/#!forum/kunit-dev
 - IRC: #kunit on oftc.net
 - Riot: `#kunit:matrix.org <https://riot.im/app/#/room/#_oftc_#kunit:matrix.org>`_

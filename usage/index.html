@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using KUnit &mdash; KUnit  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
   
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -54,7 +53,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
@@ -85,7 +83,7 @@
            <div itemprop="articleBody">
              
   <section id="using-kunit">
-<h1>Using KUnit<a class="headerlink" href="#using-kunit" title="Permalink to this heading"></a></h1>
+<h1>Using KUnit<a class="headerlink" href="#using-kunit" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -107,7 +105,7 @@ kernel which contains KUnit, and a config file with which to build it. The
 <a class="reference internal" href="getting_kunit.html"><span class="doc">Getting KUnit</span></a> page covers the different versions of KUnit available, and
 where to get them.</p>
 <section id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this heading"></a></h2>
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
 <p>To run KUnit tests, you’ll need to provide a ‘kunitconfig’ file, which contains
 the list of test modules to build, and their dependencies.</p>
 <p>Once you have the <code class="docutils literal notranslate"><span class="pre">kunitconfig</span></code> file, just run:</p>
@@ -146,7 +144,7 @@ can install them with</p>
 </div>
 </section>
 <section id="writing-tests">
-<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this heading"></a></h2>
+<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Link to this heading"></a></h2>
 <p>Once you have KUnit working, writing tests is easy. Each test is a function
 which accepts a <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code> argument, and which calls the various
 <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_*</span></code> macros to verify the state under test.</p>
@@ -154,7 +152,7 @@ which accepts a <code class="docutils literal notranslate"><span class="pre">str
 guide.</p>
 </section>
 <section id="submitting-tests-upstream">
-<h2>Submitting tests upstream<a class="headerlink" href="#submitting-tests-upstream" title="Permalink to this heading"></a></h2>
+<h2>Submitting tests upstream<a class="headerlink" href="#submitting-tests-upstream" title="Link to this heading"></a></h2>
 <p>Ideally, KUnit tests will be submitted upstream alongside the code being tested,
 so any user or developer can run the tests and test any changes they make.
 Unless they affect KUnit itself, this means that KUnit tests should ideally be

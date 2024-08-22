@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Function Redirection API &#8212; The Linux Kernel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a152c8ac" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Test Style and Nomenclature" href="../style.html" />
@@ -30,11 +26,14 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo.svg" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="../index.html">The Linux Kernel</a></h1>
 
 
 
-<p class="blurb">6.5.0-rc7</p>
+<p class="blurb">6.11.0-rc4</p>
 
 
 
@@ -78,7 +77,9 @@
 <script type="text/javascript"> <!--
   var sbar = document.getElementsByClassName("sphinxsidebar")[0];
   let currents = document.getElementsByClassName("current")
-  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  if (currents.length) {
+    sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  }
   --> </script>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -95,24 +96,28 @@
 
           <div class="body" role="main">
             
-  <section id="function-redirection-api">
-<h1>Function Redirection API<a class="headerlink" href="#function-redirection-api" title="Permalink to this heading">¶</a></h1>
+  <!-- SPDX-License-Identifier: GPL-2.0 -->
+<!-- Copyright © 2023, Oracle and/or its affiliates. -->
+
+
+<section id="function-redirection-api">
+<h1>Function Redirection API<a class="headerlink" href="#function-redirection-api" title="Link to this heading">¶</a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
-<p>When writing unit tests, it's important to be able to isolate the code being
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>When writing unit tests, it’s important to be able to isolate the code being
 tested from other parts of the kernel. This ensures the reliability of the test
-(it won't be affected by external factors), reduces dependencies on specific
+(it won’t be affected by external factors), reduces dependencies on specific
 hardware or config options (making the test easier to run), and protects the
 stability of the rest of the system (making it less likely for test-specific
 state to interfere with the rest of the system).</p>
 <p>While for some code (typically generic data structures, helpers, and other
-&quot;pure functions&quot;) this is trivial, for others (like device drivers,
+“pure functions”) this is trivial, for others (like device drivers,
 filesystems, core subsystems) the code is heavily coupled with other parts of
 the kernel.</p>
 <p>This coupling is often due to global state in some way: be it a global list of
 devices, the filesystem, or some hardware state. Tests need to either carefully
 manage, isolate, and restore state, or they can avoid it altogether by
-replacing access to and mutation of this state with a &quot;fake&quot; or &quot;mock&quot; variant.</p>
+replacing access to and mutation of this state with a “fake” or “mock” variant.</p>
 <p>By refactoring access to such state, such as by introducing a layer of
 indirection which can use or emulate a separate set of test state. However,
 such refactoring comes with its own costs (and undertaking significant
@@ -121,15 +126,15 @@ refactoring before being able to write tests is suboptimal).</p>
 function redirection via static stubs.</p>
 </section>
 <section id="static-stubs">
-<h2>Static Stubs<a class="headerlink" href="#static-stubs" title="Permalink to this heading">¶</a></h2>
-<p>Static stubs are a way of redirecting calls to one function (the &quot;real&quot;
-function) to another function (the &quot;replacement&quot; function).</p>
-<p>It works by adding a macro to the &quot;real&quot; function which checks to see if a test
+<h2>Static Stubs<a class="headerlink" href="#static-stubs" title="Link to this heading">¶</a></h2>
+<p>Static stubs are a way of redirecting calls to one function (the “real”
+function) to another function (the “replacement” function).</p>
+<p>It works by adding a macro to the “real” function which checks to see if a test
 is running, and if a replacement function is available. If so, that function is
 called in place of the original.</p>
 <p>Using static stubs is pretty straightforward:</p>
 <ol class="arabic">
-<li><p>Add the <a class="reference internal" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="KUNIT_STATIC_STUB_REDIRECT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT()</span></code></a> macro to the start of the &quot;real&quot;
+<li><p>Add the <a class="reference internal" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="KUNIT_STATIC_STUB_REDIRECT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT()</span></code></a> macro to the start of the “real”
 function.</p>
 <p>This should be the first statement in the function, after any variable
 declarations. <a class="reference internal" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="KUNIT_STATIC_STUB_REDIRECT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT()</span></code></a> takes the name of the
@@ -174,7 +179,7 @@ function.</p>
 <li><p>Call (perhaps indirectly) the real function.</p>
 <p>Once the redirection is activated, any call to the real function will call
 the replacement function instead. Such calls may be buried deep in the
-implementation of another function, but must occur from the test's kthread.</p>
+implementation of another function, but must occur from the test’s kthread.</p>
 <p>For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Succeeds */</span>
 <span class="n">send_data_to_hardware</span><span class="p">(</span><span class="s">&quot;Something else&quot;</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Fails the test. */</span>
@@ -183,7 +188,7 @@ implementation of another function, but must occur from the test's kthread.</p>
 </li>
 <li><p>(Optionally) disable the stub.</p>
 <p>When you no longer need it, disable the redirection (and hence resume the
-original behaviour of the 'real' function) using
+original behaviour of the ‘real’ function) using
 <a class="reference internal" href="#c.kunit_deactivate_static_stub" title="kunit_deactivate_static_stub"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_deactivate_static_stub()</span></code></a>. Otherwise, it will be automatically disabled
 when the test exits.</p>
 <p>For example:</p>
@@ -192,7 +197,7 @@ when the test exits.</p>
 </div>
 </li>
 </ol>
-<p>It's also possible to use these replacement functions to test to see if a
+<p>It’s also possible to use these replacement functions to test to see if a
 function is called at all, for example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">send_data_to_hardware</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span>
 <span class="p">{</span>
@@ -222,15 +227,15 @@ function is called at all, for example:</p>
 </div>
 </section>
 <section id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
 <dl class="c macro">
 <dt class="sig sig-object c" id="c.KUNIT_STATIC_STUB_REDIRECT">
-<span class="sig-name descname"><span class="n"><span class="pre">KUNIT_STATIC_STUB_REDIRECT</span></span></span><a class="headerlink" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="Permalink to this definition">¶</a><br /></dt>
+<span class="sig-name descname"><span class="n"><span class="pre">KUNIT_STATIC_STUB_REDIRECT</span></span></span><a class="headerlink" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT</span> <span class="pre">(real_fn_name,</span> <span class="pre">args...)</span></code></p>
 <blockquote>
-<div><p>call a replacement 'static stub' if one exists</p>
+<div><p>call a replacement ‘static stub’ if one exists</p>
 </div></blockquote>
 <div class="kernelindent docutils container">
 <p><strong>Parameters</strong></p>
@@ -244,7 +249,7 @@ function is called at all, for example:</p>
 <p>This is a function prologue which is used to allow calls to the current
 function to be redirected by a KUnit test. KUnit tests can call
 <a class="reference internal" href="#c.kunit_activate_static_stub" title="kunit_activate_static_stub"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_activate_static_stub()</span></code></a> to pass a replacement function in. The
-replacement function will be called by KUNIT_TRIGGER_STATIC_STUB(), which
+replacement function will be called by <a class="reference internal" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="KUNIT_STATIC_STUB_REDIRECT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT()</span></code></a>, which
 will then return from the function. If the caller is not in a KUnit context,
 the function will continue execution as normal.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">real_func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
@@ -269,7 +274,7 @@ the function will continue execution as normal.</p>
 </div>
 <dl class="c macro">
 <dt class="sig sig-object c" id="c.kunit_activate_static_stub">
-<span class="sig-name descname"><span class="n"><span class="pre">kunit_activate_static_stub</span></span></span><a class="headerlink" href="#c.kunit_activate_static_stub" title="Permalink to this definition">¶</a><br /></dt>
+<span class="sig-name descname"><span class="n"><span class="pre">kunit_activate_static_stub</span></span></span><a class="headerlink" href="#c.kunit_activate_static_stub" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">kunit_activate_static_stub</span> <span class="pre">(test,</span> <span class="pre">real_fn_addr,</span> <span class="pre">replacement_addr)</span></code></p>
@@ -279,7 +284,7 @@ the function will continue execution as normal.</p>
 <div class="kernelindent docutils container">
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt><dd><p>A pointer to the '<a class="reference internal" href="test.html#c.kunit" title="kunit"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code></a>' test context for the current test.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">test</span></code></dt><dd><p>A pointer to the ‘<a class="reference internal" href="test.html#c.kunit" title="kunit"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code></a>’ test context for the current test.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">real_fn_addr</span></code></dt><dd><p>The address of the function to replace.</p>
 </dd>
@@ -290,20 +295,20 @@ the function will continue execution as normal.</p>
 <p>When activated, calls to real_fn_addr from within this test (even if called
 indirectly) will instead call replacement_addr. The function pointed to by
 real_fn_addr must begin with the static stub prologue in
-KUNIT_TRIGGER_STATIC_STUB() for this to work. real_fn_addr and
+<a class="reference internal" href="#c.KUNIT_STATIC_STUB_REDIRECT" title="KUNIT_STATIC_STUB_REDIRECT"><code class="xref c c-func docutils literal notranslate"><span class="pre">KUNIT_STATIC_STUB_REDIRECT()</span></code></a> for this to work. real_fn_addr and
 replacement_addr must have the same type.</p>
 <p>The redirection can be disabled again with <a class="reference internal" href="#c.kunit_deactivate_static_stub" title="kunit_deactivate_static_stub"><code class="xref c c-func docutils literal notranslate"><span class="pre">kunit_deactivate_static_stub()</span></code></a>.</p>
 </div>
 <dl class="c function">
 <dt class="sig sig-object c" id="c.kunit_deactivate_static_stub">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_deactivate_static_stub</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">real_fn_addr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_deactivate_static_stub" title="Permalink to this definition">¶</a><br /></dt>
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kunit_deactivate_static_stub</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="test.html#c.kunit" title="kunit"><span class="n"><span class="pre">kunit</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">test</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">real_fn_addr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kunit_deactivate_static_stub" title="Link to this definition">¶</a><br /></dt>
 <dd><p>disable a function redirection</p>
 </dd></dl>
 
 <div class="kernelindent docutils container">
 <p><strong>Parameters</strong></p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>A pointer to the '<a class="reference internal" href="test.html#c.kunit" title="kunit"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code></a>' test context for the current test.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span> <span class="pre">*test</span></code></dt><dd><p>A pointer to the ‘<a class="reference internal" href="test.html#c.kunit" title="kunit"><code class="xref c c-struct docutils literal notranslate"><span class="pre">struct</span> <span class="pre">kunit</span></code></a>’ test context for the current test.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*real_fn_addr</span></code></dt><dd><p>The address of the function to no-longer redirect</p>
 </dd>
@@ -327,7 +332,7 @@ real_fn, not any previously-configured replacement.</p>
       &copy;The kernel development community.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

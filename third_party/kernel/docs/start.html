@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Getting Started &#8212; The Linux Kernel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=a152c8ac" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="KUnit Architecture" href="architecture.html" />
@@ -30,11 +26,14 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.svg" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="index.html">The Linux Kernel</a></h1>
 
 
 
-<p class="blurb">6.5.0-rc7</p>
+<p class="blurb">6.11.0-rc4</p>
 
 
 
@@ -92,7 +91,9 @@
 <script type="text/javascript"> <!--
   var sbar = document.getElementsByClassName("sphinxsidebar")[0];
   let currents = document.getElementsByClassName("current")
-  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  if (currents.length) {
+    sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  }
   --> </script>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -109,18 +110,22 @@
 
           <div class="body" role="main">
             
-  <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
+  <!-- SPDX-License-Identifier: GPL-2.0 -->
+<!-- Copyright © 2023, Oracle and/or its affiliates. -->
+
+
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
 <p>This page contains an overview of the kunit_tool and KUnit framework,
 teaching how to run existing tests and then how to write a simple test case,
 and covers common problems users face when using KUnit for the first time.</p>
 <section id="installing-dependencies">
-<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this heading">¶</a></h2>
+<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Link to this heading">¶</a></h2>
 <p>KUnit has the same dependencies as the Linux kernel. As long as you can
 build the kernel, you can run KUnit.</p>
 </section>
 <section id="running-tests-with-kunit-tool">
-<h2>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Permalink to this heading">¶</a></h2>
+<h2>Running tests with kunit_tool<a class="headerlink" href="#running-tests-with-kunit-tool" title="Link to this heading">¶</a></h2>
 <p>kunit_tool is a Python script, which configures and builds a kernel, runs
 tests, and formats the test results. From the kernel repository, you
 can run kunit_tool:</p>
@@ -130,13 +135,13 @@ can run kunit_tool:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You may see the following error:
-&quot;The source tree is not clean, please run 'make ARCH=um mrproper'&quot;</p>
+“The source tree is not clean, please run ‘make ARCH=um mrproper’”</p>
 <p>This happens because internally kunit.py specifies <code class="docutils literal notranslate"><span class="pre">.kunit</span></code>
 (default option) as the build directory in the command <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">O=output/dir</span></code>
 through the argument <code class="docutils literal notranslate"><span class="pre">--build_dir</span></code>.  Hence, before starting an
 out-of-tree build, the source tree must be clean.</p>
-<p>There is also the same caveat mentioned in the &quot;Build directory for
-the kernel&quot; section of the <span class="xref std std-doc">admin-guide</span>,
+<p>There is also the same caveat mentioned in the “Build directory for
+the kernel” section of the <span class="xref std std-doc">admin-guide</span>,
 that is, its use, it must be used for all invocations of <code class="docutils literal notranslate"><span class="pre">make</span></code>.
 The good news is that it can indeed be solved by running
 <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">ARCH=um</span> <span class="pre">mrproper</span></code>, just be aware that this will delete the
@@ -157,7 +162,7 @@ the <code class="docutils literal notranslate"><span class="pre">Building</span>
 <p>For detailed information on this wrapper, see:
 Documentation/dev-tools/kunit/run_wrapper.rst.</p>
 <section id="selecting-which-tests-to-run">
-<h3>Selecting which tests to run<a class="headerlink" href="#selecting-which-tests-to-run" title="Permalink to this heading">¶</a></h3>
+<h3>Selecting which tests to run<a class="headerlink" href="#selecting-which-tests-to-run" title="Link to this heading">¶</a></h3>
 <p>By default, kunit_tool runs all tests reachable with minimal configuration,
 that is, using default values for most of the kconfig options.  However,
 you can select which tests to run by:</p>
@@ -166,9 +171,9 @@ you can select which tests to run by:</p>
 <li><p><a class="reference internal" href="#filtering-tests-by-name">Filtering tests by name</a> to select specifically which compiled tests to run.</p></li>
 </ul>
 <section id="customizing-kconfig">
-<h4>Customizing Kconfig<a class="headerlink" href="#customizing-kconfig" title="Permalink to this heading">¶</a></h4>
+<h4>Customizing Kconfig<a class="headerlink" href="#customizing-kconfig" title="Link to this heading">¶</a></h4>
 <p>A good starting point for the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code> is the KUnit default config.
-If you didn't run <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> yet, you can generate it by running:</p>
+If you didn’t run <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> yet, you can generate it by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PATH_TO_LINUX_REPO</span>
 tools/testing/kunit/kunit.py<span class="w"> </span>config
 cat<span class="w"> </span>.kunit/.kunitconfig
@@ -190,7 +195,7 @@ You may want to remove CONFIG_KUNIT_ALL_TESTS from the <code class="docutils lit
 it will enable a number of additional tests that you may not want.
 If you need to run on an architecture other than UML see <a class="reference internal" href="run_wrapper.html#kunit-on-qemu"><span class="std std-ref">Running tests on QEMU</span></a>.</p></li>
 <li><p>Enable additional kconfig options on top of <code class="docutils literal notranslate"><span class="pre">.kunit/.kunitconfig</span></code>.
-For example, to include the kernel's linked-list test you can run:</p>
+For example, to include the kernel’s linked-list test you can run:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./tools/testing/kunit/kunit.py run \
         --kconfig_add CONFIG_LIST_KUNIT_TEST=y
 </pre></div>
@@ -207,7 +212,7 @@ For example, to run only <code class="docutils literal notranslate"><span class=
 <li><p>If you change the <code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, kunit.py will trigger a rebuild of the
 <code class="docutils literal notranslate"><span class="pre">.config</span></code> file. But you can edit the <code class="docutils literal notranslate"><span class="pre">.config</span></code> file directly or with
 tools like <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">menuconfig</span> <span class="pre">O=.kunit</span></code>. As long as its a superset of
-<code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, kunit.py won't overwrite your changes.</p></li>
+<code class="docutils literal notranslate"><span class="pre">.kunitconfig</span></code>, kunit.py won’t overwrite your changes.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -219,14 +224,14 @@ cp .kunit/defconfig .kunit/.kunitconfig
 </div>
 </section>
 <section id="filtering-tests-by-name">
-<h4>Filtering tests by name<a class="headerlink" href="#filtering-tests-by-name" title="Permalink to this heading">¶</a></h4>
+<h4>Filtering tests by name<a class="headerlink" href="#filtering-tests-by-name" title="Link to this heading">¶</a></h4>
 <p>If you want to be more specific than Kconfig can provide, it is also possible
 to select which tests to execute at boot-time by passing a glob filter
 (read instructions regarding the pattern in the manpage <em class="manpage">glob(7)</em>).
 If there is a <code class="docutils literal notranslate"><span class="pre">&quot;.&quot;</span></code> (period) in the filter, it will be interpreted as a
 separator between the name of the test suite and the test case,
 otherwise, it will be interpreted as the name of the test suite.
-For example, let's assume we are using the default config:</p>
+For example, let’s assume we are using the default config:</p>
 <ol class="loweralpha">
 <li><p>inform the name of a test suite, like <code class="docutils literal notranslate"><span class="pre">&quot;kunit_executor_test&quot;</span></code>,
 to run every test case it contains:</p>
@@ -252,7 +257,7 @@ any test suite:</p>
 </section>
 </section>
 <section id="running-tests-without-the-kunit-wrapper">
-<h2>Running Tests without the KUnit Wrapper<a class="headerlink" href="#running-tests-without-the-kunit-wrapper" title="Permalink to this heading">¶</a></h2>
+<h2>Running Tests without the KUnit Wrapper<a class="headerlink" href="#running-tests-without-the-kunit-wrapper" title="Link to this heading">¶</a></h2>
 <p>If you do not want to use the KUnit Wrapper (for example: you want code
 under test to integrate with other systems, or use a different/
 unsupported architecture or configuration), KUnit can be included in
@@ -265,7 +270,7 @@ Enabling KUnit disables Kernel Address-Space Layout Randomization
 suitable for production.</p>
 </div>
 <section id="configuring-the-kernel">
-<h3>Configuring the Kernel<a class="headerlink" href="#configuring-the-kernel" title="Permalink to this heading">¶</a></h3>
+<h3>Configuring the Kernel<a class="headerlink" href="#configuring-the-kernel" title="Link to this heading">¶</a></h3>
 <p>To enable KUnit itself, you need to enable the <code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT</span></code> Kconfig
 option (under Kernel Hacking/Kernel Testing and Coverage in
 <code class="docutils literal notranslate"><span class="pre">menuconfig</span></code>). From there, you can enable any KUnit tests. They
@@ -274,7 +279,7 @@ usually have config options ending in <code class="docutils literal notranslate"
 will run when the module is loaded.</p>
 </section>
 <section id="running-tests-without-kunit-wrapper">
-<h3>Running Tests (without KUnit Wrapper)<a class="headerlink" href="#running-tests-without-kunit-wrapper" title="Permalink to this heading">¶</a></h3>
+<h3>Running Tests (without KUnit Wrapper)<a class="headerlink" href="#running-tests-without-kunit-wrapper" title="Link to this heading">¶</a></h3>
 <p>Build and run your kernel. In the kernel log, the test output is printed
 out in the TAP format. This will only happen by default if KUnit/tests
 are built-in. Otherwise the module will need to be loaded.</p>
@@ -285,8 +290,8 @@ are built-in. Otherwise the module will need to be loaded.</p>
 </section>
 </section>
 <section id="writing-your-first-test">
-<h2>Writing Your First Test<a class="headerlink" href="#writing-your-first-test" title="Permalink to this heading">¶</a></h2>
-<p>In your kernel repository, let's add some code that we can test.</p>
+<h2>Writing Your First Test<a class="headerlink" href="#writing-your-first-test" title="Link to this heading">¶</a></h2>
+<p>In your kernel repository, let’s add some code that we can test.</p>
 <ol class="arabic simple">
 <li><p>Create a file <code class="docutils literal notranslate"><span class="pre">drivers/misc/example.h</span></code>, which includes:</p></li>
 </ol>
@@ -399,10 +404,10 @@ CONFIG_MISC_EXAMPLE_TEST=y
 <p>Congrats! You just wrote your first KUnit test.</p>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
-<p>If you're interested in using some of the more advanced features of kunit.py,
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
+<p>If you’re interested in using some of the more advanced features of kunit.py,
 take a look at Documentation/dev-tools/kunit/run_wrapper.rst</p>
-<p>If you'd like to run tests without using kunit.py, check out
+<p>If you’d like to run tests without using kunit.py, check out
 Documentation/dev-tools/kunit/run_manual.rst</p>
 <p>For more information on writing KUnit tests (including some common techniques
 for testing different things), see Documentation/dev-tools/kunit/usage.rst</p>
@@ -420,7 +425,7 @@ for testing different things), see Documentation/dev-tools/kunit/usage.rst</p>
       &copy;The kernel development community.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

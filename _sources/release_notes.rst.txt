@@ -437,4 +437,65 @@ for the authoritative source on how to write Kconfig entries.
 
 - KUnit will now warn if a test takes longer than 2 seconds to run, but is not marked as slow.
 
+.. _v6.8:
+
+6.8
+===
+
+- A new API to manage devices as KUnit resources.
+
+  - These devices will be automatically unregistered on test exit. These
+    helpers can either use a user-provided struct device_driver, or have one
+    automatically created and managed by KUnit. In both cases, the device lives
+    on a new ``kunit_bus``.
+
+  - See: https://docs.kernel.org/dev-tools/kunit/usage.html#managing-fake-devices-and-drivers
+
+  - See: https://docs.kernel.org/dev-tools/kunit/api/resource.html#managed-devices
+
+- Tests can now be run / re-run after boot from debugfs
+
+  - Write to ``/sys/kernel/debugfs/kunit/<test_suite>/run``
+
+  - Note that this doesn't work for tests in the init section, which are already discarded.
+
+  - See: https://docs.kernel.org/dev-tools/kunit/run_manual.html#run-tests-after-kernel-has-booted
+
+- Deferred actions which take a non-void* parameter now need to be wrapped with KUNIT_DEFINE_ACTION_WRAPPER()
+
+  - Casting a function pointer breaks Control Flow Integrity (CFI), so this macro creates a wrapper function with the correct type instead.
+
+  - See the updated documentation at: https://docs.kernel.org/dev-tools/kunit/usage.html#registering-cleanup-actions
+
+- Tests in the init section now have the ``init`` boolean attribute.
+
+.. _v6.9:
+
+6.9
+===
+
+- Assertions' format strings are now verified at compile time.
+
+- kunit.py now prints the command used to run the kernel (and hence the tests) on UML as well as with QEMU.
+
+- There is improved documentation for running Rust tests: https://docs.kernel.org/rust/testing.html
+
+.. _v6.10:
+
+6.10
+====
+
+- KUnit will now print the file:line of the last KUnit macro invocation on a crash.
+
+  - This can help identify the cause of a crash if reliable stacktraces are unavailable.
+
+- KUnit tests which deliberately trigger a fault (e.g., to test fault handling mechanisms) now live behind CONFIG_KUNIT_FAULT_TEST option.
+
+  - This makes them easier to disable on architectures which cannot or do not trap faults.
+
+- Rust code can now be compiled (and therefore tested) on 32-bit x86 UML.
+
+  - Pass ``--kconfig_add CONFIG_64BIT=n`` to ``kunit.py``
+
+  - You may also need ``--kconfig_add CONFIG_FORTIFY_SOURCE=n``, as this is not supported, and may be enabled by default.
 

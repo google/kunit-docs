@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerrit Workflow &mdash; KUnit  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
   
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,7 +70,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party/kernel/index.html">Upstream Version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party/stable_kernel/index.html">Deprecated Version (“kunit/alpha/master”)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../press.html">Press</a></li>
@@ -103,7 +101,7 @@
            <div itemprop="articleBody">
              
   <section id="gerrit-workflow">
-<h1>Gerrit Workflow<a class="headerlink" href="#gerrit-workflow" title="Permalink to this heading"></a></h1>
+<h1>Gerrit Workflow<a class="headerlink" href="#gerrit-workflow" title="Link to this heading"></a></h1>
 <p>KUnit can refer both to the unit testing code within the Linux kernel and to
 the project as a whole, which includes some other supporting code. The meaning
 is usually clear when used in context.</p>
@@ -114,10 +112,10 @@ Linux kernel. All our other code is in Gerrit. For an introduction to Gerrit
 <a class="reference external" href="https://gerrit-review.googlesource.com/Documentation/intro-user.html">https://gerrit-review.googlesource.com/Documentation/intro-user.html</a>. For
 detailed introduction to git, see <a class="reference external" href="https://try.github.io">https://try.github.io</a>.</p>
 <section id="starting-from-scratch">
-<h2>Starting from Scratch<a class="headerlink" href="#starting-from-scratch" title="Permalink to this heading"></a></h2>
+<h2>Starting from Scratch<a class="headerlink" href="#starting-from-scratch" title="Link to this heading"></a></h2>
 <p>This section describes how to start a change from scratch.</p>
 <section id="cloning-a-repo-for-the-first-time">
-<h3>Cloning a repo for the first time<a class="headerlink" href="#cloning-a-repo-for-the-first-time" title="Permalink to this heading"></a></h3>
+<h3>Cloning a repo for the first time<a class="headerlink" href="#cloning-a-repo-for-the-first-time" title="Link to this heading"></a></h3>
 <p>If you have not done so yet, clone the repository you want to make changes to.
 For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://kunit.googlesource.com/prow-presubmit
@@ -125,14 +123,14 @@ For example:</p>
 </div>
 </section>
 <section id="checkout-the-desired-branch">
-<h3>Checkout the desired branch<a class="headerlink" href="#checkout-the-desired-branch" title="Permalink to this heading"></a></h3>
+<h3>Checkout the desired branch<a class="headerlink" href="#checkout-the-desired-branch" title="Link to this heading"></a></h3>
 <p>Checkout the branch on which you want to make changes to. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>master
 </pre></div>
 </div>
 </section>
 <section id="make-sure-your-branch-is-up-to-date">
-<h3>Make sure your branch is up to date<a class="headerlink" href="#make-sure-your-branch-is-up-to-date" title="Permalink to this heading"></a></h3>
+<h3>Make sure your branch is up to date<a class="headerlink" href="#make-sure-your-branch-is-up-to-date" title="Link to this heading"></a></h3>
 <p>If you have not done so in a while, you will need to update your repo and
 branches. Your remote references can be updated with the <code class="docutils literal notranslate"><span class="pre">fetch</span></code> command. For
 example:</p>
@@ -155,7 +153,7 @@ important as we, the KUnit project, do not want merge commits in our git repos.
 This command will fail if you have local changes.</p>
 </section>
 <section id="making-a-change">
-<h3>Making a change<a class="headerlink" href="#making-a-change" title="Permalink to this heading"></a></h3>
+<h3>Making a change<a class="headerlink" href="#making-a-change" title="Link to this heading"></a></h3>
 <p>Once you have made a change, that you are happy with and would like to send up
 for review you first need to <code class="docutils literal notranslate"><span class="pre">commit</span></code> the change. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>path/to/a/file/you/modified
@@ -180,7 +178,7 @@ more information.</p></li>
 </ul>
 </section>
 <section id="sending-changes-for-review">
-<h3>Sending changes for review<a class="headerlink" href="#sending-changes-for-review" title="Permalink to this heading"></a></h3>
+<h3>Sending changes for review<a class="headerlink" href="#sending-changes-for-review" title="Link to this heading"></a></h3>
 <p>Now that you are happy with your commits, you need to send them for review.
 This is done by pushing them to Gerrit with the <code class="docutils literal notranslate"><span class="pre">push</span></code> command. For example,
 let’s say you want your changes to be submitted on <code class="docutils literal notranslate"><span class="pre">master</span></code>
@@ -192,10 +190,10 @@ branch, and <code class="docutils literal notranslate"><span class="pre">origin<
 </section>
 </section>
 <section id="updating-existing-changes">
-<span id="updating-changes"></span><h2>Updating Existing Changes<a class="headerlink" href="#updating-existing-changes" title="Permalink to this heading"></a></h2>
+<span id="updating-changes"></span><h2>Updating Existing Changes<a class="headerlink" href="#updating-existing-changes" title="Link to this heading"></a></h2>
 <p>This section describes how to update your or another user’s changes.</p>
 <section id="checking-out-someone-else-s-changes">
-<h3>Checking out someone else’s changes<a class="headerlink" href="#checking-out-someone-else-s-changes" title="Permalink to this heading"></a></h3>
+<h3>Checking out someone else’s changes<a class="headerlink" href="#checking-out-someone-else-s-changes" title="Link to this heading"></a></h3>
 <p>Gerrit allows users to take over changes made by other users. This can be done
 by checking out a change that is currently under review (and then pushing
 modified versions of those changes). Let’s say there is a change at
@@ -212,7 +210,7 @@ can copy to your command line and run, such as:</p>
 </div>
 </section>
 <section id="id1">
-<h3>Updating changes<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Updating changes<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Once you have checked out the changes that you need to update, you may want to
 update them, as the branch you are looking to submit to may have progressed;
 this can be accomplished by rebasing against the branch you want to submit to.
@@ -236,7 +234,7 @@ have already been checked in will cause Gerrit to yell at you.</p>
 </div>
 </section>
 <section id="sending-changes-for-review-again">
-<h3>Sending changes for review (again)<a class="headerlink" href="#sending-changes-for-review-again" title="Permalink to this heading"></a></h3>
+<h3>Sending changes for review (again)<a class="headerlink" href="#sending-changes-for-review-again" title="Link to this heading"></a></h3>
 <p>All you need to do to update your changes on Gerrit under review is to push
 your modified commits to the same branch that you would have as if you were
 pushing for the first time.</p>

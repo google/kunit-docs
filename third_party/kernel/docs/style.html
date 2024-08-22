@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Test Style and Nomenclature &#8212; The Linux Kernel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=a152c8ac" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Frequently Asked Questions" href="faq.html" />
@@ -30,11 +26,14 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.svg" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="index.html">The Linux Kernel</a></h1>
 
 
 
-<p class="blurb">6.5.0-rc7</p>
+<p class="blurb">6.11.0-rc4</p>
 
 
 
@@ -88,7 +87,9 @@
 <script type="text/javascript"> <!--
   var sbar = document.getElementsByClassName("sphinxsidebar")[0];
   let currents = document.getElementsByClassName("current")
-  sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  if (currents.length) {
+    sbar.scrollTop = currents[currents.length - 1].offsetTop;
+  }
   --> </script>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -105,8 +106,12 @@
 
           <div class="body" role="main">
             
-  <section id="test-style-and-nomenclature">
-<h1>Test Style and Nomenclature<a class="headerlink" href="#test-style-and-nomenclature" title="Permalink to this heading">¶</a></h1>
+  <!-- SPDX-License-Identifier: GPL-2.0 -->
+<!-- Copyright © 2023, Oracle and/or its affiliates. -->
+
+
+<section id="test-style-and-nomenclature">
+<h1>Test Style and Nomenclature<a class="headerlink" href="#test-style-and-nomenclature" title="Link to this heading">¶</a></h1>
 <p>To make finding, writing, and using KUnit tests as simple as possible, it is
 strongly encouraged that they are named and written according to the guidelines
 below. While it is possible to write KUnit tests which do not follow these rules,
@@ -120,13 +125,13 @@ example, non-deterministically producing false positives or negatives, or
 taking a long time to run.</p></li>
 </ol>
 <section id="subsystems-suites-and-tests">
-<h2>Subsystems, Suites, and Tests<a class="headerlink" href="#subsystems-suites-and-tests" title="Permalink to this heading">¶</a></h2>
+<h2>Subsystems, Suites, and Tests<a class="headerlink" href="#subsystems-suites-and-tests" title="Link to this heading">¶</a></h2>
 <p>To make tests easy to find, they are grouped into suites and subsystems. A test
 suite is a group of tests which test a related area of the kernel. A subsystem
 is a set of test suites which test different parts of a kernel subsystem
 or a driver.</p>
 <section id="subsystems">
-<h3>Subsystems<a class="headerlink" href="#subsystems" title="Permalink to this heading">¶</a></h3>
+<h3>Subsystems<a class="headerlink" href="#subsystems" title="Link to this heading">¶</a></h3>
 <p>Every test suite must belong to a subsystem. A subsystem is a collection of one
 or more KUnit test suites which test the same driver or part of the kernel. A
 test subsystem should match a single kernel module. If the code being tested
@@ -137,7 +142,7 @@ unsure, follow the conventions set by tests in similar areas.</p>
 module (wherever possible), or after the directory or files being tested. Test
 subsystems should be named to avoid ambiguity where necessary.</p>
 <p>If a test subsystem name has multiple components, they should be separated by
-underscores. <em>Do not</em> include &quot;test&quot; or &quot;kunit&quot; directly in the subsystem name
+underscores. <em>Do not</em> include “test” or “kunit” directly in the subsystem name
 unless we are actually testing other tests or the kunit framework itself. For
 example, subsystems could be called:</p>
 <dl class="simple">
@@ -156,7 +161,7 @@ underscores. Matches the module name.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">linear-ranges</span></code></dt><dd><p>Names should use underscores, not dashes, to separate words. Prefer
 <code class="docutils literal notranslate"><span class="pre">linear_ranges</span></code>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">qos-kunit-test</span></code></dt><dd><p>This name should use underscores, and not have &quot;kunit-test&quot; as a
+<dt><code class="docutils literal notranslate"><span class="pre">qos-kunit-test</span></code></dt><dd><p>This name should use underscores, and not have “kunit-test” as a
 suffix. <code class="docutils literal notranslate"><span class="pre">qos</span></code> is also ambiguous as a subsystem name, because several parts
 of the kernel have a <code class="docutils literal notranslate"><span class="pre">qos</span></code> subsystem. <code class="docutils literal notranslate"><span class="pre">power_qos</span></code> would be a better name.</p>
 </dd>
@@ -173,7 +178,7 @@ in the future.</p>
 </div>
 </section>
 <section id="suites">
-<h3>Suites<a class="headerlink" href="#suites" title="Permalink to this heading">¶</a></h3>
+<h3>Suites<a class="headerlink" href="#suites" title="Link to this heading">¶</a></h3>
 <p>KUnit tests are grouped into test suites, which cover a specific area of
 functionality being tested. Test suites can have shared initialization and
 shutdown code which is run for all tests in the suite. Not all subsystems need
@@ -215,10 +220,10 @@ similar.</p>
 </dl>
 </section>
 <section id="test-cases">
-<h3>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this heading">¶</a></h3>
+<h3>Test Cases<a class="headerlink" href="#test-cases" title="Link to this heading">¶</a></h3>
 <p>Individual tests consist of a single function which tests a constrained
-codepath, property, or function. In the test output, an individual test's
-results will show up as subtests of the suite's results.</p>
+codepath, property, or function. In the test output, an individual test’s
+results will show up as subtests of the suite’s results.</p>
 <p>Tests should be named after what they are testing. This is often the name of the
 function being tested, with a description of the input or codepath being tested.
 As tests are C functions, they should be named and written in accordance with
@@ -244,7 +249,7 @@ test name, separated by a colon (i.e. <code class="docutils literal notranslate"
 </section>
 </section>
 <section id="test-kconfig-entries">
-<h2>Test Kconfig Entries<a class="headerlink" href="#test-kconfig-entries" title="Permalink to this heading">¶</a></h2>
+<h2>Test Kconfig Entries<a class="headerlink" href="#test-kconfig-entries" title="Link to this heading">¶</a></h2>
 <p>Every test suite should be tied to a Kconfig entry.</p>
 <p>This Kconfig entry must:</p>
 <ul class="simple">
@@ -275,14 +280,14 @@ be built as a module), Kconfig entries for tests should be tristate.</p>
 </div>
 </section>
 <section id="test-file-and-module-names">
-<h2>Test File and Module Names<a class="headerlink" href="#test-file-and-module-names" title="Permalink to this heading">¶</a></h2>
+<h2>Test File and Module Names<a class="headerlink" href="#test-file-and-module-names" title="Link to this heading">¶</a></h2>
 <p>KUnit tests can often be compiled as a module. These modules should be named
 after the test suite, followed by <code class="docutils literal notranslate"><span class="pre">_test</span></code>. If this is likely to conflict with
 non-KUnit tests, the suffix <code class="docutils literal notranslate"><span class="pre">_kunit</span></code> can also be used.</p>
 <p>The easiest way of achieving this is to name the file containing the test suite
 <code class="docutils literal notranslate"><span class="pre">&lt;suite&gt;_test.c</span></code> (or, as above, <code class="docutils literal notranslate"><span class="pre">&lt;suite&gt;_kunit.c</span></code>). This file should be
 placed next to the code under test.</p>
-<p>If the suite name contains some or all of the name of the test's parent
+<p>If the suite name contains some or all of the name of the test’s parent
 directory, it may make sense to modify the source filename to reduce redundancy.
 For example, a <code class="docutils literal notranslate"><span class="pre">foo_firmware</span></code> suite could be in the <code class="docutils literal notranslate"><span class="pre">foo/firmware_test.c</span></code>
 file.</p>
@@ -300,7 +305,7 @@ file.</p>
       &copy;The kernel development community.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

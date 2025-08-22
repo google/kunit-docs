@@ -499,3 +499,124 @@ for the authoritative source on how to write Kconfig entries.
 
   - You may also need ``--kconfig_add CONFIG_FORTIFY_SOURCE=n``, as this is not supported, and may be enabled by default.
 
+.. _v6.11:
+
+6.11
+====
+
+- KUnit can now manage per-test memory mappings.
+
+  - The ``kunit_vm_mmap()`` function will map memory into the test's context.
+
+  - See https://docs.kernel.org/dev-tools/kunit/api/test.html#c.kunit_vm_mmap
+
+- New assertion macros ``KUNIT_ASSERT_MEMEQ()`` and ``KUNIT_ASSERT_MEMNEQ()``
+
+  - These match the existing ``KUNIT_EXPECT_MEMEQ()`` and ``KUNIT_EXPECT_MEMNEQ()`` macros.
+
+- ``KUNIT_ASSERT_FAILURE()`` has been renamed to ``KUNIT_FAIL_AND_ABORT()``
+
+- The name passed to ``kunit_driver_create()`` is now managed by KUnit.
+
+  - If it goes out-of-scope, there will no longer be a crash, as KUnit keeps a copy behind the scenes.
+
+- New managed ``kunit_strdup()`` function to duplicate a string to KUnit-managed memory.
+
+- New ``kunit_kstrdup_const()`` and ``kunit_free_const()``, which will allocate (and free) memory only if the source string is not in kernel rodata.
+
+  - This is useful when handling strings which may be constant, or may be temporary.
+
+
+.. _v6.12:
+
+6.12
+====
+
+- There are new best-practices for naming KUnit tests and test files:
+
+  - In short, test modules should have the ``_kunit`` suffix, and their code should live in a ``tests/`` subdirectory.
+
+  - See https://docs.kernel.org/dev-tools/kunit/style.html
+
+- KUnit can now manage platform devices
+
+  - See https://docs.kernel.org/dev-tools/kunit/api/platformdevice.html
+
+- KUnit can now load DeviceTree overlays for tests.
+
+  - See https://docs.kernel.org/dev-tools/kunit/api/of.html
+
+- There is now special support for testing clk devices:
+
+  - See https://docs.kernel.org/dev-tools/kunit/api/clk.html
+
+- ``kunit.py`` now generates ``compile_commands.json`` by default, for use with ``clangd``-based language servers.
+
+  - The generated file is in the build output directory, (``.kunit`` by default), so you'll need to pass ``-compile-commands-dir=.kunit`` to ``clangd``.
+
+.. _v6.13:
+
+6.13
+====
+
+- It is now possible to only show the summary of KUnit results, rather than the full list of tests.
+
+  - Pass the ``--summary`` option to ``kunit.py run`` or ``kunit.py exec``.
+
+  - (This option is mutually exclusive with ``--raw_output``)
+
+- It is now possible to only show results for failed tests.
+
+  - Pass the ``--failed`` option to ``kunit.py run`` or ``kunit.py exec``.
+
+  - (This option is mutually exclusive with ``--raw_output``)
+
+- ``kunit.py`` now supports the loongarch architecture under QEMU
+
+  - Use ``--arch loongarch``, and set ``--cross_compile`` if cross-compiling.
+
+.. _v6.14:
+
+6.14
+====
+
+- The automatic running of tests on boot or module load can now be disabled via the ``kunit.autorun`` option.
+
+  - This is a kernel command-line option, which can be passed via the bootloader (if KUnit is built-in), or modprobe (if it's a module).
+
+  - ``CONFIG_KUNIT_AUTORUN_ENABLED`` can be used to set the default behaviour.
+
+- ``kunit.py`` will now use hardware-accelerated virtualisation on arm64, if available.
+
+  - Both KVM and HVF are supported. This can reduce the time taken to run tests in QEMU by up to 90%.
+
+- ``kunit.py`` is now more compatible with macOS hosts. (Though this is not really supported, so good luck!)
+
+.. _v6.15:
+
+6.15
+====
+
+- ``kunit.py`` now uses qboot when running on x86_64 QEMU configurations to improve boot times.
+
+- ``kunit.py`` now generates gdb scripts by default, to help with kernel debugging.
+
+- ``kunit.py`` now uses the Zilog console in QEMU on the SPARC architecture.
+
+.. _v6.16:
+
+6.16
+====
+
+- Rust tests can now be built and run as KUnit tests.
+
+  - Decorate individual tests with ``#[test]``, and the module with ``#[kunit_tests(suite_name)]``.
+
+  - See https://docs.kernel.org/rust/testing.html#the-test-tests
+
+- It is now possible to list the supported architectures in ``kunit.py`` by passing ``--arch help``.
+
+- Several new architecture configurations are supported in ``kunit.py``
+
+  - RISC-V 32-bit, SPARC 64-bit, PowerPC 32-bit Big-Endian and 64-bit Little-Endian
+

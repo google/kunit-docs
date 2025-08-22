@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,15 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Release Notes &mdash; KUnit  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=86f27845" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=f5127f15" />
 
   
-  
-        <script src="_static/jquery.js?v=8dae8fb0"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=8dae8fb0"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -73,6 +74,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#v6-8">6.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-9">6.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v6-10">6.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-11">6.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-12">6.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-13">6.13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-14">6.14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-15">6.15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v6-16">6.16</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Fakes and Stubbing and Mocks, Oh My!</a></li>
@@ -559,6 +566,129 @@ on a new <code class="docutils literal notranslate"><span class="pre">kunit_bus<
 <ul>
 <li><p>Pass <code class="docutils literal notranslate"><span class="pre">--kconfig_add</span> <span class="pre">CONFIG_64BIT=n</span></code> to <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code></p></li>
 <li><p>You may also need <code class="docutils literal notranslate"><span class="pre">--kconfig_add</span> <span class="pre">CONFIG_FORTIFY_SOURCE=n</span></code>, as this is not supported, and may be enabled by default.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="v6-11">
+<span id="id27"></span><h2>6.11<a class="headerlink" href="#v6-11" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>KUnit can now manage per-test memory mappings.</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">kunit_vm_mmap()</span></code> function will map memory into the test’s context.</p></li>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/api/test.html#c.kunit_vm_mmap">https://docs.kernel.org/dev-tools/kunit/api/test.html#c.kunit_vm_mmap</a></p></li>
+</ul>
+</li>
+<li><p>New assertion macros <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_MEMEQ()</span></code> and <code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_MEMNEQ()</span></code></p>
+<ul>
+<li><p>These match the existing <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_MEMEQ()</span></code> and <code class="docutils literal notranslate"><span class="pre">KUNIT_EXPECT_MEMNEQ()</span></code> macros.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KUNIT_ASSERT_FAILURE()</span></code> has been renamed to <code class="docutils literal notranslate"><span class="pre">KUNIT_FAIL_AND_ABORT()</span></code></p></li>
+<li><p>The name passed to <code class="docutils literal notranslate"><span class="pre">kunit_driver_create()</span></code> is now managed by KUnit.</p>
+<ul>
+<li><p>If it goes out-of-scope, there will no longer be a crash, as KUnit keeps a copy behind the scenes.</p></li>
+</ul>
+</li>
+<li><p>New managed <code class="docutils literal notranslate"><span class="pre">kunit_strdup()</span></code> function to duplicate a string to KUnit-managed memory.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">kunit_kstrdup_const()</span></code> and <code class="docutils literal notranslate"><span class="pre">kunit_free_const()</span></code>, which will allocate (and free) memory only if the source string is not in kernel rodata.</p>
+<ul>
+<li><p>This is useful when handling strings which may be constant, or may be temporary.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="v6-12">
+<span id="id28"></span><h2>6.12<a class="headerlink" href="#v6-12" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>There are new best-practices for naming KUnit tests and test files:</p>
+<ul>
+<li><p>In short, test modules should have the <code class="docutils literal notranslate"><span class="pre">_kunit</span></code> suffix, and their code should live in a <code class="docutils literal notranslate"><span class="pre">tests/</span></code> subdirectory.</p></li>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/style.html">https://docs.kernel.org/dev-tools/kunit/style.html</a></p></li>
+</ul>
+</li>
+<li><p>KUnit can now manage platform devices</p>
+<ul>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/api/platformdevice.html">https://docs.kernel.org/dev-tools/kunit/api/platformdevice.html</a></p></li>
+</ul>
+</li>
+<li><p>KUnit can now load DeviceTree overlays for tests.</p>
+<ul>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/api/of.html">https://docs.kernel.org/dev-tools/kunit/api/of.html</a></p></li>
+</ul>
+</li>
+<li><p>There is now special support for testing clk devices:</p>
+<ul>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/dev-tools/kunit/api/clk.html">https://docs.kernel.org/dev-tools/kunit/api/clk.html</a></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now generates <code class="docutils literal notranslate"><span class="pre">compile_commands.json</span></code> by default, for use with <code class="docutils literal notranslate"><span class="pre">clangd</span></code>-based language servers.</p>
+<ul>
+<li><p>The generated file is in the build output directory, (<code class="docutils literal notranslate"><span class="pre">.kunit</span></code> by default), so you’ll need to pass <code class="docutils literal notranslate"><span class="pre">-compile-commands-dir=.kunit</span></code> to <code class="docutils literal notranslate"><span class="pre">clangd</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="v6-13">
+<span id="id29"></span><h2>6.13<a class="headerlink" href="#v6-13" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>It is now possible to only show the summary of KUnit results, rather than the full list of tests.</p>
+<ul>
+<li><p>Pass the <code class="docutils literal notranslate"><span class="pre">--summary</span></code> option to <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> or <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">exec</span></code>.</p></li>
+<li><p>(This option is mutually exclusive with <code class="docutils literal notranslate"><span class="pre">--raw_output</span></code>)</p></li>
+</ul>
+</li>
+<li><p>It is now possible to only show results for failed tests.</p>
+<ul>
+<li><p>Pass the <code class="docutils literal notranslate"><span class="pre">--failed</span></code> option to <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">run</span></code> or <code class="docutils literal notranslate"><span class="pre">kunit.py</span> <span class="pre">exec</span></code>.</p></li>
+<li><p>(This option is mutually exclusive with <code class="docutils literal notranslate"><span class="pre">--raw_output</span></code>)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now supports the loongarch architecture under QEMU</p>
+<ul>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">--arch</span> <span class="pre">loongarch</span></code>, and set <code class="docutils literal notranslate"><span class="pre">--cross_compile</span></code> if cross-compiling.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="v6-14">
+<span id="id30"></span><h2>6.14<a class="headerlink" href="#v6-14" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The automatic running of tests on boot or module load can now be disabled via the <code class="docutils literal notranslate"><span class="pre">kunit.autorun</span></code> option.</p>
+<ul>
+<li><p>This is a kernel command-line option, which can be passed via the bootloader (if KUnit is built-in), or modprobe (if it’s a module).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_KUNIT_AUTORUN_ENABLED</span></code> can be used to set the default behaviour.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> will now use hardware-accelerated virtualisation on arm64, if available.</p>
+<ul>
+<li><p>Both KVM and HVF are supported. This can reduce the time taken to run tests in QEMU by up to 90%.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> is now more compatible with macOS hosts. (Though this is not really supported, so good luck!)</p></li>
+</ul>
+</section>
+<section id="v6-15">
+<span id="id31"></span><h2>6.15<a class="headerlink" href="#v6-15" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now uses qboot when running on x86_64 QEMU configurations to improve boot times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now generates gdb scripts by default, to help with kernel debugging.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> now uses the Zilog console in QEMU on the SPARC architecture.</p></li>
+</ul>
+</section>
+<section id="v6-16">
+<span id="id32"></span><h2>6.16<a class="headerlink" href="#v6-16" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Rust tests can now be built and run as KUnit tests.</p>
+<ul>
+<li><p>Decorate individual tests with <code class="docutils literal notranslate"><span class="pre">#[test]</span></code>, and the module with <code class="docutils literal notranslate"><span class="pre">#[kunit_tests(suite_name)]</span></code>.</p></li>
+<li><p>See <a class="reference external" href="https://docs.kernel.org/rust/testing.html#the-test-tests">https://docs.kernel.org/rust/testing.html#the-test-tests</a></p></li>
+</ul>
+</li>
+<li><p>It is now possible to list the supported architectures in <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code> by passing <code class="docutils literal notranslate"><span class="pre">--arch</span> <span class="pre">help</span></code>.</p></li>
+<li><p>Several new architecture configurations are supported in <code class="docutils literal notranslate"><span class="pre">kunit.py</span></code></p>
+<ul>
+<li><p>RISC-V 32-bit, SPARC 64-bit, PowerPC 32-bit Big-Endian and 64-bit Little-Endian</p></li>
 </ul>
 </li>
 </ul>
